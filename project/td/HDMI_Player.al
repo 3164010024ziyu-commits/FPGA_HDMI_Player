@@ -9,6 +9,16 @@
         <Speed></Speed>
     </HardWare>
     <Source_Files>
+        <Verilog>
+            <File Path="../../rtl/memory/sync_fifo.v">
+                <FileInfo>
+                    <Attr Name="UsedInSyn" Val="true"/>
+                    <Attr Name="UsedInP&R" Val="true"/>
+                    <Attr Name="BelongTo" Val="design_1"/>
+                    <Attr Name="CompileOrder" Val="1"/>
+                </FileInfo>
+            </File>
+        </Verilog>
     </Source_Files>
     <FileSets>
         <FileSet Name="design_1" Type="DesignFiles">
@@ -17,9 +27,9 @@
         </FileSet>
     </FileSets>
     <TOP_MODULE>
-        <LABEL></LABEL>
-        <MODULE></MODULE>
-        <CREATEINDEX></CREATEINDEX>
+        <LABEL>sync_fifo</LABEL>
+        <MODULE>sync_fifo</MODULE>
+        <CREATEINDEX>auto</CREATEINDEX>
     </TOP_MODULE>
     <Property>
     </Property>
