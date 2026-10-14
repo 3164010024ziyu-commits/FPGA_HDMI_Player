@@ -1,50 +1,48 @@
 standard
-***Report Model: hdmi_tx_display Device: EG4S20BG256***
+***Report Model: test_top Device: EG4S20BG256***
 
 IO Statistics
 #IO                         6
   #input                    2
   #output                   4
   #inout                    0
-#virtual IO                26
-  #input                    0
-  #output                   0
-  #inout                    0
 
 Gate Statistics
-#Basic gates              149
-  #and                     16
+#Basic gates              408
+  #and                     28
   #nand                     0
-  #or                       4
+  #or                       9
   #nor                      0
   #xor                      1
-  #xnor                     0
+  #xnor                    19
   #buf                      0
-  #not                     21
+  #not                     74
   #bufif1                   0
-  #MX21                     5
+  #MX21                    34
   #FADD                     0
-  #DFF                    102
+  #DFF                    243
   #LATCH                    0
-#MACRO_ADD                 26
-#MACRO_EQ                   4
-#MACRO_MUX                 67
+#MACRO_ADD                 94
+#MACRO_EQ                  12
+#MACRO_MUX                138
 #MACRO_OTHERS               5
 
 Report Hierarchy Area:
 +--------------------------------------------------------------------------------+
 |Instance                           |Module              |gates  |seq    |macros |
 +--------------------------------------------------------------------------------+
-|top                                |hdmi_tx_display     |47     |102    |35     |
-|  u_clk_wize                       |clk_wize            |0      |0      |1      |
-|  u_hdmi_top                       |hdmi_top            |47     |102    |34     |
-|    u3_hdmi_tx                     |hdmi_tx             |39     |80     |23     |
-|      Inst_DVITransmitter          |DVITransmitter      |39     |80     |23     |
-|        Inst_TMDSEncoder_blue      |TMDSEncoder         |21     |19     |11     |
-|        Inst_TMDSEncoder_green     |TMDSEncoder         |14     |9      |8      |
+|top                                |test_top            |165    |243    |111    |
+|  u_hdmi_tx_display                |hdmi_tx_display     |150    |223    |104    |
+|    u3_hdmi_tx                     |hdmi_tx             |139    |180    |91     |
+|      Inst_DVITransmitter          |DVITransmitter      |139    |180    |91     |
+|        Inst_TMDSEncoder_blue      |TMDSEncoder         |48     |45     |29     |
+|        Inst_TMDSEncoder_green     |TMDSEncoder         |43     |39     |29     |
+|        Inst_TMDSEncoder_red       |TMDSEncoder         |44     |41     |29     |
 |        Inst_blue_serializer_10_1  |Serial_N_1_lvds_dat |2      |20     |1      |
 |        Inst_clk_serializer_10_1   |Serial_N_1_lvds     |2      |7      |1      |
 |        Inst_green_serializer_10_1 |Serial_N_1_lvds_dat |0      |14     |1      |
-|        Inst_red_serializer_10_1   |Serial_N_1_lvds_dat |0      |11     |1      |
-|    u_read_RAM                     |read_RAM            |8      |22     |11     |
+|        Inst_red_serializer_10_1   |Serial_N_1_lvds_dat |0      |14     |1      |
+|    u_clk_wize                     |clk_wize            |0      |0      |1      |
+|    u_read_RAM                     |read_RAM            |11     |43     |12     |
+|  u_test_FIFO                      |test_FIFO           |14     |20     |7      |
 +--------------------------------------------------------------------------------+

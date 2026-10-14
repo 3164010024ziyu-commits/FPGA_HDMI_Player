@@ -2,7 +2,7 @@
 | QoR metrics               |         value               |
 -----------------------------------------------------------
 | Timing                    |                             |
-|     Setup WNS             |        14301                |
+|     Setup WNS             |        12978                |
 |     Setup TNS             |            0                |
 |     Num of violated S-EP  |            0                |
 |     Hold WNS              |          674                |
@@ -10,17 +10,17 @@
 |     Num of violated H-EP  |            0                |
 -----------------------------------------------------------
 | Utilization               |                             |
-|     #registers            |          102                |
-|     #luts                 |          120                |
-|     #lut1                 |           30                |
-|     #lut1(~A)             |            4                |
-|     #slices               |           53                |
-|     slices percentage     |        0.54%                |
+|     #registers            |          243                |
+|     #luts                 |          269                |
+|     #lut1                 |            6                |
+|     #lut1(~A)             |            6                |
+|     #slices               |          105                |
+|     slices percentage     |        1.07%                |
 |     #RAMs                 |            0                |
 |     #DSPs                 |            0                |
 |     #f7mux                |        0.00%                |
-|     #MACROs               |           14                |
-|     #insts in MACRO       |           53                |
+|     #MACROs               |           30                |
+|     #insts in MACRO       |          105                |
 -----------------------------------------------------------
 | kept_net                  |                             |
 |     #syn_keep             |            0                |
@@ -30,8 +30,8 @@
 |     #max_fanout_keep      |            0                |
 |     #async_reg            |            0                |
 -----------------------------------------------------------
-| Top 10% datanet fanout#   |        27.00                |
-| dff(single fanout)->dff   |           19                |
+| Top 10% datanet fanout#   |        15.50                |
+| dff(single fanout)->dff   |           27                |
 | dff(single fanout)->dram  |            0                |
 -----------------------------------------------------------
 | Over-quota path num*      |                             |
@@ -46,11 +46,11 @@ Note**: Rent shows the rent exponent value of the modules whose rent value excee
         Only modules under top are reported, and the threshold is defined as 0.7.
 
 Logic Level Distribution
-----------------------------------------------------------------------------
-  Clock        |  Period            |  0   |  1   |  2   |  3   |  4  |  5
-----------------------------------------------------------------------------
-  DeriveClock  |  20.000ns (50MHz)  |  42  |  37  |  17  |  26  |  3  |  3
-----------------------------------------------------------------------------
+-------------------------------------------------------------------------------------
+  Clock        |  Period            |  0    |  1   |  2   |  3   |  4    |  5  |  6
+-------------------------------------------------------------------------------------
+  DeriveClock  |  20.000ns (50MHz)  |  102  |  38  |  20  |  35  |  109  |  4  |  9
+-------------------------------------------------------------------------------------
 Hierarchical Rent Exponent Report
 +--------------------------------------------------------+
 |Inst     |Model  |Rent     |Cell     |Pin     |Term     |
