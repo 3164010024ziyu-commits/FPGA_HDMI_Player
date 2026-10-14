@@ -1,0 +1,587 @@
+============================================================
+   Tang Dynasty, V6.2.168116
+   Copyright (c) 2012-2025 Anlogic Inc.
+   Executable = D:/sofwar/td/bin/run.exe
+   Built at =   16:32:07 Jun 12 2025
+   Run by =     dell
+   Run Date =   Wed Oct 14 14:33:05 2026
+
+   Run on =     DESKTOP-FBED5CA
+============================================================
+RUN-1002 : start command "import_device eagle_s20.db -package EG4S20BG256"
+RUN-1001 : Using default speed grade: NA
+ARC-1001 : Device Initialization.
+ARC-1001 : ------------------------------------------------------------------
+ARC-1001 :            OPTION            |          IO          |   SETTING   
+ARC-1001 : ------------------------------------------------------------------
+ARC-1001 :   cso_b/cclk/mosi/miso/dout  |  T3/R11/T10/P10/S11  |    gpio    
+ARC-1001 :             done             |         P13          |    gpio    
+ARC-1001 :           program_b          |          T2          |  dedicate  
+ARC-1001 :        tdi/tms/tck/tdo       |   C12/A15/C14/E14    |  dedicate  
+ARC-1001 : ------------------------------------------------------------------
+ARC-1004 : Device setting, marked 5 dedicate IOs in total.
+RUN-1002 : start command "open_project HDMI_display.prj"
+RUN-1002 : start command "commit_param -step design"
+RUN-1001 : Print Global Property
+RUN-1001 : --------------------------------------------------------
+RUN-1001 :   Parameters   |  Settings  |  Default Values  |  Note  
+RUN-1001 : --------------------------------------------------------
+RUN-1001 :   enable_seed  |    off     |       off        |        
+RUN-1001 :     message    |  standard  |     standard     |        
+RUN-1001 :   qor_monitor  |     on     |        on        |        
+RUN-1001 :   syn_ip_flow  |    off     |       off        |        
+RUN-1001 :     thread     |    auto    |       auto       |        
+RUN-1001 : --------------------------------------------------------
+RUN-1001 : Print Design Property
+RUN-1001 : ----------------------------------------------------------------
+RUN-1001 :       Parameters       |  Settings  |  Default Values  |  Note  
+RUN-1001 : ----------------------------------------------------------------
+RUN-1001 :   default_reg_initial  |    auto    |       auto       |        
+RUN-1001 :    hdl_warning_level   |   normal   |      normal      |        
+RUN-1001 : ----------------------------------------------------------------
+HDL-1007 : analyze verilog file ../../al_ip/SDRAM_0.v
+HDL-1007 : analyze verilog file ../../clock_ip/clk_wize.v
+HDL-1007 : undeclared symbol 'clk_wize_open78', assumed default net type 'wire' in ../../clock_ip/clk_wize.v(70)
+HDL-1007 : undeclared symbol 'clk_wize_open79', assumed default net type 'wire' in ../../clock_ip/clk_wize.v(76)
+HDL-1007 : undeclared symbol 'clk_wize_open87', assumed default net type 'wire' in ../../clock_ip/clk_wize.v(82)
+HDL-1007 : undeclared symbol 'clk_wize_open86', assumed default net type 'wire' in ../../clock_ip/clk_wize.v(82)
+HDL-1007 : undeclared symbol 'clk_wize_open85', assumed default net type 'wire' in ../../clock_ip/clk_wize.v(82)
+HDL-1007 : undeclared symbol 'clk_wize_open84', assumed default net type 'wire' in ../../clock_ip/clk_wize.v(82)
+HDL-1007 : undeclared symbol 'clk_wize_open83', assumed default net type 'wire' in ../../clock_ip/clk_wize.v(82)
+HDL-1007 : undeclared symbol 'clk_wize_open82', assumed default net type 'wire' in ../../clock_ip/clk_wize.v(82)
+HDL-1007 : undeclared symbol 'clk_wize_open81', assumed default net type 'wire' in ../../clock_ip/clk_wize.v(82)
+HDL-1007 : undeclared symbol 'clk_wize_open80', assumed default net type 'wire' in ../../clock_ip/clk_wize.v(82)
+HDL-1007 : undeclared symbol 'clk_wize_open90', assumed default net type 'wire' in ../../clock_ip/clk_wize.v(84)
+HDL-1007 : undeclared symbol 'clk_wize_open89', assumed default net type 'wire' in ../../clock_ip/clk_wize.v(84)
+HDL-1007 : undeclared symbol 'clk_wize_open88', assumed default net type 'wire' in ../../clock_ip/clk_wize.v(84)
+HDL-1007 : analyze verilog file ../../hdmi_top.v
+HDL-1007 : analyze verilog file ../../read_RAM.v
+HDL-1007 : analyze VHDL file ../../hdmi_tx.vhd
+HDL-1007 : analyze entity hdmi_tx in ../../hdmi_tx.vhd(11)
+HDL-1007 : analyze architecture behavioral in ../../hdmi_tx.vhd(33)
+HDL-1007 : analyze VHDL file ../../enc_file/DVITransmitter.enc.vhd
+HDL-1007 : analyze entity dvitransmitter in ../../enc_file/DVITransmitter.enc.vhd(13)
+Copyright (c) 1998-2019 The OpenSSL Project.  All rights reserved.
+This product includes software developed by the OpenSSL Project
+for use in the OpenSSL Toolkit (http://www.openssl.org/)
+Copyright (C) 1995-1998 Eric Young (eay@cryptsoft.com)
+All rights reserved.
+This product includes cryptographic software written by Eric Young (eay@cryptsoft.com)
+HDL-1007 : analyze architecture ** in ../../enc_file/DVITransmitter.enc.vhd(2)
+HDL-1007 : analyze VHDL file ../../enc_file/SerializerN_1_lvds.enc.vhd
+HDL-1007 : analyze entity ** in ../../enc_file/SerializerN_1_lvds.enc.vhd(12)
+HDL-1007 : analyze architecture ** in ../../enc_file/SerializerN_1_lvds.enc.vhd(25)
+HDL-1007 : analyze VHDL file ../../enc_file/SerializerN_1_lvds_dat.enc.vhd
+HDL-1007 : analyze entity ** in ../../enc_file/SerializerN_1_lvds_dat.enc.vhd(14)
+HDL-1007 : analyze architecture ** in ../../enc_file/SerializerN_1_lvds_dat.enc.vhd(28)
+HDL-1007 : analyze VHDL file ../../enc_file/TMDSEncoder.enc.vhd
+HDL-1007 : analyze entity ** in ../../enc_file/TMDSEncoder.enc.vhd(13)
+HDL-1007 : analyze architecture ** in ../../enc_file/TMDSEncoder.enc.vhd(24)
+HDL-1007 : analyze verilog file ../../hdmi_tx_display.v
+HDL-1007 : undeclared symbol 'pixel_clk_5x', assumed default net type 'wire' in ../../hdmi_tx_display.v(29)
+HDL-1007 : undeclared symbol 'pixel_clk', assumed default net type 'wire' in ../../hdmi_tx_display.v(30)
+HDL-1007 : undeclared symbol 'HDMI_CLK_P1', assumed default net type 'wire' in ../../hdmi_tx_display.v(53)
+HDL-1007 : undeclared symbol 'HDMI_D2_P1', assumed default net type 'wire' in ../../hdmi_tx_display.v(54)
+HDL-1007 : undeclared symbol 'HDMI_D1_P1', assumed default net type 'wire' in ../../hdmi_tx_display.v(55)
+HDL-1007 : undeclared symbol 'HDMI_D0_P1', assumed default net type 'wire' in ../../hdmi_tx_display.v(56)
+PRJ-1401 : Successfully analyzed 10 source files.
+RUN-1002 : start command "commit_param -step design"
+RUN-1001 : Print Global Property
+RUN-1001 : --------------------------------------------------------
+RUN-1001 :   Parameters   |  Settings  |  Default Values  |  Note  
+RUN-1001 : --------------------------------------------------------
+RUN-1001 :   enable_seed  |    off     |       off        |        
+RUN-1001 :     message    |  standard  |     standard     |        
+RUN-1001 :   qor_monitor  |     on     |        on        |        
+RUN-1001 :   syn_ip_flow  |    off     |       off        |        
+RUN-1001 :     thread     |    auto    |       auto       |        
+RUN-1001 : --------------------------------------------------------
+RUN-1001 : Print Design Property
+RUN-1001 : ----------------------------------------------------------------
+RUN-1001 :       Parameters       |  Settings  |  Default Values  |  Note  
+RUN-1001 : ----------------------------------------------------------------
+RUN-1001 :   default_reg_initial  |    auto    |       auto       |        
+RUN-1001 :    hdl_warning_level   |   normal   |      normal      |        
+RUN-1001 : ----------------------------------------------------------------
+RUN-1002 : start command "elaborate -top hdmi_tx_display"
+HDL-1007 : elaborate module hdmi_tx_display in ../../hdmi_tx_display.v(1)
+HDL-1007 : elaborate module clk_wize in ../../clock_ip/clk_wize.v(23)
+HDL-1007 : elaborate module EG_LOGIC_BUFG in D:\sofwar\td\arch/eagle_macro.v(5)
+HDL-1007 : elaborate module EG_PHY_PLL(FIN="50.000000",REFCLK_DIV=2,FBCLK_DIV=5,CLKC0_DIV=8,CLKC1_DIV=40,CLKC0_ENABLE="ENABLE",CLKC1_ENABLE="ENABLE",FEEDBK_PATH="CLKC0_EXT",STDBY_ENABLE="DISABLE",CLKC0_CPHASE=7,CLKC1_CPHASE=39,GMC_GAIN=2,ICP_CURRENT=9,KVCO=2,LPF_CAPACITOR=1,LPF_RESISTOR=8,SYNC_ENABLE="DISABLE") in D:\sofwar\td\arch/eagle_macro.v(889)
+HDL-1007 : elaborate module hdmi_top in ../../hdmi_top.v(1)
+HDL-1007 : elaborate module read_RAM in ../../read_RAM.v(1)
+HDL-1007 : switch to vhdl to elaborate module hdmi_tx in ../../hdmi_top.v(40)
+HDL-1007 : elaborate hdmi_tx(1,3)(Behavioral) in ../../hdmi_tx.vhd(11)
+HDL-1007 : elaborate DVITransmitter(1,3)(Behavioral) in ../../enc_file/DVITransmitter.enc.vhd(13)
+HDL-1007 : elaborate **(**) in ../../enc_file/TMDSEncoder.enc.vhd(13)
+HDL-1007 : elaborate **(**) in ../../enc_file/SerializerN_1_lvds.enc.vhd(12)
+HDL-1007 : elaborate EG_LOGIC_ODDR(1,6)(rtl) in D:\sofwar\td\arch/eagle_macro.vhd(1399)
+HDL-1007 : elaborate **(**) in ../../enc_file/SerializerN_1_lvds_dat.enc.vhd(14)
+HDL-1007 : back to vlog to elaborate in ../../hdmi_top.v(40)
+HDL-5001 WARNING: Contains anonymous inst(s) and/or net(s) that have not been renamed
+HDL-5001 WARNING: Contains anonymous inst(s) and/or net(s) that have not been renamed
+HDL-5001 WARNING: Contains anonymous inst(s) and/or net(s) that have not been renamed
+HDL-5001 WARNING: Contains anonymous inst(s) and/or net(s) that have not been renamed
+HDL-5001 WARNING: Contains anonymous inst(s) and/or net(s) that have not been renamed
+HDL-1200 : Current top model is hdmi_tx_display
+HDL-5106 WARNING: Initial value omitted on non-DFF net "cnt_t[4]" in ../../enc_file/TMDSEncoder.enc.vhd(0) 
+HDL-5106 WARNING: Initial value omitted on non-DFF net "cnt_t[3]" in ../../enc_file/TMDSEncoder.enc.vhd(0) 
+HDL-5106 WARNING: Initial value omitted on non-DFF net "cnt_t[2]" in ../../enc_file/TMDSEncoder.enc.vhd(0) 
+HDL-5106 WARNING: Initial value omitted on non-DFF net "cnt_t[1]" in ../../enc_file/TMDSEncoder.enc.vhd(0) 
+HDL-5106 WARNING: Initial value omitted on non-DFF net "cnt_t[0]" in ../../enc_file/TMDSEncoder.enc.vhd(0) 
+HDL-5106 WARNING: Initial value omitted on non-DFF net "dc_bias[4]" in D:\sofwar\td\packages/std_logic_arith.vhd(1071) 
+HDL-5106 WARNING: Initial value omitted on non-DFF net "dc_bias[3]" in D:\sofwar\td\packages/std_logic_arith.vhd(1071) 
+HDL-5106 WARNING: Initial value omitted on non-DFF net "dc_bias[2]" in D:\sofwar\td\packages/std_logic_arith.vhd(1071) 
+HDL-5106 WARNING: Initial value omitted on non-DFF net "dc_bias[1]" in D:\sofwar\td\packages/std_logic_arith.vhd(1071) 
+HDL-5106 WARNING: Initial value omitted on non-DFF net "dc_bias[0]" in D:\sofwar\td\packages/std_logic_arith.vhd(1071) 
+HDL-1100 : Inferred 0 RAMs.
+RUN-1002 : start command "read_adc ../../constraints.adc"
+RUN-1002 : start command "set_pin_assignment  HDMI_CLK_P   LOCATION = K1; IOSTANDARD = LVDS33; PULLTYPE = NONE; "
+RUN-1002 : start command "set_pin_assignment  HDMI_D0_P   LOCATION = F5; IOSTANDARD = LVDS33; PULLTYPE = NONE; "
+RUN-1002 : start command "set_pin_assignment  HDMI_D1_P   LOCATION = E3; IOSTANDARD = LVDS33; PULLTYPE = NONE; "
+RUN-1002 : start command "set_pin_assignment  HDMI_D2_P   LOCATION = B3; IOSTANDARD = LVDS33; PULLTYPE = NONE; "
+RUN-1002 : start command "set_pin_assignment  VGA_B[0]   LOCATION = virtualIO; "
+RUN-1002 : start command "set_pin_assignment  VGA_B[1]   LOCATION = virtualIO; "
+RUN-1002 : start command "set_pin_assignment  VGA_B[2]   LOCATION = virtualIO; "
+RUN-1002 : start command "set_pin_assignment  VGA_B[3]   LOCATION = virtualIO; "
+RUN-1002 : start command "set_pin_assignment  VGA_B[4]   LOCATION = virtualIO; "
+RUN-1002 : start command "set_pin_assignment  VGA_B[5]   LOCATION = virtualIO; "
+RUN-1002 : start command "set_pin_assignment  VGA_B[6]   LOCATION = virtualIO; "
+RUN-1002 : start command "set_pin_assignment  VGA_B[7]   LOCATION = virtualIO; "
+RUN-1002 : start command "set_pin_assignment  VGA_G[0]   LOCATION = virtualIO; "
+RUN-1002 : start command "set_pin_assignment  VGA_G[1]   LOCATION = virtualIO; "
+RUN-1002 : start command "set_pin_assignment  VGA_G[2]   LOCATION = virtualIO; "
+RUN-1002 : start command "set_pin_assignment  VGA_G[3]   LOCATION = virtualIO; "
+RUN-1002 : start command "set_pin_assignment  VGA_G[4]   LOCATION = virtualIO; "
+RUN-1002 : start command "set_pin_assignment  VGA_G[5]   LOCATION = virtualIO; "
+RUN-1002 : start command "set_pin_assignment  VGA_G[6]   LOCATION = virtualIO; "
+RUN-1002 : start command "set_pin_assignment  VGA_G[7]   LOCATION = virtualIO; "
+RUN-1002 : start command "set_pin_assignment  VGA_HS   LOCATION = virtualIO; "
+RUN-1002 : start command "set_pin_assignment  VGA_R[0]   LOCATION = virtualIO; "
+RUN-1002 : start command "set_pin_assignment  VGA_R[1]   LOCATION = virtualIO; "
+RUN-1002 : start command "set_pin_assignment  VGA_R[2]   LOCATION = virtualIO; "
+RUN-1002 : start command "set_pin_assignment  VGA_R[3]   LOCATION = virtualIO; "
+RUN-1002 : start command "set_pin_assignment  VGA_R[4]   LOCATION = virtualIO; "
+RUN-1002 : start command "set_pin_assignment  VGA_R[5]   LOCATION = virtualIO; "
+RUN-1002 : start command "set_pin_assignment  VGA_R[6]   LOCATION = virtualIO; "
+RUN-1002 : start command "set_pin_assignment  VGA_R[7]   LOCATION = virtualIO; "
+RUN-1002 : start command "set_pin_assignment  VGA_VS   LOCATION = virtualIO; "
+RUN-1002 : start command "set_pin_assignment  sys_clk   LOCATION = R7; IOSTANDARD = LVCMOS33; PULLTYPE = NONE; "
+RUN-1002 : start command "set_pin_assignment  sys_rst_n   LOCATION = A2; IOSTANDARD = LVCMOS33; PULLTYPE = NONE; "
+RUN-1001 : Starting of IO setups legality check.
+RUN-1001 : Starting of IO vref setups legality check.
+RUN-1002 : start command "export_db HDMI_display_elaborate.db"
+RUN-1001 : Exported flow parameters
+RUN-1001 : Exported /
+RUN-1001 : Exported libs
+RUN-1001 : Exported entities
+RUN-1001 : Exported ports
+RUN-1001 : Exported pins
+RUN-1001 : Exported instances
+RUN-1001 : Exported nets
+RUN-1001 : Exported buses
+RUN-1001 : Exported models
+RUN-1001 : Exported packer
+RUN-1001 : Exported congestions
+RUN-1001 : Exported violations
+RUN-1001 : Exported ATMR Setting
+RUN-1001 : Exported IO constraints
+RUN-1001 : Exported Inst constraints
+RUN-1001 : Exported ChipWatcher
+RUN-1002 : start command "commit_param -step rtl"
+RUN-1001 : Print Global Property
+RUN-1001 : --------------------------------------------------------
+RUN-1001 :   Parameters   |  Settings  |  Default Values  |  Note  
+RUN-1001 : --------------------------------------------------------
+RUN-1001 :   enable_seed  |    off     |       off        |        
+RUN-1001 :     message    |  standard  |     standard     |        
+RUN-1001 :   qor_monitor  |     on     |        on        |        
+RUN-1001 :   syn_ip_flow  |    off     |       off        |        
+RUN-1001 :     thread     |    auto    |       auto       |        
+RUN-1001 : --------------------------------------------------------
+RUN-1001 : Print Rtl Property
+RUN-1001 : -------------------------------------------------------------------
+RUN-1001 :         Parameters        |  Settings  |  Default Values  |  Note  
+RUN-1001 : -------------------------------------------------------------------
+RUN-1001 :        fix_undriven       |     0      |        0         |        
+RUN-1001 :   gated_clock_conversion  |    off     |       off        |        
+RUN-1001 :         infer_fsm         |    auto    |       auto       |        
+RUN-1001 :         infer_gsr         |    off     |       off        |        
+RUN-1001 :         infer_rom         |     on     |        on        |        
+RUN-1001 :       keep_hierarchy      |    auto    |       auto       |        
+RUN-1001 :        merge_equal        |     on     |        on        |        
+RUN-1001 :      min_control_set      |     8      |        8         |        
+RUN-1001 :       min_ripple_len      |    auto    |       auto       |        
+RUN-1001 :          seq_syn          |     on     |        on        |        
+RUN-1001 : -------------------------------------------------------------------
+RUN-1002 : start command "insert_debugger"
+RUN-1002 : start command "optimize_rtl"
+RUN-1001 : Open license file D:/sofwar/td/license/Anlogic.lic
+SYN-1001 : Stage 1 | Optimize RTL
+SYN-1001 : Stage 1.1 | Check Design Sanity
+SYN-1001 : End Stage 1.1 | Check Design Sanity; Time: 0.009504s wall, 0.000000s user + 0.000000s system = 0.000000s CPU (n/a%); Memory(MB): used = 93, reserved = 213, peak = 93;
+
+SYN-1079 : finish stage Check Design Sanity. Total instances: 601, Total nets: 1198.
+
+SYN-1001 : Stage 1.2 | Initialize Design
+SYN-1001 : End Stage 1.2 | Initialize Design; Time: 0.030620s wall, 0.015625s user + 0.000000s system = 0.015625s CPU (51.0%); Memory(MB): used = 93, reserved = 213, peak = 93;
+
+SYN-1079 : finish stage Initialize Design. Total instances: 183, Total nets: 716.
+
+SYN-1001 : Stage 1.3 | Flatten Module
+SYN-1011 : Flatten model hdmi_tx_display
+SYN-1001 : End Stage 1.3 | Flatten Module; Time: 0.007075s wall, 0.000000s user + 0.000000s system = 0.000000s CPU (n/a%); Memory(MB): used = 93, reserved = 213, peak = 93;
+
+SYN-1079 : finish stage Flatten Module. Total instances: 409, Total nets: 1168.
+
+SYN-1001 : Stage 1.4 | Uniform Instance
+SYN-1001 : End Stage 1.4 | Uniform Instance; Time: 0.006692s wall, 0.015625s user + 0.000000s system = 0.015625s CPU (233.5%); Memory(MB): used = 93, reserved = 213, peak = 93;
+
+SYN-1079 : finish stage Uniform Instance. Total instances: 410, Total nets: 1169.
+
+SYN-1001 : Stage 1.5 | Optimize Design
+SYN-1032 : 1168/1 useful/useless nets, 409/1 useful/useless insts
+SYN-1016 : Merged 88 instances.
+SYN-1016 : Merged 68 instances.
+SYN-1001 : End Stage 1.5 | Optimize Design; Time: 0.221232s wall, 0.125000s user + 0.000000s system = 0.125000s CPU (56.5%); Memory(MB): used = 96, reserved = 213, peak = 97;
+
+SYN-1079 : finish stage Optimize Design. Total instances: 585, Total nets: 807.
+
+SYN-1001 : Stage 1.6 | Optimize Iteratively
+SYN-1014 : Optimize round 1
+SYN-1017 : Remove 7 const input seq instances
+SYN-1001 : Optimize 7 less-than instances
+SYN-1016 : Merged 65 instances.
+SYN-1015 : Optimize round 1, 223 better
+SYN-1014 : Optimize round 2
+SYN-1044 : Optimized 5 inv instances.
+SYN-1016 : Merged 13 instances.
+SYN-1015 : Optimize round 2, 45 better
+SYN-3010 : Optimized 80 DFF(s)
+SYN-1014 : Optimize round 1
+SYN-1020 : Optimized 3 distributor mux.
+SYN-1016 : Merged 7 instances.
+SYN-1015 : Optimize round 1, 30 better
+SYN-1014 : Optimize round 2
+SYN-1015 : Optimize round 2, 0 better
+SYN-1001 : End Stage 1.6 | Optimize Iteratively; Time: 0.310843s wall, 0.265625s user + 0.000000s system = 0.265625s CPU (85.5%); Memory(MB): used = 112, reserved = 211, peak = 114;
+
+SYN-1079 : finish stage Optimize Iteratively. Total instances: 254, Total nets: 302.
+
+SYN-1001 : Stage 1.7 | Check Design
+SYN-1001 : End Stage 1.7 | Check Design; Time: 0.002244s wall, 0.000000s user + 0.000000s system = 0.000000s CPU (n/a%); Memory(MB): used = 112, reserved = 211, peak = 114;
+
+SYN-1079 : finish stage Check Design. Total instances: 254, Total nets: 302.
+
+SYN-1001 : End Stage 1 | Optimize RTL; Time: 0.588889s wall, 0.421875s user + 0.000000s system = 0.421875s CPU (71.6%); Memory(MB): used = 112, reserved = 211, peak = 114;
+
+SYN-1079 : finish stage Optimize RTL. Total instances: 254, Total nets: 302.
+
+RUN-1002 : start command "report_area -file HDMI_display_rtl.area"
+RUN-1001 : standard
+***Report Model: hdmi_tx_display Device: EG4S20BG256***
+
+IO Statistics
+#IO                         6
+  #input                    2
+  #output                   4
+  #inout                    0
+#virtual IO                26
+  #input                    0
+  #output                   0
+  #inout                    0
+
+Gate Statistics
+#Basic gates              149
+  #and                     16
+  #nand                     0
+  #or                       4
+  #nor                      0
+  #xor                      1
+  #xnor                     0
+  #buf                      0
+  #not                     21
+  #bufif1                   0
+  #MX21                     5
+  #FADD                     0
+  #DFF                    102
+  #LATCH                    0
+#MACRO_ADD                 26
+#MACRO_EQ                   4
+#MACRO_MUX                 67
+#MACRO_OTHERS               5
+
+RUN-1002 : start command "export_db HDMI_display_rtl.db"
+RUN-1001 : Exported flow parameters
+RUN-1001 : Exported /
+RUN-1001 : Exported libs
+RUN-1001 : Exported entities
+RUN-1001 : Exported ports
+RUN-1001 : Exported pins
+RUN-1001 : Exported instances
+RUN-1001 : Exported nets
+RUN-1001 : Exported buses
+RUN-1001 : Exported models
+RUN-1001 : Exported packer
+RUN-1001 : Exported congestions
+RUN-1001 : Exported violations
+RUN-1001 : Exported ATMR Setting
+RUN-1001 : Exported IO constraints
+RUN-1001 : Exported Inst constraints
+RUN-1001 : Exported ChipWatcher
+RUN-1002 : start command "commit_param -step gate"
+RUN-1001 : Print Global Property
+RUN-1001 : --------------------------------------------------------
+RUN-1001 :   Parameters   |  Settings  |  Default Values  |  Note  
+RUN-1001 : --------------------------------------------------------
+RUN-1001 :   enable_seed  |    off     |       off        |        
+RUN-1001 :     message    |  standard  |     standard     |        
+RUN-1001 :   qor_monitor  |     on     |        on        |        
+RUN-1001 :   syn_ip_flow  |    off     |       off        |        
+RUN-1001 :     thread     |    auto    |       auto       |        
+RUN-1001 : --------------------------------------------------------
+RUN-1001 : Print Gate Property
+RUN-1001 : -----------------------------------------------------------
+RUN-1001 :     Parameters    |  Settings  |  Default Values  |  Note  
+RUN-1001 : -----------------------------------------------------------
+RUN-1001 :     eram_init     |    off     |       off        |        
+RUN-1001 :      map_mode     |    auto    |       auto       |        
+RUN-1001 :    pack_effort    |   medium   |      medium      |        
+RUN-1001 :   pack_seq_in_io  |    auto    |       auto       |        
+RUN-1001 :       report      |  standard  |     standard     |        
+RUN-1001 : -----------------------------------------------------------
+RUN-1002 : start command "optimize_gate -packarea HDMI_display_gate.area"
+RUN-1001 : Open license file D:/sofwar/td/license/Anlogic.lic
+SYN-1001 : Stage 2 | Optimize Gate
+SYN-1001 : Stage 2.1 | Map Reg
+SYN-1001 : End Stage 2.1 | Map Reg; Time: 0.003420s wall, 0.000000s user + 0.000000s system = 0.000000s CPU (n/a%); Memory(MB): used = 112, reserved = 219, peak = 114;
+
+SYN-1079 : finish stage Map Reg. Total instances: 254, Total nets: 302.
+
+SYN-1001 : Stage 2.2 | Map IO
+SYN-2001 : Map 32 IOs to PADs of model 'hdmi_tx_display'
+SYN-1001 : End Stage 2.2 | Map IO; Time: 0.024658s wall, 0.000000s user + 0.000000s system = 0.000000s CPU (n/a%); Memory(MB): used = 112, reserved = 219, peak = 114;
+
+SYN-1001 : Stage 2.3 | Map Macro
+RUN-1002 : start command "update_pll_param -module hdmi_tx_display"
+SYN-2501 : Processed 0 LOGIC_BUF instances.
+SYN-2501 : 1 BUFG to GCLK
+SYN-2571 : Optimize after map_dsp, round 1
+SYN-2571 : Optimize after map_dsp, round 1, 0 better
+SYN-1001 : Throwback 9 control mux instances
+SYN-1001 : Generate 4 bigger adders
+SYN-1001 : Optimize 7 adders
+SYN-1001 : Optimize 1 less-than instances
+SYN-2501 : Optimize round 1
+SYN-1016 : Merged 2 instances.
+SYN-2501 : Optimize round 1, 23 better
+SYN-2501 : Optimize round 2
+SYN-2501 : Optimize round 2, 0 better
+SYN-2501 : Optimize round 1
+SYN-2501 : Optimize round 1, 0 better
+SYN-2501 : Map 21 macro adder(s)
+SYN-1016 : Merged 19 instances.
+SYN-1001 : End Stage 2.3 | Map Macro; Time: 0.066969s wall, 0.031250s user + 0.000000s system = 0.031250s CPU (46.7%); Memory(MB): used = 114, reserved = 221, peak = 114;
+
+SYN-1079 : finish stage Map Macro. Total instances: 441, Total nets: 472.
+
+SYN-1001 : Stage 2.4 | Map Gate
+SYN-2581 : Mapping with K=5, #lut = 97 (3.01), #lev = 3 (1.29), #crit_level = 0
+SYN-2551 : Post LUT mapping optimization.
+SYN-2581 : Mapping with K=5, #lut = 94 (2.89), #lev = 3 (1.29), #crit_level = 0
+SYN-3001 : Logic optimization opt = 0.09 sec, map = 0.01 sec, post map opt = 0.07 sec.
+SYN-1001 : End Stage 2.4 | Map Gate; Time: 0.187169s wall, 0.156250s user + 0.000000s system = 0.156250s CPU (83.5%); Memory(MB): used = 118, reserved = 222, peak = 118;
+
+SYN-1001 : Packing model "hdmi_tx_display" ...
+SYN-4010 : Pack lib has 59 rtl pack models with 26 top pack blocks
+SYN-1014 : Optimize round 1
+SYN-1015 : Optimize round 1, 0 better
+SYN-4002 : Packing 102 DFF/LATCH to SEQ ...
+SYN-4009 : Pack 2 carry chain into lslice
+SYN-4007 : Packing 88 adder to BLE ...
+SYN-4008 : Packed 88 adder and 0 SEQ to BLE.
+SYN-4007 : Packing 0 gate4 to BLE ...
+SYN-4008 : Packed 0 gate4 and 0 SEQ to BLE.
+RUN-1002 : start command "report_qor -step gate -file gate.qor"
+RUN-1002 : start command "start_timer"
+-----------------------------------------------------------
+| QoR metrics               |         value               |
+-----------------------------------------------------------
+| Timing                    |                             |
+|     Setup WNS             |        14301                |
+|     Setup TNS             |            0                |
+|     Num of violated S-EP  |            0                |
+|     Hold WNS              |          674                |
+|     Hold TNS              |            0                |
+|     Num of violated H-EP  |            0                |
+-----------------------------------------------------------
+| Utilization               |                             |
+|     #registers            |          102                |
+|     #luts                 |          120                |
+|     #lut1                 |           30                |
+|     #lut1(~A)             |            4                |
+|     #slices               |           53                |
+|     slices percentage     |        0.54%                |
+|     #RAMs                 |            0                |
+|     #DSPs                 |            0                |
+|     #f7mux                |        0.00%                |
+|     #MACROs               |           14                |
+|     #insts in MACRO       |           53                |
+-----------------------------------------------------------
+| kept_net                  |                             |
+|     #syn_keep             |            0                |
+|     #keep_hier            |            0                |
+|     #dont_touch           |            0                |
+|     #mark_debug           |            0                |
+|     #max_fanout_keep      |            0                |
+|     #async_reg            |            0                |
+-----------------------------------------------------------
+| Top 10% datanet fanout#   |        27.00                |
+| dff(single fanout)->dff   |           19                |
+| dff(single fanout)->dram  |            0                |
+-----------------------------------------------------------
+| Over-quota path num*      |                             |
+|     Total                 |            0                |
+-----------------------------------------------------------
+| Rent**                    |                             |
+-----------------------------------------------------------
+Note*: Over-quota path shows the over-path-level-threshold path number of each clock.
+       The clock will not be shown if no path is with path level over the threshold.
+       The threshold is defined as worst path_margin / 800ps.
+Note**: Rent shows the rent exponent value of the modules whose rent value exceeds the threshold.
+        Only modules under top are reported, and the threshold is defined as 0.7.
+
+Logic Level Distribution
+----------------------------------------------------------------------------
+  Clock        |  Period            |  0   |  1   |  2   |  3   |  4  |  5
+----------------------------------------------------------------------------
+  DeriveClock  |  20.000ns (50MHz)  |  42  |  37  |  17  |  26  |  3  |  3
+----------------------------------------------------------------------------
+Note: The table count the worst 100000 paths, each endpoint count only one time.(128 paths analyzed)
+
+Hierarchical Rent Exponent Report
++--------------------------------------------------------+
+|Inst     |Model  |Rent     |Cell     |Pin     |Term     |
++--------------------------------------------------------+
++--------------------------------------------------------+
+Note: Cell represents total number of cells inside module; Pin represents total number of pins
+      which have net connection inside module; Term represents total number of PIs and POs of module.
+      Rent represents the relationship between number of terms and number of cells in module.
+      A module with higher rent corresponds to highly connected logic and strong connectivity with others.
+Report gate stage QoR done.
+
+RUN-1002 : start command "report_area -file HDMI_display_gate.area"
+RUN-1001 : standard
+***Report Model: hdmi_tx_display Device: EG4S20BG256***
+
+IO Statistics
+#IO                         6   out of    188    3.19%
+  #input                    2
+  #output                   4
+  #inout                    0
+#virtual IO                26
+  #input                    0
+  #output                   0
+  #inout                    0
+
+LUT Statistics
+#Total_luts               120
+  #lut4                   112
+  #lut5                     8
+  #lut6                     0
+  #lut5_mx41                0
+  #lut4_alu1b               0
+
+Utilization Statistics
+#lut                      226   out of  19600    1.15%
+#reg                      102   out of  19600    0.52%
+#bram                       0   out of     64    0.00%
+  #bram9k                   0
+  #fifo9k                   0
+#bram32k                    0   out of     16    0.00%
+#dsp                        0   out of     29    0.00%
+#pad                       10   out of    188    5.32%
+  #ireg                     0
+  #oreg                     4
+  #treg                     0
+#pll                        1   out of      4   25.00%
+#gclk                       1   out of     16    6.25%
+
+SYN-1001 : End Stage 2 | Optimize Gate; Time: 0.406163s wall, 0.281250s user + 0.000000s system = 0.281250s CPU (69.2%); Memory(MB): used = 119, reserved = 222, peak = 119;
+
+RUN-1002 : start command "legalize_phy_inst"
+SYN-1001 : Stage 3 | Legalize Phy Inst
+SYN-1011 : Flatten model hdmi_tx_display
+SYN-1001 : End Stage 3 | Legalize Phy Inst; Time: 0.001865s wall, 0.000000s user + 0.000000s system = 0.000000s CPU (n/a%); Memory(MB): used = 119, reserved = 222, peak = 119;
+
+RUN-1002 : start command "update_timing"
+RUN-1002 : start command "start_timer"
+RUN-1002 : start command "report_timing_status -file HDMI_display_gate.ts"
+RUN-1002 : start command "report_timing_summary -file HDMI_display_gate.timing"
+RUN-1002 : start command "flow_status -file flow.status"
+Location         : D:\FPGA_HDMI_Player\FPGA_HDMI_Player\rtl\display\HDMI_display_Runs\syn_1
+Running with     : Tang Dynasty v6.2.168116
+                   Copyright (c) 2012-2025 Anlogic Inc.
+Top Model        : hdmi_tx_display
+Device           : EG4S20BG256
+Speed            : NA
+
+Timing Mode      : basic
+Setup            : WNS 14301ps  TNS        0ps  NUM_FEPS     0
+Hold             : WNS   674ps  TNS        0ps  NUM_FEPS     0
+
+Flow Statistics  :
+RUN-1001 : Flow Statistics:
+RUN-1001 : --------------------------------------------------------------------------------------------------
+RUN-1001 :      command     |  #calls  |  wall time  |  cpu time(s)  |  used memory(mb)  |  peak memory(mb)  
+RUN-1001 : --------------------------------------------------------------------------------------------------
+RUN-1001 :   import_device  |    1     |   0s(0%)    |     0(0%)     |        83         |        83         
+RUN-1001 :   optimize_gate  |    1     |   0s(0%)    |     0(0%)     |        119        |        119        
+RUN-1001 :   optimize_rtl   |    1     |   0s(0%)    |     0(0%)     |        112        |        114        
+RUN-1001 :     read_adc     |    1     |   0s(0%)    |     0(0%)     |        92         |        92         
+RUN-1001 : --------------------------------------------------------------------------------------------------
+RUN-1001 :       total      |    4     |     0s      |       0       |        119        |        119        
+RUN-1001 : --------------------------------------------------------------------------------------------------
+RUN-1002 : start command "export_db HDMI_display_gate.db"
+RUN-1001 : Exported flow parameters
+RUN-1001 : Exported /
+RUN-1001 : Exported libs
+RUN-1001 : Exported entities
+RUN-1001 : Exported ports
+RUN-1001 : Exported pins
+RUN-1001 : Exported instances
+RUN-1001 : Exported nets
+RUN-1001 : Exported buses
+RUN-1001 : Exported models
+RUN-1001 : Exported packer
+RUN-1001 : Exported congestions
+RUN-1001 : Exported violations
+RUN-1001 : Exported ATMR Setting
+RUN-1001 : Exported IO constraints
+RUN-1001 : Exported Inst constraints
+RUN-1001 : Exported ChipWatcher
+RUN-1002 : start command "export_flow_status -s read_design -e opt_gate"
+RUN-1002 : start command "flow_status"
+
+Location         : D:\FPGA_HDMI_Player\FPGA_HDMI_Player\rtl\display\HDMI_display_Runs\syn_1
+Running with     : Tang Dynasty v6.2.168116
+                   Copyright (c) 2012-2025 Anlogic Inc.
+Top Model        : hdmi_tx_display
+Device           : EG4S20BG256
+Speed            : NA
+
+Timing Mode      : basic
+Setup            : WNS 14301ps  TNS        0ps  NUM_FEPS     0
+Hold             : WNS   674ps  TNS        0ps  NUM_FEPS     0
+
+RUN-1001 : Flow Statistics:
+RUN-1001 : --------------------------------------------------------------------------------------------------
+RUN-1001 :      command     |  #calls  |  wall time  |  cpu time(s)  |  used memory(mb)  |  peak memory(mb)  
+RUN-1001 : --------------------------------------------------------------------------------------------------
+RUN-1001 :   import_device  |    1     |   0s(0%)    |     0(0%)     |        83         |        83         
+RUN-1001 :   optimize_gate  |    1     |   0s(0%)    |     0(0%)     |        119        |        119        
+RUN-1001 :   optimize_rtl   |    1     |   0s(0%)    |     0(0%)     |        112        |        114        
+RUN-1001 :     read_adc     |    1     |   0s(0%)    |     0(0%)     |        92         |        92         
+RUN-1001 : --------------------------------------------------------------------------------------------------
+RUN-1001 :       total      |    4     |     0s      |       0       |        119        |        119        
+RUN-1001 : --------------------------------------------------------------------------------------------------

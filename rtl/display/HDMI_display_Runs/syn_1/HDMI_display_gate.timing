@@ -1,0 +1,858 @@
+Created by          : Tang Dynasty v6.2.168116
+                    : Copyright (c) 2012-2025 Anlogic Inc.
+Generated           : Wed Oct 14 14:33:06 2026
+
+Top Model           : hdmi_tx_display
+Device              : EG4S20BG256
+Speed               : NA
+STA coverage        : 89.53%
+Constraint File     : 
+Confidence          : Synthesized
+Check Corner        : Both (Slow and Fast)
+CRPR Enabled        : Yes
+Report Scheme       : 10 end point(s) per path group, 1 path(s) per end point
+
+
+Check Status
+-------------
+
+Corner   | Max      Min     
+------------------------------------
+Slow     | yes      yes     
+Fast     | yes      yes     
+
+
+Timing Status
+--------------------
+	SWNS: 14.301ns, STNS: 0.000ns
+	HWNS: 0.674ns, HTNS: 0.000ns
+	Period Check WNS: 0.000ns
+
+
+Clock Summary
+--------------------
+
+       Clock-Id:       C-Freq       Fanout   Clock-Name
+--------------------------------------------------------------------------------
+           clk0:       50.000          106   DeriveClock
+--------------------------------------------------------------------------------
+
+       Name            Type         Rise(ns)   Fall(ns)          C-Period(ns)     C-Freq(MHz)          R-Period(ns)     R-Freq(MHz)         SWNS(ns)   STNS(ns)         HWNS(ns)   HTNS(ns)         Skew(ns)           Fanout        Max-Level        CC-From    CC-To
+       clk0           local            0.000     10.000                20.000          50.000                 5.699         175.469           14.301      0.000            0.674      0.000            0.000              106                5             no       no
+
+Notes
+----------
+C-Period  :  constraint period
+C-Freq    :  constraint freq
+R-Period  :  report min period
+R-Freq    :  report fmax
+CC-From   :  has path(s) from cross-domain clock
+CC-To     :  has path(s) to cross-domain clock
+
+
+*   Clock R-Period data only takes intra-clock timing. SWNS/STNS/HWNS/HTNS take both intra-clock and inter-clock timing.
+*   If there is mismatch between R-Period and SWNS, check inter-clock timing of this clock as capture clock.
+*   SWNS/STNS/HWNS/HTNS of timing exception (SMCP/SMD) only counted in global Timing Status, not counted in Clock Summary.
+
+Intra clock domain timing
+--------------------------------------------------
+
+----------------------------------------------------------------------------------------------------
+Path Group     :     DeriveClock -> DeriveClock
+Type           :     Self
+From Clock     :     DeriveClock
+To Clock       :     DeriveClock
+Min Period     :     5.699ns
+Fmax           :     175.469MHz
+
+Statistics:
+Max            : SWNS     14.301ns, STNS      0.000ns,         0 Viol Endpoints,       128 Total Endpoints,       292 Paths Analyzed
+Min            : HWNS      0.674ns, HTNS      0.000ns,         0 Viol Endpoints,       128 Total Endpoints,       292 Paths Analyzed
+----------------------------------------------------------------------------------------------------
+
+Max Paths
+----------------------------------------------------------------------------------------------------
+Slack               : 14.301ns
+Begin Point         : u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/d_d_reg[0].clk (rising edge triggered by clock DeriveClock  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+End Point           : u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/cnt_t_1_reg[3].d (rising edge triggered by clock DeriveClock  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+Check Type          : setup
+Process             : slow
+Budget              : 20.000ns { DeriveClock rising@20.000ns - DeriveClock rising@0.000ns }
+Data Path Delay     : 5.583ns (cell 2.549ns (45%), net 3.034ns (55%))
+Clock Skew          : 0.000ns
+Logic Level         : 5 ( LUT4=2  ADDER=2  LUT1=1 )
+Max Fanout          : 4
+Clock Uncertainty   : 0.000ns (sdc uncertainty: 0.000ns, default uncertainty: 0.000ns)
+
+Delay Type          Location             Incr           Path   Level  Netlist Info
+--------------------------------------------------------------------  ---------------
+launch edge                             0.000    r     0.000               
+--------------------------------------------------------------------  ---------------
+SEQ (clk2q)                             0.146    r     0.146          pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/d_d_reg[0].q
+net (fo=4)                              0.697          0.843          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/q_m_xnor[0],  ../../enc_file/TMDSEncoder.enc.vhd(0)
+                                                                      pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/q_m_b_n_syn_3.a
+LUT1                                    0.408    f     1.251       1  pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/q_m_b_n_syn_3.o
+net (fo=3)                              0.651          1.902          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/q_m_b_n_syn_2,  NOFILE(0)
+                                                                      pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/add2_syn_35.a[0]
+ADDER                                   0.706    f     2.608       2  pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/add2_syn_35.fco
+net (fo=1)                              0.000          2.608          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/add2_syn_23,  D:\sofwar\td\packages/std_logic_arith.vhd(812)
+                                                                      pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/add2_syn_38.fci
+ADDER                                   0.355    f     2.963       3  pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/add2_syn_38.f[1]
+net (fo=1)                              0.562          3.525          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/cnt_t_b8[3],  NOFILE(0)
+                                                                      pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/cnt_t_b1[3]_syn_2.a
+LUT4                                    0.408    f     3.933       4  pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/cnt_t_b1[3]_syn_2.o
+net (fo=1)                              0.562          4.495          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/cnt_t_b1[3]_syn_3,  NOFILE(0)
+                                                                      pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/cnt_t_b1[3]_syn_4.b
+LUT4                                    0.408    f     4.903       5  pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/cnt_t_b1[3]_syn_4.o
+net (fo=1)                              0.562          5.465          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/cnt_t_b1[3],  NOFILE(0)
+                                                                      pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/cnt_t_1_reg[3].d
+SEQ (reg)                               0.118    f     5.583          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/cnt_t_1[3],  ../../enc_file/TMDSEncoder.enc.vhd(0)
+--------------------------------------------------------------------  ---------------
+Arrival                                                5.583               
+
+capture edge                           20.000    r    20.000               
+--------------------------------------------------------------------  ---------------
+setup                                  -0.116         19.884               
+clock uncertainty                       0.000         19.884               
+clock pessimism                         0.000         19.884               
+--------------------------------------------------------------------  ---------------
+Required                                              19.884               
+--------------------------------------------------------------------  ---------------
+Slack                                                 14.301               
+
+Slack               : 14.348ns
+Begin Point         : u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/d_d_reg[0].clk (rising edge triggered by clock DeriveClock  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+End Point           : u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/cnt_t_1_reg[3].d (rising edge triggered by clock DeriveClock  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+Check Type          : setup
+Process             : slow
+Budget              : 20.000ns { DeriveClock rising@20.000ns - DeriveClock rising@0.000ns }
+Data Path Delay     : 5.536ns (cell 2.502ns (45%), net 3.034ns (55%))
+Clock Skew          : 0.000ns
+Logic Level         : 5 ( LUT5=2  ADDER=2  LUT1=1 )
+Max Fanout          : 4
+Clock Uncertainty   : 0.000ns (sdc uncertainty: 0.000ns, default uncertainty: 0.000ns)
+
+Delay Type          Location             Incr           Path   Level  Netlist Info
+--------------------------------------------------------------------  ---------------
+launch edge                             0.000    r     0.000               
+--------------------------------------------------------------------  ---------------
+SEQ (clk2q)                             0.146    r     0.146          pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/d_d_reg[0].q
+net (fo=4)                              0.697          0.843          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/q_m_xnor[0],  ../../enc_file/TMDSEncoder.enc.vhd(0)
+                                                                      pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/q_m_b_n_syn_3.a
+LUT1                                    0.408    f     1.251       1  pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/q_m_b_n_syn_3.o
+net (fo=3)                              0.651          1.902          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/q_m_b_n_syn_2,  NOFILE(0)
+                                                                      pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/add2_syn_33.a[1]
+ADDER                                   0.627    f     2.529       2  pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/add2_syn_33.fco
+net (fo=1)                              0.000          2.529          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/add2_syn_22,  D:\sofwar\td\packages/std_logic_arith.vhd(812)
+                                                                      pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/add2_syn_36.fci
+ADDER                                   0.355    f     2.884       3  pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/add2_syn_36.f[1]
+net (fo=1)                              0.562          3.446          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/cnt_t_b8[3],  NOFILE(0)
+                                                                      pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/cnt_t_b1[3]_syn_1.b
+LUT5                                    0.424    f     3.870       4  pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/cnt_t_b1[3]_syn_1.o
+net (fo=1)                              0.562          4.432          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/cnt_t_b1[3]_syn_2,  NOFILE(0)
+                                                                      pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/cnt_t_b1[3]_syn_3.a
+LUT5                                    0.424    f     4.856       5  pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/cnt_t_b1[3]_syn_3.o
+net (fo=1)                              0.562          5.418          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/cnt_t_b1[3],  NOFILE(0)
+                                                                      pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/cnt_t_1_reg[3].d
+SEQ (reg)                               0.118    f     5.536          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/cnt_t_1[3],  ../../enc_file/TMDSEncoder.enc.vhd(0)
+--------------------------------------------------------------------  ---------------
+Arrival                                                5.536               
+
+capture edge                           20.000    r    20.000               
+--------------------------------------------------------------------  ---------------
+setup                                  -0.116         19.884               
+clock uncertainty                       0.000         19.884               
+clock pessimism                         0.000         19.884               
+--------------------------------------------------------------------  ---------------
+Required                                              19.884               
+--------------------------------------------------------------------  ---------------
+Slack                                                 14.348               
+
+Slack               : 14.512ns
+Begin Point         : u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/d_d_reg[0].clk (rising edge triggered by clock DeriveClock  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+End Point           : u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/cnt_t_1_reg[2].d (rising edge triggered by clock DeriveClock  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+Check Type          : setup
+Process             : slow
+Budget              : 20.000ns { DeriveClock rising@20.000ns - DeriveClock rising@0.000ns }
+Data Path Delay     : 5.372ns (cell 2.338ns (43%), net 3.034ns (57%))
+Clock Skew          : 0.000ns
+Logic Level         : 5 ( LUT4=2  ADDER=2  LUT1=1 )
+Max Fanout          : 4
+Clock Uncertainty   : 0.000ns (sdc uncertainty: 0.000ns, default uncertainty: 0.000ns)
+
+Delay Type          Location             Incr           Path   Level  Netlist Info
+--------------------------------------------------------------------  ---------------
+launch edge                             0.000    r     0.000               
+--------------------------------------------------------------------  ---------------
+SEQ (clk2q)                             0.146    r     0.146          pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/d_d_reg[0].q
+net (fo=4)                              0.697          0.843          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/q_m_xnor[0],  ../../enc_file/TMDSEncoder.enc.vhd(0)
+                                                                      pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/q_m_b_n_syn_3.a
+LUT1                                    0.408    f     1.251       1  pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/q_m_b_n_syn_3.o
+net (fo=3)                              0.651          1.902          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/q_m_b_n_syn_2,  NOFILE(0)
+                                                                      pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/add2_syn_35.a[0]
+ADDER                                   0.706    f     2.608       2  pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/add2_syn_35.fco
+net (fo=1)                              0.000          2.608          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/add2_syn_23,  D:\sofwar\td\packages/std_logic_arith.vhd(812)
+                                                                      pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/add2_syn_38.fci
+ADDER                                   0.144    f     2.752       3  pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/add2_syn_38.f[0]
+net (fo=1)                              0.562          3.314          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/cnt_t_b8[2],  NOFILE(0)
+                                                                      pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/cnt_t_b1[2]_syn_4.a
+LUT4                                    0.408    f     3.722       4  pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/cnt_t_b1[2]_syn_4.o
+net (fo=1)                              0.562          4.284          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/cnt_t_b1[2]_syn_5,  NOFILE(0)
+                                                                      pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/cnt_t_b1[2]_syn_8.c
+LUT4                                    0.408    f     4.692       5  pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/cnt_t_b1[2]_syn_8.o
+net (fo=1)                              0.562          5.254          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/cnt_t_b1[2],  NOFILE(0)
+                                                                      pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/cnt_t_1_reg[2].d
+SEQ (reg)                               0.118    f     5.372          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/cnt_t_1[2],  ../../enc_file/TMDSEncoder.enc.vhd(0)
+--------------------------------------------------------------------  ---------------
+Arrival                                                5.372               
+
+capture edge                           20.000    r    20.000               
+--------------------------------------------------------------------  ---------------
+setup                                  -0.116         19.884               
+clock uncertainty                       0.000         19.884               
+clock pessimism                         0.000         19.884               
+--------------------------------------------------------------------  ---------------
+Required                                              19.884               
+--------------------------------------------------------------------  ---------------
+Slack                                                 14.512               
+
+Slack               : 15.033ns
+Begin Point         : u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/n0_q_m_reg[1].clk (rising edge triggered by clock DeriveClock  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+End Point           : u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/cnt_t_1_reg[4].d (rising edge triggered by clock DeriveClock  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+Check Type          : setup
+Process             : slow
+Budget              : 20.000ns { DeriveClock rising@20.000ns - DeriveClock rising@0.000ns }
+Data Path Delay     : 4.851ns (cell 1.919ns (39%), net 2.932ns (61%))
+Clock Skew          : 0.000ns
+Logic Level         : 3 ( LUT5=1  LUT2=1  ADDER=1 )
+Max Fanout          : 24
+Clock Uncertainty   : 0.000ns (sdc uncertainty: 0.000ns, default uncertainty: 0.000ns)
+
+Delay Type          Location             Incr           Path   Level  Netlist Info
+--------------------------------------------------------------------  ---------------
+launch edge                             0.000    r     0.000               
+--------------------------------------------------------------------  ---------------
+SEQ (clk2q)                             0.146    r     0.146          pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/n0_q_m_reg[1].q
+net (fo=24)                             1.038          1.184          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/n0_q_m[1],  ../../enc_file/TMDSEncoder.enc.vhd(0)
+                                                                      pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/sub1_syn_9.a
+LUT2                                    0.408    f     1.592       1  pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/sub1_syn_9.o
+net (fo=6)                              0.770          2.362          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/sub1_syn_7[1],  D:\sofwar\td\packages/std_logic_arith.vhd(1071)
+                                                                      pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/add4_syn_33.a[0]
+ADDER                                   0.823    f     3.185       2  pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/add4_syn_33.f[1]
+net (fo=1)                              0.562          3.747          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/add4_syn_3[2],  D:\sofwar\td\packages/std_logic_arith.vhd(812)
+                                                                      pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/cnt_t_b1[4]_syn_1.d
+LUT5                                    0.424    f     4.171       3  pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/cnt_t_b1[4]_syn_1.o
+net (fo=1)                              0.562          4.733          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/cnt_t_b1[4],  NOFILE(0)
+                                                                      pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/cnt_t_1_reg[4].d
+SEQ (reg)                               0.118    f     4.851          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/cnt_t_1[4],  ../../enc_file/TMDSEncoder.enc.vhd(0)
+--------------------------------------------------------------------  ---------------
+Arrival                                                4.851               
+
+capture edge                           20.000    r    20.000               
+--------------------------------------------------------------------  ---------------
+setup                                  -0.116         19.884               
+clock uncertainty                       0.000         19.884               
+clock pessimism                         0.000         19.884               
+--------------------------------------------------------------------  ---------------
+Required                                              19.884               
+--------------------------------------------------------------------  ---------------
+Slack                                                 15.033               
+
+Slack               : 15.085ns
+Begin Point         : u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/n0_q_m_reg[1].clk (rising edge triggered by clock DeriveClock  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+End Point           : u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/cnt_t_1_reg[4].d (rising edge triggered by clock DeriveClock  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+Check Type          : setup
+Process             : slow
+Budget              : 20.000ns { DeriveClock rising@20.000ns - DeriveClock rising@0.000ns }
+Data Path Delay     : 4.799ns (cell 1.867ns (38%), net 2.932ns (62%))
+Clock Skew          : 0.000ns
+Logic Level         : 4 ( ADDER=2  LUT5=1  LUT2=1 )
+Max Fanout          : 24
+Clock Uncertainty   : 0.000ns (sdc uncertainty: 0.000ns, default uncertainty: 0.000ns)
+
+Delay Type          Location             Incr           Path   Level  Netlist Info
+--------------------------------------------------------------------  ---------------
+launch edge                             0.000    r     0.000               
+--------------------------------------------------------------------  ---------------
+SEQ (clk2q)                             0.146    r     0.146          pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/n0_q_m_reg[1].q
+net (fo=24)                             1.038          1.184          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/n0_q_m[1],  ../../enc_file/TMDSEncoder.enc.vhd(0)
+                                                                      pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/sub1_syn_9.a
+LUT2                                    0.408    f     1.592       1  pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/sub1_syn_9.o
+net (fo=6)                              0.770          2.362          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/sub1_syn_7[1],  D:\sofwar\td\packages/std_logic_arith.vhd(1071)
+                                                                      pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/add2_syn_38.a[1]
+ADDER                                   0.627    f     2.989       2  pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/add2_syn_38.fco
+net (fo=1)                              0.000          2.989          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/add2_syn_25,  D:\sofwar\td\packages/std_logic_arith.vhd(812)
+                                                                      pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/add2_syn_40.fci
+ADDER                                   0.144    f     3.133       3  pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/add2_syn_40.f[0]
+net (fo=1)                              0.562          3.695          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/cnt_t_b8[4],  NOFILE(0)
+                                                                      pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/cnt_t_b1[4]_syn_3.c
+LUT5                                    0.424    f     4.119       4  pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/cnt_t_b1[4]_syn_3.o
+net (fo=1)                              0.562          4.681          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/cnt_t_b1[4],  NOFILE(0)
+                                                                      pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/cnt_t_1_reg[4].d
+SEQ (reg)                               0.118    f     4.799          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/cnt_t_1[4],  ../../enc_file/TMDSEncoder.enc.vhd(0)
+--------------------------------------------------------------------  ---------------
+Arrival                                                4.799               
+
+capture edge                           20.000    r    20.000               
+--------------------------------------------------------------------  ---------------
+setup                                  -0.116         19.884               
+clock uncertainty                       0.000         19.884               
+clock pessimism                         0.000         19.884               
+--------------------------------------------------------------------  ---------------
+Required                                              19.884               
+--------------------------------------------------------------------  ---------------
+Slack                                                 15.085               
+
+Slack               : 15.545ns
+Begin Point         : u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/d_d_reg[0].clk (rising edge triggered by clock DeriveClock  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+End Point           : u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/cnt_t_1_reg[2].d (rising edge triggered by clock DeriveClock  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+Check Type          : setup
+Process             : slow
+Budget              : 20.000ns { DeriveClock rising@20.000ns - DeriveClock rising@0.000ns }
+Data Path Delay     : 4.339ns (cell 1.867ns (43%), net 2.472ns (57%))
+Clock Skew          : 0.000ns
+Logic Level         : 4 ( ADDER=2  LUT5=1  LUT1=1 )
+Max Fanout          : 4
+Clock Uncertainty   : 0.000ns (sdc uncertainty: 0.000ns, default uncertainty: 0.000ns)
+
+Delay Type          Location             Incr           Path   Level  Netlist Info
+--------------------------------------------------------------------  ---------------
+launch edge                             0.000    r     0.000               
+--------------------------------------------------------------------  ---------------
+SEQ (clk2q)                             0.146    r     0.146          pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/d_d_reg[0].q
+net (fo=4)                              0.697          0.843          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/q_m_xnor[0],  ../../enc_file/TMDSEncoder.enc.vhd(0)
+                                                                      pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/q_m_b_n_syn_3.a
+LUT1                                    0.408    f     1.251       1  pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/q_m_b_n_syn_3.o
+net (fo=3)                              0.651          1.902          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/q_m_b_n_syn_2,  NOFILE(0)
+                                                                      pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/add2_syn_33.a[1]
+ADDER                                   0.627    f     2.529       2  pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/add2_syn_33.fco
+net (fo=1)                              0.000          2.529          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/add2_syn_22,  D:\sofwar\td\packages/std_logic_arith.vhd(812)
+                                                                      pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/add2_syn_36.fci
+ADDER                                   0.144    f     2.673       3  pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/add2_syn_36.f[0]
+net (fo=1)                              0.562          3.235          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/cnt_t_b8[2],  NOFILE(0)
+                                                                      pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/cnt_t_b1[2]_syn_3.d
+LUT5                                    0.424    f     3.659       4  pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/cnt_t_b1[2]_syn_3.o
+net (fo=1)                              0.562          4.221          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/cnt_t_b1[2],  NOFILE(0)
+                                                                      pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/cnt_t_1_reg[2].d
+SEQ (reg)                               0.118    f     4.339          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/cnt_t_1[2],  ../../enc_file/TMDSEncoder.enc.vhd(0)
+--------------------------------------------------------------------  ---------------
+Arrival                                                4.339               
+
+capture edge                           20.000    r    20.000               
+--------------------------------------------------------------------  ---------------
+setup                                  -0.116         19.884               
+clock uncertainty                       0.000         19.884               
+clock pessimism                         0.000         19.884               
+--------------------------------------------------------------------  ---------------
+Required                                              19.884               
+--------------------------------------------------------------------  ---------------
+Slack                                                 15.545               
+
+Slack               : 15.648ns
+Begin Point         : u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/cnt_t_1_reg[4].clk (rising edge triggered by clock DeriveClock  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+End Point           : u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/q_out_d_reg[4].d (rising edge triggered by clock DeriveClock  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+Check Type          : setup
+Process             : slow
+Budget              : 20.000ns { DeriveClock rising@20.000ns - DeriveClock rising@0.000ns }
+Data Path Delay     : 4.236ns (cell 1.488ns (35%), net 2.748ns (65%))
+Clock Skew          : 0.000ns
+Logic Level         : 3 ( LUT4=1  LUT3=1  LUT2=1 )
+Max Fanout          : 7
+Clock Uncertainty   : 0.000ns (sdc uncertainty: 0.000ns, default uncertainty: 0.000ns)
+
+Delay Type          Location             Incr           Path   Level  Netlist Info
+--------------------------------------------------------------------  ---------------
+launch edge                             0.000    r     0.000               
+--------------------------------------------------------------------  ---------------
+SEQ (clk2q)                             0.146    r     0.146          pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/cnt_t_1_reg[4].q
+net (fo=7)                              0.800          0.946          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/cnt_t_1[4],  ../../enc_file/TMDSEncoder.enc.vhd(0)
+                                                                      pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/cnt_t_1_reg[1]_syn_5.d
+LUT4                                    0.408    f     1.354       1  pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/cnt_t_1_reg[1]_syn_5.o
+net (fo=4)                              0.697          2.051          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/cond_balanced_n1,  NOFILE(0)
+                                                                      pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/mux7_syn_36.c
+LUT3                                    0.408    f     2.459       2  pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/mux7_syn_36.o
+net (fo=3)                              0.651          3.110          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/mux7_syn_37,  ../../enc_file/TMDSEncoder.enc.vhd(0)
+                                                                      pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/mux7_syn_38.b
+LUT2                                    0.408    f     3.518       3  pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/mux7_syn_38.o
+net (fo=2)                              0.600          4.118          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/mux7_syn_35,  ../../enc_file/TMDSEncoder.enc.vhd(0)
+                                                                      pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/q_out_d_reg[4].d
+SEQ (reg)                               0.118    f     4.236          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_green_serializer_10_1/DP_I[4],  ../../enc_file/SerializerN_1_lvds_dat.enc.vhd(0)
+--------------------------------------------------------------------  ---------------
+Arrival                                                4.236               
+
+capture edge                           20.000    r    20.000               
+--------------------------------------------------------------------  ---------------
+setup                                  -0.116         19.884               
+clock uncertainty                       0.000         19.884               
+clock pessimism                         0.000         19.884               
+--------------------------------------------------------------------  ---------------
+Required                                              19.884               
+--------------------------------------------------------------------  ---------------
+Slack                                                 15.648               
+
+Slack               : 15.648ns
+Begin Point         : u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/cnt_t_1_reg[4].clk (rising edge triggered by clock DeriveClock  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+End Point           : u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/q_out_d_reg[5].d (rising edge triggered by clock DeriveClock  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+Check Type          : setup
+Process             : slow
+Budget              : 20.000ns { DeriveClock rising@20.000ns - DeriveClock rising@0.000ns }
+Data Path Delay     : 4.236ns (cell 1.488ns (35%), net 2.748ns (65%))
+Clock Skew          : 0.000ns
+Logic Level         : 3 ( LUT4=1  LUT3=1  LUT2=1 )
+Max Fanout          : 7
+Clock Uncertainty   : 0.000ns (sdc uncertainty: 0.000ns, default uncertainty: 0.000ns)
+
+Delay Type          Location             Incr           Path   Level  Netlist Info
+--------------------------------------------------------------------  ---------------
+launch edge                             0.000    r     0.000               
+--------------------------------------------------------------------  ---------------
+SEQ (clk2q)                             0.146    r     0.146          pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/cnt_t_1_reg[4].q
+net (fo=7)                              0.800          0.946          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/cnt_t_1[4],  ../../enc_file/TMDSEncoder.enc.vhd(0)
+                                                                      pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/cnt_t_1_reg[1]_syn_5.d
+LUT4                                    0.408    f     1.354       1  pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/cnt_t_1_reg[1]_syn_5.o
+net (fo=4)                              0.697          2.051          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/cond_balanced_n1,  NOFILE(0)
+                                                                      pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/mux7_syn_36.c
+LUT3                                    0.408    f     2.459       2  pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/mux7_syn_36.o
+net (fo=3)                              0.651          3.110          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/mux7_syn_37,  ../../enc_file/TMDSEncoder.enc.vhd(0)
+                                                                      pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/mux7_syn_38.b
+LUT2                                    0.408    f     3.518       3  pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/mux7_syn_38.o
+net (fo=2)                              0.600          4.118          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/mux7_syn_35,  ../../enc_file/TMDSEncoder.enc.vhd(0)
+                                                                      pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/q_out_d_reg[5].d
+SEQ (reg)                               0.118    f     4.236          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_green_serializer_10_1/DP_I[5],  ../../enc_file/SerializerN_1_lvds_dat.enc.vhd(0)
+--------------------------------------------------------------------  ---------------
+Arrival                                                4.236               
+
+capture edge                           20.000    r    20.000               
+--------------------------------------------------------------------  ---------------
+setup                                  -0.116         19.884               
+clock uncertainty                       0.000         19.884               
+clock pessimism                         0.000         19.884               
+--------------------------------------------------------------------  ---------------
+Required                                              19.884               
+--------------------------------------------------------------------  ---------------
+Slack                                                 15.648               
+
+Slack               : 15.673ns
+Begin Point         : u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/cnt_t_1_reg[4].clk (rising edge triggered by clock DeriveClock  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+End Point           : u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/cnt_t_1_reg[1].d (rising edge triggered by clock DeriveClock  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+Check Type          : setup
+Process             : slow
+Budget              : 20.000ns { DeriveClock rising@20.000ns - DeriveClock rising@0.000ns }
+Data Path Delay     : 4.211ns (cell 1.504ns (35%), net 2.707ns (65%))
+Clock Skew          : 0.000ns
+Logic Level         : 3 ( LUT5=1  LUT4=1  LUT3=1 )
+Max Fanout          : 9
+Clock Uncertainty   : 0.000ns (sdc uncertainty: 0.000ns, default uncertainty: 0.000ns)
+
+Delay Type          Location             Incr           Path   Level  Netlist Info
+--------------------------------------------------------------------  ---------------
+launch edge                             0.000    r     0.000               
+--------------------------------------------------------------------  ---------------
+SEQ (clk2q)                             0.146    r     0.146          pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/cnt_t_1_reg[4].q
+net (fo=9)                              0.848          0.994          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/cnt_t_1[4],  ../../enc_file/TMDSEncoder.enc.vhd(0)
+                                                                      pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/cnt_t_b1[2]_syn_1.d
+LUT4                                    0.408    f     1.402       1  pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/cnt_t_b1[2]_syn_1.o
+net (fo=4)                              0.697          2.099          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/cond_balanced_n1,  NOFILE(0)
+                                                                      pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/cnt_t_b1[3]_syn_1.a
+LUT3                                    0.408    f     2.507       2  pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/cnt_t_b1[3]_syn_1.o
+net (fo=2)                              0.600          3.107          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/cond_balanced_syn_2,  ../../enc_file/TMDSEncoder.enc.vhd(0)
+                                                                      pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/cnt_t_b1[1]_syn_3.a
+LUT5                                    0.424    f     3.531       3  pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/cnt_t_b1[1]_syn_3.o
+net (fo=1)                              0.562          4.093          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/cnt_t_b1[1],  NOFILE(0)
+                                                                      pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/cnt_t_1_reg[1].d
+SEQ (reg)                               0.118    f     4.211          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/cnt_t_1[1],  ../../enc_file/TMDSEncoder.enc.vhd(0)
+--------------------------------------------------------------------  ---------------
+Arrival                                                4.211               
+
+capture edge                           20.000    r    20.000               
+--------------------------------------------------------------------  ---------------
+setup                                  -0.116         19.884               
+clock uncertainty                       0.000         19.884               
+clock pessimism                         0.000         19.884               
+--------------------------------------------------------------------  ---------------
+Required                                              19.884               
+--------------------------------------------------------------------  ---------------
+Slack                                                 15.673               
+
+Slack               : 15.721ns
+Begin Point         : u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/cnt_t_1_reg[4].clk (rising edge triggered by clock DeriveClock  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+End Point           : u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/cnt_t_1_reg[1].d (rising edge triggered by clock DeriveClock  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+Check Type          : setup
+Process             : slow
+Budget              : 20.000ns { DeriveClock rising@20.000ns - DeriveClock rising@0.000ns }
+Data Path Delay     : 4.163ns (cell 1.504ns (36%), net 2.659ns (64%))
+Clock Skew          : 0.000ns
+Logic Level         : 3 ( LUT5=1  LUT4=1  LUT3=1 )
+Max Fanout          : 7
+Clock Uncertainty   : 0.000ns (sdc uncertainty: 0.000ns, default uncertainty: 0.000ns)
+
+Delay Type          Location             Incr           Path   Level  Netlist Info
+--------------------------------------------------------------------  ---------------
+launch edge                             0.000    r     0.000               
+--------------------------------------------------------------------  ---------------
+SEQ (clk2q)                             0.146    r     0.146          pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/cnt_t_1_reg[4].q
+net (fo=7)                              0.800          0.946          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/cnt_t_1[4],  ../../enc_file/TMDSEncoder.enc.vhd(0)
+                                                                      pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/cnt_t_1_reg[1]_syn_5.d
+LUT4                                    0.408    f     1.354       1  pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/cnt_t_1_reg[1]_syn_5.o
+net (fo=4)                              0.697          2.051          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/cond_balanced_n1,  NOFILE(0)
+                                                                      pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/cnt_t_1_reg[1]_syn_6.a
+LUT3                                    0.408    f     2.459       2  pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/cnt_t_1_reg[1]_syn_6.o
+net (fo=2)                              0.600          3.059          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/cond_balanced_syn_2,  ../../enc_file/TMDSEncoder.enc.vhd(0)
+                                                                      pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/cnt_t_1_reg[1]_syn_9.a
+LUT5                                    0.424    f     3.483       3  pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/cnt_t_1_reg[1]_syn_9.o
+net (fo=1)                              0.562          4.045          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/cnt_t_1_reg[1]_syn_4,  ../../enc_file/TMDSEncoder.enc.vhd(0)
+                                                                      pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/cnt_t_1_reg[1].d
+SEQ (reg)                               0.118    f     4.163          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/cnt_t_1[1],  ../../enc_file/TMDSEncoder.enc.vhd(0)
+--------------------------------------------------------------------  ---------------
+Arrival                                                4.163               
+
+capture edge                           20.000    r    20.000               
+--------------------------------------------------------------------  ---------------
+setup                                  -0.116         19.884               
+clock uncertainty                       0.000         19.884               
+clock pessimism                         0.000         19.884               
+--------------------------------------------------------------------  ---------------
+Required                                              19.884               
+--------------------------------------------------------------------  ---------------
+Slack                                                 15.721               
+
+
+
+Min Paths
+----------------------------------------------------------------------------------------------------
+Slack               : 0.674ns
+Begin Point         : u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_clk_serializer_10_1/tx_sdat_1d_reg[0].clk (rising edge triggered by clock DeriveClock  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+End Point           : HDMI_CLK_P_syn_2.do[1] (rising edge triggered by clock DeriveClock  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+Check Type          : hold
+Process             : fast
+Budget              : 0.000ns { DeriveClock rising@0.000ns - DeriveClock rising@0.000ns }
+Data Path Delay     : 0.671ns (cell 0.109ns (16%), net 0.562ns (84%))
+Clock Skew          : 0.000ns
+Logic Level         : 0
+Max Fanout          : 1
+Clock Uncertainty   : 0.000ns (sdc uncertainty: 0.000ns, default uncertainty: 0.000ns)
+
+Delay Type          Location             Incr           Path   Level  Netlist Info
+--------------------------------------------------------------------  ---------------
+launch edge                             0.000    r     0.000               
+--------------------------------------------------------------------  ---------------
+SEQ (clk2q)                             0.109    f     0.109          pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_clk_serializer_10_1/tx_sdat_1d_reg[0].q
+net (fo=1)                              0.562          0.671          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_clk_serializer_10_1/tx_sdat_1d[0],  ../../enc_file/SerializerN_1_lvds.enc.vhd(0)
+                                                                      pin: HDMI_CLK_P_syn_2.do[1]
+PAD (reg)                               0.000    f     0.671          net: HDMI_CLK_PHDMI_CLK_P,  ../../hdmi_tx_display.v(7)
+--------------------------------------------------------------------  ---------------
+Arrival                                                0.671               
+
+capture edge                            0.000    r     0.000               
+--------------------------------------------------------------------  ---------------
+hold                                   -0.003         -0.003               
+clock uncertainty                       0.000         -0.003               
+clock pessimism                         0.000         -0.003               
+--------------------------------------------------------------------  ---------------
+Required                                              -0.003               
+--------------------------------------------------------------------  ---------------
+Slack                                                  0.674               
+
+Slack               : 0.674ns
+Begin Point         : u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_blue_serializer_10_1/tx_sdat_1d_reg[0].clk (rising edge triggered by clock DeriveClock  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+End Point           : HDMI_D0_P_syn_2.do[1] (rising edge triggered by clock DeriveClock  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+Check Type          : hold
+Process             : fast
+Budget              : 0.000ns { DeriveClock rising@0.000ns - DeriveClock rising@0.000ns }
+Data Path Delay     : 0.671ns (cell 0.109ns (16%), net 0.562ns (84%))
+Clock Skew          : 0.000ns
+Logic Level         : 0
+Max Fanout          : 1
+Clock Uncertainty   : 0.000ns (sdc uncertainty: 0.000ns, default uncertainty: 0.000ns)
+
+Delay Type          Location             Incr           Path   Level  Netlist Info
+--------------------------------------------------------------------  ---------------
+launch edge                             0.000    r     0.000               
+--------------------------------------------------------------------  ---------------
+SEQ (clk2q)                             0.109    f     0.109          pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_blue_serializer_10_1/tx_sdat_1d_reg[0].q
+net (fo=1)                              0.562          0.671          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_blue_serializer_10_1/tx_sdat_1d[0],  ../../enc_file/SerializerN_1_lvds_dat.enc.vhd(0)
+                                                                      pin: HDMI_D0_P_syn_2.do[1]
+PAD (reg)                               0.000    f     0.671          net: HDMI_D0_PHDMI_D0_P,  ../../hdmi_tx_display.v(10)
+--------------------------------------------------------------------  ---------------
+Arrival                                                0.671               
+
+capture edge                            0.000    r     0.000               
+--------------------------------------------------------------------  ---------------
+hold                                   -0.003         -0.003               
+clock uncertainty                       0.000         -0.003               
+clock pessimism                         0.000         -0.003               
+--------------------------------------------------------------------  ---------------
+Required                                              -0.003               
+--------------------------------------------------------------------  ---------------
+Slack                                                  0.674               
+
+Slack               : 0.674ns
+Begin Point         : u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_green_serializer_10_1/tx_sdat_1d_reg[0].clk (rising edge triggered by clock DeriveClock  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+End Point           : HDMI_D1_P_syn_2.do[1] (rising edge triggered by clock DeriveClock  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+Check Type          : hold
+Process             : fast
+Budget              : 0.000ns { DeriveClock rising@0.000ns - DeriveClock rising@0.000ns }
+Data Path Delay     : 0.671ns (cell 0.109ns (16%), net 0.562ns (84%))
+Clock Skew          : 0.000ns
+Logic Level         : 0
+Max Fanout          : 1
+Clock Uncertainty   : 0.000ns (sdc uncertainty: 0.000ns, default uncertainty: 0.000ns)
+
+Delay Type          Location             Incr           Path   Level  Netlist Info
+--------------------------------------------------------------------  ---------------
+launch edge                             0.000    r     0.000               
+--------------------------------------------------------------------  ---------------
+SEQ (clk2q)                             0.109    f     0.109          pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_green_serializer_10_1/tx_sdat_1d_reg[0].q
+net (fo=1)                              0.562          0.671          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_green_serializer_10_1/tx_sdat_1d[0],  ../../enc_file/SerializerN_1_lvds_dat.enc.vhd(0)
+                                                                      pin: HDMI_D1_P_syn_2.do[1]
+PAD (reg)                               0.000    f     0.671          net: HDMI_D1_PHDMI_D1_P,  ../../hdmi_tx_display.v(9)
+--------------------------------------------------------------------  ---------------
+Arrival                                                0.671               
+
+capture edge                            0.000    r     0.000               
+--------------------------------------------------------------------  ---------------
+hold                                   -0.003         -0.003               
+clock uncertainty                       0.000         -0.003               
+clock pessimism                         0.000         -0.003               
+--------------------------------------------------------------------  ---------------
+Required                                              -0.003               
+--------------------------------------------------------------------  ---------------
+Slack                                                  0.674               
+
+Slack               : 0.674ns
+Begin Point         : u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_red_serializer_10_1/tx_sdat_1d_reg[0].clk (rising edge triggered by clock DeriveClock  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+End Point           : HDMI_D2_P_syn_2.do[1] (rising edge triggered by clock DeriveClock  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+Check Type          : hold
+Process             : fast
+Budget              : 0.000ns { DeriveClock rising@0.000ns - DeriveClock rising@0.000ns }
+Data Path Delay     : 0.671ns (cell 0.109ns (16%), net 0.562ns (84%))
+Clock Skew          : 0.000ns
+Logic Level         : 0
+Max Fanout          : 1
+Clock Uncertainty   : 0.000ns (sdc uncertainty: 0.000ns, default uncertainty: 0.000ns)
+
+Delay Type          Location             Incr           Path   Level  Netlist Info
+--------------------------------------------------------------------  ---------------
+launch edge                             0.000    r     0.000               
+--------------------------------------------------------------------  ---------------
+SEQ (clk2q)                             0.109    f     0.109          pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_red_serializer_10_1/tx_sdat_1d_reg[0].q
+net (fo=1)                              0.562          0.671          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_red_serializer_10_1/tx_sdat_1d[0],  ../../enc_file/SerializerN_1_lvds_dat.enc.vhd(0)
+                                                                      pin: HDMI_D2_P_syn_2.do[1]
+PAD (reg)                               0.000    f     0.671          net: HDMI_D2_PHDMI_D2_P,  ../../hdmi_tx_display.v(8)
+--------------------------------------------------------------------  ---------------
+Arrival                                                0.671               
+
+capture edge                            0.000    r     0.000               
+--------------------------------------------------------------------  ---------------
+hold                                   -0.003         -0.003               
+clock uncertainty                       0.000         -0.003               
+clock pessimism                         0.000         -0.003               
+--------------------------------------------------------------------  ---------------
+Required                                              -0.003               
+--------------------------------------------------------------------  ---------------
+Slack                                                  0.674               
+
+Slack               : 0.694ns
+Begin Point         : u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/c0_d_reg.clk (rising edge triggered by clock DeriveClock  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+End Point           : u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/c0_dd_reg.d (rising edge triggered by clock DeriveClock  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+Check Type          : hold
+Process             : fast
+Budget              : 0.000ns { DeriveClock rising@0.000ns - DeriveClock rising@0.000ns }
+Data Path Delay     : 0.755ns (cell 0.193ns (25%), net 0.562ns (75%))
+Clock Skew          : 0.000ns
+Logic Level         : 0
+Max Fanout          : 1
+Clock Uncertainty   : 0.000ns (sdc uncertainty: 0.000ns, default uncertainty: 0.000ns)
+
+Delay Type          Location             Incr           Path   Level  Netlist Info
+--------------------------------------------------------------------  ---------------
+launch edge                             0.000    r     0.000               
+--------------------------------------------------------------------  ---------------
+SEQ (clk2q)                             0.109    f     0.109          pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/c0_d_reg.q
+net (fo=1)                              0.562          0.671          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/c0_d,  ../../enc_file/TMDSEncoder.enc.vhd(0)
+                                                                      pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/c0_dd_reg.d
+SEQ (reg)                               0.084    r     0.755          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/c0_dd,  ../../enc_file/TMDSEncoder.enc.vhd(0)
+--------------------------------------------------------------------  ---------------
+Arrival                                                0.755               
+
+capture edge                            0.000    r     0.000               
+--------------------------------------------------------------------  ---------------
+hold                                    0.061          0.061               
+clock uncertainty                       0.000          0.061               
+clock pessimism                         0.000          0.061               
+--------------------------------------------------------------------  ---------------
+Required                                               0.061               
+--------------------------------------------------------------------  ---------------
+Slack                                                  0.694               
+
+Slack               : 0.694ns
+Begin Point         : u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/c1_d_reg.clk (rising edge triggered by clock DeriveClock  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+End Point           : u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/c1_dd_reg.d (rising edge triggered by clock DeriveClock  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+Check Type          : hold
+Process             : fast
+Budget              : 0.000ns { DeriveClock rising@0.000ns - DeriveClock rising@0.000ns }
+Data Path Delay     : 0.755ns (cell 0.193ns (25%), net 0.562ns (75%))
+Clock Skew          : 0.000ns
+Logic Level         : 0
+Max Fanout          : 1
+Clock Uncertainty   : 0.000ns (sdc uncertainty: 0.000ns, default uncertainty: 0.000ns)
+
+Delay Type          Location             Incr           Path   Level  Netlist Info
+--------------------------------------------------------------------  ---------------
+launch edge                             0.000    r     0.000               
+--------------------------------------------------------------------  ---------------
+SEQ (clk2q)                             0.109    f     0.109          pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/c1_d_reg.q
+net (fo=1)                              0.562          0.671          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/c1_d,  ../../enc_file/TMDSEncoder.enc.vhd(0)
+                                                                      pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/c1_dd_reg.d
+SEQ (reg)                               0.084    r     0.755          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/c1_dd,  ../../enc_file/TMDSEncoder.enc.vhd(0)
+--------------------------------------------------------------------  ---------------
+Arrival                                                0.755               
+
+capture edge                            0.000    r     0.000               
+--------------------------------------------------------------------  ---------------
+hold                                    0.061          0.061               
+clock uncertainty                       0.000          0.061               
+clock pessimism                         0.000          0.061               
+--------------------------------------------------------------------  ---------------
+Required                                               0.061               
+--------------------------------------------------------------------  ---------------
+Slack                                                  0.694               
+
+Slack               : 0.694ns
+Begin Point         : u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/de_d_reg.clk (rising edge triggered by clock DeriveClock  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+End Point           : u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/de_dd_reg.d (rising edge triggered by clock DeriveClock  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+Check Type          : hold
+Process             : fast
+Budget              : 0.000ns { DeriveClock rising@0.000ns - DeriveClock rising@0.000ns }
+Data Path Delay     : 0.755ns (cell 0.193ns (25%), net 0.562ns (75%))
+Clock Skew          : 0.000ns
+Logic Level         : 0
+Max Fanout          : 1
+Clock Uncertainty   : 0.000ns (sdc uncertainty: 0.000ns, default uncertainty: 0.000ns)
+
+Delay Type          Location             Incr           Path   Level  Netlist Info
+--------------------------------------------------------------------  ---------------
+launch edge                             0.000    r     0.000               
+--------------------------------------------------------------------  ---------------
+SEQ (clk2q)                             0.109    f     0.109          pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/de_d_reg.q
+net (fo=1)                              0.562          0.671          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/de_d,  ../../enc_file/TMDSEncoder.enc.vhd(0)
+                                                                      pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/de_dd_reg.d
+SEQ (reg)                               0.084    r     0.755          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/de_dd,  ../../enc_file/TMDSEncoder.enc.vhd(0)
+--------------------------------------------------------------------  ---------------
+Arrival                                                0.755               
+
+capture edge                            0.000    r     0.000               
+--------------------------------------------------------------------  ---------------
+hold                                    0.061          0.061               
+clock uncertainty                       0.000          0.061               
+clock pessimism                         0.000          0.061               
+--------------------------------------------------------------------  ---------------
+Required                                               0.061               
+--------------------------------------------------------------------  ---------------
+Slack                                                  0.694               
+
+Slack               : 0.694ns
+Begin Point         : u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_blue_serializer_10_1/sclk_dat_lat_reg.clk (rising edge triggered by clock DeriveClock  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+End Point           : u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_blue_serializer_10_1/sclk_dat_lat_1d_reg.d (rising edge triggered by clock DeriveClock  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+Check Type          : hold
+Process             : fast
+Budget              : 0.000ns { DeriveClock rising@0.000ns - DeriveClock rising@0.000ns }
+Data Path Delay     : 0.755ns (cell 0.193ns (25%), net 0.562ns (75%))
+Clock Skew          : 0.000ns
+Logic Level         : 0
+Max Fanout          : 1
+Clock Uncertainty   : 0.000ns (sdc uncertainty: 0.000ns, default uncertainty: 0.000ns)
+
+Delay Type          Location             Incr           Path   Level  Netlist Info
+--------------------------------------------------------------------  ---------------
+launch edge                             0.000    r     0.000               
+--------------------------------------------------------------------  ---------------
+SEQ (clk2q)                             0.109    f     0.109          pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_blue_serializer_10_1/sclk_dat_lat_reg.q
+net (fo=1)                              0.562          0.671          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_blue_serializer_10_1/sclk_dat_lat,  ../../enc_file/SerializerN_1_lvds_dat.enc.vhd(0)
+                                                                      pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_blue_serializer_10_1/sclk_dat_lat_1d_reg.d
+SEQ (reg)                               0.084    r     0.755          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_blue_serializer_10_1/sclk_dat_lat_1d,  ../../enc_file/SerializerN_1_lvds_dat.enc.vhd(0)
+--------------------------------------------------------------------  ---------------
+Arrival                                                0.755               
+
+capture edge                            0.000    r     0.000               
+--------------------------------------------------------------------  ---------------
+hold                                    0.061          0.061               
+clock uncertainty                       0.000          0.061               
+clock pessimism                         0.000          0.061               
+--------------------------------------------------------------------  ---------------
+Required                                               0.061               
+--------------------------------------------------------------------  ---------------
+Slack                                                  0.694               
+
+Slack               : 0.694ns
+Begin Point         : u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_blue_serializer_10_1/sclk_dat_lat_1d_reg.clk (rising edge triggered by clock DeriveClock  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+End Point           : u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_blue_serializer_10_1/sclk_dat_lat_2d_reg.d (rising edge triggered by clock DeriveClock  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+Check Type          : hold
+Process             : fast
+Budget              : 0.000ns { DeriveClock rising@0.000ns - DeriveClock rising@0.000ns }
+Data Path Delay     : 0.755ns (cell 0.193ns (25%), net 0.562ns (75%))
+Clock Skew          : 0.000ns
+Logic Level         : 0
+Max Fanout          : 1
+Clock Uncertainty   : 0.000ns (sdc uncertainty: 0.000ns, default uncertainty: 0.000ns)
+
+Delay Type          Location             Incr           Path   Level  Netlist Info
+--------------------------------------------------------------------  ---------------
+launch edge                             0.000    r     0.000               
+--------------------------------------------------------------------  ---------------
+SEQ (clk2q)                             0.109    f     0.109          pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_blue_serializer_10_1/sclk_dat_lat_1d_reg.q
+net (fo=1)                              0.562          0.671          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_blue_serializer_10_1/sclk_dat_lat_1d,  ../../enc_file/SerializerN_1_lvds_dat.enc.vhd(0)
+                                                                      pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_blue_serializer_10_1/sclk_dat_lat_2d_reg.d
+SEQ (reg)                               0.084    r     0.755          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_blue_serializer_10_1/sclk_dat_lat_2d,  ../../enc_file/SerializerN_1_lvds_dat.enc.vhd(0)
+--------------------------------------------------------------------  ---------------
+Arrival                                                0.755               
+
+capture edge                            0.000    r     0.000               
+--------------------------------------------------------------------  ---------------
+hold                                    0.061          0.061               
+clock uncertainty                       0.000          0.061               
+clock pessimism                         0.000          0.061               
+--------------------------------------------------------------------  ---------------
+Required                                               0.061               
+--------------------------------------------------------------------  ---------------
+Slack                                                  0.694               
+
+Slack               : 0.694ns
+Begin Point         : u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_blue_serializer_10_1/tx_sdat_reg[0].clk (rising edge triggered by clock DeriveClock  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+End Point           : u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_blue_serializer_10_1/tx_sdat_1d_reg[0].d (rising edge triggered by clock DeriveClock  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+Check Type          : hold
+Process             : fast
+Budget              : 0.000ns { DeriveClock rising@0.000ns - DeriveClock rising@0.000ns }
+Data Path Delay     : 0.755ns (cell 0.193ns (25%), net 0.562ns (75%))
+Clock Skew          : 0.000ns
+Logic Level         : 0
+Max Fanout          : 1
+Clock Uncertainty   : 0.000ns (sdc uncertainty: 0.000ns, default uncertainty: 0.000ns)
+
+Delay Type          Location             Incr           Path   Level  Netlist Info
+--------------------------------------------------------------------  ---------------
+launch edge                             0.000    r     0.000               
+--------------------------------------------------------------------  ---------------
+SEQ (clk2q)                             0.109    f     0.109          pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_blue_serializer_10_1/tx_sdat_reg[0].q
+net (fo=1)                              0.562          0.671          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_blue_serializer_10_1/tx_sdat[0],  ../../enc_file/SerializerN_1_lvds_dat.enc.vhd(0)
+                                                                      pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_blue_serializer_10_1/tx_sdat_1d_reg[0].d
+SEQ (reg)                               0.084    r     0.755          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_blue_serializer_10_1/tx_sdat_1d[0],  ../../enc_file/SerializerN_1_lvds_dat.enc.vhd(0)
+--------------------------------------------------------------------  ---------------
+Arrival                                                0.755               
+
+capture edge                            0.000    r     0.000               
+--------------------------------------------------------------------  ---------------
+hold                                    0.061          0.061               
+clock uncertainty                       0.000          0.061               
+clock pessimism                         0.000          0.061               
+--------------------------------------------------------------------  ---------------
+Required                                               0.061               
+--------------------------------------------------------------------  ---------------
+Slack                                                  0.694               
+
+
+Inter clock domain timing
+--------------------------------------------------
+
+IP timing
+--------------------------------------------------

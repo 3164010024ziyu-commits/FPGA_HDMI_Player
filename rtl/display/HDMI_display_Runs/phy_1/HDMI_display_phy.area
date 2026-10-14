@@ -1,0 +1,90 @@
+standard
+***Report Model: hdmi_tx_display Device: EG4S20BG256***
+
+IO Statistics
+#IO                         6   out of    188    3.19%
+  #input                    2
+  #output                   4
+  #inout                    0
+#virtual IO                26
+  #input                    0
+  #output                   0
+  #inout                    0
+
+Utilization Statistics
+#lut                      226   out of  19600    1.15%
+#reg                      102   out of  19600    0.52%
+#le                       251
+  #lut only               149   out of    251   59.36%
+  #reg only                25   out of    251    9.96%
+  #lut&reg                 77   out of    251   30.68%
+#bram                       0   out of     64    0.00%
+  #bram9k                   0
+  #fifo9k                   0
+#bram32k                    0   out of     16    0.00%
+#dsp                        0   out of     29    0.00%
+#pad                       10   out of    188    5.32%
+  #ireg                     0
+  #oreg                     4
+  #treg                     0
+#pll                        1   out of      4   25.00%
+#gclk                       1   out of     16    6.25%
+
+
+Detailed IO Report
+
+      Name         Direction    Location    IOStandard    IOType    DriveStrength    PullType    PackReg  
+     sys_clk         INPUT         R7        LVCMOS33      PAD           N/A           NONE       NONE    
+    sys_rst_n        INPUT         A2        LVCMOS33      PAD           N/A           NONE       NONE    
+   HDMI_CLK_P       OUTPUT         K1         LVDS33       PAD           NA            NONE       DDRX1   
+  HDMI_CLK_P(n)     OUTPUT         J1         LVDS33       PAD           NA            NONE       NONE    
+    HDMI_D0_P       OUTPUT         F5         LVDS33       PAD           NA            NONE       DDRX1   
+  HDMI_D0_P(n)      OUTPUT         F4         LVDS33       PAD           NA            NONE       NONE    
+    HDMI_D1_P       OUTPUT         E3         LVDS33       PAD           NA            NONE       DDRX1   
+  HDMI_D1_P(n)      OUTPUT         E4         LVDS33       PAD           NA            NONE       NONE    
+    HDMI_D2_P       OUTPUT         B3         LVDS33       PAD           NA            NONE       DDRX1   
+  HDMI_D2_P(n)      OUTPUT         D3         LVDS33       PAD           NA            NONE       NONE    
+
+Report Clock Domain Luts:
+
+------------------------------------------------------------------------------------------------------------------
+  Index   |  Name         |  Frequency   |  LUT As Logic   |  LUT As Shifter   |  LUT As Dram   |  BRAM   |  DSP
+------------------------------------------------------------------------------------------------------------------
+  #1      |  DeriveClock  |  50MHz       |  85             |  0                |  0             |  0      |  0
+------------------------------------------------------------------------------------------------------------------
+
+Clock Resource Statistics
+Index     ClockNet                                            Type               DriverType         Driver                       Fanout
+#1        u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/PCLK_I    Global             pll                u_clk_wize/pll_inst.clkc1    37
+#2        u_clk_wize/clk0_buf                                 Global             pll                u_clk_wize/pll_inst.clkc0    37
+#3        sys_clk_dup_1                                       GeneralRouting     io                 sys_clk_syn_2.di             1
+
+Report Hierarchy Area:
++--------------------------------------------------------------------------------------------------------------+
+|Instance                           |Module              |le      |lut     |ripple  |seq     |bram    |dsp     |
++--------------------------------------------------------------------------------------------------------------+
+|top                                |hdmi_tx_display     |251     |173     |53      |106     |0       |0       |
+|  u_clk_wize                       |clk_wize            |0       |0       |0       |0       |0       |0       |
+|  u_hdmi_top                       |hdmi_top            |226     |148     |53      |102     |0       |0       |
+|    u3_hdmi_tx                     |hdmi_tx             |127     |86      |17      |78      |0       |0       |
+|      Inst_DVITransmitter          |DVITransmitter      |127     |86      |17      |78      |0       |0       |
+|        Inst_TMDSEncoder_blue      |TMDSEncoder         |50      |37      |9       |20      |0       |0       |
+|        Inst_TMDSEncoder_green     |TMDSEncoder         |27      |16      |8       |8       |0       |0       |
+|        Inst_blue_serializer_10_1  |Serial_N_1_lvds_dat |20      |12      |0       |20      |0       |0       |
+|        Inst_clk_serializer_10_1   |Serial_N_1_lvds     |7       |6       |0       |7       |0       |0       |
+|        Inst_green_serializer_10_1 |Serial_N_1_lvds_dat |11      |7       |0       |11      |0       |0       |
+|        Inst_red_serializer_10_1   |Serial_N_1_lvds_dat |12      |8       |0       |12      |0       |0       |
+|    u_read_RAM                     |read_RAM            |99      |62      |36      |24      |0       |0       |
++--------------------------------------------------------------------------------------------------------------+
+
+
+DataNet Average Fanout:
+
+   Index     Fanout    Nets  
+    #1         1       149   
+    #2         2        15   
+    #3         3        6    
+    #4         4        12   
+    #5        5-10      24   
+    #6       11-50      6    
+  Average     2.41           

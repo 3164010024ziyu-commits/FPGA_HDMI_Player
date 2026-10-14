@@ -1,0 +1,50 @@
+standard
+***Report Model: hdmi_tx_display Device: EG4S20BG256***
+
+IO Statistics
+#IO                         6
+  #input                    2
+  #output                   4
+  #inout                    0
+#virtual IO                26
+  #input                    0
+  #output                   0
+  #inout                    0
+
+Gate Statistics
+#Basic gates              149
+  #and                     16
+  #nand                     0
+  #or                       4
+  #nor                      0
+  #xor                      1
+  #xnor                     0
+  #buf                      0
+  #not                     21
+  #bufif1                   0
+  #MX21                     5
+  #FADD                     0
+  #DFF                    102
+  #LATCH                    0
+#MACRO_ADD                 26
+#MACRO_EQ                   4
+#MACRO_MUX                 67
+#MACRO_OTHERS               5
+
+Report Hierarchy Area:
++--------------------------------------------------------------------------------+
+|Instance                           |Module              |gates  |seq    |macros |
++--------------------------------------------------------------------------------+
+|top                                |hdmi_tx_display     |47     |102    |35     |
+|  u_clk_wize                       |clk_wize            |0      |0      |1      |
+|  u_hdmi_top                       |hdmi_top            |47     |102    |34     |
+|    u3_hdmi_tx                     |hdmi_tx             |39     |80     |23     |
+|      Inst_DVITransmitter          |DVITransmitter      |39     |80     |23     |
+|        Inst_TMDSEncoder_blue      |TMDSEncoder         |21     |19     |11     |
+|        Inst_TMDSEncoder_green     |TMDSEncoder         |14     |9      |8      |
+|        Inst_blue_serializer_10_1  |Serial_N_1_lvds_dat |2      |20     |1      |
+|        Inst_clk_serializer_10_1   |Serial_N_1_lvds     |2      |7      |1      |
+|        Inst_green_serializer_10_1 |Serial_N_1_lvds_dat |0      |14     |1      |
+|        Inst_red_serializer_10_1   |Serial_N_1_lvds_dat |0      |11     |1      |
+|    u_read_RAM                     |read_RAM            |8      |22     |11     |
++--------------------------------------------------------------------------------+

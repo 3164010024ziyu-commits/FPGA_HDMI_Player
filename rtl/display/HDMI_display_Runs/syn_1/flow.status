@@ -1,0 +1,22 @@
+Location         : D:\FPGA_HDMI_Player\FPGA_HDMI_Player\rtl\display\HDMI_display_Runs\syn_1
+Running with     : Tang Dynasty v6.2.168116
+                   Copyright (c) 2012-2025 Anlogic Inc.
+Top Model        : hdmi_tx_display
+Device           : EG4S20BG256
+Speed            : NA
+
+Timing Mode      : basic
+Setup            : WNS 14301ps  TNS        0ps  NUM_FEPS     0
+Hold             : WNS   674ps  TNS        0ps  NUM_FEPS     0
+
+Flow Statistics  :
+--------------------------------------------------------------------------------------------------
+     command     |  #calls  |  wall time  |  cpu time(s)  |  used memory(mb)  |  peak memory(mb)  
+--------------------------------------------------------------------------------------------------
+  import_device  |    1     |   0s(0%)    |     0(0%)     |        83         |        83         
+  optimize_gate  |    1     |   0s(0%)    |     0(0%)     |        119        |        119        
+  optimize_rtl   |    1     |   0s(0%)    |     0(0%)     |        112        |        114        
+    read_adc     |    1     |   0s(0%)    |     0(0%)     |        92         |        92         
+--------------------------------------------------------------------------------------------------
+      total      |    4     |     0s      |       0       |        119        |        119        
+--------------------------------------------------------------------------------------------------
