@@ -29,7 +29,7 @@
     <TOP_MODULE>
         <LABEL>sync_fifo</LABEL>
         <MODULE>sync_fifo</MODULE>
-        <CREATEINDEX>auto</CREATEINDEX>
+        <CREATEINDEX>user</CREATEINDEX>
     </TOP_MODULE>
     <Property>
     </Property>
