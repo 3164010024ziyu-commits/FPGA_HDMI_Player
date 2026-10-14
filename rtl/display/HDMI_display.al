@@ -10,67 +10,25 @@
     </HardWare>
     <Source_Files>
         <Verilog>
-            <File Path="hdmi_top.v">
-                <FileInfo>
-                    <Attr Name="UsedInSyn" Val="true"/>
-                    <Attr Name="UsedInP&R" Val="true"/>
-                    <Attr Name="BelongTo" Val="design_1"/>
-                    <Attr Name="CompileOrder" Val="1"/>
-                </FileInfo>
-            </File>
-            <File Path="read_RAM.v">
-                <FileInfo>
-                    <Attr Name="UsedInSyn" Val="true"/>
-                    <Attr Name="UsedInP&R" Val="true"/>
-                    <Attr Name="BelongTo" Val="design_1"/>
-                    <Attr Name="CompileOrder" Val="3"/>
-                </FileInfo>
-            </File>
-            <File Path="enc_file/video_tpg_12801024p.enc.v">
+            <File Path="src/enc_file/video_tpg_12801024p.enc.v">
                 <FileInfo>
                     <Attr Name="AutoExcluded" Val="true"/>
-                    <Attr Name="UsedInSyn" Val="true"/>
-                    <Attr Name="UsedInP&R" Val="true"/>
-                    <Attr Name="BelongTo" Val="design_1"/>
-                    <Attr Name="CompileOrder" Val="10"/>
-                </FileInfo>
-            </File>
-            <File Path="enc_file/video_tpg_800600.enc.v">
-                <FileInfo>
-                    <Attr Name="AutoExcluded" Val="true"/>
-                    <Attr Name="UsedInSyn" Val="true"/>
-                    <Attr Name="UsedInP&R" Val="true"/>
-                    <Attr Name="BelongTo" Val="design_1"/>
-                    <Attr Name="CompileOrder" Val="11"/>
-                </FileInfo>
-            </File>
-            <File Path="hdmi_tx_display.v">
-                <FileInfo>
-                    <Attr Name="UsedInSyn" Val="true"/>
-                    <Attr Name="UsedInP&R" Val="true"/>
-                    <Attr Name="BelongTo" Val="design_1"/>
-                    <Attr Name="CompileOrder" Val="12"/>
-                </FileInfo>
-            </File>
-        </Verilog>
-        <VHDL>
-            <File Path="hdmi_tx.vhd">
-                <FileInfo>
                     <Attr Name="UsedInSyn" Val="true"/>
                     <Attr Name="UsedInP&R" Val="true"/>
                     <Attr Name="BelongTo" Val="design_1"/>
                     <Attr Name="CompileOrder" Val="5"/>
                 </FileInfo>
             </File>
-            <File Path="enc_file/DVITransmitter.enc.vhd">
+            <File Path="src/enc_file/video_tpg_800600.enc.v">
                 <FileInfo>
+                    <Attr Name="AutoExcluded" Val="true"/>
                     <Attr Name="UsedInSyn" Val="true"/>
                     <Attr Name="UsedInP&R" Val="true"/>
                     <Attr Name="BelongTo" Val="design_1"/>
                     <Attr Name="CompileOrder" Val="6"/>
                 </FileInfo>
             </File>
-            <File Path="enc_file/SerializerN_1_lvds.enc.vhd">
+            <File Path="src/hdmi_top.v">
                 <FileInfo>
                     <Attr Name="UsedInSyn" Val="true"/>
                     <Attr Name="UsedInP&R" Val="true"/>
@@ -78,20 +36,62 @@
                     <Attr Name="CompileOrder" Val="7"/>
                 </FileInfo>
             </File>
-            <File Path="enc_file/SerializerN_1_lvds_dat.enc.vhd">
-                <FileInfo>
-                    <Attr Name="UsedInSyn" Val="true"/>
-                    <Attr Name="UsedInP&R" Val="true"/>
-                    <Attr Name="BelongTo" Val="design_1"/>
-                    <Attr Name="CompileOrder" Val="8"/>
-                </FileInfo>
-            </File>
-            <File Path="enc_file/TMDSEncoder.enc.vhd">
+            <File Path="src/hdmi_tx_display.v">
                 <FileInfo>
                     <Attr Name="UsedInSyn" Val="true"/>
                     <Attr Name="UsedInP&R" Val="true"/>
                     <Attr Name="BelongTo" Val="design_1"/>
                     <Attr Name="CompileOrder" Val="9"/>
+                </FileInfo>
+            </File>
+            <File Path="src/read_RAM.v">
+                <FileInfo>
+                    <Attr Name="UsedInSyn" Val="true"/>
+                    <Attr Name="UsedInP&R" Val="true"/>
+                    <Attr Name="BelongTo" Val="design_1"/>
+                    <Attr Name="CompileOrder" Val="10"/>
+                </FileInfo>
+            </File>
+        </Verilog>
+        <VHDL>
+            <File Path="src/enc_file/DVITransmitter.enc.vhd">
+                <FileInfo>
+                    <Attr Name="UsedInSyn" Val="true"/>
+                    <Attr Name="UsedInP&R" Val="true"/>
+                    <Attr Name="BelongTo" Val="design_1"/>
+                    <Attr Name="CompileOrder" Val="1"/>
+                </FileInfo>
+            </File>
+            <File Path="src/enc_file/SerializerN_1_lvds.enc.vhd">
+                <FileInfo>
+                    <Attr Name="UsedInSyn" Val="true"/>
+                    <Attr Name="UsedInP&R" Val="true"/>
+                    <Attr Name="BelongTo" Val="design_1"/>
+                    <Attr Name="CompileOrder" Val="2"/>
+                </FileInfo>
+            </File>
+            <File Path="src/enc_file/SerializerN_1_lvds_dat.enc.vhd">
+                <FileInfo>
+                    <Attr Name="UsedInSyn" Val="true"/>
+                    <Attr Name="UsedInP&R" Val="true"/>
+                    <Attr Name="BelongTo" Val="design_1"/>
+                    <Attr Name="CompileOrder" Val="3"/>
+                </FileInfo>
+            </File>
+            <File Path="src/enc_file/TMDSEncoder.enc.vhd">
+                <FileInfo>
+                    <Attr Name="UsedInSyn" Val="true"/>
+                    <Attr Name="UsedInP&R" Val="true"/>
+                    <Attr Name="BelongTo" Val="design_1"/>
+                    <Attr Name="CompileOrder" Val="4"/>
+                </FileInfo>
+            </File>
+            <File Path="src/hdmi_tx.vhd">
+                <FileInfo>
+                    <Attr Name="UsedInSyn" Val="true"/>
+                    <Attr Name="UsedInP&R" Val="true"/>
+                    <Attr Name="BelongTo" Val="design_1"/>
+                    <Attr Name="CompileOrder" Val="8"/>
                 </FileInfo>
             </File>
         </VHDL>
@@ -106,21 +106,21 @@
             </File>
         </ADC_FILE>
         <IP_FILE>
-            <File Path="clock_ip/clk_wize.ipc">
-                <FileInfo>
-                    <Attr Name="UsedInSyn" Val="true"/>
-                    <Attr Name="UsedInP&R" Val="true"/>
-                    <Attr Name="BelongTo" Val="design_1"/>
-                    <Attr Name="CompileOrder" Val="2"/>
-                </FileInfo>
-            </File>
-            <File Path="al_ip/SDRAM_0.ipc">
+            <File Path="ipsrc/al_ip/SDRAM_0.ipc">
                 <FileInfo>
                     <Attr Name="AutoExcluded" Val="true"/>
                     <Attr Name="UsedInSyn" Val="true"/>
                     <Attr Name="UsedInP&R" Val="true"/>
                     <Attr Name="BelongTo" Val="design_1"/>
-                    <Attr Name="CompileOrder" Val="4"/>
+                    <Attr Name="CompileOrder" Val="11"/>
+                </FileInfo>
+            </File>
+            <File Path="ipsrc/clock_ip/clk_wize.ipc">
+                <FileInfo>
+                    <Attr Name="UsedInSyn" Val="true"/>
+                    <Attr Name="UsedInP&R" Val="true"/>
+                    <Attr Name="BelongTo" Val="design_1"/>
+                    <Attr Name="CompileOrder" Val="12"/>
                 </FileInfo>
             </File>
         </IP_FILE>

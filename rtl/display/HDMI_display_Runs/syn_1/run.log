@@ -4,7 +4,7 @@
    Executable = D:/sofwar/td/bin/run.exe
    Built at =   16:32:07 Jun 12 2025
    Run by =     dell
-   Run Date =   Wed Oct 14 14:33:05 2026
+   Run Date =   Wed Oct 14 14:52:40 2026
 
    Run on =     DESKTOP-FBED5CA
 ============================================================
@@ -39,51 +39,51 @@ RUN-1001 : ----------------------------------------------------------------
 RUN-1001 :   default_reg_initial  |    auto    |       auto       |        
 RUN-1001 :    hdl_warning_level   |   normal   |      normal      |        
 RUN-1001 : ----------------------------------------------------------------
-HDL-1007 : analyze verilog file ../../al_ip/SDRAM_0.v
-HDL-1007 : analyze verilog file ../../clock_ip/clk_wize.v
-HDL-1007 : undeclared symbol 'clk_wize_open78', assumed default net type 'wire' in ../../clock_ip/clk_wize.v(70)
-HDL-1007 : undeclared symbol 'clk_wize_open79', assumed default net type 'wire' in ../../clock_ip/clk_wize.v(76)
-HDL-1007 : undeclared symbol 'clk_wize_open87', assumed default net type 'wire' in ../../clock_ip/clk_wize.v(82)
-HDL-1007 : undeclared symbol 'clk_wize_open86', assumed default net type 'wire' in ../../clock_ip/clk_wize.v(82)
-HDL-1007 : undeclared symbol 'clk_wize_open85', assumed default net type 'wire' in ../../clock_ip/clk_wize.v(82)
-HDL-1007 : undeclared symbol 'clk_wize_open84', assumed default net type 'wire' in ../../clock_ip/clk_wize.v(82)
-HDL-1007 : undeclared symbol 'clk_wize_open83', assumed default net type 'wire' in ../../clock_ip/clk_wize.v(82)
-HDL-1007 : undeclared symbol 'clk_wize_open82', assumed default net type 'wire' in ../../clock_ip/clk_wize.v(82)
-HDL-1007 : undeclared symbol 'clk_wize_open81', assumed default net type 'wire' in ../../clock_ip/clk_wize.v(82)
-HDL-1007 : undeclared symbol 'clk_wize_open80', assumed default net type 'wire' in ../../clock_ip/clk_wize.v(82)
-HDL-1007 : undeclared symbol 'clk_wize_open90', assumed default net type 'wire' in ../../clock_ip/clk_wize.v(84)
-HDL-1007 : undeclared symbol 'clk_wize_open89', assumed default net type 'wire' in ../../clock_ip/clk_wize.v(84)
-HDL-1007 : undeclared symbol 'clk_wize_open88', assumed default net type 'wire' in ../../clock_ip/clk_wize.v(84)
-HDL-1007 : analyze verilog file ../../hdmi_top.v
-HDL-1007 : analyze verilog file ../../read_RAM.v
-HDL-1007 : analyze VHDL file ../../hdmi_tx.vhd
-HDL-1007 : analyze entity hdmi_tx in ../../hdmi_tx.vhd(11)
-HDL-1007 : analyze architecture behavioral in ../../hdmi_tx.vhd(33)
-HDL-1007 : analyze VHDL file ../../enc_file/DVITransmitter.enc.vhd
-HDL-1007 : analyze entity dvitransmitter in ../../enc_file/DVITransmitter.enc.vhd(13)
+HDL-1007 : analyze verilog file ../../ipsrc/al_ip/SDRAM_0.v
+HDL-1007 : analyze verilog file ../../ipsrc/clock_ip/clk_wize.v
+HDL-1007 : undeclared symbol 'clk_wize_open78', assumed default net type 'wire' in ../../ipsrc/clock_ip/clk_wize.v(70)
+HDL-1007 : undeclared symbol 'clk_wize_open79', assumed default net type 'wire' in ../../ipsrc/clock_ip/clk_wize.v(76)
+HDL-1007 : undeclared symbol 'clk_wize_open87', assumed default net type 'wire' in ../../ipsrc/clock_ip/clk_wize.v(82)
+HDL-1007 : undeclared symbol 'clk_wize_open86', assumed default net type 'wire' in ../../ipsrc/clock_ip/clk_wize.v(82)
+HDL-1007 : undeclared symbol 'clk_wize_open85', assumed default net type 'wire' in ../../ipsrc/clock_ip/clk_wize.v(82)
+HDL-1007 : undeclared symbol 'clk_wize_open84', assumed default net type 'wire' in ../../ipsrc/clock_ip/clk_wize.v(82)
+HDL-1007 : undeclared symbol 'clk_wize_open83', assumed default net type 'wire' in ../../ipsrc/clock_ip/clk_wize.v(82)
+HDL-1007 : undeclared symbol 'clk_wize_open82', assumed default net type 'wire' in ../../ipsrc/clock_ip/clk_wize.v(82)
+HDL-1007 : undeclared symbol 'clk_wize_open81', assumed default net type 'wire' in ../../ipsrc/clock_ip/clk_wize.v(82)
+HDL-1007 : undeclared symbol 'clk_wize_open80', assumed default net type 'wire' in ../../ipsrc/clock_ip/clk_wize.v(82)
+HDL-1007 : undeclared symbol 'clk_wize_open90', assumed default net type 'wire' in ../../ipsrc/clock_ip/clk_wize.v(84)
+HDL-1007 : undeclared symbol 'clk_wize_open89', assumed default net type 'wire' in ../../ipsrc/clock_ip/clk_wize.v(84)
+HDL-1007 : undeclared symbol 'clk_wize_open88', assumed default net type 'wire' in ../../ipsrc/clock_ip/clk_wize.v(84)
+HDL-1007 : analyze VHDL file ../../src/enc_file/DVITransmitter.enc.vhd
+HDL-1007 : analyze entity dvitransmitter in ../../src/enc_file/DVITransmitter.enc.vhd(13)
 Copyright (c) 1998-2019 The OpenSSL Project.  All rights reserved.
 This product includes software developed by the OpenSSL Project
 for use in the OpenSSL Toolkit (http://www.openssl.org/)
 Copyright (C) 1995-1998 Eric Young (eay@cryptsoft.com)
 All rights reserved.
 This product includes cryptographic software written by Eric Young (eay@cryptsoft.com)
-HDL-1007 : analyze architecture ** in ../../enc_file/DVITransmitter.enc.vhd(2)
-HDL-1007 : analyze VHDL file ../../enc_file/SerializerN_1_lvds.enc.vhd
-HDL-1007 : analyze entity ** in ../../enc_file/SerializerN_1_lvds.enc.vhd(12)
-HDL-1007 : analyze architecture ** in ../../enc_file/SerializerN_1_lvds.enc.vhd(25)
-HDL-1007 : analyze VHDL file ../../enc_file/SerializerN_1_lvds_dat.enc.vhd
-HDL-1007 : analyze entity ** in ../../enc_file/SerializerN_1_lvds_dat.enc.vhd(14)
-HDL-1007 : analyze architecture ** in ../../enc_file/SerializerN_1_lvds_dat.enc.vhd(28)
-HDL-1007 : analyze VHDL file ../../enc_file/TMDSEncoder.enc.vhd
-HDL-1007 : analyze entity ** in ../../enc_file/TMDSEncoder.enc.vhd(13)
-HDL-1007 : analyze architecture ** in ../../enc_file/TMDSEncoder.enc.vhd(24)
-HDL-1007 : analyze verilog file ../../hdmi_tx_display.v
-HDL-1007 : undeclared symbol 'pixel_clk_5x', assumed default net type 'wire' in ../../hdmi_tx_display.v(29)
-HDL-1007 : undeclared symbol 'pixel_clk', assumed default net type 'wire' in ../../hdmi_tx_display.v(30)
-HDL-1007 : undeclared symbol 'HDMI_CLK_P1', assumed default net type 'wire' in ../../hdmi_tx_display.v(53)
-HDL-1007 : undeclared symbol 'HDMI_D2_P1', assumed default net type 'wire' in ../../hdmi_tx_display.v(54)
-HDL-1007 : undeclared symbol 'HDMI_D1_P1', assumed default net type 'wire' in ../../hdmi_tx_display.v(55)
-HDL-1007 : undeclared symbol 'HDMI_D0_P1', assumed default net type 'wire' in ../../hdmi_tx_display.v(56)
+HDL-1007 : analyze architecture ** in ../../src/enc_file/DVITransmitter.enc.vhd(2)
+HDL-1007 : analyze VHDL file ../../src/enc_file/SerializerN_1_lvds.enc.vhd
+HDL-1007 : analyze entity ** in ../../src/enc_file/SerializerN_1_lvds.enc.vhd(12)
+HDL-1007 : analyze architecture ** in ../../src/enc_file/SerializerN_1_lvds.enc.vhd(25)
+HDL-1007 : analyze VHDL file ../../src/enc_file/SerializerN_1_lvds_dat.enc.vhd
+HDL-1007 : analyze entity ** in ../../src/enc_file/SerializerN_1_lvds_dat.enc.vhd(14)
+HDL-1007 : analyze architecture ** in ../../src/enc_file/SerializerN_1_lvds_dat.enc.vhd(28)
+HDL-1007 : analyze VHDL file ../../src/enc_file/TMDSEncoder.enc.vhd
+HDL-1007 : analyze entity ** in ../../src/enc_file/TMDSEncoder.enc.vhd(13)
+HDL-1007 : analyze architecture ** in ../../src/enc_file/TMDSEncoder.enc.vhd(24)
+HDL-1007 : analyze verilog file ../../src/hdmi_top.v
+HDL-1007 : analyze VHDL file ../../src/hdmi_tx.vhd
+HDL-1007 : analyze entity hdmi_tx in ../../src/hdmi_tx.vhd(11)
+HDL-1007 : analyze architecture behavioral in ../../src/hdmi_tx.vhd(33)
+HDL-1007 : analyze verilog file ../../src/hdmi_tx_display.v
+HDL-1007 : undeclared symbol 'pixel_clk_5x', assumed default net type 'wire' in ../../src/hdmi_tx_display.v(29)
+HDL-1007 : undeclared symbol 'pixel_clk', assumed default net type 'wire' in ../../src/hdmi_tx_display.v(30)
+HDL-1007 : undeclared symbol 'HDMI_CLK_P1', assumed default net type 'wire' in ../../src/hdmi_tx_display.v(53)
+HDL-1007 : undeclared symbol 'HDMI_D2_P1', assumed default net type 'wire' in ../../src/hdmi_tx_display.v(54)
+HDL-1007 : undeclared symbol 'HDMI_D1_P1', assumed default net type 'wire' in ../../src/hdmi_tx_display.v(55)
+HDL-1007 : undeclared symbol 'HDMI_D0_P1', assumed default net type 'wire' in ../../src/hdmi_tx_display.v(56)
+HDL-1007 : analyze verilog file ../../src/read_RAM.v
 PRJ-1401 : Successfully analyzed 10 source files.
 RUN-1002 : start command "commit_param -step design"
 RUN-1001 : Print Global Property
@@ -104,31 +104,31 @@ RUN-1001 :   default_reg_initial  |    auto    |       auto       |
 RUN-1001 :    hdl_warning_level   |   normal   |      normal      |        
 RUN-1001 : ----------------------------------------------------------------
 RUN-1002 : start command "elaborate -top hdmi_tx_display"
-HDL-1007 : elaborate module hdmi_tx_display in ../../hdmi_tx_display.v(1)
-HDL-1007 : elaborate module clk_wize in ../../clock_ip/clk_wize.v(23)
+HDL-1007 : elaborate module hdmi_tx_display in ../../src/hdmi_tx_display.v(1)
+HDL-1007 : elaborate module clk_wize in ../../ipsrc/clock_ip/clk_wize.v(23)
 HDL-1007 : elaborate module EG_LOGIC_BUFG in D:\sofwar\td\arch/eagle_macro.v(5)
 HDL-1007 : elaborate module EG_PHY_PLL(FIN="50.000000",REFCLK_DIV=2,FBCLK_DIV=5,CLKC0_DIV=8,CLKC1_DIV=40,CLKC0_ENABLE="ENABLE",CLKC1_ENABLE="ENABLE",FEEDBK_PATH="CLKC0_EXT",STDBY_ENABLE="DISABLE",CLKC0_CPHASE=7,CLKC1_CPHASE=39,GMC_GAIN=2,ICP_CURRENT=9,KVCO=2,LPF_CAPACITOR=1,LPF_RESISTOR=8,SYNC_ENABLE="DISABLE") in D:\sofwar\td\arch/eagle_macro.v(889)
-HDL-1007 : elaborate module hdmi_top in ../../hdmi_top.v(1)
-HDL-1007 : elaborate module read_RAM in ../../read_RAM.v(1)
-HDL-1007 : switch to vhdl to elaborate module hdmi_tx in ../../hdmi_top.v(40)
-HDL-1007 : elaborate hdmi_tx(1,3)(Behavioral) in ../../hdmi_tx.vhd(11)
-HDL-1007 : elaborate DVITransmitter(1,3)(Behavioral) in ../../enc_file/DVITransmitter.enc.vhd(13)
-HDL-1007 : elaborate **(**) in ../../enc_file/TMDSEncoder.enc.vhd(13)
-HDL-1007 : elaborate **(**) in ../../enc_file/SerializerN_1_lvds.enc.vhd(12)
+HDL-1007 : elaborate module hdmi_top in ../../src/hdmi_top.v(1)
+HDL-1007 : elaborate module read_RAM in ../../src/read_RAM.v(1)
+HDL-1007 : switch to vhdl to elaborate module hdmi_tx in ../../src/hdmi_top.v(40)
+HDL-1007 : elaborate hdmi_tx(1,3)(Behavioral) in ../../src/hdmi_tx.vhd(11)
+HDL-1007 : elaborate DVITransmitter(1,3)(Behavioral) in ../../src/enc_file/DVITransmitter.enc.vhd(13)
+HDL-1007 : elaborate **(**) in ../../src/enc_file/TMDSEncoder.enc.vhd(13)
+HDL-1007 : elaborate **(**) in ../../src/enc_file/SerializerN_1_lvds.enc.vhd(12)
 HDL-1007 : elaborate EG_LOGIC_ODDR(1,6)(rtl) in D:\sofwar\td\arch/eagle_macro.vhd(1399)
-HDL-1007 : elaborate **(**) in ../../enc_file/SerializerN_1_lvds_dat.enc.vhd(14)
-HDL-1007 : back to vlog to elaborate in ../../hdmi_top.v(40)
+HDL-1007 : elaborate **(**) in ../../src/enc_file/SerializerN_1_lvds_dat.enc.vhd(14)
+HDL-1007 : back to vlog to elaborate in ../../src/hdmi_top.v(40)
 HDL-5001 WARNING: Contains anonymous inst(s) and/or net(s) that have not been renamed
 HDL-5001 WARNING: Contains anonymous inst(s) and/or net(s) that have not been renamed
 HDL-5001 WARNING: Contains anonymous inst(s) and/or net(s) that have not been renamed
 HDL-5001 WARNING: Contains anonymous inst(s) and/or net(s) that have not been renamed
 HDL-5001 WARNING: Contains anonymous inst(s) and/or net(s) that have not been renamed
 HDL-1200 : Current top model is hdmi_tx_display
-HDL-5106 WARNING: Initial value omitted on non-DFF net "cnt_t[4]" in ../../enc_file/TMDSEncoder.enc.vhd(0) 
-HDL-5106 WARNING: Initial value omitted on non-DFF net "cnt_t[3]" in ../../enc_file/TMDSEncoder.enc.vhd(0) 
-HDL-5106 WARNING: Initial value omitted on non-DFF net "cnt_t[2]" in ../../enc_file/TMDSEncoder.enc.vhd(0) 
-HDL-5106 WARNING: Initial value omitted on non-DFF net "cnt_t[1]" in ../../enc_file/TMDSEncoder.enc.vhd(0) 
-HDL-5106 WARNING: Initial value omitted on non-DFF net "cnt_t[0]" in ../../enc_file/TMDSEncoder.enc.vhd(0) 
+HDL-5106 WARNING: Initial value omitted on non-DFF net "cnt_t[4]" in ../../src/enc_file/TMDSEncoder.enc.vhd(0) 
+HDL-5106 WARNING: Initial value omitted on non-DFF net "cnt_t[3]" in ../../src/enc_file/TMDSEncoder.enc.vhd(0) 
+HDL-5106 WARNING: Initial value omitted on non-DFF net "cnt_t[2]" in ../../src/enc_file/TMDSEncoder.enc.vhd(0) 
+HDL-5106 WARNING: Initial value omitted on non-DFF net "cnt_t[1]" in ../../src/enc_file/TMDSEncoder.enc.vhd(0) 
+HDL-5106 WARNING: Initial value omitted on non-DFF net "cnt_t[0]" in ../../src/enc_file/TMDSEncoder.enc.vhd(0) 
 HDL-5106 WARNING: Initial value omitted on non-DFF net "dc_bias[4]" in D:\sofwar\td\packages/std_logic_arith.vhd(1071) 
 HDL-5106 WARNING: Initial value omitted on non-DFF net "dc_bias[3]" in D:\sofwar\td\packages/std_logic_arith.vhd(1071) 
 HDL-5106 WARNING: Initial value omitted on non-DFF net "dc_bias[2]" in D:\sofwar\td\packages/std_logic_arith.vhd(1071) 
@@ -219,23 +219,23 @@ RUN-1002 : start command "optimize_rtl"
 RUN-1001 : Open license file D:/sofwar/td/license/Anlogic.lic
 SYN-1001 : Stage 1 | Optimize RTL
 SYN-1001 : Stage 1.1 | Check Design Sanity
-SYN-1001 : End Stage 1.1 | Check Design Sanity; Time: 0.009504s wall, 0.000000s user + 0.000000s system = 0.000000s CPU (n/a%); Memory(MB): used = 93, reserved = 213, peak = 93;
+SYN-1001 : End Stage 1.1 | Check Design Sanity; Time: 0.000351s wall, 0.000000s user + 0.000000s system = 0.000000s CPU (n/a%); Memory(MB): used = 93, reserved = 213, peak = 93;
 
 SYN-1079 : finish stage Check Design Sanity. Total instances: 601, Total nets: 1198.
 
 SYN-1001 : Stage 1.2 | Initialize Design
-SYN-1001 : End Stage 1.2 | Initialize Design; Time: 0.030620s wall, 0.015625s user + 0.000000s system = 0.015625s CPU (51.0%); Memory(MB): used = 93, reserved = 213, peak = 93;
+SYN-1001 : End Stage 1.2 | Initialize Design; Time: 0.019470s wall, 0.000000s user + 0.015625s system = 0.015625s CPU (80.3%); Memory(MB): used = 93, reserved = 213, peak = 93;
 
 SYN-1079 : finish stage Initialize Design. Total instances: 183, Total nets: 716.
 
 SYN-1001 : Stage 1.3 | Flatten Module
 SYN-1011 : Flatten model hdmi_tx_display
-SYN-1001 : End Stage 1.3 | Flatten Module; Time: 0.007075s wall, 0.000000s user + 0.000000s system = 0.000000s CPU (n/a%); Memory(MB): used = 93, reserved = 213, peak = 93;
+SYN-1001 : End Stage 1.3 | Flatten Module; Time: 0.004691s wall, 0.015625s user + 0.000000s system = 0.015625s CPU (333.1%); Memory(MB): used = 93, reserved = 213, peak = 93;
 
 SYN-1079 : finish stage Flatten Module. Total instances: 409, Total nets: 1168.
 
 SYN-1001 : Stage 1.4 | Uniform Instance
-SYN-1001 : End Stage 1.4 | Uniform Instance; Time: 0.006692s wall, 0.015625s user + 0.000000s system = 0.015625s CPU (233.5%); Memory(MB): used = 93, reserved = 213, peak = 93;
+SYN-1001 : End Stage 1.4 | Uniform Instance; Time: 0.001779s wall, 0.000000s user + 0.000000s system = 0.000000s CPU (n/a%); Memory(MB): used = 93, reserved = 213, peak = 93;
 
 SYN-1079 : finish stage Uniform Instance. Total instances: 410, Total nets: 1169.
 
@@ -243,7 +243,7 @@ SYN-1001 : Stage 1.5 | Optimize Design
 SYN-1032 : 1168/1 useful/useless nets, 409/1 useful/useless insts
 SYN-1016 : Merged 88 instances.
 SYN-1016 : Merged 68 instances.
-SYN-1001 : End Stage 1.5 | Optimize Design; Time: 0.221232s wall, 0.125000s user + 0.000000s system = 0.125000s CPU (56.5%); Memory(MB): used = 96, reserved = 213, peak = 97;
+SYN-1001 : End Stage 1.5 | Optimize Design; Time: 0.088451s wall, 0.078125s user + 0.000000s system = 0.078125s CPU (88.3%); Memory(MB): used = 96, reserved = 213, peak = 97;
 
 SYN-1079 : finish stage Optimize Design. Total instances: 585, Total nets: 807.
 
@@ -264,16 +264,16 @@ SYN-1016 : Merged 7 instances.
 SYN-1015 : Optimize round 1, 30 better
 SYN-1014 : Optimize round 2
 SYN-1015 : Optimize round 2, 0 better
-SYN-1001 : End Stage 1.6 | Optimize Iteratively; Time: 0.310843s wall, 0.265625s user + 0.000000s system = 0.265625s CPU (85.5%); Memory(MB): used = 112, reserved = 211, peak = 114;
+SYN-1001 : End Stage 1.6 | Optimize Iteratively; Time: 0.284217s wall, 0.281250s user + 0.000000s system = 0.281250s CPU (99.0%); Memory(MB): used = 112, reserved = 211, peak = 114;
 
 SYN-1079 : finish stage Optimize Iteratively. Total instances: 254, Total nets: 302.
 
 SYN-1001 : Stage 1.7 | Check Design
-SYN-1001 : End Stage 1.7 | Check Design; Time: 0.002244s wall, 0.000000s user + 0.000000s system = 0.000000s CPU (n/a%); Memory(MB): used = 112, reserved = 211, peak = 114;
+SYN-1001 : End Stage 1.7 | Check Design; Time: 0.000171s wall, 0.000000s user + 0.000000s system = 0.000000s CPU (n/a%); Memory(MB): used = 112, reserved = 211, peak = 114;
 
 SYN-1079 : finish stage Check Design. Total instances: 254, Total nets: 302.
 
-SYN-1001 : End Stage 1 | Optimize RTL; Time: 0.588889s wall, 0.421875s user + 0.000000s system = 0.421875s CPU (71.6%); Memory(MB): used = 112, reserved = 211, peak = 114;
+SYN-1001 : End Stage 1 | Optimize RTL; Time: 0.399469s wall, 0.375000s user + 0.015625s system = 0.390625s CPU (97.8%); Memory(MB): used = 112, reserved = 211, peak = 114;
 
 SYN-1079 : finish stage Optimize RTL. Total instances: 254, Total nets: 302.
 
@@ -354,13 +354,13 @@ RUN-1002 : start command "optimize_gate -packarea HDMI_display_gate.area"
 RUN-1001 : Open license file D:/sofwar/td/license/Anlogic.lic
 SYN-1001 : Stage 2 | Optimize Gate
 SYN-1001 : Stage 2.1 | Map Reg
-SYN-1001 : End Stage 2.1 | Map Reg; Time: 0.003420s wall, 0.000000s user + 0.000000s system = 0.000000s CPU (n/a%); Memory(MB): used = 112, reserved = 219, peak = 114;
+SYN-1001 : End Stage 2.1 | Map Reg; Time: 0.003730s wall, 0.015625s user + 0.000000s system = 0.015625s CPU (418.8%); Memory(MB): used = 112, reserved = 218, peak = 114;
 
 SYN-1079 : finish stage Map Reg. Total instances: 254, Total nets: 302.
 
 SYN-1001 : Stage 2.2 | Map IO
 SYN-2001 : Map 32 IOs to PADs of model 'hdmi_tx_display'
-SYN-1001 : End Stage 2.2 | Map IO; Time: 0.024658s wall, 0.000000s user + 0.000000s system = 0.000000s CPU (n/a%); Memory(MB): used = 112, reserved = 219, peak = 114;
+SYN-1001 : End Stage 2.2 | Map IO; Time: 0.011146s wall, 0.000000s user + 0.000000s system = 0.000000s CPU (n/a%); Memory(MB): used = 112, reserved = 219, peak = 114;
 
 SYN-1001 : Stage 2.3 | Map Macro
 RUN-1002 : start command "update_pll_param -module hdmi_tx_display"
@@ -381,7 +381,7 @@ SYN-2501 : Optimize round 1
 SYN-2501 : Optimize round 1, 0 better
 SYN-2501 : Map 21 macro adder(s)
 SYN-1016 : Merged 19 instances.
-SYN-1001 : End Stage 2.3 | Map Macro; Time: 0.066969s wall, 0.031250s user + 0.000000s system = 0.031250s CPU (46.7%); Memory(MB): used = 114, reserved = 221, peak = 114;
+SYN-1001 : End Stage 2.3 | Map Macro; Time: 0.048382s wall, 0.031250s user + 0.000000s system = 0.031250s CPU (64.6%); Memory(MB): used = 114, reserved = 221, peak = 114;
 
 SYN-1079 : finish stage Map Macro. Total instances: 441, Total nets: 472.
 
@@ -389,8 +389,8 @@ SYN-1001 : Stage 2.4 | Map Gate
 SYN-2581 : Mapping with K=5, #lut = 97 (3.01), #lev = 3 (1.29), #crit_level = 0
 SYN-2551 : Post LUT mapping optimization.
 SYN-2581 : Mapping with K=5, #lut = 94 (2.89), #lev = 3 (1.29), #crit_level = 0
-SYN-3001 : Logic optimization opt = 0.09 sec, map = 0.01 sec, post map opt = 0.07 sec.
-SYN-1001 : End Stage 2.4 | Map Gate; Time: 0.187169s wall, 0.156250s user + 0.000000s system = 0.156250s CPU (83.5%); Memory(MB): used = 118, reserved = 222, peak = 118;
+SYN-3001 : Logic optimization opt = 0.13 sec, map = 0.02 sec, post map opt = 0.09 sec.
+SYN-1001 : End Stage 2.4 | Map Gate; Time: 0.311848s wall, 0.187500s user + 0.000000s system = 0.187500s CPU (60.1%); Memory(MB): used = 118, reserved = 222, peak = 118;
 
 SYN-1001 : Packing model "hdmi_tx_display" ...
 SYN-4010 : Pack lib has 59 rtl pack models with 26 top pack blocks
@@ -507,12 +507,12 @@ Utilization Statistics
 #pll                        1   out of      4   25.00%
 #gclk                       1   out of     16    6.25%
 
-SYN-1001 : End Stage 2 | Optimize Gate; Time: 0.406163s wall, 0.281250s user + 0.000000s system = 0.281250s CPU (69.2%); Memory(MB): used = 119, reserved = 222, peak = 119;
+SYN-1001 : End Stage 2 | Optimize Gate; Time: 0.463971s wall, 0.296875s user + 0.000000s system = 0.296875s CPU (64.0%); Memory(MB): used = 119, reserved = 222, peak = 119;
 
 RUN-1002 : start command "legalize_phy_inst"
 SYN-1001 : Stage 3 | Legalize Phy Inst
 SYN-1011 : Flatten model hdmi_tx_display
-SYN-1001 : End Stage 3 | Legalize Phy Inst; Time: 0.001865s wall, 0.000000s user + 0.000000s system = 0.000000s CPU (n/a%); Memory(MB): used = 119, reserved = 222, peak = 119;
+SYN-1001 : End Stage 3 | Legalize Phy Inst; Time: 0.000705s wall, 0.000000s user + 0.000000s system = 0.000000s CPU (n/a%); Memory(MB): used = 119, reserved = 222, peak = 119;
 
 RUN-1002 : start command "update_timing"
 RUN-1002 : start command "start_timer"

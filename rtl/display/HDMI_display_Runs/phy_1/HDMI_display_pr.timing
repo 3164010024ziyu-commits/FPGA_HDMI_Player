@@ -1,6 +1,6 @@
 Created by          : Tang Dynasty v6.2.168116
                     : Copyright (c) 2012-2025 Anlogic Inc.
-Generated           : Wed Oct 14 14:33:11 2026
+Generated           : Wed Oct 14 14:52:46 2026
 
 Top Model           : hdmi_tx_display
 Device              : EG4S20BG256
@@ -89,7 +89,7 @@ Delay Type          Location             Incr           Path   Level  Netlist In
 launch edge                             0.000    r     0.000               
 --------------------------------------------------------------------  ---------------
 clk2q               x018y016z2          0.146    r     0.146          pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/cnt_t_1_reg[1]_syn_21.q[0]
-net (fo=4)                              0.493          0.639          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/q_m_xnor[0],  ../../enc_file/TMDSEncoder.enc.vhd(0)
+net (fo=4)                              0.493          0.639          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/q_m_xnor[0],  ../../src/enc_file/TMDSEncoder.enc.vhd(0)
                                                                       pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/cnt_t_b1[2]_syn_16.d[0]
 LUT1                x021y016z0          0.205    r     0.844       1  pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/cnt_t_b1[2]_syn_16.f[0]
 net (fo=2)                              0.750          1.594          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/q_m_b_n_syn_2,  NOFILE(0)
@@ -103,7 +103,7 @@ net (fo=1)                              0.309          2.885          net: u_hdm
 LUT5                x018y015z2          0.431    f     3.316       4  pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/n0_q_m_reg[1]_syn_4.f[0]
 net (fo=1)                              0.456          3.772          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/cnt_t_b1[3]_syn_2,  NOFILE(0)
                                                                       pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/sub1_syn_12.a[0]
-LUT5 (reg)          x020y014z3          0.542    f     4.314       5  net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/cnt_t_1[3],  ../../enc_file/TMDSEncoder.enc.vhd(0)
+LUT5 (reg)          x020y014z3          0.542    f     4.314       5  net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/cnt_t_1[3],  ../../src/enc_file/TMDSEncoder.enc.vhd(0)
 --------------------------------------------------------------------  ---------------
 Arrival                                                4.314               
 
@@ -134,7 +134,7 @@ Delay Type          Location             Incr           Path   Level  Netlist In
 launch edge                             0.000    r     0.000               
 --------------------------------------------------------------------  ---------------
 clk2q               x018y016z2          0.146    r     0.146          pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/cnt_t_1_reg[1]_syn_21.q[0]
-net (fo=4)                              0.493          0.639          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/q_m_xnor[0],  ../../enc_file/TMDSEncoder.enc.vhd(0)
+net (fo=4)                              0.493          0.639          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/q_m_xnor[0],  ../../src/enc_file/TMDSEncoder.enc.vhd(0)
                                                                       pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/cnt_t_b1[2]_syn_16.d[0]
 LUT1                x021y016z0          0.205    r     0.844       1  pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/cnt_t_b1[2]_syn_16.f[0]
 net (fo=2)                              0.594          1.438          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/q_m_b_n_syn_2,  NOFILE(0)
@@ -148,7 +148,7 @@ net (fo=1)                              0.309          2.808          net: u_hdm
 LUT4                x019y016z3          0.424    f     3.232       4  pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/cnt_t_b1[3]_syn_10.f[1]
 net (fo=1)                              0.456          3.688          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/cnt_t_b1[3]_syn_3,  NOFILE(0)
                                                                       pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/cnt_t_b1[3]_syn_10.b[0]
-LUT4 (reg)          x019y016z3          0.549    f     4.237       5  net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/cnt_t_1[3],  ../../enc_file/TMDSEncoder.enc.vhd(0)
+LUT4 (reg)          x019y016z3          0.549    f     4.237       5  net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/cnt_t_1[3],  ../../src/enc_file/TMDSEncoder.enc.vhd(0)
 --------------------------------------------------------------------  ---------------
 Arrival                                                4.237               
 
@@ -179,7 +179,7 @@ Delay Type          Location             Incr           Path   Level  Netlist In
 launch edge                             0.000    r     0.000               
 --------------------------------------------------------------------  ---------------
 clk2q               x018y016z2          0.146    r     0.146          pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/cnt_t_1_reg[1]_syn_21.q[0]
-net (fo=4)                              0.493          0.639          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/q_m_xnor[0],  ../../enc_file/TMDSEncoder.enc.vhd(0)
+net (fo=4)                              0.493          0.639          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/q_m_xnor[0],  ../../src/enc_file/TMDSEncoder.enc.vhd(0)
                                                                       pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/cnt_t_b1[2]_syn_16.d[0]
 LUT1                x021y016z0          0.205    r     0.844       1  pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/cnt_t_b1[2]_syn_16.f[0]
 net (fo=2)                              0.594          1.438          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/q_m_b_n_syn_2,  NOFILE(0)
@@ -193,7 +193,7 @@ net (fo=1)                              0.307          2.595          net: u_hdm
 LUT1                x021y016z0          0.408    f     3.003       4  pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/cnt_t_b1[2]_syn_16.f[1]
 net (fo=1)                              0.459          3.462          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/cnt_t_b1[2]_syn_5,  NOFILE(0)
                                                                       pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/cnt_t_b1[2]_syn_14.c[0]
-LUT4 (reg)          x020y015z1          0.360    r     3.822       5  net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/cnt_t_1[2],  ../../enc_file/TMDSEncoder.enc.vhd(0)
+LUT4 (reg)          x020y015z1          0.360    r     3.822       5  net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/cnt_t_1[2],  ../../src/enc_file/TMDSEncoder.enc.vhd(0)
 --------------------------------------------------------------------  ---------------
 Arrival                                                3.822               
 
@@ -224,7 +224,7 @@ Delay Type          Location             Incr           Path   Level  Netlist In
 launch edge                             0.000    r     0.000               
 --------------------------------------------------------------------  ---------------
 clk2q               x021y034z2          0.146    r     0.146          pin: u_hdmi_top/u_read_RAM/hcnt_reg[1]_syn_4.q[1]
-net (fo=3)                              0.952          1.098          net: u_hdmi_top/u_read_RAM/hcnt[1],  ../../read_RAM.v(12)
+net (fo=3)                              0.952          1.098          net: u_hdmi_top/u_read_RAM/hcnt[1],  ../../src/read_RAM.v(12)
                                                                       pin: u_hdmi_top/u_read_RAM/vcnt_b_n_syn_12.b[1]
 LUT2                x020y033z3          0.431    f     1.529       1  pin: u_hdmi_top/u_read_RAM/vcnt_b_n_syn_12.f[1]
 net (fo=1)                              0.594          2.123          net: u_hdmi_top/u_read_RAM/vcnt_b_n_syn_4,  NOFILE(0)
@@ -263,18 +263,18 @@ Delay Type          Location             Incr           Path   Level  Netlist In
 launch edge                             0.000    r     0.000               
 --------------------------------------------------------------------  ---------------
 clk2q               x018y014z3          0.146    r     0.146          pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/cnt_t_1_reg[1]_syn_16.q[0]
-net (fo=5)                              0.770          0.916          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/cnt_t_1[2],  ../../enc_file/TMDSEncoder.enc.vhd(0)
+net (fo=5)                              0.770          0.916          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/cnt_t_1[2],  ../../src/enc_file/TMDSEncoder.enc.vhd(0)
                                                                       pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/cnt_t_1_reg[1]_syn_16.b[1]
 LUT5                x018y014z3          0.431    f     1.347       1  pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/cnt_t_1_reg[1]_syn_16.f[1]
 net (fo=4)                              0.473          1.820          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/cond_balanced_n1,  NOFILE(0)
                                                                       pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/cnt_t_b1[4]_syn_6.c[0]
 LUT3                x019y015z2          0.348    f     2.168       2  pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/cnt_t_b1[4]_syn_6.f[0]
-net (fo=3)                              0.753          2.921          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/mux7_syn_37,  ../../enc_file/TMDSEncoder.enc.vhd(0)
+net (fo=3)                              0.753          2.921          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/mux7_syn_37,  ../../src/enc_file/TMDSEncoder.enc.vhd(0)
                                                                       pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/q_out_d_reg[4]_syn_4.c[1]
 LUT3                x020y017z2          0.348    f     3.269       3  pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/q_out_d_reg[4]_syn_4.f[1]
-net (fo=1)                              0.309          3.578          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/mux7_syn_35,  ../../enc_file/TMDSEncoder.enc.vhd(0)
+net (fo=1)                              0.309          3.578          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/mux7_syn_35,  ../../src/enc_file/TMDSEncoder.enc.vhd(0)
                                                                       pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_green/q_out_d_reg[5]_syn_3.mi[1]
-reg                 x019y017z3          0.143    r     3.721          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_green_serializer_10_1/DP_I[5],  ../../enc_file/SerializerN_1_lvds_dat.enc.vhd(0)
+reg                 x019y017z3          0.143    r     3.721          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_green_serializer_10_1/DP_I[5],  ../../src/enc_file/SerializerN_1_lvds_dat.enc.vhd(0)
 --------------------------------------------------------------------  ---------------
 Arrival                                                3.721               
 
@@ -305,7 +305,7 @@ Delay Type          Location             Incr           Path   Level  Netlist In
 launch edge                             0.000    r     0.000               
 --------------------------------------------------------------------  ---------------
 clk2q               x021y034z2          0.146    r     0.146          pin: u_hdmi_top/u_read_RAM/hcnt_reg[1]_syn_4.q[1]
-net (fo=3)                              0.952          1.098          net: u_hdmi_top/u_read_RAM/hcnt[1],  ../../read_RAM.v(12)
+net (fo=3)                              0.952          1.098          net: u_hdmi_top/u_read_RAM/hcnt[1],  ../../src/read_RAM.v(12)
                                                                       pin: u_hdmi_top/u_read_RAM/vcnt_b_n_syn_12.b[1]
 LUT2                x020y033z3          0.431    f     1.529       1  pin: u_hdmi_top/u_read_RAM/vcnt_b_n_syn_12.f[1]
 net (fo=1)                              0.594          2.123          net: u_hdmi_top/u_read_RAM/vcnt_b_n_syn_4,  NOFILE(0)
@@ -344,7 +344,7 @@ Delay Type          Location             Incr           Path   Level  Netlist In
 launch edge                             0.000    r     0.000               
 --------------------------------------------------------------------  ---------------
 clk2q               x021y034z2          0.146    r     0.146          pin: u_hdmi_top/u_read_RAM/hcnt_reg[1]_syn_4.q[1]
-net (fo=3)                              0.952          1.098          net: u_hdmi_top/u_read_RAM/hcnt[1],  ../../read_RAM.v(12)
+net (fo=3)                              0.952          1.098          net: u_hdmi_top/u_read_RAM/hcnt[1],  ../../src/read_RAM.v(12)
                                                                       pin: u_hdmi_top/u_read_RAM/vcnt_b_n_syn_12.b[1]
 LUT2                x020y033z3          0.431    f     1.529       1  pin: u_hdmi_top/u_read_RAM/vcnt_b_n_syn_12.f[1]
 net (fo=1)                              0.594          2.123          net: u_hdmi_top/u_read_RAM/vcnt_b_n_syn_4,  NOFILE(0)
@@ -383,7 +383,7 @@ Delay Type          Location             Incr           Path   Level  Netlist In
 launch edge                             0.000    r     0.000               
 --------------------------------------------------------------------  ---------------
 clk2q               x021y034z2          0.146    r     0.146          pin: u_hdmi_top/u_read_RAM/hcnt_reg[1]_syn_4.q[1]
-net (fo=3)                              0.952          1.098          net: u_hdmi_top/u_read_RAM/hcnt[1],  ../../read_RAM.v(12)
+net (fo=3)                              0.952          1.098          net: u_hdmi_top/u_read_RAM/hcnt[1],  ../../src/read_RAM.v(12)
                                                                       pin: u_hdmi_top/u_read_RAM/vcnt_b_n_syn_12.b[1]
 LUT2                x020y033z3          0.431    f     1.529       1  pin: u_hdmi_top/u_read_RAM/vcnt_b_n_syn_12.f[1]
 net (fo=1)                              0.594          2.123          net: u_hdmi_top/u_read_RAM/vcnt_b_n_syn_4,  NOFILE(0)
@@ -422,15 +422,15 @@ Delay Type          Location             Incr           Path   Level  Netlist In
 launch edge                             0.000    r     0.000               
 --------------------------------------------------------------------  ---------------
 clk2q               x020y015z1          0.146    r     0.146          pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/cnt_t_b1[2]_syn_14.q[0]
-net (fo=4)                              0.760          0.906          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/cnt_t_1[2],  ../../enc_file/TMDSEncoder.enc.vhd(0)
+net (fo=4)                              0.760          0.906          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/cnt_t_1[2],  ../../src/enc_file/TMDSEncoder.enc.vhd(0)
                                                                       pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/cnt_t_b1[2]_syn_14.b[1]
 LUT4                x020y015z1          0.333    f     1.239       1  pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/cnt_t_b1[2]_syn_14.f[1]
 net (fo=4)                              0.750          1.989          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/cond_balanced_n1,  NOFILE(0)
                                                                       pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/cnt_t_b1[3]_syn_8.d[1]
 LUT5                x020y015z3          0.262    r     2.251       2  pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/cnt_t_b1[3]_syn_8.f[1]
-net (fo=2)                              0.738          2.989          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/cond_balanced_syn_2,  ../../enc_file/TMDSEncoder.enc.vhd(0)
+net (fo=2)                              0.738          2.989          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/cond_balanced_syn_2,  ../../src/enc_file/TMDSEncoder.enc.vhd(0)
                                                                       pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/cnt_t_b1[3]_syn_8.a[0]
-LUT5 (reg)          x020y015z3          0.542    f     3.531       3  net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/cnt_t_1[1],  ../../enc_file/TMDSEncoder.enc.vhd(0)
+LUT5 (reg)          x020y015z3          0.542    f     3.531       3  net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/cnt_t_1[1],  ../../src/enc_file/TMDSEncoder.enc.vhd(0)
 --------------------------------------------------------------------  ---------------
 Arrival                                                3.531               
 
@@ -461,7 +461,7 @@ Delay Type          Location             Incr           Path   Level  Netlist In
 launch edge                             0.000    r     0.000               
 --------------------------------------------------------------------  ---------------
 clk2q               x021y016z0          0.146    r     0.146          pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/cnt_t_b1[2]_syn_16.q[0]
-net (fo=19)                             0.545          0.691          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/n0_q_m[3],  ../../enc_file/TMDSEncoder.enc.vhd(0)
+net (fo=19)                             0.545          0.691          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/n0_q_m[3],  ../../src/enc_file/TMDSEncoder.enc.vhd(0)
                                                                       pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/sub1_syn_12.c[1]
 LUT5                x020y014z3          0.348    f     1.039       1  pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/sub1_syn_12.f[1]
 net (fo=6)                              0.772          1.811          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/sub1_syn_7[1],  D:\sofwar\td\packages/std_logic_arith.vhd(1071)
@@ -472,7 +472,7 @@ net (fo=1)                              0.000          2.438          net: u_hdm
 ADDER               x020y017z0          0.144    f     2.582       3  pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/add2_syn_40.f[0]
 net (fo=1)                              0.468          3.050          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/cnt_t_b8[4],  NOFILE(0)
                                                                       pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/cnt_t_1_reg[4]_syn_4.c[1]
-LUT5 (reg)          x019y015z3          0.466    f     3.516       4  net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/cnt_t_1[4],  ../../enc_file/TMDSEncoder.enc.vhd(0)
+LUT5 (reg)          x019y015z3          0.466    f     3.516       4  net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_TMDSEncoder_blue/cnt_t_1[4],  ../../src/enc_file/TMDSEncoder.enc.vhd(0)
 --------------------------------------------------------------------  ---------------
 Arrival                                                3.516               
 
@@ -507,9 +507,9 @@ Delay Type          Location             Incr           Path   Level  Netlist In
 launch edge                             0.000    r     0.000               
 --------------------------------------------------------------------  ---------------
 clk2q               x013y020z2          0.109    f     0.109          pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_blue_serializer_10_1/sclk_dat_lat_reg_syn_5.q[0]
-net (fo=1)                              0.225          0.334          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_blue_serializer_10_1/sclk_dat_lat,  ../../enc_file/SerializerN_1_lvds_dat.enc.vhd(0)
+net (fo=1)                              0.225          0.334          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_blue_serializer_10_1/sclk_dat_lat,  ../../src/enc_file/SerializerN_1_lvds_dat.enc.vhd(0)
                                                                       pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_blue_serializer_10_1/sclk_dat_lat_1d_reg_syn_4.mi[0]
-reg                 x014y020z3          0.095    f     0.429          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_blue_serializer_10_1/sclk_dat_lat_1d,  ../../enc_file/SerializerN_1_lvds_dat.enc.vhd(0)
+reg                 x014y020z3          0.095    f     0.429          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_blue_serializer_10_1/sclk_dat_lat_1d,  ../../src/enc_file/SerializerN_1_lvds_dat.enc.vhd(0)
 --------------------------------------------------------------------  ---------------
 Arrival                                                0.429               
 
@@ -540,9 +540,9 @@ Delay Type          Location             Incr           Path   Level  Netlist In
 launch edge                             0.000    r     0.000               
 --------------------------------------------------------------------  ---------------
 clk2q               x021y017z3          0.109    f     0.109          pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_blue_serializer_10_1/tx_pdat_reg[3]_syn_4.q[0]
-net (fo=1)                              0.111          0.220          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_blue_serializer_10_1/tx_pdat[5],  ../../enc_file/SerializerN_1_lvds_dat.enc.vhd(0)
+net (fo=1)                              0.111          0.220          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_blue_serializer_10_1/tx_pdat[5],  ../../src/enc_file/SerializerN_1_lvds_dat.enc.vhd(0)
                                                                       pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_blue_serializer_10_1/tx_pdat_reg[1]_syn_7.c[0]
-LUT3 (reg)          x021y017z1          0.241    f     0.461       1  net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_blue_serializer_10_1/tx_pdat[7],  ../../enc_file/SerializerN_1_lvds_dat.enc.vhd(0)
+LUT3 (reg)          x021y017z1          0.241    f     0.461       1  net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_blue_serializer_10_1/tx_pdat[7],  ../../src/enc_file/SerializerN_1_lvds_dat.enc.vhd(0)
 --------------------------------------------------------------------  ---------------
 Arrival                                                0.461               
 
@@ -573,9 +573,9 @@ Delay Type          Location             Incr           Path   Level  Netlist In
 launch edge                             0.000    r     0.000               
 --------------------------------------------------------------------  ---------------
 clk2q               x012y020z0          0.109    f     0.109          pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_blue_serializer_10_1/pclk_vld_reg_syn_5.q[0]
-net (fo=2)                              0.322          0.431          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_blue_serializer_10_1/pclk_vld,  ../../enc_file/SerializerN_1_lvds_dat.enc.vhd(0)
+net (fo=2)                              0.322          0.431          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_blue_serializer_10_1/pclk_vld,  ../../src/enc_file/SerializerN_1_lvds_dat.enc.vhd(0)
                                                                       pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_blue_serializer_10_1/pclk_vld_qq_reg_syn_4.mi[0]
-reg                 x012y020z2          0.095    f     0.526          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_blue_serializer_10_1/pclk_vld_q,  ../../enc_file/SerializerN_1_lvds_dat.enc.vhd(0)
+reg                 x012y020z2          0.095    f     0.526          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_blue_serializer_10_1/pclk_vld_q,  ../../src/enc_file/SerializerN_1_lvds_dat.enc.vhd(0)
 --------------------------------------------------------------------  ---------------
 Arrival                                                0.526               
 
@@ -606,9 +606,9 @@ Delay Type          Location             Incr           Path   Level  Netlist In
 launch edge                             0.000    r     0.000               
 --------------------------------------------------------------------  ---------------
 clk2q               x037y009z0          0.109    f     0.109          pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_blue_serializer_10_1/tx_sdat_1d_reg[0]_syn_3.q[1]
-net (fo=1)                              0.370          0.479          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_blue_serializer_10_1/tx_sdat_1d[0],  ../../enc_file/SerializerN_1_lvds_dat.enc.vhd(0)
+net (fo=1)                              0.370          0.479          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_blue_serializer_10_1/tx_sdat_1d[0],  ../../src/enc_file/SerializerN_1_lvds_dat.enc.vhd(0)
                                                                       pin: HDMI_D0_P_syn_2.do[1]
-PAD (reg)           x040y008            0.000    f     0.479          net: HDMI_D0_PHDMI_D0_P,  ../../hdmi_tx_display.v(10)
+PAD (reg)           x040y008            0.000    f     0.479          net: HDMI_D0_PHDMI_D0_P,  ../../src/hdmi_tx_display.v(10)
 --------------------------------------------------------------------  ---------------
 Arrival                                                0.479               
 
@@ -639,9 +639,9 @@ Delay Type          Location             Incr           Path   Level  Netlist In
 launch edge                             0.000    r     0.000               
 --------------------------------------------------------------------  ---------------
 clk2q               x021y031z2          0.109    f     0.109          pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_clk_serializer_10_1/tx_pdat_reg[5]_syn_3.q[0]
-net (fo=1)                              0.216          0.325          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_clk_serializer_10_1/tx_pdat[5],  ../../enc_file/SerializerN_1_lvds.enc.vhd(0)
+net (fo=1)                              0.216          0.325          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_clk_serializer_10_1/tx_pdat[5],  ../../src/enc_file/SerializerN_1_lvds.enc.vhd(0)
                                                                       pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_clk_serializer_10_1/tx_pdat_reg[7]_syn_7.c[1]
-LUT2 (reg)          x021y030z0          0.241    f     0.566       1  net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_clk_serializer_10_1/tx_pdat[7],  ../../enc_file/SerializerN_1_lvds.enc.vhd(0)
+LUT2 (reg)          x021y030z0          0.241    f     0.566       1  net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_clk_serializer_10_1/tx_pdat[7],  ../../src/enc_file/SerializerN_1_lvds.enc.vhd(0)
 --------------------------------------------------------------------  ---------------
 Arrival                                                0.566               
 
@@ -672,9 +672,9 @@ Delay Type          Location             Incr           Path   Level  Netlist In
 launch edge                             0.000    r     0.000               
 --------------------------------------------------------------------  ---------------
 clk2q               x025y024z2          0.109    f     0.109          pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_red_serializer_10_1/tx_pdat_reg[8]_syn_4.q[1]
-net (fo=1)                              0.370          0.479          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_red_serializer_10_1/tx_pdat[8],  ../../enc_file/SerializerN_1_lvds_dat.enc.vhd(0)
+net (fo=1)                              0.370          0.479          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_red_serializer_10_1/tx_pdat[8],  ../../src/enc_file/SerializerN_1_lvds_dat.enc.vhd(0)
                                                                       pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_red_serializer_10_1/tx_sdat_reg[0]_syn_3.mi[0]
-reg                 x028y023z2          0.095    f     0.574          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_red_serializer_10_1/tx_sdat[0],  ../../enc_file/SerializerN_1_lvds_dat.enc.vhd(0)
+reg                 x028y023z2          0.095    f     0.574          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_red_serializer_10_1/tx_sdat[0],  ../../src/enc_file/SerializerN_1_lvds_dat.enc.vhd(0)
 --------------------------------------------------------------------  ---------------
 Arrival                                                0.574               
 
@@ -705,9 +705,9 @@ Delay Type          Location             Incr           Path   Level  Netlist In
 launch edge                             0.000    r     0.000               
 --------------------------------------------------------------------  ---------------
 clk2q               x025y024z2          0.109    f     0.109          pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_red_serializer_10_1/tx_pdat_reg[8]_syn_4.q[0]
-net (fo=1)                              0.370          0.479          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_red_serializer_10_1/tx_pdat[9],  ../../enc_file/SerializerN_1_lvds_dat.enc.vhd(0)
+net (fo=1)                              0.370          0.479          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_red_serializer_10_1/tx_pdat[9],  ../../src/enc_file/SerializerN_1_lvds_dat.enc.vhd(0)
                                                                       pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_red_serializer_10_1/tx_sdat_reg[1]_syn_3.mi[0]
-reg                 x028y023z0          0.095    f     0.574          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_red_serializer_10_1/tx_sdat[1],  ../../enc_file/SerializerN_1_lvds_dat.enc.vhd(0)
+reg                 x028y023z0          0.095    f     0.574          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_red_serializer_10_1/tx_sdat[1],  ../../src/enc_file/SerializerN_1_lvds_dat.enc.vhd(0)
 --------------------------------------------------------------------  ---------------
 Arrival                                                0.574               
 
@@ -738,9 +738,9 @@ Delay Type          Location             Incr           Path   Level  Netlist In
 launch edge                             0.000    r     0.000               
 --------------------------------------------------------------------  ---------------
 clk2q               x014y020z3          0.109    f     0.109          pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_blue_serializer_10_1/sclk_dat_lat_1d_reg_syn_4.q[0]
-net (fo=1)                              0.376          0.485          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_blue_serializer_10_1/sclk_dat_lat_1d,  ../../enc_file/SerializerN_1_lvds_dat.enc.vhd(0)
+net (fo=1)                              0.376          0.485          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_blue_serializer_10_1/sclk_dat_lat_1d,  ../../src/enc_file/SerializerN_1_lvds_dat.enc.vhd(0)
                                                                       pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_blue_serializer_10_1/sclk_dat_lat_2d_reg_syn_4.mi[0]
-reg                 x017y020z3          0.095    f     0.580          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_blue_serializer_10_1/sclk_dat_lat_2d,  ../../enc_file/SerializerN_1_lvds_dat.enc.vhd(0)
+reg                 x017y020z3          0.095    f     0.580          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_blue_serializer_10_1/sclk_dat_lat_2d,  ../../src/enc_file/SerializerN_1_lvds_dat.enc.vhd(0)
 --------------------------------------------------------------------  ---------------
 Arrival                                                0.580               
 
@@ -771,9 +771,9 @@ Delay Type          Location             Incr           Path   Level  Netlist In
 launch edge                             0.000    r     0.000               
 --------------------------------------------------------------------  ---------------
 clk2q               x023y032z0          0.109    f     0.109          pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_clk_serializer_10_1/tx_sdat_reg[0]_syn_4.q[0]
-net (fo=1)                              0.382          0.491          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_clk_serializer_10_1/tx_sdat[0],  ../../enc_file/SerializerN_1_lvds.enc.vhd(0)
+net (fo=1)                              0.382          0.491          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_clk_serializer_10_1/tx_sdat[0],  ../../src/enc_file/SerializerN_1_lvds.enc.vhd(0)
                                                                       pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_clk_serializer_10_1/tx_sdat_1d_reg[0]_syn_4.mi[0]
-reg                 x025y034z0          0.095    f     0.586          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_clk_serializer_10_1/tx_sdat_1d[0],  ../../enc_file/SerializerN_1_lvds.enc.vhd(0)
+reg                 x025y034z0          0.095    f     0.586          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_clk_serializer_10_1/tx_sdat_1d[0],  ../../src/enc_file/SerializerN_1_lvds.enc.vhd(0)
 --------------------------------------------------------------------  ---------------
 Arrival                                                0.586               
 
@@ -804,9 +804,9 @@ Delay Type          Location             Incr           Path   Level  Netlist In
 launch edge                             0.000    r     0.000               
 --------------------------------------------------------------------  ---------------
 clk2q               x012y020z2          0.109    f     0.109          pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_blue_serializer_10_1/pclk_vld_qq_reg_syn_4.q[0]
-net (fo=2)                              0.225          0.334          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_blue_serializer_10_1/pclk_vld_q,  ../../enc_file/SerializerN_1_lvds_dat.enc.vhd(0)
+net (fo=2)                              0.225          0.334          net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_blue_serializer_10_1/pclk_vld_q,  ../../src/enc_file/SerializerN_1_lvds_dat.enc.vhd(0)
                                                                       pin: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_blue_serializer_10_1/sclk_dat_lat_reg_syn_5.d[0]
-LUT2 (reg)          x013y020z2          0.269    f     0.603       1  net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_blue_serializer_10_1/sclk_dat_lat,  ../../enc_file/SerializerN_1_lvds_dat.enc.vhd(0)
+LUT2 (reg)          x013y020z2          0.269    f     0.603       1  net: u_hdmi_top/u3_hdmi_tx/Inst_DVITransmitter/Inst_blue_serializer_10_1/sclk_dat_lat,  ../../src/enc_file/SerializerN_1_lvds_dat.enc.vhd(0)
 --------------------------------------------------------------------  ---------------
 Arrival                                                0.603               
 

@@ -57,7 +57,6 @@ hdmi_tx #(.FAMILY("EG4"))	//EF2、EF3、EG4、AL3、PH1
 		.HDMI_D2_P (HDMI_D2_P ),
 		.HDMI_D1_P (HDMI_D1_P ),
 		.HDMI_D0_P (HDMI_D0_P )	
-		
 	);
 
 endmodule

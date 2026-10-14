@@ -2,20 +2,20 @@ module hdmi_tx_display
 (
     input           sys_clk      ,  //系统时钟
     input           sys_rst_n    ,  //系统复位，低电平有效
-						                            
+    
     //hdmi接口                           
-    output			HDMI_CLK_P,
-	output			HDMI_D2_P,
-	output			HDMI_D1_P,
-	output			HDMI_D0_P,						
+    output			HDMI_CLK_P,     //HDMI时钟           
+	output			HDMI_D2_P,      //HDMI数据2  blue    
+	output			HDMI_D1_P,      //HDMI数据1  green   
+	output			HDMI_D0_P,		//HDMI数据0  red	 				
     
     //VGA_TEST
-	output			VGA_HS,
-	output			VGA_VS,
+	output			VGA_HS,         //VGA水平同步
+	output			VGA_VS,         //VGA垂直同步
     
-    output [7:0]	VGA_R,		
-	output [7:0]	VGA_G,		
-	output [7:0]	VGA_B		
+    output [7:0]	VGA_R,          //VGA红色数据
+	output [7:0]	VGA_G,          //VGA绿色数据
+	output [7:0]	VGA_B           //VGA蓝色数据
 );
 
     	wire	HDMI_CLK_P2 ;
