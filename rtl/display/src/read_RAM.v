@@ -31,7 +31,7 @@ assign HDMI_EN  = (((hcnt >= 0) && (hcnt < 640))
                  &&((vcnt >= 0) && (vcnt < 480)))
                  ?  1'b1 : 1'b0;
 
-assign pix_req = dis_en;
+assign pix_req = ( (hcnt<10'd640 || hcnt >= 10'd798) && vcnt<10'd480);
 assign frame_sync = frame;
 
 always @(posedge clk25M or negedge reset_n) begin			//水平扫描计数器
@@ -69,12 +69,12 @@ always @(posedge clk25M or negedge reset_n) begin			//行同步信号发生
 	end
 end
 			
-always @(vcnt or reset_n) begin							//场同步信号发生
+always @(posedge vcnt or negedge reset_n) begin							//场同步信号发生
 	if(!reset_n) begin
 		vs	<=	1'b1;
         frame <= 1'b0;
     end else begin
-		if((vcnt >= 480+8+1) && (vcnt < 480+8+2)) begin
+		if((vcnt >= 480) && (vcnt < 480+1)) begin    //显示完立即发出帧同步信号
 			frame <= 1'b1;
             vs <=	1'b1;
 		end else if((vcnt >= 480+8+2) && (vcnt < 480+8+2+2)) begin
