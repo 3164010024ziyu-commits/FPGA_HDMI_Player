@@ -17,8 +17,8 @@ module read_RAM
 	output        HDMI_EN,
 	output        HDMI_HSYNC,
 	output        HDMI_VSYNC,
-	output [9:0]  HDMI_X,
-	output [9:0]  HDMI_Y,
+	output [9:0]  HDMI_X,    //像素坐标
+	output [9:0]  HDMI_Y,    //像素坐标
 	output [23:0] HDMI_D
 );
 
@@ -40,8 +40,8 @@ module read_RAM
 
 	wire dis_en = (hcnt < H_ACTIVE) && (vcnt < V_ACTIVE);
 
-	assign HDMI_VSYNC = vs;
-	assign HDMI_HSYNC = hs;
+	assign HDMI_VSYNC = vs;    //场同步
+	assign HDMI_HSYNC = hs;    //行同步
 	assign HDMI_X     = hcnt;
 	assign HDMI_Y     = vcnt;
 	assign HDMI_EN    = dis_en;

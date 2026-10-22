@@ -1,16 +1,23 @@
 // -----------------------------------------------------------------------------
 // Hardware bring-up top for the display block:
-//   * 640x480 colour gradient with an audio activity indicator
+//   * 640x480 colour gradient with a 128x32 audio waveform scope (top-right)
 //   * 1 kHz L/R sine test tone at AUDIO_FS
 //   * one Chinese subtitle slot + a fixed-position timestamp slot
+//   * 7-key runtime control (volume / mute / subtitle on-off / subtitle x)
 // -----------------------------------------------------------------------------
 module hdmi_demo_top #(
     parameter integer AUDIO_FS    = 48000,
     parameter integer AUDIO_EN    = 1,
-    parameter integer SUBTITLE_EN = 1
+    parameter integer SUBTITLE_EN = 1,
+    // samples per waveform column: 1, 2, 4, 8 or 16 (time-axis compression)
+    parameter integer WAVE_ZOOM   = 4
 ) (
     input  wire sys_clk,
     input  wire sys_rst_n,
+    // {sub_right, sub_left, ts_on, sub_on, mute, vol_dn, vol_up}
+    // key_in[0..1,5,6]: momentary, pressed = 0
+    // key_in[2..4]    : latching switches, "on" = 0
+    input  wire [6:0] key_in,
     output wire HDMI_CLK_P,
     output wire HDMI_D2_P,
     output wire HDMI_D1_P,
@@ -18,7 +25,9 @@ module hdmi_demo_top #(
 );
 
     localparam integer SYS_HZ   = 50_000_000;
-    localparam integer PHASE_INC = (67_108_864 * 1000) / AUDIO_FS;
+    // 2^26 * 1000 / AUDIO_FS: the product does not fit in 32 bits, so keep the
+    // constant in 64 bits (a 32-bit division here produced ~33k -> ~24 Hz).
+    localparam [63:0]  PHASE_INC = (64'd67_108_864 * 64'd1000) / AUDIO_FS;
 
     wire        pix_clk, pix_req, frame_sync;
     wire [23:0] src_rgb;
@@ -29,7 +38,6 @@ module hdmi_demo_top #(
     wire [1:0]  audio_status;
     wire        audio_pkt;
 
-    wire [1:0]  osd_en;
     wire        osd_slot;
     wire [3:0]  osd_char_idx;
     wire [15:0] osd_char_code;
@@ -55,35 +63,12 @@ module hdmi_demo_top #(
     wire [7:0] grad_g = sh[6:0];
     wire [7:0] grad_b = sv[6:0];
 
-    // ---------------------------------------------------- audio activity LED
-    // Top-right 32x32 square:
-    //   blinking green = Audio Sample Packets are being transmitted
-    //   red            = no audio packet for ~200 ms
-    reg [23:0] audio_timeout;
-    reg [23:0] blink_cnt;
+    // The audio waveform scope sits in the top-right corner:
+    //   x = 512..639 (128 px), y = 8..39 (32 px)
+    // src_rgb is assembled after the sine generator, see "audio waveform scope".
+    localparam integer WAVE_X = 512;
+    localparam integer WAVE_Y = 8;
 
-    always @(posedge pix_clk or negedge sys_rst_n) begin
-        if (!sys_rst_n) begin
-            audio_timeout <= 24'd0;
-            blink_cnt     <= 24'd0;
-        end else begin
-            if (audio_pkt)
-                audio_timeout <= 24'd0;
-            else if (audio_timeout < 24'd6_000_000)
-                audio_timeout <= audio_timeout + 24'd1;
-            blink_cnt <= blink_cnt + 24'd1;
-        end
-    end
-
-    wire audio_ok = (audio_timeout < 24'd5_000_000);   // ~200 ms at 25.175 MHz
-    wire blink    = blink_cnt[23];                     // ~0.67 s period
-    wire indicator = (sh >= 10'd600) && (sh < 10'd632) &&
-                     (sv >= 10'd8)   && (sv < 10'd40);
-    wire [23:0] indicator_color = audio_ok
-                                  ? (blink ? 24'h00FF00 : 24'h004000)
-                                  : 24'hFF0000;
-
-    assign src_rgb   = indicator ? indicator_color : {grad_r, grad_g, grad_b};
     assign src_valid = (sh < 10'd640) && (sv < 10'd480);
 
     // -------------------------------------------------------- 1 kHz sine
@@ -188,6 +173,113 @@ module hdmi_demo_top #(
     assign audio_sample = {sample_r, sample_r};   // L and R identical
     assign audio_valid  = audio_valid_r && (AUDIO_EN != 0);
 
+    // ------------------------------------------------- audio waveform scope
+    // 128 columns x 32 rows in the top-right corner, one 1-pixel bar per
+    // column.  One column is written every WAVE_ZOOM audio samples, so the time
+    // axis is compressed by WAVE_ZOOM (1 = one sample per pixel):
+    //   WAVE_ZOOM = 1 -> 128 samples  ( 2.7 ms,  2.7 cycles @ 1 kHz)
+    //   WAVE_ZOOM = 2 -> 256 samples  ( 5.3 ms,  5.3 cycles)
+    //   WAVE_ZOOM = 4 -> 512 samples  (10.7 ms, 10.7 cycles)
+    //   WAVE_ZOOM = 8 -> 1024 samples (21.3 ms, 21.3 cycles)
+    // A rising zero crossing of the decimated stream triggers the snapshot, so
+    // the displayed wave keeps a fixed phase instead of jumping every frame.
+    //
+    // sample_r is generated in the sys_clk domain; a toggle mailbox carries a
+    // 5-bit signed amplitude (sample / 2048, about +/-12) into the pixel domain.
+    localparam integer ZOOM = (WAVE_ZOOM < 1)  ? 1  :
+                              (WAVE_ZOOM > 16) ? 16 : WAVE_ZOOM;
+
+    reg  [4:0] amp_hold;
+    reg        amp_tog;
+
+    always @(posedge sys_clk or negedge sys_rst_n) begin
+        if (!sys_rst_n) begin
+            amp_hold <= 5'sd0;
+            amp_tog  <= 1'b0;
+        end else if (audio_valid_r) begin
+            amp_hold <= sample_r[15:11];
+            amp_tog  <= ~amp_tog;
+        end
+    end
+
+    reg  [4:0] wave_mem [0:127];  // circular capture buffer (decimated)
+    reg  [4:0] disp_mem [0:127];  // triggered snapshot shown on screen
+    reg  [6:0] wave_col;
+    reg  [6:0] copy_idx;
+    reg        copying;
+    reg  [6:0] copy_base;
+    reg  [3:0] dec_cnt;
+    reg  [4:0] prev_amp;
+    reg  [2:0] amp_tog_pix;
+    reg  [4:0] amp_s1, amp_s2;
+    integer    wi, di;
+
+    wire sample_stb  = amp_tog_pix[2] ^ amp_tog_pix[1];
+    wire dec_last    = (dec_cnt == (ZOOM - 1));
+    // rising zero crossing (negative -> non-negative) is the scope trigger
+    wire rising_zero = (amp_s2[4] == 1'b0) && (prev_amp[4] == 1'b1);
+
+    always @(posedge pix_clk or negedge sys_rst_n) begin
+        if (!sys_rst_n) begin
+            wave_col    <= 7'd0;
+            dec_cnt     <= 4'd0;
+            amp_tog_pix <= 3'd0;
+            amp_s1      <= 5'd0;
+            amp_s2      <= 5'd0;
+            prev_amp    <= 5'd0;
+            copy_idx    <= 7'd0;
+            copying     <= 1'b0;
+            copy_base   <= 7'd0;
+            for (wi = 0; wi < 128; wi = wi + 1)
+                wave_mem[wi] <= 5'd0;
+            for (di = 0; di < 128; di = di + 1)
+                disp_mem[di] <= 5'd0;
+        end else begin
+            amp_tog_pix <= {amp_tog_pix[1:0], amp_tog};
+            amp_s1      <= amp_hold;      // stable for ~20 us, 2FF is plenty
+            amp_s2      <= amp_s1;
+
+            if (sample_stb) begin
+                if (dec_last) begin      // keep one sample per WAVE_ZOOM
+                    dec_cnt <= 4'd0;
+                    wave_mem[wave_col] <= amp_s2;
+                    wave_col <= wave_col + 7'd1;
+                    prev_amp <= amp_s2;
+
+                    // trigger: snapshot the 128 columns ending at the zero
+                    // crossing, so the displayed wave keeps a fixed phase
+                    if (rising_zero) begin
+                        copying   <= 1'b1;
+                        copy_idx  <= 7'd0;
+                        copy_base <= wave_col + 7'd1;
+                    end
+                end else begin
+                    dec_cnt <= dec_cnt + 4'd1;
+                end
+            end
+
+            if (copying) begin
+                disp_mem[copy_idx] <= wave_mem[(copy_idx + copy_base) & 7'h7F];
+                if (copy_idx == 7'd127)
+                    copying <= 1'b0;
+                copy_idx <= copy_idx + 7'd1;
+            end
+        end
+    end
+
+    // WAVE_X = 512 is 128-aligned, so sh[6:0] is the column inside the box.
+    wire        in_wave  = (sh >= WAVE_X) && (sv >= WAVE_Y) && (sv < WAVE_Y + 32);
+    wire [6:0]  wave_c   = sh[6:0];
+    wire [5:0]  wave_y   = sv[5:0] - 6'd8;          // 0..31 inside the box
+    wire [4:0]  wave_a   = disp_mem[wave_c];        // signed amplitude
+    wire [4:0]  wave_mag = wave_a[4] ? (~wave_a + 5'd1) : wave_a;
+    wire [5:0]  wave_t   = 6'd16 - (wave_a[4] ? 6'd0 : {1'b0, wave_mag});
+    wire [5:0]  wave_b   = 6'd16 + (wave_a[4] ? {1'b0, wave_mag} : 6'd0);
+    wire        wave_bar = (wave_y >= wave_t) && (wave_y <= wave_b);
+
+    assign src_rgb = in_wave ? (wave_bar ? 24'h00FF00 : 24'h000000)
+                             : {grad_r, grad_g, grad_b};
+
     // ------------------------------------------------------ default text
     function [15:0] init_code;
         input [5:0] n;
@@ -229,12 +321,14 @@ module hdmi_demo_top #(
     end
 
     // Hold the write strobe for 4 sys_clk cycles (80 ns) so that it is always
-    // sampled by the slower 25 MHz pixel clock.
-    assign osd_char_we   = (init_cnt < 6'd30) && (init_div < 3'd4);
+    // sampled by the slower 25 MHz pixel clock.  The strobe is delayed by two
+    // sys_clk cycles after char_idx/char_code change, otherwise a pixel-clock
+    // edge that lands on the sys_clk edge can sample a mixed code (one cell
+    // was being written as a blank glyph because of this).
+    assign osd_char_we   = (init_cnt < 6'd30) && (init_div >= 3'd2) && (init_div < 3'd6);
     assign osd_slot      = init_ts;
     assign osd_char_idx  = init_idx;
     assign osd_char_code = init_code(init_cnt);
-    assign osd_en        = SUBTITLE_EN ? {1'b1, 1'b1} : 2'b00;
 
     // --------------------------------------------------------- display
     hdmi_tx_display #(
@@ -243,7 +337,9 @@ module hdmi_demo_top #(
         .HDMI_SUBTITLE_EN (SUBTITLE_EN),
         .DVI_MODE         (0),
         .TS_X             (8),
-        .TS_Y             (448)
+        .TS_Y             (448),
+        .SUB_X_INIT       (200),
+        .KEY_ACTIVE_LOW   (1)
     ) u_display (
         .sys_clk        (sys_clk),
         .sys_rst_n      (sys_rst_n),
@@ -260,22 +356,19 @@ module hdmi_demo_top #(
         .audio_ready    (audio_ready),
         .audio_status   (audio_status),
         .audio_pkt      (audio_pkt),
-        .osd_en         (osd_en),
+        .key_in         (key_in),
         .osd_slot       (osd_slot),
         .osd_char_idx   (osd_char_idx),
         .osd_char_code  (osd_char_code),
         .osd_char_we    (osd_char_we),
-        .osd_x          (10'd200),
         .osd_y          (10'd420),
         .osd_fg         (24'hFFFFFF),
-        .cfg_volume     (8'hFF),
-        .key_in         (4'd0),
         .HDMI_CLK_P     (HDMI_CLK_P),
         .HDMI_D2_P      (HDMI_D2_P),
         .HDMI_D1_P      (HDMI_D1_P),
         .HDMI_D0_P      (HDMI_D0_P)
     );
 
-    wire unused = |{pix_req, frame_sync, audio_ready, audio_status};
+    wire unused = |{pix_req, frame_sync, audio_ready, audio_status, audio_pkt};
 
 endmodule

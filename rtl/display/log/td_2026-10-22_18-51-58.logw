@@ -8,3 +8,27 @@
 
    Run on =     DESKTOP-FBED5CA
 ============================================================
+GUI-5005 WARNING: Unknown file icon ...
+GUI-5005 WARNING: Unknown file icon ...
+GUI-5005 WARNING: Unknown file icon ...
+GUI-8402 ERROR: Error found at 'IOSTANDARD = LVCMOS33'.
+GUI-8402 ERROR: Error found at 'PULLTYPE = PULLUP'.
+GUI-8402 ERROR: Error found at 'IOSTANDARD = LVCMOS33'.
+GUI-8402 ERROR: Error found at 'PULLTYPE = PULLUP'.
+GUI-8402 ERROR: Error found at 'IOSTANDARD = LVCMOS33'.
+GUI-8402 ERROR: Error found at 'PULLTYPE = PULLUP'.
+GUI-8402 ERROR: Error found at 'IOSTANDARD = LVCMOS33'.
+GUI-8402 ERROR: Error found at 'PULLTYPE = PULLUP'.
+GUI-8402 ERROR: Error found at 'IOSTANDARD = LVCMOS33'.
+GUI-8402 ERROR: Error found at 'PULLTYPE = PULLUP'.
+GUI-8402 ERROR: Error found at 'IOSTANDARD = LVCMOS33'.
+GUI-8402 ERROR: Error found at 'PULLTYPE = PULLUP'.
+GUI-8402 ERROR: Error found at 'IOSTANDARD = LVCMOS33'.
+GUI-8402 ERROR: Error found at 'PULLTYPE = PULLUP'.
+GUI-8405 ERROR: key_in[0] is not the signal of the project.
+GUI-8405 ERROR: key_in[1] is not the signal of the project.
+GUI-8405 ERROR: key_in[2] is not the signal of the project.
+GUI-8405 ERROR: key_in[3] is not the signal of the project.
+GUI-8405 ERROR: key_in[4] is not the signal of the project.
+GUI-8405 ERROR: key_in[5] is not the signal of the project.
+GUI-8405 ERROR: key_in[6] is not the signal of the project.

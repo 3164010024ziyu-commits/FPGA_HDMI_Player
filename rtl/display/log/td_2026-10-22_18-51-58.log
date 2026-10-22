@@ -62,3 +62,71 @@ RUN-1001 : Import design success TD_VERSION=6.2.168116 , DB_VERSION=46207
 RUN-1003 : finish command "import_db D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/HDMI_display_Runs/phy_1/HDMI_display_pr.db" in  1.238645s wall, 1.000000s user + 0.093750s system = 1.093750s CPU (88.3%)
 
 RUN-1004 : used memory is 586 MB, reserved memory is 522 MB, peak memory is 632 MB
+RUN-1002 : start command "commit_param -step design"
+RUN-1001 : Print Global Property
+RUN-1001 : --------------------------------------------------------
+RUN-1001 :   Parameters   |  Settings  |  Default Values  |  Note  
+RUN-1001 : --------------------------------------------------------
+RUN-1001 :   enable_seed  |    off     |       off        |        
+RUN-1001 :     message    |  standard  |     standard     |        
+RUN-1001 :   qor_monitor  |     on     |        on        |        
+RUN-1001 :   syn_ip_flow  |    off     |       off        |        
+RUN-1001 :     thread     |    auto    |       auto       |        
+RUN-1001 : --------------------------------------------------------
+RUN-1001 : Print Design Property
+RUN-1001 : ----------------------------------------------------------------
+RUN-1001 :       Parameters       |  Settings  |  Default Values  |  Note  
+RUN-1001 : ----------------------------------------------------------------
+RUN-1001 :   default_reg_initial  |    auto    |       auto       |        
+RUN-1001 :    hdl_warning_level   |   normal   |      normal      |        
+RUN-1001 : ----------------------------------------------------------------
+HDL-1007 : analyze verilog file ipsrc/clock_ip/clk_wize.v
+HDL-1007 : undeclared symbol 'clk_wize_open78', assumed default net type 'wire' in ipsrc/clock_ip/clk_wize.v(70)
+HDL-1007 : undeclared symbol 'clk_wize_open79', assumed default net type 'wire' in ipsrc/clock_ip/clk_wize.v(76)
+HDL-1007 : undeclared symbol 'clk_wize_open87', assumed default net type 'wire' in ipsrc/clock_ip/clk_wize.v(82)
+HDL-1007 : undeclared symbol 'clk_wize_open86', assumed default net type 'wire' in ipsrc/clock_ip/clk_wize.v(82)
+HDL-1007 : undeclared symbol 'clk_wize_open85', assumed default net type 'wire' in ipsrc/clock_ip/clk_wize.v(82)
+HDL-1007 : undeclared symbol 'clk_wize_open84', assumed default net type 'wire' in ipsrc/clock_ip/clk_wize.v(82)
+HDL-1007 : undeclared symbol 'clk_wize_open83', assumed default net type 'wire' in ipsrc/clock_ip/clk_wize.v(82)
+HDL-1007 : undeclared symbol 'clk_wize_open82', assumed default net type 'wire' in ipsrc/clock_ip/clk_wize.v(82)
+HDL-1007 : undeclared symbol 'clk_wize_open81', assumed default net type 'wire' in ipsrc/clock_ip/clk_wize.v(82)
+HDL-1007 : undeclared symbol 'clk_wize_open80', assumed default net type 'wire' in ipsrc/clock_ip/clk_wize.v(82)
+HDL-1007 : undeclared symbol 'clk_wize_open90', assumed default net type 'wire' in ipsrc/clock_ip/clk_wize.v(84)
+HDL-1007 : undeclared symbol 'clk_wize_open89', assumed default net type 'wire' in ipsrc/clock_ip/clk_wize.v(84)
+HDL-1007 : undeclared symbol 'clk_wize_open88', assumed default net type 'wire' in ipsrc/clock_ip/clk_wize.v(84)
+HDL-1007 : analyze verilog file src/enc/eg_oddr.v
+HDL-1007 : analyze verilog file src/enc/tmds_encoder.v
+HDL-1007 : analyze verilog file src/enc/packet_assembler.v
+HDL-1007 : analyze verilog file src/enc/packet_picker.v
+HDL-1007 : analyze verilog file src/enc/tmds_serializer.v
+HDL-1007 : analyze verilog file src/enc/hdmi_tx_core.v
+HDL-1007 : analyze verilog file src/audio_fifo.v
+HDL-1007 : analyze verilog file src/read_RAM.v
+HDL-1007 : analyze verilog file src/font_16x16_rom.v
+HDL-1007 : analyze verilog file src/osd_overlay.v
+HDL-1007 : analyze verilog file src/hdmi_tx_display.v
+HDL-1007 : analyze verilog file src/hdmi_demo_top.v
+HDL-1007 : analyze VHDL file src/hdmi_tx.vhd
+HDL-1007 : analyze entity hdmi_tx in src/hdmi_tx.vhd(14)
+HDL-1007 : analyze architecture behavioral in src/hdmi_tx.vhd(50)
+GUI-5005 WARNING: Unknown file icon ...
+GUI-5005 WARNING: Unknown file icon ...
+GUI-5005 WARNING: Unknown file icon ...
+GUI-8402 ERROR: Error found at 'IOSTANDARD = LVCMOS33'.
+GUI-8402 ERROR: Error found at 'PULLTYPE = PULLUP'.
+GUI-8402 ERROR: Error found at 'IOSTANDARD = LVCMOS33'.
+GUI-8402 ERROR: Error found at 'PULLTYPE = PULLUP'.
+GUI-8402 ERROR: Error found at 'IOSTANDARD = LVCMOS33'.
+GUI-8402 ERROR: Error found at 'PULLTYPE = PULLUP'.
+GUI-8402 ERROR: Error found at 'IOSTANDARD = LVCMOS33'.
+GUI-8402 ERROR: Error found at 'PULLTYPE = PULLUP'.
+GUI-8402 ERROR: Error found at 'IOSTANDARD = LVCMOS33'.
+GUI-8402 ERROR: Error found at 'PULLTYPE = PULLUP'.
+GUI-8402 Similar messages will be suppressed.
+GUI-8405 ERROR: key_in[0] is not the signal of the project.
+GUI-8405 ERROR: key_in[1] is not the signal of the project.
+GUI-8405 ERROR: key_in[2] is not the signal of the project.
+GUI-8405 ERROR: key_in[3] is not the signal of the project.
+GUI-8405 ERROR: key_in[4] is not the signal of the project.
+GUI-8405 ERROR: key_in[5] is not the signal of the project.
+GUI-8405 ERROR: key_in[6] is not the signal of the project.
