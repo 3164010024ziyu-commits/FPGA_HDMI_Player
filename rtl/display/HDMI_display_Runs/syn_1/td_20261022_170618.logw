@@ -1,0 +1,35 @@
+============================================================
+   Tang Dynasty, V6.2.168116
+   Copyright (c) 2012-2025 Anlogic Inc.
+   Executable = D:/sofwar/td/bin/td_commands_prompt.exe
+   Built at =   16:32:07 Jun 12 2025
+   Run by =     CodexSandboxOffline
+   Run Date =   Thu Oct 22 17:06:18 2026
+
+   Run on =     DESKTOP-FBED5CA
+============================================================
+HDL-5001 WARNING: Contains anonymous inst(s) and/or net(s) that have not been renamed
+HDL-5001 WARNING: Contains anonymous inst(s) and/or net(s) that have not been renamed
+HDL-5001 WARNING: Contains anonymous inst(s) and/or net(s) that have not been renamed
+SYN-5025 WARNING: Using 0 for all undriven pins and nets
+USR-8194 CRITICAL-WARNING: Clock definition problem: clk_pixel is on the clock network of clock sys_clk. Please add option -add or use create_generated_clock instead.
+USR-8159 CRITICAL-WARNING: Command create_clock -name clk_pixel -period 13.461538 [get_nets {u_display/u_clk_wize/clk1_out}] in D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/timing.sdc(4) fails.
+USR-8194 CRITICAL-WARNING: Clock definition problem: clk_x5 is on the clock network of clock sys_clk. Please add option -add or use create_generated_clock instead.
+USR-8159 CRITICAL-WARNING: Command create_clock -name clk_x5    -period  2.692307 [get_nets {u_display/u_clk_wize/clk0_out}] in D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/timing.sdc(5) fails.
+USR-8130 CRITICAL-WARNING: No clock match the pattern: clk_pixel.
+USR-8130 CRITICAL-WARNING: No clock match the pattern: clk_x5.
+USR-8208 CRITICAL-WARNING: Clock group is empty.
+USR-8208 CRITICAL-WARNING: Clock group is empty.
+USR-8159 CRITICAL-WARNING: Command set_clock_groups -asynchronous -group [get_clocks sys_clk] -group [get_clocks clk_pixel] -group [get_clocks clk_x5] in D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/timing.sdc(9) fails.
+
+USR-8194 CRITICAL-WARNING: Clock definition problem: clk_pixel is on the clock network of clock sys_clk. Please add option -add or use create_generated_clock instead.
+USR-8159 CRITICAL-WARNING: Command create_clock -name clk_pixel -period 13.461538 [get_nets {u_display/u_clk_wize/clk1_out}] in D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/timing.sdc(4) fails.
+USR-8194 CRITICAL-WARNING: Clock definition problem: clk_x5 is on the clock network of clock sys_clk. Please add option -add or use create_generated_clock instead.
+USR-8159 CRITICAL-WARNING: Command create_clock -name clk_x5    -period  2.692307 [get_nets {u_display/u_clk_wize/clk0_out}] in D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/timing.sdc(5) fails.
+USR-8130 CRITICAL-WARNING: No clock match the pattern: clk_pixel.
+USR-8130 CRITICAL-WARNING: No clock match the pattern: clk_x5.
+USR-8208 CRITICAL-WARNING: Clock group is empty.
+USR-8208 CRITICAL-WARNING: Clock group is empty.
+USR-8159 CRITICAL-WARNING: Command set_clock_groups -asynchronous -group [get_clocks sys_clk] -group [get_clocks clk_pixel] -group [get_clocks clk_x5] in D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/timing.sdc(9) fails.
+
+PHY-5079 CRITICAL-WARNING: Marked 1 clock net(s) utilize the local routing resources. Please check log message and the sinks of clock nets.

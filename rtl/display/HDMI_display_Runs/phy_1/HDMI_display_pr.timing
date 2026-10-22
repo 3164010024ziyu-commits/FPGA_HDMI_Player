@@ -1,0 +1,1122 @@
+Created by          : Tang Dynasty v6.2.168116
+                    : Copyright (c) 2012-2025 Anlogic Inc.
+Generated           : Thu Oct 22 18:53:38 2026
+
+Top Model           : hdmi_demo_top
+Device              : EG4S20BG256
+Speed               : NA
+STA coverage        : 91.51%
+Constraint File     : 
+Confidence          : Routed
+Check Corner        : Both (Slow and Fast)
+CRPR Enabled        : Yes
+Report Scheme       : 10 end point(s) per path group, 1 path(s) per end point
+
+
+Check Status
+-------------
+
+Corner   | Max      Min     
+------------------------------------
+Slow     | yes      yes     
+Fast     | yes      yes     
+
+
+Timing Status
+--------------------
+	SWNS: 6.278ns, STNS: 0.000ns
+	HWNS: 0.136ns, HTNS: 0.000ns
+	Period Check WNS: 0.000ns
+
+
+Clock Summary
+--------------------
+
+       Clock-Id:       C-Freq       Fanout   Clock-Name
+--------------------------------------------------------------------------------
+           clk0:       50.000          485   DeriveClock
+--------------------------------------------------------------------------------
+
+       Name            Type         Rise(ns)   Fall(ns)          C-Period(ns)     C-Freq(MHz)          R-Period(ns)     R-Freq(MHz)         SWNS(ns)   STNS(ns)         HWNS(ns)   HTNS(ns)         Skew(ns)           Fanout        Max-Level        CC-From    CC-To
+       clk0           local            0.000     10.000                20.000          50.000                13.722          72.876            6.278      0.000            0.136      0.000            0.000              485               15             no       no
+
+Notes
+----------
+C-Period  :  constraint period
+C-Freq    :  constraint freq
+R-Period  :  report min period
+R-Freq    :  report fmax
+CC-From   :  has path(s) from cross-domain clock
+CC-To     :  has path(s) to cross-domain clock
+
+
+*   Clock R-Period data only takes intra-clock timing. SWNS/STNS/HWNS/HTNS take both intra-clock and inter-clock timing.
+*   If there is mismatch between R-Period and SWNS, check inter-clock timing of this clock as capture clock.
+*   SWNS/STNS/HWNS/HTNS of timing exception (SMCP/SMD) only counted in global Timing Status, not counted in Clock Summary.
+
+Intra clock domain timing
+--------------------------------------------------
+
+----------------------------------------------------------------------------------------------------
+Path Group     :     DeriveClock -> DeriveClock
+Type           :     Self
+From Clock     :     DeriveClock
+To Clock       :     DeriveClock
+Min Period     :     13.722ns
+Fmax           :     72.876MHz
+
+Statistics:
+Max            : SWNS      6.278ns, STNS      0.000ns,         0 Viol Endpoints,      1203 Total Endpoints,     21440 Paths Analyzed
+Min            : HWNS      0.136ns, HTNS      0.000ns,         0 Viol Endpoints,      1203 Total Endpoints,     21440 Paths Analyzed
+----------------------------------------------------------------------------------------------------
+
+Max Paths
+----------------------------------------------------------------------------------------------------
+Slack               : 6.278ns
+Begin Point         : u_display/u3_hdmi_tx/Inst_hdmi_tx_core/video_r_reg[6]_syn_4.clk (rising edge triggered by clock DeriveClock  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+End Point           : u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/acc_reg[4]_syn_4.fci (rising edge triggered by clock DeriveClock  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+Check Type          : setup
+Process             : slow
+Budget              : 20.000ns { DeriveClock rising@20.000ns - DeriveClock rising@0.000ns }
+Data Path Delay     : 13.506ns (cell 5.566ns (41%), net 7.940ns (59%))
+Clock Skew          : 0.000ns
+Logic Level         : 13 ( LUT5=6  ADDER=4  LUT2=2  LUT4=1 )
+Max Fanout          : 14
+Clock Uncertainty   : 0.100ns (sdc uncertainty: 0.000ns, default uncertainty: 0.100ns)
+
+Delay Type          Location             Incr           Path   Level  Netlist Info
+--------------------------------------------------------------------  ---------------
+launch edge                             0.000    r     0.000               
+--------------------------------------------------------------------  ---------------
+clk2q               x023y025z2          0.146    r     0.146          pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/video_r_reg[6]_syn_4.q[1]
+net (fo=6)                              0.968          1.114          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/video_data[6],  ../../src/enc/tmds_encoder.v(14)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/mux8_syn_476.d[0]
+LUT4                x025y023z3          0.262    r     1.376       1  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/mux8_syn_476.f[0]
+net (fo=4)                              0.456          1.832          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/mux8_syn_258,  ../../src/enc/tmds_encoder.v(141)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/mux8_syn_434.a[1]
+LUT5                x025y023z0          0.618    f     2.450       2  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/mux8_syn_434.fx[0]
+net (fo=2)                              0.625          3.075          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/mux8_syn_262,  ../../src/enc/tmds_encoder.v(141)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/mux8_syn_438.b[0]
+LUT5                x025y021z1          0.543    f     3.618       3  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/mux8_syn_438.fx[0]
+net (fo=14)                             0.982          4.600          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/mux8_syn_264,  ../../src/enc/tmds_encoder.v(141)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/acc_add[2]_syn_17.a[1]
+LUT5                x026y024z1          0.618    f     5.218       4  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/acc_add[2]_syn_17.fx[0]
+net (fo=2)                              0.508          5.726          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/acc_add[2]_syn_2,  ../../src/enc/tmds_encoder.v(74)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/acc_add[2]_syn_15.b[1]
+LUT5                x027y022z3          0.431    f     6.157       5  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/acc_add[2]_syn_15.f[1]
+net (fo=5)                              0.746          6.903          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/n1q_m[1],  ../../src/enc/tmds_encoder.v(72)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/acc_add[2]_syn_12.d[0]
+LUT2                x028y023z2          0.262    r     7.165       6  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/acc_add[2]_syn_12.f[0]
+net (fo=2)                              0.456          7.621          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/acc_add_b10[1],  NOFILE(0)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/sub2_syn_32.b[1]
+ADDER               x027y024z0          0.539    f     8.160       7  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/sub2_syn_32.fco
+net (fo=1)                              0.000          8.160          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/sub2_syn_21,  ../../src/enc/tmds_encoder.v(104)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/sub2_syn_35.fci
+ADDER               x027y024z1          0.073    f     8.233          pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/sub2_syn_35.fco
+net (fo=1)                              0.000          8.233          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/sub2_syn_23,  ../../src/enc/tmds_encoder.v(104)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/sub2_syn_37.fci
+ADDER               x027y025z0          0.144    f     8.377       8  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/sub2_syn_37.f[0]
+net (fo=3)                              0.885          9.262          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/acc_add_b5[4],  NOFILE(0)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/mux8_syn_436.b[1]
+LUT5                x029y024z3          0.431    f     9.693       9  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/mux8_syn_436.f[1]
+net (fo=7)                              0.776         10.469          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/mux8_syn_292,  ../../src/enc/tmds_encoder.v(141)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/acc_add[4]_syn_16.c[0]
+LUT5                x028y023z3          0.348    f    10.817      10  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/acc_add[4]_syn_16.f[0]
+net (fo=1)                              0.944         11.761          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/acc_add[2]_syn_5,  ../../src/enc/tmds_encoder.v(74)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/acc_add[2]_syn_12.d[1]
+LUT2                x028y023z2          0.262    r    12.023      11  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/acc_add[2]_syn_12.f[1]
+net (fo=1)                              0.594         12.617          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/acc_add[2],  ../../src/enc/tmds_encoder.v(74)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/acc_reg[3]_syn_4.b[0]
+ADDER               x028y024z1          0.627    f    13.244      12  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/acc_reg[3]_syn_4.fco
+net (fo=1)                              0.000         13.244          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/add4_syn_25,  ../../src/enc/tmds_encoder.v(134)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/acc_reg[4]_syn_4.fci
+ADDER (reg)         x028y025z0          0.262    f    13.506      13  net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/acc[4],  ../../src/enc/tmds_encoder.v(73)
+--------------------------------------------------------------------  ---------------
+Arrival                                               13.506               
+
+capture edge                           20.000    r    20.000               
+--------------------------------------------------------------------  ---------------
+setup                                  -0.116         19.884               
+clock uncertainty                      -0.100         19.784               
+clock pessimism                         0.000         19.784               
+--------------------------------------------------------------------  ---------------
+Required                                              19.784               
+--------------------------------------------------------------------  ---------------
+Slack                                                  6.278               
+
+Slack               : 6.309ns
+Begin Point         : u_display/u3_hdmi_tx/Inst_hdmi_tx_core/video_r_reg[6]_syn_4.clk (rising edge triggered by clock DeriveClock  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+End Point           : u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/acc_reg[3]_syn_4.b[0] (rising edge triggered by clock DeriveClock  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+Check Type          : setup
+Process             : slow
+Budget              : 20.000ns { DeriveClock rising@20.000ns - DeriveClock rising@0.000ns }
+Data Path Delay     : 13.475ns (cell 5.535ns (41%), net 7.940ns (59%))
+Clock Skew          : 0.000ns
+Logic Level         : 12 ( LUT5=6  ADDER=3  LUT2=2  LUT4=1 )
+Max Fanout          : 14
+Clock Uncertainty   : 0.100ns (sdc uncertainty: 0.000ns, default uncertainty: 0.100ns)
+
+Delay Type          Location             Incr           Path   Level  Netlist Info
+--------------------------------------------------------------------  ---------------
+launch edge                             0.000    r     0.000               
+--------------------------------------------------------------------  ---------------
+clk2q               x023y025z2          0.146    r     0.146          pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/video_r_reg[6]_syn_4.q[1]
+net (fo=6)                              0.968          1.114          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/video_data[6],  ../../src/enc/tmds_encoder.v(14)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/mux8_syn_476.d[0]
+LUT4                x025y023z3          0.262    r     1.376       1  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/mux8_syn_476.f[0]
+net (fo=4)                              0.456          1.832          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/mux8_syn_258,  ../../src/enc/tmds_encoder.v(141)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/mux8_syn_434.a[1]
+LUT5                x025y023z0          0.618    f     2.450       2  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/mux8_syn_434.fx[0]
+net (fo=2)                              0.625          3.075          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/mux8_syn_262,  ../../src/enc/tmds_encoder.v(141)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/mux8_syn_438.b[0]
+LUT5                x025y021z1          0.543    f     3.618       3  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/mux8_syn_438.fx[0]
+net (fo=14)                             0.982          4.600          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/mux8_syn_264,  ../../src/enc/tmds_encoder.v(141)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/acc_add[2]_syn_17.a[1]
+LUT5                x026y024z1          0.618    f     5.218       4  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/acc_add[2]_syn_17.fx[0]
+net (fo=2)                              0.508          5.726          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/acc_add[2]_syn_2,  ../../src/enc/tmds_encoder.v(74)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/acc_add[2]_syn_15.b[1]
+LUT5                x027y022z3          0.431    f     6.157       5  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/acc_add[2]_syn_15.f[1]
+net (fo=5)                              0.746          6.903          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/n1q_m[1],  ../../src/enc/tmds_encoder.v(72)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/acc_add[2]_syn_12.d[0]
+LUT2                x028y023z2          0.262    r     7.165       6  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/acc_add[2]_syn_12.f[0]
+net (fo=2)                              0.456          7.621          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/acc_add_b10[1],  NOFILE(0)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/sub2_syn_32.b[1]
+ADDER               x027y024z0          0.539    f     8.160       7  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/sub2_syn_32.fco
+net (fo=1)                              0.000          8.160          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/sub2_syn_21,  ../../src/enc/tmds_encoder.v(104)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/sub2_syn_35.fci
+ADDER               x027y024z1          0.073    f     8.233          pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/sub2_syn_35.fco
+net (fo=1)                              0.000          8.233          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/sub2_syn_23,  ../../src/enc/tmds_encoder.v(104)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/sub2_syn_37.fci
+ADDER               x027y025z0          0.144    f     8.377       8  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/sub2_syn_37.f[0]
+net (fo=3)                              0.885          9.262          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/acc_add_b5[4],  NOFILE(0)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/mux8_syn_436.b[1]
+LUT5                x029y024z3          0.431    f     9.693       9  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/mux8_syn_436.f[1]
+net (fo=7)                              0.776         10.469          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/mux8_syn_292,  ../../src/enc/tmds_encoder.v(141)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/acc_add[4]_syn_16.c[0]
+LUT5                x028y023z3          0.348    f    10.817      10  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/acc_add[4]_syn_16.f[0]
+net (fo=1)                              0.944         11.761          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/acc_add[2]_syn_5,  ../../src/enc/tmds_encoder.v(74)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/acc_add[2]_syn_12.d[1]
+LUT2                x028y023z2          0.262    r    12.023      11  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/acc_add[2]_syn_12.f[1]
+net (fo=1)                              0.594         12.617          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/acc_add[2],  ../../src/enc/tmds_encoder.v(74)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/acc_reg[3]_syn_4.b[0]
+ADDER (reg)         x028y024z1          0.858    f    13.475      12  net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/acc[3],  ../../src/enc/tmds_encoder.v(73)
+--------------------------------------------------------------------  ---------------
+Arrival                                               13.475               
+
+capture edge                           20.000    r    20.000               
+--------------------------------------------------------------------  ---------------
+setup                                  -0.116         19.884               
+clock uncertainty                      -0.100         19.784               
+clock pessimism                         0.000         19.784               
+--------------------------------------------------------------------  ---------------
+Required                                              19.784               
+--------------------------------------------------------------------  ---------------
+Slack                                                  6.309               
+
+Slack               : 6.389ns
+Begin Point         : u_display/u3_hdmi_tx/Inst_hdmi_tx_core/video_r_reg[12]_syn_4.clk (rising edge triggered by clock DeriveClock  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+End Point           : u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/acc_reg[3]_syn_4.fci (rising edge triggered by clock DeriveClock  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+Check Type          : setup
+Process             : slow
+Budget              : 20.000ns { DeriveClock rising@20.000ns - DeriveClock rising@0.000ns }
+Data Path Delay     : 13.395ns (cell 6.372ns (47%), net 7.023ns (53%))
+Clock Skew          : 0.000ns
+Logic Level         : 15 ( LUT5=6  ADDER=4  LUT4=2  LUT2=2  LUT3=1 )
+Max Fanout          : 21
+Clock Uncertainty   : 0.100ns (sdc uncertainty: 0.000ns, default uncertainty: 0.100ns)
+
+Delay Type          Location             Incr           Path   Level  Netlist Info
+--------------------------------------------------------------------  ---------------
+launch edge                             0.000    r     0.000               
+--------------------------------------------------------------------  ---------------
+clk2q               x019y024z1          0.146    r     0.146          pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/video_r_reg[12]_syn_4.q[1]
+net (fo=7)                              0.793          0.939          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/video_data[4],  ../../src/enc/tmds_encoder.v(14)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/mux8_syn_477.d[1]
+LUT3                x019y024z3          0.262    r     1.201       1  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/mux8_syn_477.f[1]
+net (fo=3)                              0.471          1.672          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/mux8_syn_300,  ../../src/enc/tmds_encoder.v(141)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/mux8_syn_444.b[1]
+LUT5                x020y025z1          0.543    f     2.215       2  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/mux8_syn_444.fx[0]
+net (fo=1)                              0.355          2.570          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/add0_syn_50,  ../../src/enc/tmds_encoder.v(82)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/mux8_syn_483.a[1]
+LUT4                x019y025z2          0.424    f     2.994       3  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/mux8_syn_483.f[1]
+net (fo=4)                              0.459          3.453          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/mux8_syn_307,  ../../src/enc/tmds_encoder.v(141)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/mux8_syn_446.a[1]
+LUT5                x019y025z1          0.618    f     4.071       4  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/mux8_syn_446.fx[0]
+net (fo=21)                             0.564          4.635          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/mux8_syn_309,  ../../src/enc/tmds_encoder.v(141)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/mux8_syn_431.a[0]
+LUT5                x018y026z2          0.424    f     5.059       5  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/mux8_syn_431.f[0]
+net (fo=7)                              0.499          5.558          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/add10_syn_36,  ../../src/enc/tmds_encoder.v(99)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/acc_add[2]_syn_22.a[1]
+LUT5                x019y027z1          0.618    f     6.176       6  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/acc_add[2]_syn_22.fx[0]
+net (fo=3)                              0.625          6.801          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/acc_add[2]_syn_7,  ../../src/enc/tmds_encoder.v(74)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/acc_add_b10[3]_syn_7.d[0]
+LUT2                x018y027z2          0.262    r     7.063       7  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/acc_add_b10[3]_syn_7.f[0]
+net (fo=3)                              0.746          7.809          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/n1q_m[3],  ../../src/enc/tmds_encoder.v(72)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/acc_add_b10[1]_syn_4.b[0]
+LUT4                x017y026z3          0.431    f     8.240       8  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/acc_add_b10[1]_syn_4.f[0]
+net (fo=2)                              0.594          8.834          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/acc_add_b10[3],  NOFILE(0)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/sub3_syn_35.a[1]
+ADDER               x017y027z1          0.627    f     9.461       9  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/sub3_syn_35.fco
+net (fo=1)                              0.000          9.461          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/sub3_syn_23,  ../../src/enc/tmds_encoder.v(108)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/sub3_syn_37.fci
+ADDER               x017y028z0          0.144    f     9.605      10  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/sub3_syn_37.f[0]
+net (fo=3)                              0.516         10.121          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/acc_add_b4[4],  NOFILE(0)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/mux8_syn_474.c[1]
+LUT2                x020y029z0          0.251    r    10.372      11  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/mux8_syn_474.f[1]
+net (fo=10)                             0.475         10.847          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/mux8_syn_339,  ../../src/enc/tmds_encoder.v(141)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/acc_add[1]_syn_4.c[0]
+LUT5                x019y028z3          0.348    f    11.195      12  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/acc_add[1]_syn_4.f[0]
+net (fo=5)                              0.470         11.665          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/mux8_syn_341,  ../../src/enc/tmds_encoder.v(141)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/acc_add[1]_syn_4.d[1]
+LUT5                x019y028z3          0.262    r    11.927      13  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/acc_add[1]_syn_4.f[1]
+net (fo=1)                              0.456         12.383          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/acc_add[1],  ../../src/enc/tmds_encoder.v(74)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/acc_reg[1]_syn_4.b[1]
+ADDER               x018y029z0          0.539    f    12.922      14  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/acc_reg[1]_syn_4.fco
+net (fo=1)                              0.000         12.922          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/add3_syn_23,  ../../src/enc/tmds_encoder.v(134)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/acc_reg[3]_syn_4.fci
+ADDER (reg)         x018y029z1          0.473    f    13.395      15  net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/acc[3],  ../../src/enc/tmds_encoder.v(73)
+--------------------------------------------------------------------  ---------------
+Arrival                                               13.395               
+
+capture edge                           20.000    r    20.000               
+--------------------------------------------------------------------  ---------------
+setup                                  -0.116         19.884               
+clock uncertainty                      -0.100         19.784               
+clock pessimism                         0.000         19.784               
+--------------------------------------------------------------------  ---------------
+Required                                              19.784               
+--------------------------------------------------------------------  ---------------
+Slack                                                  6.389               
+
+Slack               : 6.412ns
+Begin Point         : u_display/u3_hdmi_tx/Inst_hdmi_tx_core/video_r_reg[22]_syn_4.clk (rising edge triggered by clock DeriveClock  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+End Point           : u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/acc_reg[4]_syn_4.fci (rising edge triggered by clock DeriveClock  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+Check Type          : setup
+Process             : slow
+Budget              : 20.000ns { DeriveClock rising@20.000ns - DeriveClock rising@0.000ns }
+Data Path Delay     : 13.372ns (cell 5.289ns (39%), net 8.083ns (61%))
+Clock Skew          : 0.000ns
+Logic Level         : 13 ( LUT5=7  ADDER=4  LUT4=2 )
+Max Fanout          : 15
+Clock Uncertainty   : 0.100ns (sdc uncertainty: 0.000ns, default uncertainty: 0.100ns)
+
+Delay Type          Location             Incr           Path   Level  Netlist Info
+--------------------------------------------------------------------  ---------------
+launch edge                             0.000    r     0.000               
+--------------------------------------------------------------------  ---------------
+clk2q               x015y027z3          0.146    r     0.146          pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/video_r_reg[22]_syn_4.q[1]
+net (fo=6)                              1.453          1.599          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/video_data[6],  ../../src/enc/tmds_encoder.v(14)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/mux8_syn_466.d[1]
+LUT4                x014y027z2          0.262    r     1.861       1  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/mux8_syn_466.f[1]
+net (fo=3)                              0.738          2.599          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/mux8_syn_294,  ../../src/enc/tmds_encoder.v(141)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/mux8_syn_424.a[0]
+LUT5                x014y027z3          0.424    f     3.023       2  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/mux8_syn_424.f[0]
+net (fo=1)                              0.456          3.479          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/mux8_syn_298,  ../../src/enc/tmds_encoder.v(141)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/mux8_syn_424.b[1]
+LUT5                x014y027z3          0.431    f     3.910       3  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/mux8_syn_424.f[1]
+net (fo=15)                             0.958          4.868          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/mux8_syn_300,  ../../src/enc/tmds_encoder.v(141)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/mux8_syn_460.a[1]
+LUT4                x013y029z0          0.408    f     5.276       4  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/mux8_syn_460.f[1]
+net (fo=6)                              0.750          6.026          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/mux8_syn_317,  ../../src/enc/tmds_encoder.v(141)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/acc_add[3]_syn_15.b[1]
+LUT5                x012y028z1          0.543    f     6.569       5  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/acc_add[3]_syn_15.fx[0]
+net (fo=4)                              1.414          7.983          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/acc_add_b10[2],  NOFILE(0)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/sub2_syn_35.b[0]
+ADDER               x010y029z1          0.627    f     8.610       6  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/sub2_syn_35.fco
+net (fo=1)                              0.000          8.610          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/sub2_syn_23,  ../../src/enc/tmds_encoder.v(104)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/sub2_syn_37.fci
+ADDER               x010y030z0          0.144    f     8.754       7  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/sub2_syn_37.f[0]
+net (fo=3)                              0.309          9.063          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/acc_add_b5[4],  NOFILE(0)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/mux8_syn_426.b[1]
+LUT5                x011y030z2          0.431    f     9.494       8  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/mux8_syn_426.f[1]
+net (fo=8)                              0.468          9.962          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/mux8_syn_326,  ../../src/enc/tmds_encoder.v(141)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/acc_add[3]_syn_20.mi[0]
+LUT5                x012y028z0          0.300    r    10.262       9  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/acc_add[3]_syn_20.fx[0]
+net (fo=1)                              0.625         10.887          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/acc_add[3]_syn_3,  ../../src/enc/tmds_encoder.v(74)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/acc_add[3]_syn_18.c[0]
+LUT5                x012y030z2          0.348    f    11.235      10  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/acc_add[3]_syn_18.f[0]
+net (fo=1)                              0.456         11.691          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/acc_add[3]_syn_5,  ../../src/enc/tmds_encoder.v(74)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/acc_add[3]_syn_18.a[1]
+LUT5                x012y030z2          0.424    f    12.115      11  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/acc_add[3]_syn_18.f[1]
+net (fo=1)                              0.456         12.571          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/acc_add[3],  ../../src/enc/tmds_encoder.v(74)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/acc_reg[3]_syn_4.b[1]
+ADDER               x012y030z1          0.539    f    13.110      12  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/acc_reg[3]_syn_4.fco
+net (fo=1)                              0.000         13.110          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/add3_syn_25,  ../../src/enc/tmds_encoder.v(134)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/acc_reg[4]_syn_4.fci
+ADDER (reg)         x012y031z0          0.262    f    13.372      13  net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/acc[4],  ../../src/enc/tmds_encoder.v(73)
+--------------------------------------------------------------------  ---------------
+Arrival                                               13.372               
+
+capture edge                           20.000    r    20.000               
+--------------------------------------------------------------------  ---------------
+setup                                  -0.116         19.884               
+clock uncertainty                      -0.100         19.784               
+clock pessimism                         0.000         19.784               
+--------------------------------------------------------------------  ---------------
+Required                                              19.784               
+--------------------------------------------------------------------  ---------------
+Slack                                                  6.412               
+
+Slack               : 6.483ns
+Begin Point         : u_display/u3_hdmi_tx/Inst_hdmi_tx_core/video_r_reg[12]_syn_4.clk (rising edge triggered by clock DeriveClock  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+End Point           : u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/acc_reg[4]_syn_4.fci (rising edge triggered by clock DeriveClock  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+Check Type          : setup
+Process             : slow
+Budget              : 20.000ns { DeriveClock rising@20.000ns - DeriveClock rising@0.000ns }
+Data Path Delay     : 13.301ns (cell 6.377ns (47%), net 6.924ns (53%))
+Clock Skew          : 0.000ns
+Logic Level         : 15 ( LUT5=6  ADDER=4  LUT4=2  LUT2=2  LUT3=1 )
+Max Fanout          : 21
+Clock Uncertainty   : 0.100ns (sdc uncertainty: 0.000ns, default uncertainty: 0.100ns)
+
+Delay Type          Location             Incr           Path   Level  Netlist Info
+--------------------------------------------------------------------  ---------------
+launch edge                             0.000    r     0.000               
+--------------------------------------------------------------------  ---------------
+clk2q               x019y024z1          0.146    r     0.146          pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/video_r_reg[12]_syn_4.q[1]
+net (fo=7)                              0.793          0.939          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/video_data[4],  ../../src/enc/tmds_encoder.v(14)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/mux8_syn_477.d[1]
+LUT3                x019y024z3          0.262    r     1.201       1  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/mux8_syn_477.f[1]
+net (fo=3)                              0.471          1.672          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/mux8_syn_300,  ../../src/enc/tmds_encoder.v(141)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/mux8_syn_444.b[1]
+LUT5                x020y025z1          0.543    f     2.215       2  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/mux8_syn_444.fx[0]
+net (fo=1)                              0.355          2.570          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/add0_syn_50,  ../../src/enc/tmds_encoder.v(82)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/mux8_syn_483.a[1]
+LUT4                x019y025z2          0.424    f     2.994       3  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/mux8_syn_483.f[1]
+net (fo=4)                              0.459          3.453          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/mux8_syn_307,  ../../src/enc/tmds_encoder.v(141)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/mux8_syn_446.a[1]
+LUT5                x019y025z1          0.618    f     4.071       4  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/mux8_syn_446.fx[0]
+net (fo=21)                             0.564          4.635          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/mux8_syn_309,  ../../src/enc/tmds_encoder.v(141)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/mux8_syn_431.a[0]
+LUT5                x018y026z2          0.424    f     5.059       5  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/mux8_syn_431.f[0]
+net (fo=7)                              0.499          5.558          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/add10_syn_36,  ../../src/enc/tmds_encoder.v(99)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/acc_add[2]_syn_22.a[1]
+LUT5                x019y027z1          0.618    f     6.176       6  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/acc_add[2]_syn_22.fx[0]
+net (fo=3)                              0.625          6.801          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/acc_add[2]_syn_7,  ../../src/enc/tmds_encoder.v(74)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/acc_add_b10[3]_syn_7.d[0]
+LUT2                x018y027z2          0.262    r     7.063       7  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/acc_add_b10[3]_syn_7.f[0]
+net (fo=3)                              0.746          7.809          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/n1q_m[3],  ../../src/enc/tmds_encoder.v(72)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/acc_add_b10[1]_syn_4.b[0]
+LUT4                x017y026z3          0.431    f     8.240       8  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/acc_add_b10[1]_syn_4.f[0]
+net (fo=2)                              0.594          8.834          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/acc_add_b10[3],  NOFILE(0)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/sub3_syn_35.a[1]
+ADDER               x017y027z1          0.627    f     9.461       9  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/sub3_syn_35.fco
+net (fo=1)                              0.000          9.461          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/sub3_syn_23,  ../../src/enc/tmds_encoder.v(108)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/sub3_syn_37.fci
+ADDER               x017y028z0          0.144    f     9.605      10  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/sub3_syn_37.f[0]
+net (fo=3)                              0.516         10.121          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/acc_add_b4[4],  NOFILE(0)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/mux8_syn_474.c[1]
+LUT2                x020y029z0          0.251    r    10.372      11  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/mux8_syn_474.f[1]
+net (fo=10)                             0.488         10.860          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/mux8_syn_339,  ../../src/enc/tmds_encoder.v(141)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/acc_add[3]_syn_9.d[0]
+LUT5                x019y028z1          0.402    r    11.262      12  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/acc_add[3]_syn_9.fx[0]
+net (fo=1)                              0.355         11.617          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/acc_add[3]_syn_3,  ../../src/enc/tmds_encoder.v(74)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/acc_add[2]_syn_27.a[0]
+LUT5                x017y028z2          0.424    f    12.041      13  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/acc_add[2]_syn_27.f[0]
+net (fo=1)                              0.459         12.500          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/acc_add[3],  ../../src/enc/tmds_encoder.v(74)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/acc_reg[3]_syn_4.b[1]
+ADDER               x018y029z1          0.539    f    13.039      14  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/acc_reg[3]_syn_4.fco
+net (fo=1)                              0.000         13.039          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/add3_syn_25,  ../../src/enc/tmds_encoder.v(134)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/acc_reg[4]_syn_4.fci
+ADDER (reg)         x018y030z0          0.262    f    13.301      15  net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/acc[4],  ../../src/enc/tmds_encoder.v(73)
+--------------------------------------------------------------------  ---------------
+Arrival                                               13.301               
+
+capture edge                           20.000    r    20.000               
+--------------------------------------------------------------------  ---------------
+setup                                  -0.116         19.884               
+clock uncertainty                      -0.100         19.784               
+clock pessimism                         0.000         19.784               
+--------------------------------------------------------------------  ---------------
+Required                                              19.784               
+--------------------------------------------------------------------  ---------------
+Slack                                                  6.483               
+
+Slack               : 6.600ns
+Begin Point         : u_display/u3_hdmi_tx/Inst_hdmi_tx_core/video_r_reg[12]_syn_4.clk (rising edge triggered by clock DeriveClock  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+End Point           : u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/acc_reg[3]_syn_4.fci (rising edge triggered by clock DeriveClock  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+Check Type          : setup
+Process             : slow
+Budget              : 20.000ns { DeriveClock rising@20.000ns - DeriveClock rising@0.000ns }
+Data Path Delay     : 13.184ns (cell 6.161ns (46%), net 7.023ns (54%))
+Clock Skew          : 0.000ns
+Logic Level         : 15 ( LUT5=6  ADDER=4  LUT4=2  LUT2=2  LUT3=1 )
+Max Fanout          : 21
+Clock Uncertainty   : 0.100ns (sdc uncertainty: 0.000ns, default uncertainty: 0.100ns)
+
+Delay Type          Location             Incr           Path   Level  Netlist Info
+--------------------------------------------------------------------  ---------------
+launch edge                             0.000    r     0.000               
+--------------------------------------------------------------------  ---------------
+clk2q               x019y024z1          0.146    r     0.146          pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/video_r_reg[12]_syn_4.q[1]
+net (fo=7)                              0.793          0.939          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/video_data[4],  ../../src/enc/tmds_encoder.v(14)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/mux8_syn_477.d[1]
+LUT3                x019y024z3          0.262    r     1.201       1  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/mux8_syn_477.f[1]
+net (fo=3)                              0.471          1.672          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/mux8_syn_300,  ../../src/enc/tmds_encoder.v(141)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/mux8_syn_444.b[1]
+LUT5                x020y025z1          0.543    f     2.215       2  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/mux8_syn_444.fx[0]
+net (fo=1)                              0.355          2.570          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/add0_syn_50,  ../../src/enc/tmds_encoder.v(82)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/mux8_syn_483.a[1]
+LUT4                x019y025z2          0.424    f     2.994       3  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/mux8_syn_483.f[1]
+net (fo=4)                              0.459          3.453          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/mux8_syn_307,  ../../src/enc/tmds_encoder.v(141)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/mux8_syn_446.a[1]
+LUT5                x019y025z1          0.618    f     4.071       4  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/mux8_syn_446.fx[0]
+net (fo=21)                             0.564          4.635          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/mux8_syn_309,  ../../src/enc/tmds_encoder.v(141)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/mux8_syn_431.a[0]
+LUT5                x018y026z2          0.424    f     5.059       5  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/mux8_syn_431.f[0]
+net (fo=7)                              0.499          5.558          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/add10_syn_36,  ../../src/enc/tmds_encoder.v(99)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/acc_add[2]_syn_22.a[1]
+LUT5                x019y027z1          0.618    f     6.176       6  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/acc_add[2]_syn_22.fx[0]
+net (fo=3)                              0.625          6.801          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/acc_add[2]_syn_7,  ../../src/enc/tmds_encoder.v(74)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/acc_add_b10[3]_syn_7.d[0]
+LUT2                x018y027z2          0.262    r     7.063       7  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/acc_add_b10[3]_syn_7.f[0]
+net (fo=3)                              0.746          7.809          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/n1q_m[3],  ../../src/enc/tmds_encoder.v(72)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/acc_add_b10[1]_syn_4.b[0]
+LUT4                x017y026z3          0.431    f     8.240       8  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/acc_add_b10[1]_syn_4.f[0]
+net (fo=2)                              0.594          8.834          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/acc_add_b10[3],  NOFILE(0)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/sub3_syn_35.a[1]
+ADDER               x017y027z1          0.627    f     9.461       9  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/sub3_syn_35.fco
+net (fo=1)                              0.000          9.461          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/sub3_syn_23,  ../../src/enc/tmds_encoder.v(108)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/sub3_syn_37.fci
+ADDER               x017y028z0          0.144    f     9.605      10  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/sub3_syn_37.f[0]
+net (fo=3)                              0.516         10.121          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/acc_add_b4[4],  NOFILE(0)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/mux8_syn_474.c[1]
+LUT2                x020y029z0          0.251    r    10.372      11  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/mux8_syn_474.f[1]
+net (fo=10)                             0.475         10.847          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/mux8_syn_339,  ../../src/enc/tmds_encoder.v(141)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/acc_add[1]_syn_4.c[0]
+LUT5                x019y028z3          0.348    f    11.195      12  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/acc_add[1]_syn_4.f[0]
+net (fo=5)                              0.470         11.665          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/mux8_syn_341,  ../../src/enc/tmds_encoder.v(141)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/acc_add[1]_syn_4.d[1]
+LUT5                x019y028z3          0.262    r    11.927      13  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/acc_add[1]_syn_4.f[1]
+net (fo=1)                              0.456         12.383          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/acc_add[1],  ../../src/enc/tmds_encoder.v(74)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/acc_reg[1]_syn_4.b[1]
+ADDER               x018y029z0          0.539    f    12.922      14  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/acc_reg[1]_syn_4.fco
+net (fo=1)                              0.000         12.922          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/add3_syn_23,  ../../src/enc/tmds_encoder.v(134)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/acc_reg[3]_syn_4.fci
+ADDER (reg)         x018y029z1          0.262    f    13.184      15  net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/acc[2],  ../../src/enc/tmds_encoder.v(73)
+--------------------------------------------------------------------  ---------------
+Arrival                                               13.184               
+
+capture edge                           20.000    r    20.000               
+--------------------------------------------------------------------  ---------------
+setup                                  -0.116         19.884               
+clock uncertainty                      -0.100         19.784               
+clock pessimism                         0.000         19.784               
+--------------------------------------------------------------------  ---------------
+Required                                              19.784               
+--------------------------------------------------------------------  ---------------
+Slack                                                  6.600               
+
+Slack               : 6.617ns
+Begin Point         : u_display/u3_hdmi_tx/Inst_hdmi_tx_core/video_r_reg[6]_syn_4.clk (rising edge triggered by clock DeriveClock  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+End Point           : u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/acc_reg[3]_syn_4.b[0] (rising edge triggered by clock DeriveClock  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+Check Type          : setup
+Process             : slow
+Budget              : 20.000ns { DeriveClock rising@20.000ns - DeriveClock rising@0.000ns }
+Data Path Delay     : 13.167ns (cell 5.227ns (39%), net 7.940ns (61%))
+Clock Skew          : 0.000ns
+Logic Level         : 12 ( LUT5=6  ADDER=3  LUT2=2  LUT4=1 )
+Max Fanout          : 14
+Clock Uncertainty   : 0.100ns (sdc uncertainty: 0.000ns, default uncertainty: 0.100ns)
+
+Delay Type          Location             Incr           Path   Level  Netlist Info
+--------------------------------------------------------------------  ---------------
+launch edge                             0.000    r     0.000               
+--------------------------------------------------------------------  ---------------
+clk2q               x023y025z2          0.146    r     0.146          pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/video_r_reg[6]_syn_4.q[1]
+net (fo=6)                              0.968          1.114          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/video_data[6],  ../../src/enc/tmds_encoder.v(14)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/mux8_syn_476.d[0]
+LUT4                x025y023z3          0.262    r     1.376       1  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/mux8_syn_476.f[0]
+net (fo=4)                              0.456          1.832          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/mux8_syn_258,  ../../src/enc/tmds_encoder.v(141)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/mux8_syn_434.a[1]
+LUT5                x025y023z0          0.618    f     2.450       2  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/mux8_syn_434.fx[0]
+net (fo=2)                              0.625          3.075          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/mux8_syn_262,  ../../src/enc/tmds_encoder.v(141)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/mux8_syn_438.b[0]
+LUT5                x025y021z1          0.543    f     3.618       3  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/mux8_syn_438.fx[0]
+net (fo=14)                             0.982          4.600          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/mux8_syn_264,  ../../src/enc/tmds_encoder.v(141)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/acc_add[2]_syn_17.a[1]
+LUT5                x026y024z1          0.618    f     5.218       4  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/acc_add[2]_syn_17.fx[0]
+net (fo=2)                              0.508          5.726          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/acc_add[2]_syn_2,  ../../src/enc/tmds_encoder.v(74)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/acc_add[2]_syn_15.b[1]
+LUT5                x027y022z3          0.431    f     6.157       5  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/acc_add[2]_syn_15.f[1]
+net (fo=5)                              0.746          6.903          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/n1q_m[1],  ../../src/enc/tmds_encoder.v(72)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/acc_add[2]_syn_12.d[0]
+LUT2                x028y023z2          0.262    r     7.165       6  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/acc_add[2]_syn_12.f[0]
+net (fo=2)                              0.456          7.621          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/acc_add_b10[1],  NOFILE(0)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/sub2_syn_32.b[1]
+ADDER               x027y024z0          0.539    f     8.160       7  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/sub2_syn_32.fco
+net (fo=1)                              0.000          8.160          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/sub2_syn_21,  ../../src/enc/tmds_encoder.v(104)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/sub2_syn_35.fci
+ADDER               x027y024z1          0.073    f     8.233          pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/sub2_syn_35.fco
+net (fo=1)                              0.000          8.233          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/sub2_syn_23,  ../../src/enc/tmds_encoder.v(104)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/sub2_syn_37.fci
+ADDER               x027y025z0          0.144    f     8.377       8  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/sub2_syn_37.f[0]
+net (fo=3)                              0.885          9.262          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/acc_add_b5[4],  NOFILE(0)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/mux8_syn_436.b[1]
+LUT5                x029y024z3          0.431    f     9.693       9  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/mux8_syn_436.f[1]
+net (fo=7)                              0.776         10.469          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/mux8_syn_292,  ../../src/enc/tmds_encoder.v(141)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/acc_add[4]_syn_16.c[0]
+LUT5                x028y023z3          0.348    f    10.817      10  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/acc_add[4]_syn_16.f[0]
+net (fo=1)                              0.944         11.761          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/acc_add[2]_syn_5,  ../../src/enc/tmds_encoder.v(74)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/acc_add[2]_syn_12.d[1]
+LUT2                x028y023z2          0.262    r    12.023      11  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/acc_add[2]_syn_12.f[1]
+net (fo=1)                              0.594         12.617          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/acc_add[2],  ../../src/enc/tmds_encoder.v(74)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/acc_reg[3]_syn_4.b[0]
+ADDER (reg)         x028y024z1          0.550    f    13.167      12  net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc0/acc[2],  ../../src/enc/tmds_encoder.v(73)
+--------------------------------------------------------------------  ---------------
+Arrival                                               13.167               
+
+capture edge                           20.000    r    20.000               
+--------------------------------------------------------------------  ---------------
+setup                                  -0.116         19.884               
+clock uncertainty                      -0.100         19.784               
+clock pessimism                         0.000         19.784               
+--------------------------------------------------------------------  ---------------
+Required                                              19.784               
+--------------------------------------------------------------------  ---------------
+Slack                                                  6.617               
+
+Slack               : 6.663ns
+Begin Point         : u_display/u3_hdmi_tx/Inst_hdmi_tx_core/video_r_reg[22]_syn_4.clk (rising edge triggered by clock DeriveClock  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+End Point           : u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/acc_reg[3]_syn_4.b[1] (rising edge triggered by clock DeriveClock  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+Check Type          : setup
+Process             : slow
+Budget              : 20.000ns { DeriveClock rising@20.000ns - DeriveClock rising@0.000ns }
+Data Path Delay     : 13.121ns (cell 5.038ns (38%), net 8.083ns (62%))
+Clock Skew          : 0.000ns
+Logic Level         : 12 ( LUT5=7  ADDER=3  LUT4=2 )
+Max Fanout          : 15
+Clock Uncertainty   : 0.100ns (sdc uncertainty: 0.000ns, default uncertainty: 0.100ns)
+
+Delay Type          Location             Incr           Path   Level  Netlist Info
+--------------------------------------------------------------------  ---------------
+launch edge                             0.000    r     0.000               
+--------------------------------------------------------------------  ---------------
+clk2q               x015y027z3          0.146    r     0.146          pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/video_r_reg[22]_syn_4.q[1]
+net (fo=6)                              1.453          1.599          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/video_data[6],  ../../src/enc/tmds_encoder.v(14)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/mux8_syn_466.d[1]
+LUT4                x014y027z2          0.262    r     1.861       1  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/mux8_syn_466.f[1]
+net (fo=3)                              0.738          2.599          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/mux8_syn_294,  ../../src/enc/tmds_encoder.v(141)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/mux8_syn_424.a[0]
+LUT5                x014y027z3          0.424    f     3.023       2  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/mux8_syn_424.f[0]
+net (fo=1)                              0.456          3.479          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/mux8_syn_298,  ../../src/enc/tmds_encoder.v(141)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/mux8_syn_424.b[1]
+LUT5                x014y027z3          0.431    f     3.910       3  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/mux8_syn_424.f[1]
+net (fo=15)                             0.958          4.868          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/mux8_syn_300,  ../../src/enc/tmds_encoder.v(141)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/mux8_syn_460.a[1]
+LUT4                x013y029z0          0.408    f     5.276       4  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/mux8_syn_460.f[1]
+net (fo=6)                              0.750          6.026          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/mux8_syn_317,  ../../src/enc/tmds_encoder.v(141)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/acc_add[3]_syn_15.b[1]
+LUT5                x012y028z1          0.543    f     6.569       5  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/acc_add[3]_syn_15.fx[0]
+net (fo=4)                              1.414          7.983          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/acc_add_b10[2],  NOFILE(0)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/sub2_syn_35.b[0]
+ADDER               x010y029z1          0.627    f     8.610       6  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/sub2_syn_35.fco
+net (fo=1)                              0.000          8.610          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/sub2_syn_23,  ../../src/enc/tmds_encoder.v(104)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/sub2_syn_37.fci
+ADDER               x010y030z0          0.144    f     8.754       7  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/sub2_syn_37.f[0]
+net (fo=3)                              0.309          9.063          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/acc_add_b5[4],  NOFILE(0)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/mux8_syn_426.b[1]
+LUT5                x011y030z2          0.431    f     9.494       8  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/mux8_syn_426.f[1]
+net (fo=8)                              0.468          9.962          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/mux8_syn_326,  ../../src/enc/tmds_encoder.v(141)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/acc_add[3]_syn_20.mi[0]
+LUT5                x012y028z0          0.300    r    10.262       9  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/acc_add[3]_syn_20.fx[0]
+net (fo=1)                              0.625         10.887          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/acc_add[3]_syn_3,  ../../src/enc/tmds_encoder.v(74)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/acc_add[3]_syn_18.c[0]
+LUT5                x012y030z2          0.348    f    11.235      10  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/acc_add[3]_syn_18.f[0]
+net (fo=1)                              0.456         11.691          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/acc_add[3]_syn_5,  ../../src/enc/tmds_encoder.v(74)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/acc_add[3]_syn_18.a[1]
+LUT5                x012y030z2          0.424    f    12.115      11  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/acc_add[3]_syn_18.f[1]
+net (fo=1)                              0.456         12.571          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/acc_add[3],  ../../src/enc/tmds_encoder.v(74)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/acc_reg[3]_syn_4.b[1]
+ADDER (reg)         x012y030z1          0.550    f    13.121      12  net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/acc[3],  ../../src/enc/tmds_encoder.v(73)
+--------------------------------------------------------------------  ---------------
+Arrival                                               13.121               
+
+capture edge                           20.000    r    20.000               
+--------------------------------------------------------------------  ---------------
+setup                                  -0.116         19.884               
+clock uncertainty                      -0.100         19.784               
+clock pessimism                         0.000         19.784               
+--------------------------------------------------------------------  ---------------
+Required                                              19.784               
+--------------------------------------------------------------------  ---------------
+Slack                                                  6.663               
+
+Slack               : 6.851ns
+Begin Point         : u_display/u3_hdmi_tx/Inst_hdmi_tx_core/video_r_reg[12]_syn_4.clk (rising edge triggered by clock DeriveClock  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+End Point           : u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/acc_reg[1]_syn_4.b[1] (rising edge triggered by clock DeriveClock  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+Check Type          : setup
+Process             : slow
+Budget              : 20.000ns { DeriveClock rising@20.000ns - DeriveClock rising@0.000ns }
+Data Path Delay     : 12.933ns (cell 5.910ns (45%), net 7.023ns (55%))
+Clock Skew          : 0.000ns
+Logic Level         : 14 ( LUT5=6  ADDER=3  LUT4=2  LUT2=2  LUT3=1 )
+Max Fanout          : 21
+Clock Uncertainty   : 0.100ns (sdc uncertainty: 0.000ns, default uncertainty: 0.100ns)
+
+Delay Type          Location             Incr           Path   Level  Netlist Info
+--------------------------------------------------------------------  ---------------
+launch edge                             0.000    r     0.000               
+--------------------------------------------------------------------  ---------------
+clk2q               x019y024z1          0.146    r     0.146          pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/video_r_reg[12]_syn_4.q[1]
+net (fo=7)                              0.793          0.939          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/video_data[4],  ../../src/enc/tmds_encoder.v(14)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/mux8_syn_477.d[1]
+LUT3                x019y024z3          0.262    r     1.201       1  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/mux8_syn_477.f[1]
+net (fo=3)                              0.471          1.672          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/mux8_syn_300,  ../../src/enc/tmds_encoder.v(141)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/mux8_syn_444.b[1]
+LUT5                x020y025z1          0.543    f     2.215       2  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/mux8_syn_444.fx[0]
+net (fo=1)                              0.355          2.570          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/add0_syn_50,  ../../src/enc/tmds_encoder.v(82)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/mux8_syn_483.a[1]
+LUT4                x019y025z2          0.424    f     2.994       3  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/mux8_syn_483.f[1]
+net (fo=4)                              0.459          3.453          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/mux8_syn_307,  ../../src/enc/tmds_encoder.v(141)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/mux8_syn_446.a[1]
+LUT5                x019y025z1          0.618    f     4.071       4  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/mux8_syn_446.fx[0]
+net (fo=21)                             0.564          4.635          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/mux8_syn_309,  ../../src/enc/tmds_encoder.v(141)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/mux8_syn_431.a[0]
+LUT5                x018y026z2          0.424    f     5.059       5  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/mux8_syn_431.f[0]
+net (fo=7)                              0.499          5.558          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/add10_syn_36,  ../../src/enc/tmds_encoder.v(99)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/acc_add[2]_syn_22.a[0]
+LUT5                x019y027z1          0.618    f     6.176       6  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/acc_add[2]_syn_22.fx[0]
+net (fo=3)                              0.625          6.801          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/acc_add[2]_syn_7,  ../../src/enc/tmds_encoder.v(74)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/acc_add_b10[3]_syn_7.d[0]
+LUT2                x018y027z2          0.262    r     7.063       7  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/acc_add_b10[3]_syn_7.f[0]
+net (fo=3)                              0.746          7.809          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/n1q_m[3],  ../../src/enc/tmds_encoder.v(72)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/acc_add_b10[1]_syn_4.b[0]
+LUT4                x017y026z3          0.431    f     8.240       8  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/acc_add_b10[1]_syn_4.f[0]
+net (fo=2)                              0.594          8.834          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/acc_add_b10[3],  NOFILE(0)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/sub3_syn_35.a[1]
+ADDER               x017y027z1          0.627    f     9.461       9  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/sub3_syn_35.fco
+net (fo=1)                              0.000          9.461          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/sub3_syn_23,  ../../src/enc/tmds_encoder.v(108)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/sub3_syn_37.fci
+ADDER               x017y028z0          0.144    f     9.605      10  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/sub3_syn_37.f[0]
+net (fo=3)                              0.516         10.121          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/acc_add_b4[4],  NOFILE(0)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/mux8_syn_474.c[1]
+LUT2                x020y029z0          0.251    r    10.372      11  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/mux8_syn_474.f[1]
+net (fo=10)                             0.475         10.847          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/mux8_syn_339,  ../../src/enc/tmds_encoder.v(141)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/acc_add[1]_syn_4.c[0]
+LUT5                x019y028z3          0.348    f    11.195      12  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/acc_add[1]_syn_4.f[0]
+net (fo=5)                              0.470         11.665          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/mux8_syn_341,  ../../src/enc/tmds_encoder.v(141)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/acc_add[1]_syn_4.d[1]
+LUT5                x019y028z3          0.262    r    11.927      13  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/acc_add[1]_syn_4.f[1]
+net (fo=1)                              0.456         12.383          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/acc_add[1],  ../../src/enc/tmds_encoder.v(74)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/acc_reg[1]_syn_4.b[1]
+ADDER (reg)         x018y029z0          0.550    f    12.933      14  net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc1/acc[1],  ../../src/enc/tmds_encoder.v(73)
+--------------------------------------------------------------------  ---------------
+Arrival                                               12.933               
+
+capture edge                           20.000    r    20.000               
+--------------------------------------------------------------------  ---------------
+setup                                  -0.116         19.884               
+clock uncertainty                      -0.100         19.784               
+clock pessimism                         0.000         19.784               
+--------------------------------------------------------------------  ---------------
+Required                                              19.784               
+--------------------------------------------------------------------  ---------------
+Slack                                                  6.851               
+
+Slack               : 7.120ns
+Begin Point         : u_display/u3_hdmi_tx/Inst_hdmi_tx_core/video_r_reg[22]_syn_4.clk (rising edge triggered by clock DeriveClock  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+End Point           : u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/acc_reg[3]_syn_4.fci (rising edge triggered by clock DeriveClock  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+Check Type          : setup
+Process             : slow
+Budget              : 20.000ns { DeriveClock rising@20.000ns - DeriveClock rising@0.000ns }
+Data Path Delay     : 12.664ns (cell 4.730ns (37%), net 7.934ns (63%))
+Clock Skew          : 0.000ns
+Logic Level         : 12 ( LUT5=4  ADDER=4  LUT4=3  LUT2=1 )
+Max Fanout          : 15
+Clock Uncertainty   : 0.100ns (sdc uncertainty: 0.000ns, default uncertainty: 0.100ns)
+
+Delay Type          Location             Incr           Path   Level  Netlist Info
+--------------------------------------------------------------------  ---------------
+launch edge                             0.000    r     0.000               
+--------------------------------------------------------------------  ---------------
+clk2q               x015y027z3          0.146    r     0.146          pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/video_r_reg[22]_syn_4.q[1]
+net (fo=6)                              1.453          1.599          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/video_data[6],  ../../src/enc/tmds_encoder.v(14)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/mux8_syn_466.d[1]
+LUT4                x014y027z2          0.262    r     1.861       1  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/mux8_syn_466.f[1]
+net (fo=3)                              0.738          2.599          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/mux8_syn_294,  ../../src/enc/tmds_encoder.v(141)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/mux8_syn_424.a[0]
+LUT5                x014y027z3          0.424    f     3.023       2  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/mux8_syn_424.f[0]
+net (fo=1)                              0.456          3.479          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/mux8_syn_298,  ../../src/enc/tmds_encoder.v(141)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/mux8_syn_424.b[1]
+LUT5                x014y027z3          0.431    f     3.910       3  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/mux8_syn_424.f[1]
+net (fo=15)                             0.958          4.868          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/mux8_syn_300,  ../../src/enc/tmds_encoder.v(141)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/mux8_syn_460.a[1]
+LUT4                x013y029z0          0.408    f     5.276       4  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/mux8_syn_460.f[1]
+net (fo=6)                              0.750          6.026          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/mux8_syn_317,  ../../src/enc/tmds_encoder.v(141)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/acc_add[3]_syn_15.b[1]
+LUT5                x012y028z1          0.543    f     6.569       5  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/acc_add[3]_syn_15.fx[0]
+net (fo=4)                              1.414          7.983          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/acc_add_b10[2],  NOFILE(0)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/sub2_syn_35.b[0]
+ADDER               x010y029z1          0.627    f     8.610       6  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/sub2_syn_35.fco
+net (fo=1)                              0.000          8.610          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/sub2_syn_23,  ../../src/enc/tmds_encoder.v(104)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/sub2_syn_37.fci
+ADDER               x010y030z0          0.144    f     8.754       7  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/sub2_syn_37.f[0]
+net (fo=3)                              0.309          9.063          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/acc_add_b5[4],  NOFILE(0)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/mux8_syn_426.b[1]
+LUT5                x011y030z2          0.431    f     9.494       8  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/mux8_syn_426.f[1]
+net (fo=8)                              0.635         10.129          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/mux8_syn_326,  ../../src/enc/tmds_encoder.v(141)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/mux8_syn_451.c[1]
+LUT4                x013y031z0          0.251    r    10.380       9  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/mux8_syn_451.f[1]
+net (fo=5)                              0.765         11.145          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/mux8_syn_328,  ../../src/enc/tmds_encoder.v(141)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/acc_add[1]_syn_4.d[0]
+LUT2                x013y029z3          0.262    r    11.407      10  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/acc_add[1]_syn_4.f[0]
+net (fo=1)                              0.456         11.863          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/acc_add[1],  ../../src/enc/tmds_encoder.v(74)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/acc_reg[1]_syn_4.b[1]
+ADDER               x012y030z0          0.539    f    12.402      11  pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/acc_reg[1]_syn_4.fco
+net (fo=1)                              0.000         12.402          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/add3_syn_23,  ../../src/enc/tmds_encoder.v(134)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/acc_reg[3]_syn_4.fci
+ADDER (reg)         x012y030z1          0.262    f    12.664      12  net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_enc2/acc[2],  ../../src/enc/tmds_encoder.v(73)
+--------------------------------------------------------------------  ---------------
+Arrival                                               12.664               
+
+capture edge                           20.000    r    20.000               
+--------------------------------------------------------------------  ---------------
+setup                                  -0.116         19.884               
+clock uncertainty                      -0.100         19.784               
+clock pessimism                         0.000         19.784               
+--------------------------------------------------------------------  ---------------
+Required                                              19.784               
+--------------------------------------------------------------------  ---------------
+Slack                                                  7.120               
+
+
+
+Min Paths
+----------------------------------------------------------------------------------------------------
+Slack               : 0.136ns
+Begin Point         : u_display/u_audio_fifo/rd_tog_reg_syn_4.clk (rising edge triggered by clock DeriveClock  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+End Point           : u_display/u_audio_fifo/ramread0_syn_214.a[0] (rising edge triggered by clock DeriveClock  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+Check Type          : hold
+Process             : fast
+Budget              : 0.000ns { DeriveClock rising@0.000ns - DeriveClock rising@0.000ns }
+Data Path Delay     : 0.349ns (cell 0.109ns (31%), net 0.240ns (69%))
+Clock Skew          : 0.000ns
+Logic Level         : 1 ( DRAM=1 )
+Max Fanout          : 12
+Clock Uncertainty   : 0.100ns (sdc uncertainty: 0.000ns, default uncertainty: 0.100ns)
+
+Delay Type          Location             Incr           Path   Level  Netlist Info
+--------------------------------------------------------------------  ---------------
+launch edge                             0.000    r     0.000               
+--------------------------------------------------------------------  ---------------
+clk2q               x012y046z3          0.109    f     0.109          pin: u_display/u_audio_fifo/rd_tog_reg_syn_4.q[0]
+net (fo=12)                             0.240          0.349          net: u_display/u_audio_fifo/rd_tog,  ../../src/audio_fifo.v(32)
+                                                                      pin: u_display/u_audio_fifo/ramread0_syn_214.a[0]
+DRAM (reg)          x012y048z2          0.000    f     0.349       1       
+--------------------------------------------------------------------  ---------------
+Arrival                                                0.349               
+
+capture edge                            0.000    r     0.000               
+--------------------------------------------------------------------  ---------------
+hold                                    0.113          0.113               
+clock uncertainty                       0.100          0.213               
+clock pessimism                         0.000          0.213               
+--------------------------------------------------------------------  ---------------
+Required                                               0.213               
+--------------------------------------------------------------------  ---------------
+Slack                                                  0.136               
+
+Slack               : 0.226ns
+Begin Point         : u_display/u_audio_fifo/rd_tog_reg_syn_4.clk (rising edge triggered by clock DeriveClock  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+End Point           : u_display/u_audio_fifo/ramread0_syn_284.a[0] (rising edge triggered by clock DeriveClock  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+Check Type          : hold
+Process             : fast
+Budget              : 0.000ns { DeriveClock rising@0.000ns - DeriveClock rising@0.000ns }
+Data Path Delay     : 0.439ns (cell 0.109ns (24%), net 0.330ns (76%))
+Clock Skew          : 0.000ns
+Logic Level         : 1 ( DRAM=1 )
+Max Fanout          : 12
+Clock Uncertainty   : 0.100ns (sdc uncertainty: 0.000ns, default uncertainty: 0.100ns)
+
+Delay Type          Location             Incr           Path   Level  Netlist Info
+--------------------------------------------------------------------  ---------------
+launch edge                             0.000    r     0.000               
+--------------------------------------------------------------------  ---------------
+clk2q               x012y046z3          0.109    f     0.109          pin: u_display/u_audio_fifo/rd_tog_reg_syn_4.q[0]
+net (fo=12)                             0.330          0.439          net: u_display/u_audio_fifo/rd_tog,  ../../src/audio_fifo.v(32)
+                                                                      pin: u_display/u_audio_fifo/ramread0_syn_284.a[0]
+DRAM (reg)          x012y046z2          0.000    f     0.439       1       
+--------------------------------------------------------------------  ---------------
+Arrival                                                0.439               
+
+capture edge                            0.000    r     0.000               
+--------------------------------------------------------------------  ---------------
+hold                                    0.113          0.113               
+clock uncertainty                       0.100          0.213               
+clock pessimism                         0.000          0.213               
+--------------------------------------------------------------------  ---------------
+Required                                               0.213               
+--------------------------------------------------------------------  ---------------
+Slack                                                  0.226               
+
+Slack               : 0.244ns
+Begin Point         : u_display/u_audio_fifo/wptr_reg[4]_syn_4.clk (rising edge triggered by clock DeriveClock  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+End Point           : u_display/u_audio_fifo/ramread0_syn_284.d[0] (rising edge triggered by clock DeriveClock  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+Check Type          : hold
+Process             : fast
+Budget              : 0.000ns { DeriveClock rising@0.000ns - DeriveClock rising@0.000ns }
+Data Path Delay     : 0.457ns (cell 0.109ns (23%), net 0.348ns (77%))
+Clock Skew          : 0.000ns
+Logic Level         : 1 ( DRAM=1 )
+Max Fanout          : 10
+Clock Uncertainty   : 0.100ns (sdc uncertainty: 0.000ns, default uncertainty: 0.100ns)
+
+Delay Type          Location             Incr           Path   Level  Netlist Info
+--------------------------------------------------------------------  ---------------
+launch edge                             0.000    r     0.000               
+--------------------------------------------------------------------  ---------------
+ADDER (clk2q)       x014y044z0          0.109    f     0.109          pin: u_display/u_audio_fifo/wptr_reg[4]_syn_4.q[0]
+net (fo=10)                             0.348          0.457          net: u_display/u_audio_fifo/wptr[3],  ../../src/audio_fifo.v(67)
+                                                                      pin: u_display/u_audio_fifo/ramread0_syn_284.d[0]
+DRAM (reg)          x012y046z2          0.000    f     0.457       1       
+--------------------------------------------------------------------  ---------------
+Arrival                                                0.457               
+
+capture edge                            0.000    r     0.000               
+--------------------------------------------------------------------  ---------------
+hold                                    0.113          0.113               
+clock uncertainty                       0.100          0.213               
+clock pessimism                         0.000          0.213               
+--------------------------------------------------------------------  ---------------
+Required                                               0.213               
+--------------------------------------------------------------------  ---------------
+Slack                                                  0.244               
+
+Slack               : 0.253ns
+Begin Point         : u_display/u_audio_fifo/rd_tog_reg_syn_4.clk (rising edge triggered by clock DeriveClock  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+End Point           : u_display/u_audio_fifo/ramread0_syn_228.a[0] (rising edge triggered by clock DeriveClock  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+Check Type          : hold
+Process             : fast
+Budget              : 0.000ns { DeriveClock rising@0.000ns - DeriveClock rising@0.000ns }
+Data Path Delay     : 0.466ns (cell 0.109ns (23%), net 0.357ns (77%))
+Clock Skew          : 0.000ns
+Logic Level         : 1 ( DRAM=1 )
+Max Fanout          : 12
+Clock Uncertainty   : 0.100ns (sdc uncertainty: 0.000ns, default uncertainty: 0.100ns)
+
+Delay Type          Location             Incr           Path   Level  Netlist Info
+--------------------------------------------------------------------  ---------------
+launch edge                             0.000    r     0.000               
+--------------------------------------------------------------------  ---------------
+clk2q               x012y046z3          0.109    f     0.109          pin: u_display/u_audio_fifo/rd_tog_reg_syn_4.q[0]
+net (fo=12)                             0.357          0.466          net: u_display/u_audio_fifo/rd_tog,  ../../src/audio_fifo.v(32)
+                                                                      pin: u_display/u_audio_fifo/ramread0_syn_228.a[0]
+DRAM (reg)          x013y047z2          0.000    f     0.466       1       
+--------------------------------------------------------------------  ---------------
+Arrival                                                0.466               
+
+capture edge                            0.000    r     0.000               
+--------------------------------------------------------------------  ---------------
+hold                                    0.113          0.113               
+clock uncertainty                       0.100          0.213               
+clock pessimism                         0.000          0.213               
+--------------------------------------------------------------------  ---------------
+Required                                               0.213               
+--------------------------------------------------------------------  ---------------
+Slack                                                  0.253               
+
+Slack               : 0.253ns
+Begin Point         : u_display/u_audio_fifo/rd_tog_reg_syn_4.clk (rising edge triggered by clock DeriveClock  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+End Point           : u_display/u_audio_fifo/ramread0_syn_270.a[0] (rising edge triggered by clock DeriveClock  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+Check Type          : hold
+Process             : fast
+Budget              : 0.000ns { DeriveClock rising@0.000ns - DeriveClock rising@0.000ns }
+Data Path Delay     : 0.466ns (cell 0.109ns (23%), net 0.357ns (77%))
+Clock Skew          : 0.000ns
+Logic Level         : 1 ( DRAM=1 )
+Max Fanout          : 12
+Clock Uncertainty   : 0.100ns (sdc uncertainty: 0.000ns, default uncertainty: 0.100ns)
+
+Delay Type          Location             Incr           Path   Level  Netlist Info
+--------------------------------------------------------------------  ---------------
+launch edge                             0.000    r     0.000               
+--------------------------------------------------------------------  ---------------
+clk2q               x012y046z3          0.109    f     0.109          pin: u_display/u_audio_fifo/rd_tog_reg_syn_4.q[0]
+net (fo=12)                             0.357          0.466          net: u_display/u_audio_fifo/rd_tog,  ../../src/audio_fifo.v(32)
+                                                                      pin: u_display/u_audio_fifo/ramread0_syn_270.a[0]
+DRAM (reg)          x012y049z2          0.000    f     0.466       1       
+--------------------------------------------------------------------  ---------------
+Arrival                                                0.466               
+
+capture edge                            0.000    r     0.000               
+--------------------------------------------------------------------  ---------------
+hold                                    0.113          0.113               
+clock uncertainty                       0.100          0.213               
+clock pessimism                         0.000          0.213               
+--------------------------------------------------------------------  ---------------
+Required                                               0.213               
+--------------------------------------------------------------------  ---------------
+Slack                                                  0.253               
+
+Slack               : 0.253ns
+Begin Point         : u_display/u_audio_fifo/rd_tog_reg_syn_4.clk (rising edge triggered by clock DeriveClock  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+End Point           : u_display/u_audio_fifo/ramread0_syn_298.a[0] (rising edge triggered by clock DeriveClock  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+Check Type          : hold
+Process             : fast
+Budget              : 0.000ns { DeriveClock rising@0.000ns - DeriveClock rising@0.000ns }
+Data Path Delay     : 0.466ns (cell 0.109ns (23%), net 0.357ns (77%))
+Clock Skew          : 0.000ns
+Logic Level         : 1 ( DRAM=1 )
+Max Fanout          : 12
+Clock Uncertainty   : 0.100ns (sdc uncertainty: 0.000ns, default uncertainty: 0.100ns)
+
+Delay Type          Location             Incr           Path   Level  Netlist Info
+--------------------------------------------------------------------  ---------------
+launch edge                             0.000    r     0.000               
+--------------------------------------------------------------------  ---------------
+clk2q               x012y046z3          0.109    f     0.109          pin: u_display/u_audio_fifo/rd_tog_reg_syn_4.q[0]
+net (fo=12)                             0.357          0.466          net: u_display/u_audio_fifo/rd_tog,  ../../src/audio_fifo.v(32)
+                                                                      pin: u_display/u_audio_fifo/ramread0_syn_298.a[0]
+DRAM (reg)          x012y050z2          0.000    f     0.466       1       
+--------------------------------------------------------------------  ---------------
+Arrival                                                0.466               
+
+capture edge                            0.000    r     0.000               
+--------------------------------------------------------------------  ---------------
+hold                                    0.113          0.113               
+clock uncertainty                       0.100          0.213               
+clock pessimism                         0.000          0.213               
+--------------------------------------------------------------------  ---------------
+Required                                               0.213               
+--------------------------------------------------------------------  ---------------
+Slack                                                  0.253               
+
+Slack               : 0.259ns
+Begin Point         : u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_assembler/p1_reg[6]_syn_4.clk (rising edge triggered by clock DeriveClock  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+End Point           : u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_assembler/p1_reg[4]_syn_4.mi[1] (rising edge triggered by clock DeriveClock  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+Check Type          : hold
+Process             : fast
+Budget              : 0.000ns { DeriveClock rising@0.000ns - DeriveClock rising@0.000ns }
+Data Path Delay     : 0.420ns (cell 0.204ns (48%), net 0.216ns (52%))
+Clock Skew          : 0.000ns
+Logic Level         : 0
+Max Fanout          : 2
+Clock Uncertainty   : 0.100ns (sdc uncertainty: 0.000ns, default uncertainty: 0.100ns)
+
+Delay Type          Location             Incr           Path   Level  Netlist Info
+--------------------------------------------------------------------  ---------------
+launch edge                             0.000    r     0.000               
+--------------------------------------------------------------------  ---------------
+clk2q               x021y021z2          0.109    f     0.109          pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_assembler/p1_reg[6]_syn_4.q[1]
+net (fo=2)                              0.216          0.325          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_assembler/bch1[62],  ../../src/enc/packet_assembler.v(46)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_assembler/p1_reg[4]_syn_4.mi[1]
+reg                 x022y021z2          0.095    f     0.420          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_assembler/bch1[60],  ../../src/enc/packet_assembler.v(46)
+--------------------------------------------------------------------  ---------------
+Arrival                                                0.420               
+
+capture edge                            0.000    r     0.000               
+--------------------------------------------------------------------  ---------------
+hold                                    0.061          0.061               
+clock uncertainty                       0.100          0.161               
+clock pessimism                         0.000          0.161               
+--------------------------------------------------------------------  ---------------
+Required                                               0.161               
+--------------------------------------------------------------------  ---------------
+Slack                                                  0.259               
+
+Slack               : 0.259ns
+Begin Point         : u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_assembler/p2_reg[0]_syn_4.clk (rising edge triggered by clock DeriveClock  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+End Point           : u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_assembler/p2_reg[1]_syn_4.mi[0] (rising edge triggered by clock DeriveClock  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+Check Type          : hold
+Process             : fast
+Budget              : 0.000ns { DeriveClock rising@0.000ns - DeriveClock rising@0.000ns }
+Data Path Delay     : 0.420ns (cell 0.204ns (48%), net 0.216ns (52%))
+Clock Skew          : 0.000ns
+Logic Level         : 0
+Max Fanout          : 2
+Clock Uncertainty   : 0.100ns (sdc uncertainty: 0.000ns, default uncertainty: 0.100ns)
+
+Delay Type          Location             Incr           Path   Level  Netlist Info
+--------------------------------------------------------------------  ---------------
+launch edge                             0.000    r     0.000               
+--------------------------------------------------------------------  ---------------
+clk2q               x022y022z0          0.109    f     0.109          pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_assembler/p2_reg[0]_syn_4.q[0]
+net (fo=2)                              0.216          0.325          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_assembler/bch2[63],  ../../src/enc/packet_assembler.v(47)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_assembler/p2_reg[1]_syn_4.mi[0]
+reg                 x022y021z3          0.095    f     0.420          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_assembler/bch2[61],  ../../src/enc/packet_assembler.v(47)
+--------------------------------------------------------------------  ---------------
+Arrival                                                0.420               
+
+capture edge                            0.000    r     0.000               
+--------------------------------------------------------------------  ---------------
+hold                                    0.061          0.061               
+clock uncertainty                       0.100          0.161               
+clock pessimism                         0.000          0.161               
+--------------------------------------------------------------------  ---------------
+Required                                               0.161               
+--------------------------------------------------------------------  ---------------
+Slack                                                  0.259               
+
+Slack               : 0.259ns
+Begin Point         : u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_assembler/p4_reg[3]_syn_4.clk (rising edge triggered by clock DeriveClock  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+End Point           : u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_assembler/p4_reg[2]_syn_4.mi[1] (rising edge triggered by clock DeriveClock  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+Check Type          : hold
+Process             : fast
+Budget              : 0.000ns { DeriveClock rising@0.000ns - DeriveClock rising@0.000ns }
+Data Path Delay     : 0.420ns (cell 0.204ns (48%), net 0.216ns (52%))
+Clock Skew          : 0.000ns
+Logic Level         : 0
+Max Fanout          : 2
+Clock Uncertainty   : 0.100ns (sdc uncertainty: 0.000ns, default uncertainty: 0.100ns)
+
+Delay Type          Location             Incr           Path   Level  Netlist Info
+--------------------------------------------------------------------  ---------------
+launch edge                             0.000    r     0.000               
+--------------------------------------------------------------------  ---------------
+clk2q               x020y022z2          0.109    f     0.109          pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_assembler/p4_reg[3]_syn_4.q[1]
+net (fo=2)                              0.216          0.325          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_assembler/p4[3],  ../../src/enc/packet_assembler.v(26)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_assembler/p4_reg[2]_syn_4.mi[1]
+reg                 x019y022z2          0.095    f     0.420          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_assembler/p4[2],  ../../src/enc/packet_assembler.v(26)
+--------------------------------------------------------------------  ---------------
+Arrival                                                0.420               
+
+capture edge                            0.000    r     0.000               
+--------------------------------------------------------------------  ---------------
+hold                                    0.061          0.061               
+clock uncertainty                       0.100          0.161               
+clock pessimism                         0.000          0.161               
+--------------------------------------------------------------------  ---------------
+Required                                               0.161               
+--------------------------------------------------------------------  ---------------
+Slack                                                  0.259               
+
+Slack               : 0.259ns
+Begin Point         : u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_assembler/p4_reg[2]_syn_4.clk (rising edge triggered by clock DeriveClock  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+End Point           : u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_assembler/p4_reg[3]_syn_4.mi[1] (rising edge triggered by clock DeriveClock  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+Check Type          : hold
+Process             : fast
+Budget              : 0.000ns { DeriveClock rising@0.000ns - DeriveClock rising@0.000ns }
+Data Path Delay     : 0.420ns (cell 0.204ns (48%), net 0.216ns (52%))
+Clock Skew          : 0.000ns
+Logic Level         : 0
+Max Fanout          : 2
+Clock Uncertainty   : 0.100ns (sdc uncertainty: 0.000ns, default uncertainty: 0.100ns)
+
+Delay Type          Location             Incr           Path   Level  Netlist Info
+--------------------------------------------------------------------  ---------------
+launch edge                             0.000    r     0.000               
+--------------------------------------------------------------------  ---------------
+clk2q               x019y022z2          0.109    f     0.109          pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_assembler/p4_reg[2]_syn_4.q[0]
+net (fo=2)                              0.216          0.325          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_assembler/p4[4],  ../../src/enc/packet_assembler.v(26)
+                                                                      pin: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_assembler/p4_reg[3]_syn_4.mi[1]
+reg                 x020y022z2          0.095    f     0.420          net: u_display/u3_hdmi_tx/Inst_hdmi_tx_core/u_assembler/p4[3],  ../../src/enc/packet_assembler.v(26)
+--------------------------------------------------------------------  ---------------
+Arrival                                                0.420               
+
+capture edge                            0.000    r     0.000               
+--------------------------------------------------------------------  ---------------
+hold                                    0.061          0.061               
+clock uncertainty                       0.100          0.161               
+clock pessimism                         0.000          0.161               
+--------------------------------------------------------------------  ---------------
+Required                                               0.161               
+--------------------------------------------------------------------  ---------------
+Slack                                                  0.259               
+
+
+Inter clock domain timing
+--------------------------------------------------
+
+IP timing
+--------------------------------------------------

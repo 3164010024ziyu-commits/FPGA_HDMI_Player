@@ -1,0 +1,54 @@
+standard
+***Report Model: hdmi_demo_top Device: EG4S20BG256***
+
+IO Statistics
+#IO                         6
+  #input                    2
+  #output                   4
+  #inout                    0
+
+Gate Statistics
+#Basic gates             1688
+  #and                     92
+  #nand                     0
+  #or                      24
+  #nor                      0
+  #xor                    173
+  #xnor                     3
+  #buf                      0
+  #not                    136
+  #bufif1                   0
+  #MX21                   361
+  #FADD                     0
+  #DFF                    899
+  #LATCH                    0
+#MACRO_ADD                136
+#MACRO_EQ                  32
+#MACRO_MULT                 2
+#MACRO_MUX                495
+#MACRO_OTHERS              22
+
+Report Hierarchy Area:
++-----------------------------------------------------------------------+
+|Instance                |Module                |gates  |seq    |macros |
++-----------------------------------------------------------------------+
+|top                     |hdmi_demo_top         |789    |899    |192    |
+|  u_display             |hdmi_tx_display       |749    |769    |167    |
+|    u3_hdmi_tx          |hdmi_tx               |639    |636    |114    |
+|      Inst_hdmi_tx_core |hdmi_tx_core          |639    |636    |114    |
+|        u_assembler     |hdmi_packet_assembler |30     |45     |4      |
+|        u_enc0          |tmds_encoder          |107    |14     |26     |
+|        u_enc1          |tmds_encoder          |99     |14     |25     |
+|        u_enc2          |tmds_encoder          |96     |14     |25     |
+|        u_picker        |packet_picker         |280    |478    |13     |
+|        u_serializer    |tmds_serializer       |2      |30     |4      |
+|          u_oddr_clk    |eg_oddr               |0      |0      |1      |
+|          u_oddr_d0     |eg_oddr               |0      |0      |1      |
+|          u_oddr_d1     |eg_oddr               |0      |0      |1      |
+|          u_oddr_d2     |eg_oddr               |0      |0      |1      |
+|    u_audio_fifo        |audio_fifo            |6      |34     |4      |
+|    u_clk_wize          |clk_wize              |0      |0      |1      |
+|    u_osd               |osd_overlay           |89     |78     |40     |
+|      u_font            |font_16x16_rom        |0      |4      |16     |
+|    u_read_RAM          |read_RAM              |15     |21     |8      |
++-----------------------------------------------------------------------+

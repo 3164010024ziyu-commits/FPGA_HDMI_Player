@@ -1,106 +1,95 @@
+// -----------------------------------------------------------------------------
+// 640x480p60 timing generator.
+//   H: 640 active + 16 front porch + 96 sync + 48 back porch = 800
+//   V: 480 active + 10 front porch +  2 sync + 33 back porch = 525
+// -----------------------------------------------------------------------------
 module read_RAM
 (
-	input	clk25M,//25MHz时钟
-	input	reset_n,
+	input        clk25M,     // 25 MHz pixel clock
+	input        reset_n,
 
-	input   [23:0]pix_rgb,  //像素数据
-	input   pix_valid,      //像素有效
+	input  [23:0] pix_rgb,
+	input         pix_valid,
 
-	output  pix_req,        //请求下一个像素
-	output  frame_sync,		//一帧开始前的同步脉冲，用于帧位置同步
+	output        pix_req,
+	output        frame_sync,
 
-    output  HDMI_EN,//HDMI使能信号
-	output 	HDMI_HSYNC,//行同步信号
-	output 	HDMI_VSYNC,//场同步信号
+	output        HDMI_EN,
+	output        HDMI_HSYNC,
+	output        HDMI_VSYNC,
+	output [9:0]  HDMI_X,
+	output [9:0]  HDMI_Y,
+	output [23:0] HDMI_D
+);
 
-	output reg [23:0] HDMI_D
-);		
+	localparam [9:0] H_ACTIVE     = 10'd640;
+	localparam [9:0] H_TOTAL      = 10'd800;
+	localparam [9:0] H_SYNC_START = 10'd656;
+	localparam [9:0] H_SYNC_END   = 10'd752;
+	localparam [9:0] V_ACTIVE     = 10'd480;
+	localparam [9:0] V_TOTAL      = 10'd525;
+	localparam [9:0] V_SYNC_START = 10'd490;
+	localparam [9:0] V_SYNC_END   = 10'd492;
+	localparam [9:0] FRAME_LINE   = 10'd480;
 
-reg  [9:0]hcnt;
-reg  [9:0]vcnt;		
-reg	 hs;	
-reg  vs;
-reg  frame;
+	reg [9:0] hcnt;
+	reg [9:0] vcnt;
+	reg       hs;
+	reg       vs;
+	reg       frame;
 
-wire dis_en;
+	wire dis_en = (hcnt < H_ACTIVE) && (vcnt < V_ACTIVE);
 
-assign HDMI_VSYNC = vs;
-assign HDMI_HSYNC = hs;
-assign dis_en = (hcnt<10'd640 && vcnt<10'd480);
-assign HDMI_EN  = (((hcnt >= 0) && (hcnt < 640))
-                 &&((vcnt >= 0) && (vcnt < 480)))
-                 ?  1'b1 : 1'b0;
+	assign HDMI_VSYNC = vs;
+	assign HDMI_HSYNC = hs;
+	assign HDMI_X     = hcnt;
+	assign HDMI_Y     = vcnt;
+	assign HDMI_EN    = dis_en;
 
-assign pix_req = ( (hcnt<10'd640 || hcnt >= 10'd798) && vcnt<10'd480);
-assign frame_sync = frame;
+	// request active pixels plus two prefetch pixels at the end of the line
+	assign pix_req    = ((hcnt < H_ACTIVE) || (hcnt >= H_TOTAL - 10'd2)) &&
+	                    (vcnt < V_ACTIVE);
+	assign frame_sync = frame;
 
-always @(posedge clk25M or negedge reset_n) begin			//水平扫描计数器
-	if(!reset_n)
-		hcnt <= 1'b0;
-	else begin
-		if (hcnt < 799)
-			hcnt <= hcnt + 1'b1;
+	// pixel data, DE and coordinates come from the same clock edge
+	assign HDMI_D = dis_en && pix_valid ? pix_rgb : 24'd0;
+
+	always @(posedge clk25M or negedge reset_n) begin
+		if (!reset_n)
+			hcnt <= 10'd0;
+		else if (hcnt < H_TOTAL - 10'd1)
+			hcnt <= hcnt + 10'd1;
 		else
-			hcnt <= 1'b0;
+			hcnt <= 10'd0;
 	end
-end
-			
-always @(posedge clk25M or negedge reset_n) begin			//垂直扫描计数器
-	if(!reset_n)
-		vcnt <= 1'b0;
-	else begin
-		if (hcnt == 799) begin
-			if (vcnt < 10'd524)
-				vcnt <= vcnt +1'b1;
+
+	always @(posedge clk25M or negedge reset_n) begin
+		if (!reset_n)
+			vcnt <= 10'd0;
+		else if (hcnt == H_TOTAL - 10'd1) begin
+			if (vcnt < V_TOTAL - 10'd1)
+				vcnt <= vcnt + 10'd1;
 			else
-				vcnt <= 1'b0;
+				vcnt <= 10'd0;
 		end
 	end
-end
-			
-always @(posedge clk25M or negedge reset_n) begin			//行同步信号发生
-	if(!reset_n)
-		hs	<=	1'b1;
-	else begin
-		if((hcnt >= 640+8+8) & (hcnt < 640+8+8+96))
-			hs <= 1'b0;
-		else
+
+	always @(posedge clk25M or negedge reset_n) begin
+		if (!reset_n)
 			hs <= 1'b1;
+		else
+			hs <= !((hcnt >= H_SYNC_START) && (hcnt < H_SYNC_END));
 	end
-end
-			
-always @(posedge vcnt or negedge reset_n) begin							//场同步信号发生
-	if(!reset_n) begin
-		vs	<=	1'b1;
-        frame <= 1'b0;
-    end else begin
-		if((vcnt >= 480) && (vcnt < 480+1)) begin    //显示完立即发出帧同步信号
-			frame <= 1'b1;
-            vs <=	1'b1;
-		end else if((vcnt >= 480+8+2) && (vcnt < 480+8+2+2)) begin
-				frame <= 1'b0;
-				vs	<=	1'b0;
-			end
-		else begin
-				frame <= 1'b0;
-				vs	<=	1'b1;
-			end
-	end
-end
-			
-always @(posedge clk25M or negedge reset_n) begin
-	if(!reset_n)
-		HDMI_D <= 1'b0;
-	else begin
-		if (hcnt < 10'd640 && vcnt < 10'd480 && dis_en && pix_valid)	begin	//有效区域内并且返回有效像素数据时分配像素数据
-			HDMI_D[23:16] <= pix_rgb[23:16];
-            HDMI_D[15: 8] <= pix_rgb[15: 8];
-            HDMI_D[ 7: 0] <= pix_rgb[ 7: 0];
-		end
-		else begin
-			HDMI_D <= 1'b0;
+
+	// VSYNC and frame_sync are combinational from vcnt.
+	always @* begin
+		if (!reset_n) begin
+			vs    = 1'b1;
+			frame = 1'b0;
+		end else begin
+			vs    = !((vcnt >= V_SYNC_START) && (vcnt < V_SYNC_END));
+			frame = (vcnt == FRAME_LINE);
 		end
 	end
-end
-		
-endmodule 
+
+endmodule

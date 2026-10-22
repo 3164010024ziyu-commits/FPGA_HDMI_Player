@@ -15,8 +15,8 @@
 //	Clock division factor:       2
 //	Clock information:
 //		Clock name	| Frequency 	| Phase shift
-//		C0        	| 125.000000MHZ	| 0.0000  DEG  
-//		C1        	| 25.000000 MHZ	| 0.0000  DEG  
+//		C0        	| 125.000000MHZ	| 0.0000  DEG
+//		C1        	| 25.000000 MHZ	| 0.0000  DEG
 ///////////////////////////////////////////////////////////////////////////////
 `timescale 1 ns / 100 fs
 

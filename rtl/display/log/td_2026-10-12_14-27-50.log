@@ -1,0 +1,518 @@
+============================================================
+   Tang Dynasty, V6.2.168116
+   Copyright (c) 2012-2025 Anlogic Inc.
+   Executable = D:/sofwar/td/bin/td.exe
+   Built at =   16:32:07 Jun 12 2025
+   Run by =     dell
+   Run Date =   Mon Oct 12 14:27:50 2026
+
+   Run on =     DESKTOP-FBED5CA
+============================================================
+RUN-1002 : start command "commit_param -step design"
+RUN-1001 : Print Global Property
+RUN-1001 : --------------------------------------------------------
+RUN-1001 :   Parameters   |  Settings  |  Default Values  |  Note  
+RUN-1001 : --------------------------------------------------------
+RUN-1001 :   enable_seed  |    off     |       off        |        
+RUN-1001 :     message    |  standard  |     standard     |        
+RUN-1001 :   qor_monitor  |     on     |        on        |        
+RUN-1001 :   syn_ip_flow  |    off     |       off        |        
+RUN-1001 :     thread     |    auto    |       auto       |        
+RUN-1001 : --------------------------------------------------------
+RUN-1001 : Print Design Property
+RUN-1001 : ----------------------------------------------------------------
+RUN-1001 :       Parameters       |  Settings  |  Default Values  |  Note  
+RUN-1001 : ----------------------------------------------------------------
+RUN-1001 :   default_reg_initial  |    auto    |       auto       |        
+RUN-1001 :    hdl_warning_level   |   normal   |      normal      |        
+RUN-1001 : ----------------------------------------------------------------
+HDL-1007 : analyze verilog file clock_ip/clk_wize.v
+HDL-1007 : undeclared symbol 'open', assumed default net type 'wire' in clock_ip/clk_wize.v(70)
+HDL-1007 : analyze verilog file hdmi_top.v
+RUN-1002 : start command "commit_param -step design"
+RUN-1001 : Print Global Property
+RUN-1001 : --------------------------------------------------------
+RUN-1001 :   Parameters   |  Settings  |  Default Values  |  Note  
+RUN-1001 : --------------------------------------------------------
+RUN-1001 :   enable_seed  |    off     |       off        |        
+RUN-1001 :     message    |  standard  |     standard     |        
+RUN-1001 :   qor_monitor  |     on     |        on        |        
+RUN-1001 :   syn_ip_flow  |    off     |       off        |        
+RUN-1001 :     thread     |    auto    |       auto       |        
+RUN-1001 : --------------------------------------------------------
+RUN-1001 : Print Design Property
+RUN-1001 : ----------------------------------------------------------------
+RUN-1001 :       Parameters       |  Settings  |  Default Values  |  Note  
+RUN-1001 : ----------------------------------------------------------------
+RUN-1001 :   default_reg_initial  |    auto    |       auto       |        
+RUN-1001 :    hdl_warning_level   |   normal   |      normal      |        
+RUN-1001 : ----------------------------------------------------------------
+HDL-1007 : analyze verilog file clock_ip/clk_wize.v
+HDL-1007 : undeclared symbol 'open', assumed default net type 'wire' in clock_ip/clk_wize.v(70)
+HDL-1007 : analyze verilog file hdmi_top.v
+HDL-1007 : analyze verilog file read_RAM.v
+RUN-1002 : start command "commit_param -step design"
+RUN-1001 : Print Global Property
+RUN-1001 : --------------------------------------------------------
+RUN-1001 :   Parameters   |  Settings  |  Default Values  |  Note  
+RUN-1001 : --------------------------------------------------------
+RUN-1001 :   enable_seed  |    off     |       off        |        
+RUN-1001 :     message    |  standard  |     standard     |        
+RUN-1001 :   qor_monitor  |     on     |        on        |        
+RUN-1001 :   syn_ip_flow  |    off     |       off        |        
+RUN-1001 :     thread     |    auto    |       auto       |        
+RUN-1001 : --------------------------------------------------------
+RUN-1001 : Print Design Property
+RUN-1001 : ----------------------------------------------------------------
+RUN-1001 :       Parameters       |  Settings  |  Default Values  |  Note  
+RUN-1001 : ----------------------------------------------------------------
+RUN-1001 :   default_reg_initial  |    auto    |       auto       |        
+RUN-1001 :    hdl_warning_level   |   normal   |      normal      |        
+RUN-1001 : ----------------------------------------------------------------
+HDL-1007 : analyze verilog file clock_ip/clk_wize.v
+HDL-1007 : undeclared symbol 'open', assumed default net type 'wire' in clock_ip/clk_wize.v(70)
+HDL-1007 : analyze verilog file hdmi_top.v
+HDL-1007 : analyze verilog file read_RAM.v
+HDL-1007 : undeclared symbol 'SD_CLK', assumed default net type 'wire' in read_RAM.v(4)
+HDL-1007 : undeclared symbol 'SD_RAS_N', assumed default net type 'wire' in read_RAM.v(5)
+HDL-1007 : undeclared symbol 'SD_CAN_N', assumed default net type 'wire' in read_RAM.v(6)
+HDL-1007 : undeclared symbol 'SD_WE_N', assumed default net type 'wire' in read_RAM.v(7)
+HDL-1007 : undeclared symbol 'SD_SA', assumed default net type 'wire' in read_RAM.v(8)
+HDL-1007 : undeclared symbol 'SD_BA', assumed default net type 'wire' in read_RAM.v(9)
+HDL-1007 : undeclared symbol 'SD_DQ', assumed default net type 'wire' in read_RAM.v(10)
+HDL-1007 : undeclared symbol 'SD_CKE', assumed default net type 'wire' in read_RAM.v(11)
+HDL-8007 ERROR: cannot find port 'dm' on this module in read_RAM.v(12)
+RUN-1002 : start command "commit_param -step design"
+RUN-1001 : Print Global Property
+RUN-1001 : --------------------------------------------------------
+RUN-1001 :   Parameters   |  Settings  |  Default Values  |  Note  
+RUN-1001 : --------------------------------------------------------
+RUN-1001 :   enable_seed  |    off     |       off        |        
+RUN-1001 :     message    |  standard  |     standard     |        
+RUN-1001 :   qor_monitor  |     on     |        on        |        
+RUN-1001 :   syn_ip_flow  |    off     |       off        |        
+RUN-1001 :     thread     |    auto    |       auto       |        
+RUN-1001 : --------------------------------------------------------
+RUN-1001 : Print Design Property
+RUN-1001 : ----------------------------------------------------------------
+RUN-1001 :       Parameters       |  Settings  |  Default Values  |  Note  
+RUN-1001 : ----------------------------------------------------------------
+RUN-1001 :   default_reg_initial  |    auto    |       auto       |        
+RUN-1001 :    hdl_warning_level   |   normal   |      normal      |        
+RUN-1001 : ----------------------------------------------------------------
+HDL-1007 : analyze verilog file clock_ip/clk_wize.v
+HDL-1007 : undeclared symbol 'open', assumed default net type 'wire' in clock_ip/clk_wize.v(70)
+HDL-1007 : analyze verilog file hdmi_top.v
+HDL-1007 : analyze verilog file read_RAM.v
+HDL-1007 : undeclared symbol 'SD_CLK', assumed default net type 'wire' in read_RAM.v(4)
+HDL-1007 : undeclared symbol 'SD_RAS_N', assumed default net type 'wire' in read_RAM.v(5)
+HDL-1007 : undeclared symbol 'SD_CAN_N', assumed default net type 'wire' in read_RAM.v(6)
+HDL-1007 : undeclared symbol 'SD_WE_N', assumed default net type 'wire' in read_RAM.v(7)
+HDL-1007 : undeclared symbol 'SD_SA', assumed default net type 'wire' in read_RAM.v(8)
+HDL-1007 : undeclared symbol 'SD_BA', assumed default net type 'wire' in read_RAM.v(9)
+HDL-1007 : undeclared symbol 'SD_DQ', assumed default net type 'wire' in read_RAM.v(10)
+HDL-1007 : undeclared symbol 'SD_CKE', assumed default net type 'wire' in read_RAM.v(11)
+HDL-8007 ERROR: extra comma in port association list is not allowed in read_RAM.v(11)
+HDL-8007 ERROR: ignore module module due to previous errors in read_RAM.v(1)
+RUN-1002 : start command "commit_param -step design"
+RUN-1001 : Print Global Property
+RUN-1001 : --------------------------------------------------------
+RUN-1001 :   Parameters   |  Settings  |  Default Values  |  Note  
+RUN-1001 : --------------------------------------------------------
+RUN-1001 :   enable_seed  |    off     |       off        |        
+RUN-1001 :     message    |  standard  |     standard     |        
+RUN-1001 :   qor_monitor  |     on     |        on        |        
+RUN-1001 :   syn_ip_flow  |    off     |       off        |        
+RUN-1001 :     thread     |    auto    |       auto       |        
+RUN-1001 : --------------------------------------------------------
+RUN-1001 : Print Design Property
+RUN-1001 : ----------------------------------------------------------------
+RUN-1001 :       Parameters       |  Settings  |  Default Values  |  Note  
+RUN-1001 : ----------------------------------------------------------------
+RUN-1001 :   default_reg_initial  |    auto    |       auto       |        
+RUN-1001 :    hdl_warning_level   |   normal   |      normal      |        
+RUN-1001 : ----------------------------------------------------------------
+HDL-1007 : analyze verilog file clock_ip/clk_wize.v
+HDL-1007 : undeclared symbol 'open', assumed default net type 'wire' in clock_ip/clk_wize.v(70)
+HDL-1007 : analyze verilog file hdmi_top.v
+HDL-1007 : analyze verilog file read_RAM.v
+RUN-1002 : start command "commit_param -step design"
+RUN-1001 : Print Global Property
+RUN-1001 : --------------------------------------------------------
+RUN-1001 :   Parameters   |  Settings  |  Default Values  |  Note  
+RUN-1001 : --------------------------------------------------------
+RUN-1001 :   enable_seed  |    off     |       off        |        
+RUN-1001 :     message    |  standard  |     standard     |        
+RUN-1001 :   qor_monitor  |     on     |        on        |        
+RUN-1001 :   syn_ip_flow  |    off     |       off        |        
+RUN-1001 :     thread     |    auto    |       auto       |        
+RUN-1001 : --------------------------------------------------------
+RUN-1001 : Print Design Property
+RUN-1001 : ----------------------------------------------------------------
+RUN-1001 :       Parameters       |  Settings  |  Default Values  |  Note  
+RUN-1001 : ----------------------------------------------------------------
+RUN-1001 :   default_reg_initial  |    auto    |       auto       |        
+RUN-1001 :    hdl_warning_level   |   normal   |      normal      |        
+RUN-1001 : ----------------------------------------------------------------
+HDL-1007 : analyze verilog file clock_ip/clk_wize.v
+HDL-1007 : undeclared symbol 'open', assumed default net type 'wire' in clock_ip/clk_wize.v(70)
+HDL-1007 : analyze verilog file hdmi_top.v
+HDL-1007 : undeclared symbol 'SD_CLK', assumed default net type 'wire' in hdmi_top.v(4)
+HDL-1007 : undeclared symbol 'SD_RAS_N', assumed default net type 'wire' in hdmi_top.v(5)
+HDL-1007 : undeclared symbol 'SD_CAN_N', assumed default net type 'wire' in hdmi_top.v(6)
+HDL-1007 : undeclared symbol 'SD_WE_N', assumed default net type 'wire' in hdmi_top.v(7)
+HDL-1007 : undeclared symbol 'SD_SA', assumed default net type 'wire' in hdmi_top.v(8)
+HDL-1007 : undeclared symbol 'SD_BA', assumed default net type 'wire' in hdmi_top.v(9)
+HDL-1007 : undeclared symbol 'SD_DQ', assumed default net type 'wire' in hdmi_top.v(10)
+HDL-1007 : undeclared symbol 'SD_CKE', assumed default net type 'wire' in hdmi_top.v(11)
+HDL-1007 : analyze verilog file read_RAM.v
+HDL-8007 ERROR: cannot find port 'dm' on this module in hdmi_top.v(12)
+RUN-1002 : start command "commit_param -step design"
+RUN-1001 : Print Global Property
+RUN-1001 : --------------------------------------------------------
+RUN-1001 :   Parameters   |  Settings  |  Default Values  |  Note  
+RUN-1001 : --------------------------------------------------------
+RUN-1001 :   enable_seed  |    off     |       off        |        
+RUN-1001 :     message    |  standard  |     standard     |        
+RUN-1001 :   qor_monitor  |     on     |        on        |        
+RUN-1001 :   syn_ip_flow  |    off     |       off        |        
+RUN-1001 :     thread     |    auto    |       auto       |        
+RUN-1001 : --------------------------------------------------------
+RUN-1001 : Print Design Property
+RUN-1001 : ----------------------------------------------------------------
+RUN-1001 :       Parameters       |  Settings  |  Default Values  |  Note  
+RUN-1001 : ----------------------------------------------------------------
+RUN-1001 :   default_reg_initial  |    auto    |       auto       |        
+RUN-1001 :    hdl_warning_level   |   normal   |      normal      |        
+RUN-1001 : ----------------------------------------------------------------
+HDL-1007 : analyze verilog file clock_ip/clk_wize.v
+HDL-1007 : undeclared symbol 'open', assumed default net type 'wire' in clock_ip/clk_wize.v(70)
+HDL-1007 : analyze verilog file hdmi_top.v
+HDL-1007 : undeclared symbol 'SD_CLK', assumed default net type 'wire' in hdmi_top.v(4)
+HDL-1007 : undeclared symbol 'SD_RAS_N', assumed default net type 'wire' in hdmi_top.v(5)
+HDL-1007 : undeclared symbol 'SD_CAN_N', assumed default net type 'wire' in hdmi_top.v(6)
+HDL-1007 : undeclared symbol 'SD_WE_N', assumed default net type 'wire' in hdmi_top.v(7)
+HDL-1007 : undeclared symbol 'SD_SA', assumed default net type 'wire' in hdmi_top.v(8)
+HDL-1007 : undeclared symbol 'SD_BA', assumed default net type 'wire' in hdmi_top.v(9)
+HDL-1007 : undeclared symbol 'SD_DQ', assumed default net type 'wire' in hdmi_top.v(10)
+HDL-1007 : undeclared symbol 'SD_CKE', assumed default net type 'wire' in hdmi_top.v(11)
+HDL-8007 ERROR: extra comma in port association list is not allowed in hdmi_top.v(11)
+HDL-8007 ERROR: ignore module module due to previous errors in hdmi_top.v(1)
+RUN-1002 : start command "commit_param -step design"
+RUN-1001 : Print Global Property
+RUN-1001 : --------------------------------------------------------
+RUN-1001 :   Parameters   |  Settings  |  Default Values  |  Note  
+RUN-1001 : --------------------------------------------------------
+RUN-1001 :   enable_seed  |    off     |       off        |        
+RUN-1001 :     message    |  standard  |     standard     |        
+RUN-1001 :   qor_monitor  |     on     |        on        |        
+RUN-1001 :   syn_ip_flow  |    off     |       off        |        
+RUN-1001 :     thread     |    auto    |       auto       |        
+RUN-1001 : --------------------------------------------------------
+RUN-1001 : Print Design Property
+RUN-1001 : ----------------------------------------------------------------
+RUN-1001 :       Parameters       |  Settings  |  Default Values  |  Note  
+RUN-1001 : ----------------------------------------------------------------
+RUN-1001 :   default_reg_initial  |    auto    |       auto       |        
+RUN-1001 :    hdl_warning_level   |   normal   |      normal      |        
+RUN-1001 : ----------------------------------------------------------------
+HDL-1007 : analyze verilog file clock_ip/clk_wize.v
+HDL-1007 : undeclared symbol 'open', assumed default net type 'wire' in clock_ip/clk_wize.v(70)
+HDL-1007 : analyze verilog file hdmi_top.v
+HDL-1007 : undeclared symbol 'SD_CLK', assumed default net type 'wire' in hdmi_top.v(4)
+HDL-1007 : undeclared symbol 'SD_RAS_N', assumed default net type 'wire' in hdmi_top.v(5)
+HDL-1007 : undeclared symbol 'SD_CAN_N', assumed default net type 'wire' in hdmi_top.v(6)
+HDL-1007 : undeclared symbol 'SD_WE_N', assumed default net type 'wire' in hdmi_top.v(7)
+HDL-1007 : undeclared symbol 'SD_SA', assumed default net type 'wire' in hdmi_top.v(8)
+HDL-1007 : undeclared symbol 'SD_BA', assumed default net type 'wire' in hdmi_top.v(9)
+HDL-1007 : undeclared symbol 'SD_DQ', assumed default net type 'wire' in hdmi_top.v(10)
+HDL-1007 : undeclared symbol 'SD_CKE', assumed default net type 'wire' in hdmi_top.v(11)
+HDL-1007 : analyze verilog file read_RAM.v
+RUN-1002 : start command "commit_param -step design"
+RUN-1001 : Print Global Property
+RUN-1001 : --------------------------------------------------------
+RUN-1001 :   Parameters   |  Settings  |  Default Values  |  Note  
+RUN-1001 : --------------------------------------------------------
+RUN-1001 :   enable_seed  |    off     |       off        |        
+RUN-1001 :     message    |  standard  |     standard     |        
+RUN-1001 :   qor_monitor  |     on     |        on        |        
+RUN-1001 :   syn_ip_flow  |    off     |       off        |        
+RUN-1001 :     thread     |    auto    |       auto       |        
+RUN-1001 : --------------------------------------------------------
+RUN-1001 : Print Design Property
+RUN-1001 : ----------------------------------------------------------------
+RUN-1001 :       Parameters       |  Settings  |  Default Values  |  Note  
+RUN-1001 : ----------------------------------------------------------------
+RUN-1001 :   default_reg_initial  |    auto    |       auto       |        
+RUN-1001 :    hdl_warning_level   |   normal   |      normal      |        
+RUN-1001 : ----------------------------------------------------------------
+HDL-1007 : analyze verilog file clock_ip/clk_wize.v
+HDL-1007 : undeclared symbol 'open', assumed default net type 'wire' in clock_ip/clk_wize.v(70)
+HDL-1007 : analyze verilog file hdmi_top.v
+HDL-1007 : undeclared symbol 'SD_CLK', assumed default net type 'wire' in hdmi_top.v(4)
+HDL-1007 : undeclared symbol 'SD_RAS_N', assumed default net type 'wire' in hdmi_top.v(5)
+HDL-1007 : undeclared symbol 'SD_CAN_N', assumed default net type 'wire' in hdmi_top.v(6)
+HDL-1007 : undeclared symbol 'SD_WE_N', assumed default net type 'wire' in hdmi_top.v(7)
+HDL-1007 : undeclared symbol 'SD_SA', assumed default net type 'wire' in hdmi_top.v(8)
+HDL-1007 : undeclared symbol 'SD_BA', assumed default net type 'wire' in hdmi_top.v(9)
+HDL-1007 : undeclared symbol 'SD_DQ', assumed default net type 'wire' in hdmi_top.v(10)
+HDL-1007 : undeclared symbol 'SD_CKE', assumed default net type 'wire' in hdmi_top.v(11)
+HDL-1007 : analyze verilog file read_RAM.v
+RUN-1002 : start command "commit_param -step design"
+RUN-1001 : Print Global Property
+RUN-1001 : --------------------------------------------------------
+RUN-1001 :   Parameters   |  Settings  |  Default Values  |  Note  
+RUN-1001 : --------------------------------------------------------
+RUN-1001 :   enable_seed  |    off     |       off        |        
+RUN-1001 :     message    |  standard  |     standard     |        
+RUN-1001 :   qor_monitor  |     on     |        on        |        
+RUN-1001 :   syn_ip_flow  |    off     |       off        |        
+RUN-1001 :     thread     |    auto    |       auto       |        
+RUN-1001 : --------------------------------------------------------
+RUN-1001 : Print Design Property
+RUN-1001 : ----------------------------------------------------------------
+RUN-1001 :       Parameters       |  Settings  |  Default Values  |  Note  
+RUN-1001 : ----------------------------------------------------------------
+RUN-1001 :   default_reg_initial  |    auto    |       auto       |        
+RUN-1001 :    hdl_warning_level   |   normal   |      normal      |        
+RUN-1001 : ----------------------------------------------------------------
+HDL-1007 : analyze verilog file clock_ip/clk_wize.v
+HDL-1007 : undeclared symbol 'open', assumed default net type 'wire' in clock_ip/clk_wize.v(70)
+HDL-1007 : analyze verilog file hdmi_top.v
+HDL-1007 : undeclared symbol 'SD_CLK', assumed default net type 'wire' in hdmi_top.v(4)
+HDL-1007 : undeclared symbol 'SD_RAS_N', assumed default net type 'wire' in hdmi_top.v(5)
+HDL-1007 : undeclared symbol 'SD_CAN_N', assumed default net type 'wire' in hdmi_top.v(6)
+HDL-1007 : undeclared symbol 'SD_WE_N', assumed default net type 'wire' in hdmi_top.v(7)
+HDL-1007 : undeclared symbol 'SD_SA', assumed default net type 'wire' in hdmi_top.v(8)
+HDL-1007 : undeclared symbol 'SD_BA', assumed default net type 'wire' in hdmi_top.v(9)
+HDL-1007 : undeclared symbol 'SD_DQ', assumed default net type 'wire' in hdmi_top.v(10)
+HDL-1007 : undeclared symbol 'SD_CKE', assumed default net type 'wire' in hdmi_top.v(11)
+HDL-1007 : analyze verilog file read_RAM.v
+HDL-1007 : undeclared symbol 'SD_CLK', assumed default net type 'wire' in read_RAM.v(4)
+HDL-1007 : undeclared symbol 'SD_RAS_N', assumed default net type 'wire' in read_RAM.v(5)
+HDL-1007 : undeclared symbol 'SD_CAN_N', assumed default net type 'wire' in read_RAM.v(6)
+HDL-1007 : undeclared symbol 'SD_WE_N', assumed default net type 'wire' in read_RAM.v(7)
+HDL-1007 : undeclared symbol 'SD_SA', assumed default net type 'wire' in read_RAM.v(8)
+HDL-1007 : undeclared symbol 'SD_BA', assumed default net type 'wire' in read_RAM.v(9)
+HDL-1007 : undeclared symbol 'SD_DQ', assumed default net type 'wire' in read_RAM.v(10)
+HDL-1007 : undeclared symbol 'SD_CKE', assumed default net type 'wire' in read_RAM.v(11)
+RUN-1002 : start command "commit_param -step design"
+RUN-1001 : Print Global Property
+RUN-1001 : --------------------------------------------------------
+RUN-1001 :   Parameters   |  Settings  |  Default Values  |  Note  
+RUN-1001 : --------------------------------------------------------
+RUN-1001 :   enable_seed  |    off     |       off        |        
+RUN-1001 :     message    |  standard  |     standard     |        
+RUN-1001 :   qor_monitor  |     on     |        on        |        
+RUN-1001 :   syn_ip_flow  |    off     |       off        |        
+RUN-1001 :     thread     |    auto    |       auto       |        
+RUN-1001 : --------------------------------------------------------
+RUN-1001 : Print Design Property
+RUN-1001 : ----------------------------------------------------------------
+RUN-1001 :       Parameters       |  Settings  |  Default Values  |  Note  
+RUN-1001 : ----------------------------------------------------------------
+RUN-1001 :   default_reg_initial  |    auto    |       auto       |        
+RUN-1001 :    hdl_warning_level   |   normal   |      normal      |        
+RUN-1001 : ----------------------------------------------------------------
+HDL-1007 : analyze verilog file clock_ip/clk_wize.v
+HDL-1007 : undeclared symbol 'open', assumed default net type 'wire' in clock_ip/clk_wize.v(70)
+HDL-1007 : analyze verilog file hdmi_top.v
+HDL-1007 : undeclared symbol 'SD_CLK', assumed default net type 'wire' in hdmi_top.v(4)
+HDL-1007 : undeclared symbol 'SD_RAS_N', assumed default net type 'wire' in hdmi_top.v(5)
+HDL-1007 : undeclared symbol 'SD_CAN_N', assumed default net type 'wire' in hdmi_top.v(6)
+HDL-1007 : undeclared symbol 'SD_WE_N', assumed default net type 'wire' in hdmi_top.v(7)
+HDL-1007 : undeclared symbol 'SD_SA', assumed default net type 'wire' in hdmi_top.v(8)
+HDL-1007 : undeclared symbol 'SD_BA', assumed default net type 'wire' in hdmi_top.v(9)
+HDL-1007 : undeclared symbol 'SD_DQ', assumed default net type 'wire' in hdmi_top.v(10)
+HDL-1007 : undeclared symbol 'SD_CKE', assumed default net type 'wire' in hdmi_top.v(11)
+HDL-1007 : analyze verilog file read_RAM.v
+HDL-1007 : undeclared symbol 'SD_CLK', assumed default net type 'wire' in read_RAM.v(4)
+HDL-1007 : undeclared symbol 'SD_RAS_N', assumed default net type 'wire' in read_RAM.v(5)
+HDL-1007 : undeclared symbol 'SD_CAN_N', assumed default net type 'wire' in read_RAM.v(6)
+HDL-1007 : undeclared symbol 'SD_WE_N', assumed default net type 'wire' in read_RAM.v(7)
+HDL-1007 : undeclared symbol 'SD_SA', assumed default net type 'wire' in read_RAM.v(8)
+HDL-1007 : undeclared symbol 'SD_BA', assumed default net type 'wire' in read_RAM.v(9)
+HDL-1007 : undeclared symbol 'SD_DQ', assumed default net type 'wire' in read_RAM.v(10)
+HDL-1007 : undeclared symbol 'SD_CKE', assumed default net type 'wire' in read_RAM.v(11)
+RUN-1002 : start command "commit_param -step design"
+RUN-1001 : Print Global Property
+RUN-1001 : --------------------------------------------------------
+RUN-1001 :   Parameters   |  Settings  |  Default Values  |  Note  
+RUN-1001 : --------------------------------------------------------
+RUN-1001 :   enable_seed  |    off     |       off        |        
+RUN-1001 :     message    |  standard  |     standard     |        
+RUN-1001 :   qor_monitor  |     on     |        on        |        
+RUN-1001 :   syn_ip_flow  |    off     |       off        |        
+RUN-1001 :     thread     |    auto    |       auto       |        
+RUN-1001 : --------------------------------------------------------
+RUN-1001 : Print Design Property
+RUN-1001 : ----------------------------------------------------------------
+RUN-1001 :       Parameters       |  Settings  |  Default Values  |  Note  
+RUN-1001 : ----------------------------------------------------------------
+RUN-1001 :   default_reg_initial  |    auto    |       auto       |        
+RUN-1001 :    hdl_warning_level   |   normal   |      normal      |        
+RUN-1001 : ----------------------------------------------------------------
+HDL-1007 : analyze verilog file al_ip/SDRAM_0.v
+HDL-1007 : analyze verilog file clock_ip/clk_wize.v
+HDL-1007 : undeclared symbol 'open', assumed default net type 'wire' in clock_ip/clk_wize.v(70)
+HDL-1007 : analyze verilog file hdmi_top.v
+HDL-1007 : undeclared symbol 'SD_CLK', assumed default net type 'wire' in hdmi_top.v(4)
+HDL-1007 : undeclared symbol 'SD_RAS_N', assumed default net type 'wire' in hdmi_top.v(5)
+HDL-1007 : undeclared symbol 'SD_CAN_N', assumed default net type 'wire' in hdmi_top.v(6)
+HDL-1007 : undeclared symbol 'SD_WE_N', assumed default net type 'wire' in hdmi_top.v(7)
+HDL-1007 : undeclared symbol 'SD_SA', assumed default net type 'wire' in hdmi_top.v(8)
+HDL-1007 : undeclared symbol 'SD_BA', assumed default net type 'wire' in hdmi_top.v(9)
+HDL-1007 : undeclared symbol 'SD_DQ', assumed default net type 'wire' in hdmi_top.v(10)
+HDL-1007 : undeclared symbol 'SD_CKE', assumed default net type 'wire' in hdmi_top.v(11)
+HDL-1007 : analyze verilog file read_RAM.v
+HDL-1007 : undeclared symbol 'SD_CLK', assumed default net type 'wire' in read_RAM.v(4)
+HDL-1007 : undeclared symbol 'SD_RAS_N', assumed default net type 'wire' in read_RAM.v(5)
+HDL-1007 : undeclared symbol 'SD_CAN_N', assumed default net type 'wire' in read_RAM.v(6)
+HDL-1007 : undeclared symbol 'SD_WE_N', assumed default net type 'wire' in read_RAM.v(7)
+HDL-1007 : undeclared symbol 'SD_SA', assumed default net type 'wire' in read_RAM.v(8)
+HDL-1007 : undeclared symbol 'SD_BA', assumed default net type 'wire' in read_RAM.v(9)
+HDL-1007 : undeclared symbol 'SD_DQ', assumed default net type 'wire' in read_RAM.v(10)
+HDL-1007 : undeclared symbol 'SD_CKE', assumed default net type 'wire' in read_RAM.v(11)
+RUN-1002 : start command "commit_param -step design"
+RUN-1001 : Print Global Property
+RUN-1001 : --------------------------------------------------------
+RUN-1001 :   Parameters   |  Settings  |  Default Values  |  Note  
+RUN-1001 : --------------------------------------------------------
+RUN-1001 :   enable_seed  |    off     |       off        |        
+RUN-1001 :     message    |  standard  |     standard     |        
+RUN-1001 :   qor_monitor  |     on     |        on        |        
+RUN-1001 :   syn_ip_flow  |    off     |       off        |        
+RUN-1001 :     thread     |    auto    |       auto       |        
+RUN-1001 : --------------------------------------------------------
+RUN-1001 : Print Design Property
+RUN-1001 : ----------------------------------------------------------------
+RUN-1001 :       Parameters       |  Settings  |  Default Values  |  Note  
+RUN-1001 : ----------------------------------------------------------------
+RUN-1001 :   default_reg_initial  |    auto    |       auto       |        
+RUN-1001 :    hdl_warning_level   |   normal   |      normal      |        
+RUN-1001 : ----------------------------------------------------------------
+HDL-1007 : analyze verilog file al_ip/SDRAM_0.v
+HDL-1007 : analyze verilog file clock_ip/clk_wize.v
+HDL-1007 : undeclared symbol 'open', assumed default net type 'wire' in clock_ip/clk_wize.v(70)
+HDL-1007 : analyze verilog file hdmi_top.v
+HDL-1007 : undeclared symbol 'SD_CLK', assumed default net type 'wire' in hdmi_top.v(4)
+HDL-1007 : undeclared symbol 'SD_RAS_N', assumed default net type 'wire' in hdmi_top.v(5)
+HDL-1007 : undeclared symbol 'SD_CAN_N', assumed default net type 'wire' in hdmi_top.v(6)
+HDL-1007 : undeclared symbol 'SD_WE_N', assumed default net type 'wire' in hdmi_top.v(7)
+HDL-1007 : undeclared symbol 'SD_SA', assumed default net type 'wire' in hdmi_top.v(8)
+HDL-1007 : undeclared symbol 'SD_BA', assumed default net type 'wire' in hdmi_top.v(9)
+HDL-1007 : undeclared symbol 'SD_DQ', assumed default net type 'wire' in hdmi_top.v(10)
+HDL-1007 : undeclared symbol 'SD_CKE', assumed default net type 'wire' in hdmi_top.v(11)
+HDL-1007 : analyze verilog file read_RAM.v
+HDL-1007 : undeclared symbol 'SD_CLK', assumed default net type 'wire' in read_RAM.v(4)
+HDL-1007 : undeclared symbol 'SD_RAS_N', assumed default net type 'wire' in read_RAM.v(5)
+HDL-1007 : undeclared symbol 'SD_CAN_N', assumed default net type 'wire' in read_RAM.v(6)
+HDL-1007 : undeclared symbol 'SD_WE_N', assumed default net type 'wire' in read_RAM.v(7)
+HDL-1007 : undeclared symbol 'SD_SA', assumed default net type 'wire' in read_RAM.v(8)
+HDL-1007 : undeclared symbol 'SD_BA', assumed default net type 'wire' in read_RAM.v(9)
+HDL-1007 : undeclared symbol 'SD_DQ', assumed default net type 'wire' in read_RAM.v(10)
+HDL-1007 : undeclared symbol 'SD_CKE', assumed default net type 'wire' in read_RAM.v(11)
+RUN-1002 : start command "commit_param -step design"
+RUN-1001 : Print Global Property
+RUN-1001 : --------------------------------------------------------
+RUN-1001 :   Parameters   |  Settings  |  Default Values  |  Note  
+RUN-1001 : --------------------------------------------------------
+RUN-1001 :   enable_seed  |    off     |       off        |        
+RUN-1001 :     message    |  standard  |     standard     |        
+RUN-1001 :   qor_monitor  |     on     |        on        |        
+RUN-1001 :   syn_ip_flow  |    off     |       off        |        
+RUN-1001 :     thread     |    auto    |       auto       |        
+RUN-1001 : --------------------------------------------------------
+RUN-1001 : Print Design Property
+RUN-1001 : ----------------------------------------------------------------
+RUN-1001 :       Parameters       |  Settings  |  Default Values  |  Note  
+RUN-1001 : ----------------------------------------------------------------
+RUN-1001 :   default_reg_initial  |    auto    |       auto       |        
+RUN-1001 :    hdl_warning_level   |   normal   |      normal      |        
+RUN-1001 : ----------------------------------------------------------------
+HDL-1007 : analyze verilog file al_ip/SDRAM_0.v
+HDL-1007 : analyze verilog file clock_ip/clk_wize.v
+HDL-1007 : undeclared symbol 'open', assumed default net type 'wire' in clock_ip/clk_wize.v(70)
+HDL-1007 : analyze verilog file hdmi_top.v
+HDL-1007 : undeclared symbol 'SD_CLK', assumed default net type 'wire' in hdmi_top.v(4)
+HDL-1007 : undeclared symbol 'SD_RAS_N', assumed default net type 'wire' in hdmi_top.v(5)
+HDL-1007 : undeclared symbol 'SD_CAN_N', assumed default net type 'wire' in hdmi_top.v(6)
+HDL-1007 : undeclared symbol 'SD_WE_N', assumed default net type 'wire' in hdmi_top.v(7)
+HDL-1007 : undeclared symbol 'SD_SA', assumed default net type 'wire' in hdmi_top.v(8)
+HDL-1007 : undeclared symbol 'SD_BA', assumed default net type 'wire' in hdmi_top.v(9)
+HDL-1007 : undeclared symbol 'SD_DQ', assumed default net type 'wire' in hdmi_top.v(10)
+HDL-1007 : undeclared symbol 'SD_CKE', assumed default net type 'wire' in hdmi_top.v(11)
+HDL-1007 : analyze verilog file read_RAM.v
+HDL-8007 ERROR: syntax error near '(' in read_RAM.v(2)
+HDL-8007 ERROR: syntax error near 'input' in read_RAM.v(4)
+HDL-8007 ERROR: Verilog 2000 keyword 'input' used in incorrect context in read_RAM.v(4)
+HDL-8007 ERROR: syntax error near 'output' in read_RAM.v(5)
+HDL-8007 ERROR: Verilog 2000 keyword 'output' used in incorrect context in read_RAM.v(5)
+HDL-8007 ERROR: syntax error near 'output' in read_RAM.v(6)
+HDL-8007 ERROR: Verilog 2000 keyword 'output' used in incorrect context in read_RAM.v(6)
+HDL-8007 ERROR: syntax error near 'output' in read_RAM.v(7)
+HDL-8007 ERROR: Verilog 2000 keyword 'output' used in incorrect context in read_RAM.v(7)
+HDL-8007 ERROR: syntax error near 'output' in read_RAM.v(9)
+HDL-8007 Similar messages will be suppressed.
+RUN-1002 : start command "commit_param -step design"
+RUN-1001 : Print Global Property
+RUN-1001 : --------------------------------------------------------
+RUN-1001 :   Parameters   |  Settings  |  Default Values  |  Note  
+RUN-1001 : --------------------------------------------------------
+RUN-1001 :   enable_seed  |    off     |       off        |        
+RUN-1001 :     message    |  standard  |     standard     |        
+RUN-1001 :   qor_monitor  |     on     |        on        |        
+RUN-1001 :   syn_ip_flow  |    off     |       off        |        
+RUN-1001 :     thread     |    auto    |       auto       |        
+RUN-1001 : --------------------------------------------------------
+RUN-1001 : Print Design Property
+RUN-1001 : ----------------------------------------------------------------
+RUN-1001 :       Parameters       |  Settings  |  Default Values  |  Note  
+RUN-1001 : ----------------------------------------------------------------
+RUN-1001 :   default_reg_initial  |    auto    |       auto       |        
+RUN-1001 :    hdl_warning_level   |   normal   |      normal      |        
+RUN-1001 : ----------------------------------------------------------------
+HDL-1007 : analyze verilog file al_ip/SDRAM_0.v
+HDL-1007 : analyze verilog file clock_ip/clk_wize.v
+HDL-1007 : undeclared symbol 'open', assumed default net type 'wire' in clock_ip/clk_wize.v(70)
+HDL-1007 : analyze verilog file hdmi_top.v
+HDL-1007 : undeclared symbol 'SD_CLK', assumed default net type 'wire' in hdmi_top.v(4)
+HDL-1007 : undeclared symbol 'SD_RAS_N', assumed default net type 'wire' in hdmi_top.v(5)
+HDL-1007 : undeclared symbol 'SD_CAN_N', assumed default net type 'wire' in hdmi_top.v(6)
+HDL-1007 : undeclared symbol 'SD_WE_N', assumed default net type 'wire' in hdmi_top.v(7)
+HDL-1007 : undeclared symbol 'SD_SA', assumed default net type 'wire' in hdmi_top.v(8)
+HDL-1007 : undeclared symbol 'SD_BA', assumed default net type 'wire' in hdmi_top.v(9)
+HDL-1007 : undeclared symbol 'SD_DQ', assumed default net type 'wire' in hdmi_top.v(10)
+HDL-1007 : undeclared symbol 'SD_CKE', assumed default net type 'wire' in hdmi_top.v(11)
+HDL-1007 : analyze verilog file read_RAM.v
+HDL-8007 ERROR: 'rgb' is not declared in read_RAM.v(79)
+HDL-8007 ERROR: 'rgb' is not declared in read_RAM.v(80)
+HDL-8007 ERROR: 'rgb' is not declared in read_RAM.v(81)
+HDL-8007 ERROR: ignore module module due to previous errors in read_RAM.v(1)
+RUN-1002 : start command "commit_param -step design"
+RUN-1001 : Print Global Property
+RUN-1001 : --------------------------------------------------------
+RUN-1001 :   Parameters   |  Settings  |  Default Values  |  Note  
+RUN-1001 : --------------------------------------------------------
+RUN-1001 :   enable_seed  |    off     |       off        |        
+RUN-1001 :     message    |  standard  |     standard     |        
+RUN-1001 :   qor_monitor  |     on     |        on        |        
+RUN-1001 :   syn_ip_flow  |    off     |       off        |        
+RUN-1001 :     thread     |    auto    |       auto       |        
+RUN-1001 : --------------------------------------------------------
+RUN-1001 : Print Design Property
+RUN-1001 : ----------------------------------------------------------------
+RUN-1001 :       Parameters       |  Settings  |  Default Values  |  Note  
+RUN-1001 : ----------------------------------------------------------------
+RUN-1001 :   default_reg_initial  |    auto    |       auto       |        
+RUN-1001 :    hdl_warning_level   |   normal   |      normal      |        
+RUN-1001 : ----------------------------------------------------------------
+HDL-1007 : analyze verilog file al_ip/SDRAM_0.v
+HDL-1007 : analyze verilog file clock_ip/clk_wize.v
+HDL-1007 : undeclared symbol 'open', assumed default net type 'wire' in clock_ip/clk_wize.v(70)
+HDL-1007 : analyze verilog file hdmi_top.v
+HDL-1007 : analyze verilog file read_RAM.v
+HDL-8007 ERROR: 'rgb' is not declared in read_RAM.v(79)
+HDL-8007 ERROR: 'rgb' is not declared in read_RAM.v(80)
+HDL-8007 ERROR: 'rgb' is not declared in read_RAM.v(81)
+HDL-8007 ERROR: ignore module module due to previous errors in read_RAM.v(1)
