@@ -1,30 +1,86 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <Project Version="3" Minor="2" Path="C:/Users/31640/Desktop/FPGA_Projects/FPGA_HDMI_Player/project/td">
-    <Project_Created_Time></Project_Created_Time>
+    <Project_Created_Time />
     <TD_Version>6.2.168116</TD_Version>
     <Name>HDMI_Player</Name>
     <HardWare>
         <Family>EG4</Family>
         <Device>EG4S20BG256</Device>
-        <Speed></Speed>
+        <Speed />
     </HardWare>
     <Source_Files>
         <Verilog>
+            <File Path="../../include/global_def.v">
+                <FileInfo>
+                    <Attr Name="GlobalIncluded" Val="true" />
+                    <Attr Name="UsedInSyn" Val="true" />
+                    <Attr Name="UsedInP&R" Val="true" />
+                    <Attr Name="BelongTo" Val="design_1" />
+                    <Attr Name="CompileOrder" Val="1" />
+                </FileInfo>
+            </File>
+            <File Path="../../rtl/ip/clk_pll/clk_pll.v">
+                <FileInfo>
+                    <Attr Name="UsedInSyn" Val="true" />
+                    <Attr Name="UsedInP&R" Val="true" />
+                    <Attr Name="BelongTo" Val="design_1" />
+                    <Attr Name="CompileOrder" Val="2" />
+                </FileInfo>
+            </File>
             <File Path="../../rtl/memory/sync_fifo.v">
                 <FileInfo>
-                    <Attr Name="AutoExcluded" Val="true"/>
-                    <Attr Name="UsedInSyn" Val="true"/>
-                    <Attr Name="UsedInP&R" Val="true"/>
-                    <Attr Name="BelongTo" Val="design_1"/>
-                    <Attr Name="CompileOrder" Val="1"/>
+                    <Attr Name="UsedInSyn" Val="true" />
+                    <Attr Name="UsedInP&R" Val="true" />
+                    <Attr Name="BelongTo" Val="design_1" />
+                    <Attr Name="CompileOrder" Val="3" />
                 </FileInfo>
             </File>
             <File Path="../../rtl/memory/async_fifo.v">
                 <FileInfo>
-                    <Attr Name="UsedInSyn" Val="true"/>
-                    <Attr Name="UsedInP&R" Val="true"/>
-                    <Attr Name="BelongTo" Val="design_1"/>
-                    <Attr Name="CompileOrder" Val="2"/>
+                    <Attr Name="UsedInSyn" Val="true" />
+                    <Attr Name="UsedInP&R" Val="true" />
+                    <Attr Name="BelongTo" Val="design_1" />
+                    <Attr Name="CompileOrder" Val="4" />
+                </FileInfo>
+            </File>
+            <File Path="../../rtl/memory/sdram_write_ctrl.v">
+                <FileInfo>
+                    <Attr Name="UsedInSyn" Val="true" />
+                    <Attr Name="UsedInP&R" Val="true" />
+                    <Attr Name="BelongTo" Val="design_1" />
+                    <Attr Name="CompileOrder" Val="5" />
+                </FileInfo>
+            </File>
+            <File Path="../../rtl/ip/sdram/sdr_init_ref.enc.v">
+                <FileInfo>
+                    <Attr Name="UsedInSyn" Val="true" />
+                    <Attr Name="UsedInP&R" Val="true" />
+                    <Attr Name="BelongTo" Val="design_1" />
+                    <Attr Name="CompileOrder" Val="6" />
+                </FileInfo>
+            </File>
+            <File Path="../../rtl/ip/sdram/sdr_wrrd.enc.v">
+                <FileInfo>
+                    <Attr Name="UsedInSyn" Val="true" />
+                    <Attr Name="UsedInP&R" Val="true" />
+                    <Attr Name="BelongTo" Val="design_1" />
+                    <Attr Name="CompileOrder" Val="7" />
+                </FileInfo>
+            </File>
+            <File Path="../../rtl/ip/sdram/sdr_as_ram.enc.v">
+                <FileInfo>
+                    <Attr Name="UsedInSyn" Val="true" />
+                    <Attr Name="UsedInP&R" Val="true" />
+                    <Attr Name="BelongTo" Val="design_1" />
+                    <Attr Name="CompileOrder" Val="8" />
+                </FileInfo>
+            </File>
+            <File Path="../../rtl/memory/memory_top.v">
+                <FileInfo>
+                    <Attr Name="UsedInSyn" Val="true" />
+                    <Attr Name="UsedInP&R" Val="true" />
+                    <Attr Name="BelongTo" Val="design_1" />
+                    <Attr Name="CompileOrder" Val="9" />
                 </FileInfo>
             </File>
         </Verilog>
@@ -36,8 +92,8 @@
         </FileSet>
     </FileSets>
     <TOP_MODULE>
-        <LABEL>async_fifo</LABEL>
-        <MODULE>async_fifo</MODULE>
+        <LABEL>memory_top</LABEL>
+        <MODULE>memory_top</MODULE>
         <CREATEINDEX>user</CREATEINDEX>
     </TOP_MODULE>
     <Property>

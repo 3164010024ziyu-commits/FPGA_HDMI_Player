@@ -6,3 +6,6 @@ project/td/HDMI_Player_Runs/
 # ModelSim generated outputs
 /work/
 *.wlf
+
+# Local ModelSim libraries for IP checks
+/verification/ip_integration_20261023/run/
