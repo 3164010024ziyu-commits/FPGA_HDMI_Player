@@ -1,0 +1,11 @@
+公共
+pix_rst_n
+C输出给B
+pix_clk HDMI像素时钟
+pix_req 请求下一个像素
+frame_sync 一帧开始前的同步脉冲，用于帧位置同步
+B输出给C
+pix_rgb[23:0] RGB888像素数据
+pix_valid 像素有效
+frame_ready 完整图像已经可以显示
+pix_underflow 显示过程中数据供应不足

@@ -12,10 +12,19 @@
         <Verilog>
             <File Path="../../rtl/memory/sync_fifo.v">
                 <FileInfo>
+                    <Attr Name="AutoExcluded" Val="true"/>
                     <Attr Name="UsedInSyn" Val="true"/>
                     <Attr Name="UsedInP&R" Val="true"/>
                     <Attr Name="BelongTo" Val="design_1"/>
                     <Attr Name="CompileOrder" Val="1"/>
+                </FileInfo>
+            </File>
+            <File Path="../../rtl/memory/async_fifo.v">
+                <FileInfo>
+                    <Attr Name="UsedInSyn" Val="true"/>
+                    <Attr Name="UsedInP&R" Val="true"/>
+                    <Attr Name="BelongTo" Val="design_1"/>
+                    <Attr Name="CompileOrder" Val="2"/>
                 </FileInfo>
             </File>
         </Verilog>
@@ -27,8 +36,8 @@
         </FileSet>
     </FileSets>
     <TOP_MODULE>
-        <LABEL>sync_fifo</LABEL>
-        <MODULE>sync_fifo</MODULE>
+        <LABEL>async_fifo</LABEL>
+        <MODULE>async_fifo</MODULE>
         <CREATEINDEX>user</CREATEINDEX>
     </TOP_MODULE>
     <Property>

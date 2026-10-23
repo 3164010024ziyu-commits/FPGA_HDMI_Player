@@ -2,3 +2,7 @@
 project/td/log/
 project/td/.lock.f
 project/td/HDMI_Player_Runs/
+
+# ModelSim generated outputs
+/work/
+*.wlf
