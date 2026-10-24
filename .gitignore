@@ -2,3 +2,21 @@
 project/td/log/
 project/td/.lock.f
 project/td/HDMI_Player_Runs/
+
+# Storage regression outputs
+build/
+transcript
+vsim.wlf
+
+project/td/Storage_Bringup_Runs/
+
+# TD startup logs
+td_*.log
+td_*.logw
+
+# Local tool authorization and generated FPGA bitstreams
+*.lic
+license*.zip
+*.bit
+__pycache__/
+*.pyc

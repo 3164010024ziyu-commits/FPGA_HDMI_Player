@@ -1,0 +1,1422 @@
+Created by          : Tang Dynasty v6.2.168116
+                    : Copyright (c) 2012-2025 Anlogic Inc.
+Generated           : Sat Oct 24 13:41:40 2026
+
+Top Model           : hx4s20c_storage_bringup
+Device              : EG4S20BG256
+Speed               : NA
+STA coverage        : 99.85%
+Constraint File     : C:/Users/zzq/Documents/ChatGPT/FPGA/upstream/constraints/hx4s20c_storage_bringup.sdc;
+Confidence          : Routed
+Check Corner        : Both (Slow and Fast)
+CRPR Enabled        : Yes
+Report Scheme       : 10 end point(s) per path group, 1 path(s) per end point
+
+
+Check Status
+-------------
+
+Corner   | Max      Min     
+------------------------------------
+Slow     | yes      yes     
+Fast     | yes      yes     
+
+
+Timing Status
+--------------------
+	SWNS: 2.200ns, STNS: 0.000ns
+	HWNS: 0.030ns, HTNS: 0.000ns
+	Period Check WNS: 16.586ns
+
+
+Clock Summary
+--------------------
+
+       Clock-Id:       C-Freq       Fanout   Clock-Name
+--------------------------------------------------------------------------------
+           clk0:       50.000         1288   sys_clk
+--------------------------------------------------------------------------------
+
+       Name            Type         Rise(ns)   Fall(ns)          C-Period(ns)     C-Freq(MHz)          R-Period(ns)     R-Freq(MHz)         SWNS(ns)   STNS(ns)         HWNS(ns)   HTNS(ns)         Skew(ns)           Fanout        Max-Level        CC-From    CC-To
+       clk0           local            0.000     10.000                20.000          50.000                17.800          56.180            2.200      0.000            0.030      0.000            0.326             1288               15             no       no
+
+Notes
+----------
+C-Period  :  constraint period
+C-Freq    :  constraint freq
+R-Period  :  report min period
+R-Freq    :  report fmax
+CC-From   :  has path(s) from cross-domain clock
+CC-To     :  has path(s) to cross-domain clock
+
+
+*   Clock R-Period data only takes intra-clock timing. SWNS/STNS/HWNS/HTNS take both intra-clock and inter-clock timing.
+*   If there is mismatch between R-Period and SWNS, check inter-clock timing of this clock as capture clock.
+*   SWNS/STNS/HWNS/HTNS of timing exception (SMCP/SMD) only counted in global Timing Status, not counted in Clock Summary.
+
+Intra clock domain timing
+--------------------------------------------------
+
+----------------------------------------------------------------------------------------------------
+Path Group     :     sys_clk -> sys_clk
+Type           :     Self
+From Clock     :     sys_clk
+To Clock       :     sys_clk
+Min Period     :     17.800ns
+Fmax           :     56.180MHz
+
+Statistics:
+Max            : SWNS      2.200ns, STNS      0.000ns,         0 Viol Endpoints,      4212 Total Endpoints,    235098 Paths Analyzed
+Min            : HWNS      0.030ns, HTNS      0.000ns,         0 Viol Endpoints,      4212 Total Endpoints,    235098 Paths Analyzed
+----------------------------------------------------------------------------------------------------
+
+Max Paths
+----------------------------------------------------------------------------------------------------
+Slack               : 2.200ns
+Begin Point         : storage/fat/mux337_syn_1086.clk (rising edge triggered by clock sys_clk  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+End Point           : storage/fat/dir_entry_reg[43]_syn_4.mi[0] (rising edge triggered by clock sys_clk  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+Check Type          : setup
+Process             : slow
+Budget              : 20.000ns { sys_clk rising@20.000ns - sys_clk rising@0.000ns }
+Data Path Delay     : 17.520ns (cell 3.622ns (20%), net 13.898ns (80%))
+Clock Skew          : 0.064ns
+Logic Level         : 9 ( LUT4=3  LUT5=2  LUT3=2  LUT2=1  DRAM=1 )
+Max Fanout          : 68
+Clock Uncertainty   : 0.100ns (sdc uncertainty: 0.000ns, default uncertainty: 0.100ns)
+
+Delay Type          Location             Incr           Path   Level  Netlist Info
+--------------------------------------------------------------------  ---------------
+source latency                          0.000          0.000               
+port                R7                  0.000          0.000          pin: clk
+hierarchy                               0.000          0.000          pin: clk_syn_2.ipad
+PAD                 x020y071            1.660          1.660          pin: clk_syn_2.di
+net (fo=1)                              0.000          1.660          net: clk_dup_1,  ../../rtl/storage/hx4s20c_storage_bringup.v(7)
+                                                                      pin: clock_buffer.clki
+GCLK                x020y070z2          0.000          1.660          pin: clock_buffer.clko
+net (fo=1288)                           2.062          3.722          net: storage/bmp/clk,  ../../rtl/storage/bmp_stream_decoder.v(6)
+                                                                      pin: storage/fat/mux337_syn_1086.clk
+launch edge                             0.000    r     3.722               
+--------------------------------------------------------------------  ---------------
+clk2q               x027y031z1          0.146    r     3.868          pin: storage/fat/mux337_syn_1086.q[0]
+net (fo=28)                             1.445          5.313          net: storage/fat/state[0],  ../../rtl/storage/fat32_bmp_reader.v(20)
+                                                                      pin: storage/fat/mux337_syn_1044.d[0]
+LUT2                x029y025z3          0.262    r     5.575       1  pin: storage/fat/mux337_syn_1044.f[0]
+net (fo=15)                             1.157          6.732          net: storage/fat/mux337_syn_359,  ../../rtl/storage/fat32_bmp_reader.v(106)
+                                                                      pin: storage/fat/fat_base_reg[29]_syn_4.b[0]
+LUT3                x023y023z2          0.431    f     7.163       2  pin: storage/fat/fat_base_reg[29]_syn_4.f[0]
+net (fo=57)                             2.774          9.937          net: storage/fat/sector_read_offset_b_n,  NOFILE(0)
+                                                                      pin: storage/fat/sector_read_offset[3]_syn_34.b[0]
+LUT5                x005y028z2          0.431    f    10.368       3  pin: storage/fat/sector_read_offset[3]_syn_34.f[0]
+net (fo=68)                             1.411         11.779          net: storage/fat/sector_read_offset[2]_dup_9,  ../../rtl/storage/fat32_bmp_reader.v(75)
+                                                                      pin: storage/fat/ramread0_syn_1434.c[1]
+DRAM                x001y026z0          0.251    r    12.030       4  pin: storage/fat/ramread0_syn_1434.f[1]
+net (fo=1)                              0.594         12.624          net: storage/fat/ramread0_syn_159,  ../../rtl/storage/fat32_bmp_reader.v(77)
+                                                                      pin: storage/bmp/pixel_rgb888_b5[17]_syn_74.d[1]
+LUT4                x001y025z3          0.262    r    12.886       5  pin: storage/bmp/pixel_rgb888_b5[17]_syn_74.f[1]
+net (fo=2)                              0.594         13.480          net: storage/bmp/pixel_rgb888_b5[17]_syn_2,  NOFILE(0)
+                                                                      pin: storage/bmp/pixel_rgb888_b5[17]_syn_70.a[1]
+LUT5                x001y024z1          0.618    f    14.098       6  pin: storage/bmp/pixel_rgb888_b5[17]_syn_70.fx[0]
+net (fo=1)                              0.625         14.723          net: storage/bmp/pixel_rgb888_b5[17]_syn_4,  NOFILE(0)
+                                                                      pin: storage/bmp/pixel_rgb888_b5[16]_syn_89.a[0]
+LUT4                x002y024z1          0.408    f    15.131       7  pin: storage/bmp/pixel_rgb888_b5[16]_syn_89.f[0]
+net (fo=1)                              0.618         15.749          net: storage/bmp/pixel_rgb888_b5[17]_syn_14,  NOFILE(0)
+                                                                      pin: storage/bmp/pixel_rgb888_b5[16]_syn_92.a[0]
+LUT4                x006y025z0          0.408    f    16.157       8  pin: storage/bmp/pixel_rgb888_b5[16]_syn_92.f[0]
+net (fo=1)                              0.615         16.772          net: storage/fat/ramread0_syn_464,  ../../rtl/storage/fat32_bmp_reader.v(77)
+                                                                      pin: storage/bmp/pixel_rgb888_b5[17]_syn_62.d[0]
+LUT3                x004y022z3          0.262    r    17.034       9  pin: storage/bmp/pixel_rgb888_b5[17]_syn_62.f[0]
+net (fo=42)                             4.065         21.099          net: storage/bmp/in_data[1],  ../../rtl/storage/bmp_stream_decoder.v(8)
+                                                                      pin: storage/fat/dir_entry_reg[43]_syn_4.mi[0]
+reg                 x017y009z2          0.143    r    21.242          net: storage/fat/dir_entry[26][1],  ../../rtl/storage/fat32_bmp_reader.v(30)
+--------------------------------------------------------------------  ---------------
+Arrival                                               21.242               
+
+source latency                          0.000          0.000               
+port                R7                  0.000          0.000          pin: clk
+hierarchy                               0.000          0.000          pin: clk_syn_2.ipad
+PAD                 x020y071            1.493          1.493          pin: clk_syn_2.di
+net (fo=1)                              0.000          1.493          net: clk_dup_1,  ../../rtl/storage/hx4s20c_storage_bringup.v(7)
+                                                                      pin: clock_buffer.clki
+GCLK                x020y070z2          0.000          1.493          pin: clock_buffer.clko
+net (fo=1288)                           1.853          3.346          net: storage/bmp/clk,  ../../rtl/storage/bmp_stream_decoder.v(6)
+                                                                      pin: storage/fat/dir_entry_reg[43]_syn_4.clk
+capture edge                           20.000    r    23.346               
+--------------------------------------------------------------------  ---------------
+setup                                  -0.116         23.230               
+clock uncertainty                      -0.100         23.130               
+clock pessimism                         0.312         23.442               
+--------------------------------------------------------------------  ---------------
+Required                                              23.442               
+--------------------------------------------------------------------  ---------------
+Slack                                                  2.200               
+
+Slack               : 2.258ns
+Begin Point         : storage/fat/mux337_syn_1086.clk (rising edge triggered by clock sys_clk  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+End Point           : storage/bmp/sub3_syn_66.mi[1] (rising edge triggered by clock sys_clk  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+Check Type          : setup
+Process             : slow
+Budget              : 20.000ns { sys_clk rising@20.000ns - sys_clk rising@0.000ns }
+Data Path Delay     : 17.462ns (cell 3.551ns (20%), net 13.911ns (80%))
+Clock Skew          : 0.064ns
+Logic Level         : 9 ( LUT5=3  LUT4=2  LUT3=2  LUT2=1  DRAM=1 )
+Max Fanout          : 128
+Clock Uncertainty   : 0.100ns (sdc uncertainty: 0.000ns, default uncertainty: 0.100ns)
+
+Delay Type          Location             Incr           Path   Level  Netlist Info
+--------------------------------------------------------------------  ---------------
+source latency                          0.000          0.000               
+port                R7                  0.000          0.000          pin: clk
+hierarchy                               0.000          0.000          pin: clk_syn_2.ipad
+PAD                 x020y071            1.660          1.660          pin: clk_syn_2.di
+net (fo=1)                              0.000          1.660          net: clk_dup_1,  ../../rtl/storage/hx4s20c_storage_bringup.v(7)
+                                                                      pin: clock_buffer.clki
+GCLK                x020y070z2          0.000          1.660          pin: clock_buffer.clko
+net (fo=1288)                           2.062          3.722          net: storage/bmp/clk,  ../../rtl/storage/bmp_stream_decoder.v(6)
+                                                                      pin: storage/fat/mux337_syn_1086.clk
+launch edge                             0.000    r     3.722               
+--------------------------------------------------------------------  ---------------
+clk2q               x027y031z1          0.146    r     3.868          pin: storage/fat/mux337_syn_1086.q[0]
+net (fo=28)                             1.445          5.313          net: storage/fat/state[0],  ../../rtl/storage/fat32_bmp_reader.v(20)
+                                                                      pin: storage/fat/mux337_syn_1044.d[0]
+LUT2                x029y025z3          0.262    r     5.575       1  pin: storage/fat/mux337_syn_1044.f[0]
+net (fo=15)                             1.157          6.732          net: storage/fat/mux337_syn_359,  ../../rtl/storage/fat32_bmp_reader.v(106)
+                                                                      pin: storage/fat/fat_base_reg[29]_syn_4.b[0]
+LUT3                x023y023z2          0.431    f     7.163       2  pin: storage/fat/fat_base_reg[29]_syn_4.f[0]
+net (fo=57)                             2.776          9.939          net: storage/fat/sector_read_offset_b_n,  NOFILE(0)
+                                                                      pin: storage/fat/sector_read_offset[3]_syn_28.b[1]
+LUT5                x010y030z3          0.431    f    10.370       3  pin: storage/fat/sector_read_offset[3]_syn_28.f[1]
+net (fo=128)                            2.925         13.295          net: storage/fat/sector_read_offset[3]_dup_17,  ../../rtl/storage/fat32_bmp_reader.v(75)
+                                                                      pin: storage/fat/ramread0_syn_1449.d[1]
+DRAM                x001y031z1          0.205    r    13.500       4  pin: storage/fat/ramread0_syn_1449.f[1]
+net (fo=1)                              0.456         13.956          net: storage/fat/ramread0_syn_165,  ../../rtl/storage/fat32_bmp_reader.v(77)
+                                                                      pin: storage/bmp/pixel_rgb888_b5[23]_syn_93.d[1]
+LUT5                x002y030z3          0.262    r    14.218       5  pin: storage/bmp/pixel_rgb888_b5[23]_syn_93.f[1]
+net (fo=2)                              0.456         14.674          net: storage/bmp/pixel_rgb888_b5[23]_syn_9,  NOFILE(0)
+                                                                      pin: storage/bmp/pixel_rgb888_b5[23]_syn_91.a[0]
+LUT5                x001y032z0          0.618    f    15.292       6  pin: storage/bmp/pixel_rgb888_b5[23]_syn_91.fx[0]
+net (fo=1)                              0.504         15.796          net: storage/bmp/pixel_rgb888_b5[23]_syn_11,  NOFILE(0)
+                                                                      pin: storage/bmp/pixel_rgb888_b5[22]_syn_79.a[0]
+LUT4                x003y031z3          0.424    f    16.220       7  pin: storage/bmp/pixel_rgb888_b5[22]_syn_79.f[0]
+net (fo=1)                              0.594         16.814          net: storage/bmp/pixel_rgb888_b5[23]_syn_21,  NOFILE(0)
+                                                                      pin: storage/bmp/pixel_rgb888_b5[23]_syn_113.a[1]
+LUT4                x005y031z3          0.424    f    17.238       8  pin: storage/bmp/pixel_rgb888_b5[23]_syn_113.f[1]
+net (fo=1)                              0.615         17.853          net: storage/fat/ramread0_syn_1058,  ../../rtl/storage/fat32_bmp_reader.v(77)
+                                                                      pin: storage/bmp/hdr_reg[190]_syn_4.d[0]
+LUT3                x006y027z1          0.205    r    18.058       9  pin: storage/bmp/hdr_reg[190]_syn_4.f[0]
+net (fo=42)                             2.983         21.041          net: storage/bmp/in_data[7],  ../../rtl/storage/bmp_stream_decoder.v(8)
+                                                                      pin: storage/bmp/sub3_syn_66.mi[1]
+ADDER (reg)         x015y010z2          0.143    r    21.184          net: storage/fat/dir_entry[26][7],  ../../rtl/storage/fat32_bmp_reader.v(30)
+--------------------------------------------------------------------  ---------------
+Arrival                                               21.184               
+
+source latency                          0.000          0.000               
+port                R7                  0.000          0.000          pin: clk
+hierarchy                               0.000          0.000          pin: clk_syn_2.ipad
+PAD                 x020y071            1.493          1.493          pin: clk_syn_2.di
+net (fo=1)                              0.000          1.493          net: clk_dup_1,  ../../rtl/storage/hx4s20c_storage_bringup.v(7)
+                                                                      pin: clock_buffer.clki
+GCLK                x020y070z2          0.000          1.493          pin: clock_buffer.clko
+net (fo=1288)                           1.853          3.346          net: storage/bmp/clk,  ../../rtl/storage/bmp_stream_decoder.v(6)
+                                                                      pin: storage/bmp/sub3_syn_66.clk
+capture edge                           20.000    r    23.346               
+--------------------------------------------------------------------  ---------------
+setup                                  -0.116         23.230               
+clock uncertainty                      -0.100         23.130               
+clock pessimism                         0.312         23.442               
+--------------------------------------------------------------------  ---------------
+Required                                              23.442               
+--------------------------------------------------------------------  ---------------
+Slack                                                  2.258               
+
+Slack               : 2.331ns
+Begin Point         : storage/fat/mux337_syn_1086.clk (rising edge triggered by clock sys_clk  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+End Point           : storage/fat/dir_entry_reg[25]_syn_4.mi[1] (rising edge triggered by clock sys_clk  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+Check Type          : setup
+Process             : slow
+Budget              : 20.000ns { sys_clk rising@20.000ns - sys_clk rising@0.000ns }
+Data Path Delay     : 17.389ns (cell 3.622ns (20%), net 13.767ns (80%))
+Clock Skew          : 0.064ns
+Logic Level         : 9 ( LUT4=3  LUT5=2  LUT3=2  LUT2=1  DRAM=1 )
+Max Fanout          : 68
+Clock Uncertainty   : 0.100ns (sdc uncertainty: 0.000ns, default uncertainty: 0.100ns)
+
+Delay Type          Location             Incr           Path   Level  Netlist Info
+--------------------------------------------------------------------  ---------------
+source latency                          0.000          0.000               
+port                R7                  0.000          0.000          pin: clk
+hierarchy                               0.000          0.000          pin: clk_syn_2.ipad
+PAD                 x020y071            1.660          1.660          pin: clk_syn_2.di
+net (fo=1)                              0.000          1.660          net: clk_dup_1,  ../../rtl/storage/hx4s20c_storage_bringup.v(7)
+                                                                      pin: clock_buffer.clki
+GCLK                x020y070z2          0.000          1.660          pin: clock_buffer.clko
+net (fo=1288)                           2.062          3.722          net: storage/bmp/clk,  ../../rtl/storage/bmp_stream_decoder.v(6)
+                                                                      pin: storage/fat/mux337_syn_1086.clk
+launch edge                             0.000    r     3.722               
+--------------------------------------------------------------------  ---------------
+clk2q               x027y031z1          0.146    r     3.868          pin: storage/fat/mux337_syn_1086.q[0]
+net (fo=28)                             1.445          5.313          net: storage/fat/state[0],  ../../rtl/storage/fat32_bmp_reader.v(20)
+                                                                      pin: storage/fat/mux337_syn_1044.d[0]
+LUT2                x029y025z3          0.262    r     5.575       1  pin: storage/fat/mux337_syn_1044.f[0]
+net (fo=15)                             1.157          6.732          net: storage/fat/mux337_syn_359,  ../../rtl/storage/fat32_bmp_reader.v(106)
+                                                                      pin: storage/fat/fat_base_reg[29]_syn_4.b[0]
+LUT3                x023y023z2          0.431    f     7.163       2  pin: storage/fat/fat_base_reg[29]_syn_4.f[0]
+net (fo=57)                             2.774          9.937          net: storage/fat/sector_read_offset_b_n,  NOFILE(0)
+                                                                      pin: storage/fat/sector_read_offset[3]_syn_34.b[0]
+LUT5                x005y028z2          0.431    f    10.368       3  pin: storage/fat/sector_read_offset[3]_syn_34.f[0]
+net (fo=68)                             1.411         11.779          net: storage/fat/sector_read_offset[2]_dup_9,  ../../rtl/storage/fat32_bmp_reader.v(75)
+                                                                      pin: storage/fat/ramread0_syn_1434.c[1]
+DRAM                x001y026z0          0.251    r    12.030       4  pin: storage/fat/ramread0_syn_1434.f[1]
+net (fo=1)                              0.594         12.624          net: storage/fat/ramread0_syn_159,  ../../rtl/storage/fat32_bmp_reader.v(77)
+                                                                      pin: storage/bmp/pixel_rgb888_b5[17]_syn_74.d[1]
+LUT4                x001y025z3          0.262    r    12.886       5  pin: storage/bmp/pixel_rgb888_b5[17]_syn_74.f[1]
+net (fo=2)                              0.594         13.480          net: storage/bmp/pixel_rgb888_b5[17]_syn_2,  NOFILE(0)
+                                                                      pin: storage/bmp/pixel_rgb888_b5[17]_syn_70.a[1]
+LUT5                x001y024z1          0.618    f    14.098       6  pin: storage/bmp/pixel_rgb888_b5[17]_syn_70.fx[0]
+net (fo=1)                              0.625         14.723          net: storage/bmp/pixel_rgb888_b5[17]_syn_4,  NOFILE(0)
+                                                                      pin: storage/bmp/pixel_rgb888_b5[16]_syn_89.a[0]
+LUT4                x002y024z1          0.408    f    15.131       7  pin: storage/bmp/pixel_rgb888_b5[16]_syn_89.f[0]
+net (fo=1)                              0.618         15.749          net: storage/bmp/pixel_rgb888_b5[17]_syn_14,  NOFILE(0)
+                                                                      pin: storage/bmp/pixel_rgb888_b5[16]_syn_92.a[0]
+LUT4                x006y025z0          0.408    f    16.157       8  pin: storage/bmp/pixel_rgb888_b5[16]_syn_92.f[0]
+net (fo=1)                              0.615         16.772          net: storage/fat/ramread0_syn_464,  ../../rtl/storage/fat32_bmp_reader.v(77)
+                                                                      pin: storage/bmp/pixel_rgb888_b5[17]_syn_62.d[0]
+LUT3                x004y022z3          0.262    r    17.034       9  pin: storage/bmp/pixel_rgb888_b5[17]_syn_62.f[0]
+net (fo=42)                             3.934         20.968          net: storage/bmp/in_data[1],  ../../rtl/storage/bmp_stream_decoder.v(8)
+                                                                      pin: storage/fat/dir_entry_reg[25]_syn_4.mi[1]
+reg                 x014y011z1          0.143    r    21.111          net: storage/fat/dir_entry[28][1],  ../../rtl/storage/fat32_bmp_reader.v(30)
+--------------------------------------------------------------------  ---------------
+Arrival                                               21.111               
+
+source latency                          0.000          0.000               
+port                R7                  0.000          0.000          pin: clk
+hierarchy                               0.000          0.000          pin: clk_syn_2.ipad
+PAD                 x020y071            1.493          1.493          pin: clk_syn_2.di
+net (fo=1)                              0.000          1.493          net: clk_dup_1,  ../../rtl/storage/hx4s20c_storage_bringup.v(7)
+                                                                      pin: clock_buffer.clki
+GCLK                x020y070z2          0.000          1.493          pin: clock_buffer.clko
+net (fo=1288)                           1.853          3.346          net: storage/bmp/clk,  ../../rtl/storage/bmp_stream_decoder.v(6)
+                                                                      pin: storage/fat/dir_entry_reg[25]_syn_4.clk
+capture edge                           20.000    r    23.346               
+--------------------------------------------------------------------  ---------------
+setup                                  -0.116         23.230               
+clock uncertainty                      -0.100         23.130               
+clock pessimism                         0.312         23.442               
+--------------------------------------------------------------------  ---------------
+Required                                              23.442               
+--------------------------------------------------------------------  ---------------
+Slack                                                  2.331               
+
+Slack               : 2.421ns
+Begin Point         : storage/fat/mux337_syn_1086.clk (rising edge triggered by clock sys_clk  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+End Point           : storage/fat/dir_entry_reg[24]_syn_4.mi[0] (rising edge triggered by clock sys_clk  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+Check Type          : setup
+Process             : slow
+Budget              : 20.000ns { sys_clk rising@20.000ns - sys_clk rising@0.000ns }
+Data Path Delay     : 17.299ns (cell 3.551ns (20%), net 13.748ns (80%))
+Clock Skew          : 0.064ns
+Logic Level         : 9 ( LUT5=3  LUT4=2  LUT3=2  LUT2=1  DRAM=1 )
+Max Fanout          : 128
+Clock Uncertainty   : 0.100ns (sdc uncertainty: 0.000ns, default uncertainty: 0.100ns)
+
+Delay Type          Location             Incr           Path   Level  Netlist Info
+--------------------------------------------------------------------  ---------------
+source latency                          0.000          0.000               
+port                R7                  0.000          0.000          pin: clk
+hierarchy                               0.000          0.000          pin: clk_syn_2.ipad
+PAD                 x020y071            1.660          1.660          pin: clk_syn_2.di
+net (fo=1)                              0.000          1.660          net: clk_dup_1,  ../../rtl/storage/hx4s20c_storage_bringup.v(7)
+                                                                      pin: clock_buffer.clki
+GCLK                x020y070z2          0.000          1.660          pin: clock_buffer.clko
+net (fo=1288)                           2.062          3.722          net: storage/bmp/clk,  ../../rtl/storage/bmp_stream_decoder.v(6)
+                                                                      pin: storage/fat/mux337_syn_1086.clk
+launch edge                             0.000    r     3.722               
+--------------------------------------------------------------------  ---------------
+clk2q               x027y031z1          0.146    r     3.868          pin: storage/fat/mux337_syn_1086.q[0]
+net (fo=28)                             1.445          5.313          net: storage/fat/state[0],  ../../rtl/storage/fat32_bmp_reader.v(20)
+                                                                      pin: storage/fat/mux337_syn_1044.d[0]
+LUT2                x029y025z3          0.262    r     5.575       1  pin: storage/fat/mux337_syn_1044.f[0]
+net (fo=15)                             1.157          6.732          net: storage/fat/mux337_syn_359,  ../../rtl/storage/fat32_bmp_reader.v(106)
+                                                                      pin: storage/fat/fat_base_reg[29]_syn_4.b[0]
+LUT3                x023y023z2          0.431    f     7.163       2  pin: storage/fat/fat_base_reg[29]_syn_4.f[0]
+net (fo=57)                             2.776          9.939          net: storage/fat/sector_read_offset_b_n,  NOFILE(0)
+                                                                      pin: storage/fat/sector_read_offset[3]_syn_28.b[1]
+LUT5                x010y030z3          0.431    f    10.370       3  pin: storage/fat/sector_read_offset[3]_syn_28.f[1]
+net (fo=128)                            2.925         13.295          net: storage/fat/sector_read_offset[3]_dup_17,  ../../rtl/storage/fat32_bmp_reader.v(75)
+                                                                      pin: storage/fat/ramread0_syn_1449.d[1]
+DRAM                x001y031z1          0.205    r    13.500       4  pin: storage/fat/ramread0_syn_1449.f[1]
+net (fo=1)                              0.456         13.956          net: storage/fat/ramread0_syn_165,  ../../rtl/storage/fat32_bmp_reader.v(77)
+                                                                      pin: storage/bmp/pixel_rgb888_b5[23]_syn_93.d[1]
+LUT5                x002y030z3          0.262    r    14.218       5  pin: storage/bmp/pixel_rgb888_b5[23]_syn_93.f[1]
+net (fo=2)                              0.456         14.674          net: storage/bmp/pixel_rgb888_b5[23]_syn_9,  NOFILE(0)
+                                                                      pin: storage/bmp/pixel_rgb888_b5[23]_syn_91.a[0]
+LUT5                x001y032z0          0.618    f    15.292       6  pin: storage/bmp/pixel_rgb888_b5[23]_syn_91.fx[0]
+net (fo=1)                              0.504         15.796          net: storage/bmp/pixel_rgb888_b5[23]_syn_11,  NOFILE(0)
+                                                                      pin: storage/bmp/pixel_rgb888_b5[22]_syn_79.a[0]
+LUT4                x003y031z3          0.424    f    16.220       7  pin: storage/bmp/pixel_rgb888_b5[22]_syn_79.f[0]
+net (fo=1)                              0.594         16.814          net: storage/bmp/pixel_rgb888_b5[23]_syn_21,  NOFILE(0)
+                                                                      pin: storage/bmp/pixel_rgb888_b5[23]_syn_113.a[1]
+LUT4                x005y031z3          0.424    f    17.238       8  pin: storage/bmp/pixel_rgb888_b5[23]_syn_113.f[1]
+net (fo=1)                              0.615         17.853          net: storage/fat/ramread0_syn_1058,  ../../rtl/storage/fat32_bmp_reader.v(77)
+                                                                      pin: storage/bmp/hdr_reg[190]_syn_4.d[0]
+LUT3                x006y027z1          0.205    r    18.058       9  pin: storage/bmp/hdr_reg[190]_syn_4.f[0]
+net (fo=42)                             2.820         20.878          net: storage/bmp/in_data[7],  ../../rtl/storage/bmp_stream_decoder.v(8)
+                                                                      pin: storage/fat/dir_entry_reg[24]_syn_4.mi[0]
+reg                 x014y012z1          0.143    r    21.021          net: storage/fat/dir_entry[28][7],  ../../rtl/storage/fat32_bmp_reader.v(30)
+--------------------------------------------------------------------  ---------------
+Arrival                                               21.021               
+
+source latency                          0.000          0.000               
+port                R7                  0.000          0.000          pin: clk
+hierarchy                               0.000          0.000          pin: clk_syn_2.ipad
+PAD                 x020y071            1.493          1.493          pin: clk_syn_2.di
+net (fo=1)                              0.000          1.493          net: clk_dup_1,  ../../rtl/storage/hx4s20c_storage_bringup.v(7)
+                                                                      pin: clock_buffer.clki
+GCLK                x020y070z2          0.000          1.493          pin: clock_buffer.clko
+net (fo=1288)                           1.853          3.346          net: storage/bmp/clk,  ../../rtl/storage/bmp_stream_decoder.v(6)
+                                                                      pin: storage/fat/dir_entry_reg[24]_syn_4.clk
+capture edge                           20.000    r    23.346               
+--------------------------------------------------------------------  ---------------
+setup                                  -0.116         23.230               
+clock uncertainty                      -0.100         23.130               
+clock pessimism                         0.312         23.442               
+--------------------------------------------------------------------  ---------------
+Required                                              23.442               
+--------------------------------------------------------------------  ---------------
+Slack                                                  2.421               
+
+Slack               : 2.620ns
+Begin Point         : storage/fat/mux337_syn_1086.clk (rising edge triggered by clock sys_clk  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+End Point           : storage/fat/dir_entry_reg[1]_syn_3.mi[1] (rising edge triggered by clock sys_clk  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+Check Type          : setup
+Process             : slow
+Budget              : 20.000ns { sys_clk rising@20.000ns - sys_clk rising@0.000ns }
+Data Path Delay     : 17.100ns (cell 3.622ns (21%), net 13.478ns (79%))
+Clock Skew          : 0.064ns
+Logic Level         : 9 ( LUT4=3  LUT5=2  LUT3=2  LUT2=1  DRAM=1 )
+Max Fanout          : 68
+Clock Uncertainty   : 0.100ns (sdc uncertainty: 0.000ns, default uncertainty: 0.100ns)
+
+Delay Type          Location             Incr           Path   Level  Netlist Info
+--------------------------------------------------------------------  ---------------
+source latency                          0.000          0.000               
+port                R7                  0.000          0.000          pin: clk
+hierarchy                               0.000          0.000          pin: clk_syn_2.ipad
+PAD                 x020y071            1.660          1.660          pin: clk_syn_2.di
+net (fo=1)                              0.000          1.660          net: clk_dup_1,  ../../rtl/storage/hx4s20c_storage_bringup.v(7)
+                                                                      pin: clock_buffer.clki
+GCLK                x020y070z2          0.000          1.660          pin: clock_buffer.clko
+net (fo=1288)                           2.062          3.722          net: storage/bmp/clk,  ../../rtl/storage/bmp_stream_decoder.v(6)
+                                                                      pin: storage/fat/mux337_syn_1086.clk
+launch edge                             0.000    r     3.722               
+--------------------------------------------------------------------  ---------------
+clk2q               x027y031z1          0.146    r     3.868          pin: storage/fat/mux337_syn_1086.q[0]
+net (fo=28)                             1.445          5.313          net: storage/fat/state[0],  ../../rtl/storage/fat32_bmp_reader.v(20)
+                                                                      pin: storage/fat/mux337_syn_1044.d[0]
+LUT2                x029y025z3          0.262    r     5.575       1  pin: storage/fat/mux337_syn_1044.f[0]
+net (fo=15)                             1.157          6.732          net: storage/fat/mux337_syn_359,  ../../rtl/storage/fat32_bmp_reader.v(106)
+                                                                      pin: storage/fat/fat_base_reg[29]_syn_4.b[0]
+LUT3                x023y023z2          0.431    f     7.163       2  pin: storage/fat/fat_base_reg[29]_syn_4.f[0]
+net (fo=57)                             2.774          9.937          net: storage/fat/sector_read_offset_b_n,  NOFILE(0)
+                                                                      pin: storage/fat/sector_read_offset[3]_syn_34.b[0]
+LUT5                x005y028z2          0.431    f    10.368       3  pin: storage/fat/sector_read_offset[3]_syn_34.f[0]
+net (fo=68)                             1.411         11.779          net: storage/fat/sector_read_offset[2]_dup_9,  ../../rtl/storage/fat32_bmp_reader.v(75)
+                                                                      pin: storage/fat/ramread0_syn_1434.c[1]
+DRAM                x001y026z0          0.251    r    12.030       4  pin: storage/fat/ramread0_syn_1434.f[1]
+net (fo=1)                              0.594         12.624          net: storage/fat/ramread0_syn_159,  ../../rtl/storage/fat32_bmp_reader.v(77)
+                                                                      pin: storage/bmp/pixel_rgb888_b5[17]_syn_74.d[1]
+LUT4                x001y025z3          0.262    r    12.886       5  pin: storage/bmp/pixel_rgb888_b5[17]_syn_74.f[1]
+net (fo=2)                              0.594         13.480          net: storage/bmp/pixel_rgb888_b5[17]_syn_2,  NOFILE(0)
+                                                                      pin: storage/bmp/pixel_rgb888_b5[17]_syn_70.a[1]
+LUT5                x001y024z1          0.618    f    14.098       6  pin: storage/bmp/pixel_rgb888_b5[17]_syn_70.fx[0]
+net (fo=1)                              0.625         14.723          net: storage/bmp/pixel_rgb888_b5[17]_syn_4,  NOFILE(0)
+                                                                      pin: storage/bmp/pixel_rgb888_b5[16]_syn_89.a[0]
+LUT4                x002y024z1          0.408    f    15.131       7  pin: storage/bmp/pixel_rgb888_b5[16]_syn_89.f[0]
+net (fo=1)                              0.618         15.749          net: storage/bmp/pixel_rgb888_b5[17]_syn_14,  NOFILE(0)
+                                                                      pin: storage/bmp/pixel_rgb888_b5[16]_syn_92.a[0]
+LUT4                x006y025z0          0.408    f    16.157       8  pin: storage/bmp/pixel_rgb888_b5[16]_syn_92.f[0]
+net (fo=1)                              0.615         16.772          net: storage/fat/ramread0_syn_464,  ../../rtl/storage/fat32_bmp_reader.v(77)
+                                                                      pin: storage/bmp/pixel_rgb888_b5[17]_syn_62.d[0]
+LUT3                x004y022z3          0.262    r    17.034       9  pin: storage/bmp/pixel_rgb888_b5[17]_syn_62.f[0]
+net (fo=42)                             3.645         20.679          net: storage/bmp/in_data[1],  ../../rtl/storage/bmp_stream_decoder.v(8)
+                                                                      pin: storage/fat/dir_entry_reg[1]_syn_3.mi[1]
+reg                 x014y011z3          0.143    r    20.822          net: storage/fat/dir_entry[31][1],  ../../rtl/storage/fat32_bmp_reader.v(30)
+--------------------------------------------------------------------  ---------------
+Arrival                                               20.822               
+
+source latency                          0.000          0.000               
+port                R7                  0.000          0.000          pin: clk
+hierarchy                               0.000          0.000          pin: clk_syn_2.ipad
+PAD                 x020y071            1.493          1.493          pin: clk_syn_2.di
+net (fo=1)                              0.000          1.493          net: clk_dup_1,  ../../rtl/storage/hx4s20c_storage_bringup.v(7)
+                                                                      pin: clock_buffer.clki
+GCLK                x020y070z2          0.000          1.493          pin: clock_buffer.clko
+net (fo=1288)                           1.853          3.346          net: storage/bmp/clk,  ../../rtl/storage/bmp_stream_decoder.v(6)
+                                                                      pin: storage/fat/dir_entry_reg[1]_syn_3.clk
+capture edge                           20.000    r    23.346               
+--------------------------------------------------------------------  ---------------
+setup                                  -0.116         23.230               
+clock uncertainty                      -0.100         23.130               
+clock pessimism                         0.312         23.442               
+--------------------------------------------------------------------  ---------------
+Required                                              23.442               
+--------------------------------------------------------------------  ---------------
+Slack                                                  2.620               
+
+Slack               : 2.633ns
+Begin Point         : storage/fat/mux337_syn_1086.clk (rising edge triggered by clock sys_clk  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+End Point           : storage/fat/dir_entry_reg[42]_syn_4.mi[0] (rising edge triggered by clock sys_clk  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+Check Type          : setup
+Process             : slow
+Budget              : 20.000ns { sys_clk rising@20.000ns - sys_clk rising@0.000ns }
+Data Path Delay     : 17.087ns (cell 3.300ns (19%), net 13.787ns (81%))
+Clock Skew          : 0.064ns
+Logic Level         : 9 ( LUT4=3  LUT5=2  LUT3=2  LUT2=1  DRAM=1 )
+Max Fanout          : 128
+Clock Uncertainty   : 0.100ns (sdc uncertainty: 0.000ns, default uncertainty: 0.100ns)
+
+Delay Type          Location             Incr           Path   Level  Netlist Info
+--------------------------------------------------------------------  ---------------
+source latency                          0.000          0.000               
+port                R7                  0.000          0.000          pin: clk
+hierarchy                               0.000          0.000          pin: clk_syn_2.ipad
+PAD                 x020y071            1.660          1.660          pin: clk_syn_2.di
+net (fo=1)                              0.000          1.660          net: clk_dup_1,  ../../rtl/storage/hx4s20c_storage_bringup.v(7)
+                                                                      pin: clock_buffer.clki
+GCLK                x020y070z2          0.000          1.660          pin: clock_buffer.clko
+net (fo=1288)                           2.062          3.722          net: storage/bmp/clk,  ../../rtl/storage/bmp_stream_decoder.v(6)
+                                                                      pin: storage/fat/mux337_syn_1086.clk
+launch edge                             0.000    r     3.722               
+--------------------------------------------------------------------  ---------------
+clk2q               x027y031z1          0.146    r     3.868          pin: storage/fat/mux337_syn_1086.q[0]
+net (fo=28)                             1.445          5.313          net: storage/fat/state[0],  ../../rtl/storage/fat32_bmp_reader.v(20)
+                                                                      pin: storage/fat/mux337_syn_1044.d[0]
+LUT2                x029y025z3          0.262    r     5.575       1  pin: storage/fat/mux337_syn_1044.f[0]
+net (fo=15)                             1.157          6.732          net: storage/fat/mux337_syn_359,  ../../rtl/storage/fat32_bmp_reader.v(106)
+                                                                      pin: storage/fat/fat_base_reg[29]_syn_4.b[0]
+LUT3                x023y023z2          0.431    f     7.163       2  pin: storage/fat/fat_base_reg[29]_syn_4.f[0]
+net (fo=57)                             2.776          9.939          net: storage/fat/sector_read_offset_b_n,  NOFILE(0)
+                                                                      pin: storage/fat/sector_read_offset[3]_syn_28.b[1]
+LUT5                x010y030z3          0.431    f    10.370       3  pin: storage/fat/sector_read_offset[3]_syn_28.f[1]
+net (fo=128)                            2.598         12.968          net: storage/fat/sector_read_offset[3]_dup_17,  ../../rtl/storage/fat32_bmp_reader.v(75)
+                                                                      pin: storage/fat/ramread0_syn_1448.d[1]
+DRAM                x001y031z0          0.205    r    13.173       4  pin: storage/fat/ramread0_syn_1448.f[1]
+net (fo=1)                              0.594         13.767          net: storage/fat/ramread0_syn_163,  ../../rtl/storage/fat32_bmp_reader.v(77)
+                                                                      pin: storage/bmp/pixel_rgb888_b5[21]_syn_66.d[1]
+LUT4                x003y031z1          0.205    r    13.972       5  pin: storage/bmp/pixel_rgb888_b5[21]_syn_66.f[1]
+net (fo=1)                              0.309         14.281          net: storage/bmp/pixel_rgb888_b5[21]_syn_2,  NOFILE(0)
+                                                                      pin: storage/bmp/pixel_rgb888_b5[21]_syn_59.a[1]
+LUT5                x003y030z3          0.424    f    14.705       6  pin: storage/bmp/pixel_rgb888_b5[21]_syn_59.f[1]
+net (fo=1)                              0.309         15.014          net: storage/bmp/pixel_rgb888_b5[21]_syn_4,  NOFILE(0)
+                                                                      pin: storage/bmp/pixel_rgb888_b5[21]_syn_78.a[1]
+LUT4                x003y031z2          0.424    f    15.438       7  pin: storage/bmp/pixel_rgb888_b5[21]_syn_78.f[1]
+net (fo=1)                              0.456         15.894          net: storage/bmp/pixel_rgb888_b5[21]_syn_14,  NOFILE(0)
+                                                                      pin: storage/bmp/pixel_rgb888_b5[21]_syn_83.a[1]
+LUT4                x006y031z3          0.424    f    16.318       8  pin: storage/bmp/pixel_rgb888_b5[21]_syn_83.f[1]
+net (fo=1)                              0.615         16.933          net: storage/fat/ramread0_syn_860,  ../../rtl/storage/fat32_bmp_reader.v(77)
+                                                                      pin: storage/bmp/hdr_reg[189]_syn_4.d[1]
+LUT3                x007y027z1          0.205    r    17.138       9  pin: storage/bmp/hdr_reg[189]_syn_4.f[1]
+net (fo=39)                             3.528         20.666          net: storage/bmp/in_data[5],  ../../rtl/storage/bmp_stream_decoder.v(8)
+                                                                      pin: storage/fat/dir_entry_reg[42]_syn_4.mi[0]
+reg                 x017y011z0          0.143    r    20.809          net: storage/fat/dir_entry[26][5],  ../../rtl/storage/fat32_bmp_reader.v(30)
+--------------------------------------------------------------------  ---------------
+Arrival                                               20.809               
+
+source latency                          0.000          0.000               
+port                R7                  0.000          0.000          pin: clk
+hierarchy                               0.000          0.000          pin: clk_syn_2.ipad
+PAD                 x020y071            1.493          1.493          pin: clk_syn_2.di
+net (fo=1)                              0.000          1.493          net: clk_dup_1,  ../../rtl/storage/hx4s20c_storage_bringup.v(7)
+                                                                      pin: clock_buffer.clki
+GCLK                x020y070z2          0.000          1.493          pin: clock_buffer.clko
+net (fo=1288)                           1.853          3.346          net: storage/bmp/clk,  ../../rtl/storage/bmp_stream_decoder.v(6)
+                                                                      pin: storage/fat/dir_entry_reg[42]_syn_4.clk
+capture edge                           20.000    r    23.346               
+--------------------------------------------------------------------  ---------------
+setup                                  -0.116         23.230               
+clock uncertainty                      -0.100         23.130               
+clock pessimism                         0.312         23.442               
+--------------------------------------------------------------------  ---------------
+Required                                              23.442               
+--------------------------------------------------------------------  ---------------
+Slack                                                  2.633               
+
+Slack               : 2.636ns
+Begin Point         : storage/fat/mux337_syn_1086.clk (rising edge triggered by clock sys_clk  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+End Point           : storage/fat/dir_entry_reg[10]_syn_3.mi[0] (rising edge triggered by clock sys_clk  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+Check Type          : setup
+Process             : slow
+Budget              : 20.000ns { sys_clk rising@20.000ns - sys_clk rising@0.000ns }
+Data Path Delay     : 17.084ns (cell 3.622ns (21%), net 13.462ns (79%))
+Clock Skew          : 0.064ns
+Logic Level         : 9 ( LUT4=3  LUT5=2  LUT3=2  LUT2=1  DRAM=1 )
+Max Fanout          : 68
+Clock Uncertainty   : 0.100ns (sdc uncertainty: 0.000ns, default uncertainty: 0.100ns)
+
+Delay Type          Location             Incr           Path   Level  Netlist Info
+--------------------------------------------------------------------  ---------------
+source latency                          0.000          0.000               
+port                R7                  0.000          0.000          pin: clk
+hierarchy                               0.000          0.000          pin: clk_syn_2.ipad
+PAD                 x020y071            1.660          1.660          pin: clk_syn_2.di
+net (fo=1)                              0.000          1.660          net: clk_dup_1,  ../../rtl/storage/hx4s20c_storage_bringup.v(7)
+                                                                      pin: clock_buffer.clki
+GCLK                x020y070z2          0.000          1.660          pin: clock_buffer.clko
+net (fo=1288)                           2.062          3.722          net: storage/bmp/clk,  ../../rtl/storage/bmp_stream_decoder.v(6)
+                                                                      pin: storage/fat/mux337_syn_1086.clk
+launch edge                             0.000    r     3.722               
+--------------------------------------------------------------------  ---------------
+clk2q               x027y031z1          0.146    r     3.868          pin: storage/fat/mux337_syn_1086.q[0]
+net (fo=28)                             1.445          5.313          net: storage/fat/state[0],  ../../rtl/storage/fat32_bmp_reader.v(20)
+                                                                      pin: storage/fat/mux337_syn_1044.d[0]
+LUT2                x029y025z3          0.262    r     5.575       1  pin: storage/fat/mux337_syn_1044.f[0]
+net (fo=15)                             1.157          6.732          net: storage/fat/mux337_syn_359,  ../../rtl/storage/fat32_bmp_reader.v(106)
+                                                                      pin: storage/fat/fat_base_reg[29]_syn_4.b[0]
+LUT3                x023y023z2          0.431    f     7.163       2  pin: storage/fat/fat_base_reg[29]_syn_4.f[0]
+net (fo=57)                             2.774          9.937          net: storage/fat/sector_read_offset_b_n,  NOFILE(0)
+                                                                      pin: storage/fat/sector_read_offset[3]_syn_34.b[0]
+LUT5                x005y028z2          0.431    f    10.368       3  pin: storage/fat/sector_read_offset[3]_syn_34.f[0]
+net (fo=68)                             1.411         11.779          net: storage/fat/sector_read_offset[2]_dup_9,  ../../rtl/storage/fat32_bmp_reader.v(75)
+                                                                      pin: storage/fat/ramread0_syn_1434.c[1]
+DRAM                x001y026z0          0.251    r    12.030       4  pin: storage/fat/ramread0_syn_1434.f[1]
+net (fo=1)                              0.594         12.624          net: storage/fat/ramread0_syn_159,  ../../rtl/storage/fat32_bmp_reader.v(77)
+                                                                      pin: storage/bmp/pixel_rgb888_b5[17]_syn_74.d[1]
+LUT4                x001y025z3          0.262    r    12.886       5  pin: storage/bmp/pixel_rgb888_b5[17]_syn_74.f[1]
+net (fo=2)                              0.594         13.480          net: storage/bmp/pixel_rgb888_b5[17]_syn_2,  NOFILE(0)
+                                                                      pin: storage/bmp/pixel_rgb888_b5[17]_syn_70.a[1]
+LUT5                x001y024z1          0.618    f    14.098       6  pin: storage/bmp/pixel_rgb888_b5[17]_syn_70.fx[0]
+net (fo=1)                              0.625         14.723          net: storage/bmp/pixel_rgb888_b5[17]_syn_4,  NOFILE(0)
+                                                                      pin: storage/bmp/pixel_rgb888_b5[16]_syn_89.a[0]
+LUT4                x002y024z1          0.408    f    15.131       7  pin: storage/bmp/pixel_rgb888_b5[16]_syn_89.f[0]
+net (fo=1)                              0.618         15.749          net: storage/bmp/pixel_rgb888_b5[17]_syn_14,  NOFILE(0)
+                                                                      pin: storage/bmp/pixel_rgb888_b5[16]_syn_92.a[0]
+LUT4                x006y025z0          0.408    f    16.157       8  pin: storage/bmp/pixel_rgb888_b5[16]_syn_92.f[0]
+net (fo=1)                              0.615         16.772          net: storage/fat/ramread0_syn_464,  ../../rtl/storage/fat32_bmp_reader.v(77)
+                                                                      pin: storage/bmp/pixel_rgb888_b5[17]_syn_62.d[0]
+LUT3                x004y022z3          0.262    r    17.034       9  pin: storage/bmp/pixel_rgb888_b5[17]_syn_62.f[0]
+net (fo=42)                             3.629         20.663          net: storage/bmp/in_data[1],  ../../rtl/storage/bmp_stream_decoder.v(8)
+                                                                      pin: storage/fat/dir_entry_reg[10]_syn_3.mi[0]
+reg                 x013y010z2          0.143    r    20.806          net: storage/fat/dir_entry[30][1],  ../../rtl/storage/fat32_bmp_reader.v(30)
+--------------------------------------------------------------------  ---------------
+Arrival                                               20.806               
+
+source latency                          0.000          0.000               
+port                R7                  0.000          0.000          pin: clk
+hierarchy                               0.000          0.000          pin: clk_syn_2.ipad
+PAD                 x020y071            1.493          1.493          pin: clk_syn_2.di
+net (fo=1)                              0.000          1.493          net: clk_dup_1,  ../../rtl/storage/hx4s20c_storage_bringup.v(7)
+                                                                      pin: clock_buffer.clki
+GCLK                x020y070z2          0.000          1.493          pin: clock_buffer.clko
+net (fo=1288)                           1.853          3.346          net: storage/bmp/clk,  ../../rtl/storage/bmp_stream_decoder.v(6)
+                                                                      pin: storage/fat/dir_entry_reg[10]_syn_3.clk
+capture edge                           20.000    r    23.346               
+--------------------------------------------------------------------  ---------------
+setup                                  -0.116         23.230               
+clock uncertainty                      -0.100         23.130               
+clock pessimism                         0.312         23.442               
+--------------------------------------------------------------------  ---------------
+Required                                              23.442               
+--------------------------------------------------------------------  ---------------
+Slack                                                  2.636               
+
+Slack               : 2.710ns
+Begin Point         : storage/fat/mux337_syn_1086.clk (rising edge triggered by clock sys_clk  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+End Point           : storage/bmp/hdr_reg[415]_syn_4.mi[1] (rising edge triggered by clock sys_clk  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+Check Type          : setup
+Process             : slow
+Budget              : 20.000ns { sys_clk rising@20.000ns - sys_clk rising@0.000ns }
+Data Path Delay     : 17.010ns (cell 3.551ns (20%), net 13.459ns (80%))
+Clock Skew          : 0.064ns
+Logic Level         : 9 ( LUT5=3  LUT4=2  LUT3=2  LUT2=1  DRAM=1 )
+Max Fanout          : 128
+Clock Uncertainty   : 0.100ns (sdc uncertainty: 0.000ns, default uncertainty: 0.100ns)
+
+Delay Type          Location             Incr           Path   Level  Netlist Info
+--------------------------------------------------------------------  ---------------
+source latency                          0.000          0.000               
+port                R7                  0.000          0.000          pin: clk
+hierarchy                               0.000          0.000          pin: clk_syn_2.ipad
+PAD                 x020y071            1.660          1.660          pin: clk_syn_2.di
+net (fo=1)                              0.000          1.660          net: clk_dup_1,  ../../rtl/storage/hx4s20c_storage_bringup.v(7)
+                                                                      pin: clock_buffer.clki
+GCLK                x020y070z2          0.000          1.660          pin: clock_buffer.clko
+net (fo=1288)                           2.062          3.722          net: storage/bmp/clk,  ../../rtl/storage/bmp_stream_decoder.v(6)
+                                                                      pin: storage/fat/mux337_syn_1086.clk
+launch edge                             0.000    r     3.722               
+--------------------------------------------------------------------  ---------------
+clk2q               x027y031z1          0.146    r     3.868          pin: storage/fat/mux337_syn_1086.q[0]
+net (fo=28)                             1.445          5.313          net: storage/fat/state[0],  ../../rtl/storage/fat32_bmp_reader.v(20)
+                                                                      pin: storage/fat/mux337_syn_1044.d[0]
+LUT2                x029y025z3          0.262    r     5.575       1  pin: storage/fat/mux337_syn_1044.f[0]
+net (fo=15)                             1.157          6.732          net: storage/fat/mux337_syn_359,  ../../rtl/storage/fat32_bmp_reader.v(106)
+                                                                      pin: storage/fat/fat_base_reg[29]_syn_4.b[0]
+LUT3                x023y023z2          0.431    f     7.163       2  pin: storage/fat/fat_base_reg[29]_syn_4.f[0]
+net (fo=57)                             2.776          9.939          net: storage/fat/sector_read_offset_b_n,  NOFILE(0)
+                                                                      pin: storage/fat/sector_read_offset[3]_syn_28.b[1]
+LUT5                x010y030z3          0.431    f    10.370       3  pin: storage/fat/sector_read_offset[3]_syn_28.f[1]
+net (fo=128)                            2.925         13.295          net: storage/fat/sector_read_offset[3]_dup_17,  ../../rtl/storage/fat32_bmp_reader.v(75)
+                                                                      pin: storage/fat/ramread0_syn_1449.d[1]
+DRAM                x001y031z1          0.205    r    13.500       4  pin: storage/fat/ramread0_syn_1449.f[1]
+net (fo=1)                              0.456         13.956          net: storage/fat/ramread0_syn_165,  ../../rtl/storage/fat32_bmp_reader.v(77)
+                                                                      pin: storage/bmp/pixel_rgb888_b5[23]_syn_93.d[1]
+LUT5                x002y030z3          0.262    r    14.218       5  pin: storage/bmp/pixel_rgb888_b5[23]_syn_93.f[1]
+net (fo=2)                              0.456         14.674          net: storage/bmp/pixel_rgb888_b5[23]_syn_9,  NOFILE(0)
+                                                                      pin: storage/bmp/pixel_rgb888_b5[23]_syn_91.a[0]
+LUT5                x001y032z0          0.618    f    15.292       6  pin: storage/bmp/pixel_rgb888_b5[23]_syn_91.fx[0]
+net (fo=1)                              0.504         15.796          net: storage/bmp/pixel_rgb888_b5[23]_syn_11,  NOFILE(0)
+                                                                      pin: storage/bmp/pixel_rgb888_b5[22]_syn_79.a[0]
+LUT4                x003y031z3          0.424    f    16.220       7  pin: storage/bmp/pixel_rgb888_b5[22]_syn_79.f[0]
+net (fo=1)                              0.594         16.814          net: storage/bmp/pixel_rgb888_b5[23]_syn_21,  NOFILE(0)
+                                                                      pin: storage/bmp/pixel_rgb888_b5[23]_syn_113.a[1]
+LUT4                x005y031z3          0.424    f    17.238       8  pin: storage/bmp/pixel_rgb888_b5[23]_syn_113.f[1]
+net (fo=1)                              0.615         17.853          net: storage/fat/ramread0_syn_1058,  ../../rtl/storage/fat32_bmp_reader.v(77)
+                                                                      pin: storage/bmp/hdr_reg[190]_syn_4.d[0]
+LUT3                x006y027z1          0.205    r    18.058       9  pin: storage/bmp/hdr_reg[190]_syn_4.f[0]
+net (fo=42)                             2.531         20.589          net: storage/bmp/in_data[7],  ../../rtl/storage/bmp_stream_decoder.v(8)
+                                                                      pin: storage/bmp/hdr_reg[415]_syn_4.mi[1]
+reg                 x010y009z3          0.143    r    20.732          net: storage/bmp/hdr[2][7],  ../../rtl/storage/bmp_stream_decoder.v(35)
+--------------------------------------------------------------------  ---------------
+Arrival                                               20.732               
+
+source latency                          0.000          0.000               
+port                R7                  0.000          0.000          pin: clk
+hierarchy                               0.000          0.000          pin: clk_syn_2.ipad
+PAD                 x020y071            1.493          1.493          pin: clk_syn_2.di
+net (fo=1)                              0.000          1.493          net: clk_dup_1,  ../../rtl/storage/hx4s20c_storage_bringup.v(7)
+                                                                      pin: clock_buffer.clki
+GCLK                x020y070z2          0.000          1.493          pin: clock_buffer.clko
+net (fo=1288)                           1.853          3.346          net: storage/bmp/clk,  ../../rtl/storage/bmp_stream_decoder.v(6)
+                                                                      pin: storage/bmp/hdr_reg[415]_syn_4.clk
+capture edge                           20.000    r    23.346               
+--------------------------------------------------------------------  ---------------
+setup                                  -0.116         23.230               
+clock uncertainty                      -0.100         23.130               
+clock pessimism                         0.312         23.442               
+--------------------------------------------------------------------  ---------------
+Required                                              23.442               
+--------------------------------------------------------------------  ---------------
+Slack                                                  2.710               
+
+Slack               : 2.728ns
+Begin Point         : storage/fat/boot_reg[377]_syn_4.clk (rising edge triggered by clock sys_clk  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+End Point           : storage/fat/mux337_syn_1062.mi[0] (rising edge triggered by clock sys_clk  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+Check Type          : setup
+Process             : slow
+Budget              : 20.000ns { sys_clk rising@20.000ns - sys_clk rising@0.000ns }
+Data Path Delay     : 16.992ns (cell 7.328ns (43%), net 9.664ns (57%))
+Clock Skew          : 0.064ns
+Logic Level         : 15 ( LUT3=5  LUT5=4  ADDER=4  LUT4=2 )
+Max Fanout          : 33
+Clock Uncertainty   : 0.100ns (sdc uncertainty: 0.000ns, default uncertainty: 0.100ns)
+
+Delay Type          Location             Incr           Path   Level  Netlist Info
+--------------------------------------------------------------------  ---------------
+source latency                          0.000          0.000               
+port                R7                  0.000          0.000          pin: clk
+hierarchy                               0.000          0.000          pin: clk_syn_2.ipad
+PAD                 x020y071            1.660          1.660          pin: clk_syn_2.di
+net (fo=1)                              0.000          1.660          net: clk_dup_1,  ../../rtl/storage/hx4s20c_storage_bringup.v(7)
+                                                                      pin: clock_buffer.clki
+GCLK                x020y070z2          0.000          1.660          pin: clock_buffer.clko
+net (fo=1288)                           2.062          3.722          net: storage/bmp/clk,  ../../rtl/storage/bmp_stream_decoder.v(6)
+                                                                      pin: storage/fat/boot_reg[377]_syn_4.clk
+launch edge                             0.000    r     3.722               
+--------------------------------------------------------------------  ---------------
+clk2q               x018y031z3          0.146    r     3.868          pin: storage/fat/boot_reg[377]_syn_4.q[0]
+net (fo=3)                              0.612          4.480          net: storage/fat/boot[16][2],  ../../rtl/storage/fat32_bmp_reader.v(24)
+                                                                      pin: storage/fat/boot_reg[382]_syn_4.b[1]
+LUT4                x018y032z0          0.333    f     4.813       1  pin: storage/fat/boot_reg[382]_syn_4.f[1]
+net (fo=2)                              0.594          5.407          net: storage/fat/mux337_syn_353,  ../../rtl/storage/fat32_bmp_reader.v(106)
+                                                                      pin: storage/fat/boot_reg[377]_syn_4.b[0]
+LUT3                x018y031z3          0.431    f     5.838       2  pin: storage/fat/boot_reg[377]_syn_4.f[0]
+net (fo=33)                             0.990          6.828          net: storage/fat/fat_span_b_n,  NOFILE(0)
+                                                                      pin: storage/fat/boot_reg[220]_syn_4.d[0]
+LUT3                x015y017z2          0.262    r     7.090       3  pin: storage/fat/boot_reg[220]_syn_4.f[0]
+net (fo=1)                              0.594          7.684          net: storage/fat/fat_span[1],  ../../rtl/storage/fat32_bmp_reader.v(60)
+                                                                      pin: storage/fat/add0_syn_188.d[1]
+ADDER               x015y019z2          0.715    f     8.399       4  pin: storage/fat/add0_syn_188.fco
+net (fo=1)                              0.000          8.399          net: storage/fat/add0_syn_156,  ../../rtl/storage/fat32_bmp_reader.v(61)
+                                                                      pin: storage/fat/add0_syn_189.fci
+ADDER               x015y019z3          0.132    f     8.531          pin: storage/fat/add0_syn_189.fco
+net (fo=1)                              0.000          8.531          net: storage/fat/add0_syn_160,  ../../rtl/storage/fat32_bmp_reader.v(61)
+                                                                      pin: storage/fat/add0_syn_190.fci
+ADDER               x015y020z2          0.132    f     8.663          pin: storage/fat/add0_syn_190.fco
+net (fo=1)                              0.000          8.663          net: storage/fat/add0_syn_164,  ../../rtl/storage/fat32_bmp_reader.v(61)
+                                                                      pin: storage/fat/add0_syn_191.fci
+ADDER               x015y020z3          0.132    f     8.795          pin: storage/fat/add0_syn_191.fco
+net (fo=1)                              0.000          8.795          net: storage/fat/add0_syn_168,  ../../rtl/storage/fat32_bmp_reader.v(61)
+                                                                      pin: storage/fat/add0_syn_192.fci
+ADDER               x015y021z2          0.132    f     8.927          pin: storage/fat/add0_syn_192.fco
+net (fo=1)                              0.000          8.927          net: storage/fat/add0_syn_172,  ../../rtl/storage/fat32_bmp_reader.v(61)
+                                                                      pin: storage/fat/add0_syn_193.fci
+ADDER               x015y021z3          0.132    f     9.059          pin: storage/fat/add0_syn_193.fco
+net (fo=1)                              0.000          9.059          net: storage/fat/add0_syn_176,  ../../rtl/storage/fat32_bmp_reader.v(61)
+                                                                      pin: storage/fat/add0_syn_194.fci
+ADDER               x015y022z2          0.264    r     9.323       5  pin: storage/fat/add0_syn_194.f[1]
+net (fo=3)                              1.231         10.554          net: storage/fat/overhead[25],  ../../rtl/storage/fat32_bmp_reader.v(61)
+                                                                      pin: storage/fat/lt6_syn_150.b[0]
+ADDER               x018y022z1          0.627    f    11.181       6  pin: storage/fat/lt6_syn_150.fco
+net (fo=1)                              0.000         11.181          net: storage/fat/lt6_syn_58,  ../../rtl/storage/fat32_bmp_reader.v(148)
+                                                                      pin: storage/fat/lt6_syn_153.fci
+ADDER               x018y023z0          0.073    f    11.254          pin: storage/fat/lt6_syn_153.fco
+net (fo=1)                              0.000         11.254          net: storage/fat/lt6_syn_62,  ../../rtl/storage/fat32_bmp_reader.v(148)
+                                                                      pin: storage/fat/lt6_syn_156.fci
+ADDER               x018y023z1          0.073    f    11.327          pin: storage/fat/lt6_syn_156.fco
+net (fo=1)                              0.000         11.327          net: storage/fat/lt6_syn_66,  ../../rtl/storage/fat32_bmp_reader.v(148)
+                                                                      pin: storage/fat/lt6_syn_159.fci
+ADDER               x018y024z0          0.073    f    11.400          pin: storage/fat/lt6_syn_159.fco
+net (fo=1)                              0.000         11.400          net: storage/fat/lt6_syn_70,  ../../rtl/storage/fat32_bmp_reader.v(148)
+                                                                      pin: storage/fat/lt6_syn_162.fci
+ADDER               x018y024z1          0.355    f    11.755       7  pin: storage/fat/lt6_syn_162.f[1]
+net (fo=2)                              0.468         12.223          net: storage/fat/cluster_shift_b1_n11,  NOFILE(0)
+                                                                      pin: storage/fat/total_sectors_reg[31]_syn_4.a[0]
+LUT5                x022y024z2          0.424    f    12.647       8  pin: storage/fat/total_sectors_reg[31]_syn_4.f[0]
+net (fo=2)                              0.459         13.106          net: storage/fat/mux337_syn_773,  ../../rtl/storage/fat32_bmp_reader.v(106)
+                                                                      pin: storage/fat/mux337_syn_1116.a[0]
+LUT5                x021y026z1          0.618    f    13.724       9  pin: storage/fat/mux337_syn_1116.fx[0]
+net (fo=1)                              0.940         14.664          net: storage/fat/mux337_syn_793,  ../../rtl/storage/fat32_bmp_reader.v(106)
+                                                                      pin: storage/fat/mux337_syn_1146.a[1]
+LUT3                x020y026z0          0.408    f    15.072      10  pin: storage/fat/mux337_syn_1146.f[1]
+net (fo=9)                              0.499         15.571          net: storage/fat/mux337_syn_827,  ../../rtl/storage/fat32_bmp_reader.v(106)
+                                                                      pin: storage/fat/mux337_syn_1068.d[1]
+LUT3                x023y026z0          0.205    r    15.776      11  pin: storage/fat/mux337_syn_1068.f[1]
+net (fo=3)                              0.731         16.507          net: storage/fat/mux337_syn_906,  ../../rtl/storage/fat32_bmp_reader.v(106)
+                                                                      pin: storage/fat/mux337_syn_1084.d[1]
+LUT3                x027y029z2          0.262    r    16.769      12  pin: storage/fat/mux337_syn_1084.f[1]
+net (fo=2)                              0.594         17.363          net: storage/fat/mux337_syn_908,  ../../rtl/storage/fat32_bmp_reader.v(106)
+                                                                      pin: storage/fat/mux337_syn_1112.a[0]
+LUT5                x027y030z3          0.424    f    17.787      13  pin: storage/fat/mux337_syn_1112.f[0]
+net (fo=1)                              0.594         18.381          net: storage/fat/mux337_syn_917,  ../../rtl/storage/fat32_bmp_reader.v(106)
+                                                                      pin: storage/fat/mux337_syn_1034.a[0]
+LUT5                x027y031z3          0.424    f    18.805      14  pin: storage/fat/mux337_syn_1034.f[0]
+net (fo=1)                              0.594         19.399          net: storage/fat/mux337_syn_922,  ../../rtl/storage/fat32_bmp_reader.v(106)
+                                                                      pin: storage/fat/mux337_syn_1078.a[0]
+LUT4                x027y030z1          0.408    f    19.807      15  pin: storage/fat/mux337_syn_1078.f[0]
+net (fo=6)                              0.764         20.571          net: storage/fat/mux337_syn_90,  ../../rtl/storage/fat32_bmp_reader.v(106)
+                                                                      pin: storage/fat/mux337_syn_1062.mi[0]
+reg                 x028y029z3          0.143    r    20.714          net: storage/fat/state[1]_dup_146,  ../../rtl/storage/fat32_bmp_reader.v(20)
+--------------------------------------------------------------------  ---------------
+Arrival                                               20.714               
+
+source latency                          0.000          0.000               
+port                R7                  0.000          0.000          pin: clk
+hierarchy                               0.000          0.000          pin: clk_syn_2.ipad
+PAD                 x020y071            1.493          1.493          pin: clk_syn_2.di
+net (fo=1)                              0.000          1.493          net: clk_dup_1,  ../../rtl/storage/hx4s20c_storage_bringup.v(7)
+                                                                      pin: clock_buffer.clki
+GCLK                x020y070z2          0.000          1.493          pin: clock_buffer.clko
+net (fo=1288)                           1.853          3.346          net: storage/bmp/clk,  ../../rtl/storage/bmp_stream_decoder.v(6)
+                                                                      pin: storage/fat/mux337_syn_1062.clk
+capture edge                           20.000    r    23.346               
+--------------------------------------------------------------------  ---------------
+setup                                  -0.116         23.230               
+clock uncertainty                      -0.100         23.130               
+clock pessimism                         0.312         23.442               
+--------------------------------------------------------------------  ---------------
+Required                                              23.442               
+--------------------------------------------------------------------  ---------------
+Slack                                                  2.728               
+
+Slack               : 2.744ns
+Begin Point         : storage/fat/mux337_syn_1086.clk (rising edge triggered by clock sys_clk  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+End Point           : storage/bmp/hdr_reg[319]_syn_4.mi[0] (rising edge triggered by clock sys_clk  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+Check Type          : setup
+Process             : slow
+Budget              : 20.000ns { sys_clk rising@20.000ns - sys_clk rising@0.000ns }
+Data Path Delay     : 16.976ns (cell 3.551ns (20%), net 13.425ns (80%))
+Clock Skew          : 0.064ns
+Logic Level         : 9 ( LUT5=3  LUT4=2  LUT3=2  LUT2=1  DRAM=1 )
+Max Fanout          : 128
+Clock Uncertainty   : 0.100ns (sdc uncertainty: 0.000ns, default uncertainty: 0.100ns)
+
+Delay Type          Location             Incr           Path   Level  Netlist Info
+--------------------------------------------------------------------  ---------------
+source latency                          0.000          0.000               
+port                R7                  0.000          0.000          pin: clk
+hierarchy                               0.000          0.000          pin: clk_syn_2.ipad
+PAD                 x020y071            1.660          1.660          pin: clk_syn_2.di
+net (fo=1)                              0.000          1.660          net: clk_dup_1,  ../../rtl/storage/hx4s20c_storage_bringup.v(7)
+                                                                      pin: clock_buffer.clki
+GCLK                x020y070z2          0.000          1.660          pin: clock_buffer.clko
+net (fo=1288)                           2.062          3.722          net: storage/bmp/clk,  ../../rtl/storage/bmp_stream_decoder.v(6)
+                                                                      pin: storage/fat/mux337_syn_1086.clk
+launch edge                             0.000    r     3.722               
+--------------------------------------------------------------------  ---------------
+clk2q               x027y031z1          0.146    r     3.868          pin: storage/fat/mux337_syn_1086.q[0]
+net (fo=28)                             1.445          5.313          net: storage/fat/state[0],  ../../rtl/storage/fat32_bmp_reader.v(20)
+                                                                      pin: storage/fat/mux337_syn_1044.d[0]
+LUT2                x029y025z3          0.262    r     5.575       1  pin: storage/fat/mux337_syn_1044.f[0]
+net (fo=15)                             1.157          6.732          net: storage/fat/mux337_syn_359,  ../../rtl/storage/fat32_bmp_reader.v(106)
+                                                                      pin: storage/fat/fat_base_reg[29]_syn_4.b[0]
+LUT3                x023y023z2          0.431    f     7.163       2  pin: storage/fat/fat_base_reg[29]_syn_4.f[0]
+net (fo=57)                             2.776          9.939          net: storage/fat/sector_read_offset_b_n,  NOFILE(0)
+                                                                      pin: storage/fat/sector_read_offset[3]_syn_28.b[1]
+LUT5                x010y030z3          0.431    f    10.370       3  pin: storage/fat/sector_read_offset[3]_syn_28.f[1]
+net (fo=128)                            2.925         13.295          net: storage/fat/sector_read_offset[3]_dup_17,  ../../rtl/storage/fat32_bmp_reader.v(75)
+                                                                      pin: storage/fat/ramread0_syn_1449.d[1]
+DRAM                x001y031z1          0.205    r    13.500       4  pin: storage/fat/ramread0_syn_1449.f[1]
+net (fo=1)                              0.456         13.956          net: storage/fat/ramread0_syn_165,  ../../rtl/storage/fat32_bmp_reader.v(77)
+                                                                      pin: storage/bmp/pixel_rgb888_b5[23]_syn_93.d[1]
+LUT5                x002y030z3          0.262    r    14.218       5  pin: storage/bmp/pixel_rgb888_b5[23]_syn_93.f[1]
+net (fo=2)                              0.456         14.674          net: storage/bmp/pixel_rgb888_b5[23]_syn_9,  NOFILE(0)
+                                                                      pin: storage/bmp/pixel_rgb888_b5[23]_syn_91.a[0]
+LUT5                x001y032z0          0.618    f    15.292       6  pin: storage/bmp/pixel_rgb888_b5[23]_syn_91.fx[0]
+net (fo=1)                              0.504         15.796          net: storage/bmp/pixel_rgb888_b5[23]_syn_11,  NOFILE(0)
+                                                                      pin: storage/bmp/pixel_rgb888_b5[22]_syn_79.a[0]
+LUT4                x003y031z3          0.424    f    16.220       7  pin: storage/bmp/pixel_rgb888_b5[22]_syn_79.f[0]
+net (fo=1)                              0.594         16.814          net: storage/bmp/pixel_rgb888_b5[23]_syn_21,  NOFILE(0)
+                                                                      pin: storage/bmp/pixel_rgb888_b5[23]_syn_113.a[1]
+LUT4                x005y031z3          0.424    f    17.238       8  pin: storage/bmp/pixel_rgb888_b5[23]_syn_113.f[1]
+net (fo=1)                              0.615         17.853          net: storage/fat/ramread0_syn_1058,  ../../rtl/storage/fat32_bmp_reader.v(77)
+                                                                      pin: storage/bmp/hdr_reg[190]_syn_4.d[0]
+LUT3                x006y027z1          0.205    r    18.058       9  pin: storage/bmp/hdr_reg[190]_syn_4.f[0]
+net (fo=42)                             2.497         20.555          net: storage/bmp/in_data[7],  ../../rtl/storage/bmp_stream_decoder.v(8)
+                                                                      pin: storage/bmp/hdr_reg[319]_syn_4.mi[0]
+reg                 x001y011z0          0.143    r    20.698          net: storage/bmp/hdr[14][7],  ../../rtl/storage/bmp_stream_decoder.v(35)
+--------------------------------------------------------------------  ---------------
+Arrival                                               20.698               
+
+source latency                          0.000          0.000               
+port                R7                  0.000          0.000          pin: clk
+hierarchy                               0.000          0.000          pin: clk_syn_2.ipad
+PAD                 x020y071            1.493          1.493          pin: clk_syn_2.di
+net (fo=1)                              0.000          1.493          net: clk_dup_1,  ../../rtl/storage/hx4s20c_storage_bringup.v(7)
+                                                                      pin: clock_buffer.clki
+GCLK                x020y070z2          0.000          1.493          pin: clock_buffer.clko
+net (fo=1288)                           1.853          3.346          net: storage/bmp/clk,  ../../rtl/storage/bmp_stream_decoder.v(6)
+                                                                      pin: storage/bmp/hdr_reg[319]_syn_4.clk
+capture edge                           20.000    r    23.346               
+--------------------------------------------------------------------  ---------------
+setup                                  -0.116         23.230               
+clock uncertainty                      -0.100         23.130               
+clock pessimism                         0.312         23.442               
+--------------------------------------------------------------------  ---------------
+Required                                              23.442               
+--------------------------------------------------------------------  ---------------
+Slack                                                  2.744               
+
+
+Period Check
+----------------------------------------------------------------------------------------------------
+    Type       Setting(ns)      Required(ns)         Slack(ns)   Point
+--------------------------------------------------------------------------------
+    ERAM            20.000             3.414            16.586   storage/bmp/mult0_syn_2.clk
+    ERAM            20.000             3.414            16.586   mult0_syn_3.clk
+
+Min Paths
+----------------------------------------------------------------------------------------------------
+Slack               : 0.030ns
+Begin Point         : storage/fat/mux337_syn_1048.clk (rising edge triggered by clock sys_clk  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+End Point           : storage/fat/boot_reg[187]_syn_74.sr (rising edge triggered by clock sys_clk  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+Check Type          : removal
+Process             : fast
+Budget              : 0.000ns { sys_clk rising@0.000ns - sys_clk rising@0.000ns }
+Data Path Delay     : 0.428ns (cell 0.196ns (45%), net 0.232ns (55%))
+Clock Skew          : 0.045ns
+Logic Level         : 0
+Max Fanout          : 14
+Clock Uncertainty   : 0.100ns (sdc uncertainty: 0.000ns, default uncertainty: 0.100ns)
+
+Delay Type          Location             Incr           Path   Level  Netlist Info
+--------------------------------------------------------------------  ---------------
+source latency                          0.000          0.000               
+port                R7                  0.000          0.000          pin: clk
+hierarchy                               0.000          0.000          pin: clk_syn_2.ipad
+PAD                 x020y071            1.184          1.184          pin: clk_syn_2.di
+net (fo=1)                              0.000          1.184          net: clk_dup_1,  ../../rtl/storage/hx4s20c_storage_bringup.v(7)
+                                                                      pin: clock_buffer.clki
+GCLK                x020y070z2          0.000          1.184          pin: clock_buffer.clko
+net (fo=1288)                           1.756          2.940          net: storage/bmp/clk,  ../../rtl/storage/bmp_stream_decoder.v(6)
+                                                                      pin: storage/fat/mux337_syn_1048.clk
+launch edge                             0.000    r     2.940               
+--------------------------------------------------------------------  ---------------
+clk2q               x020y034z2          0.109    f     3.049          pin: storage/fat/mux337_syn_1048.q[0]
+net (fo=14)                             0.232          3.281          net: storage/rst_n_dup_27,  ../../rtl/storage/storage_pipeline.v(9)
+                                                                      pin: storage/fat/boot_reg[187]_syn_74.sr
+reg                 x022y034z3          0.087    r     3.368               
+--------------------------------------------------------------------  ---------------
+Arrival                                                3.368               
+
+source latency                          0.000          0.000               
+port                R7                  0.000          0.000          pin: clk
+hierarchy                               0.000          0.000          pin: clk_syn_2.ipad
+PAD                 x020y071            1.302          1.302          pin: clk_syn_2.di
+net (fo=1)                              0.000          1.302          net: clk_dup_1,  ../../rtl/storage/hx4s20c_storage_bringup.v(7)
+                                                                      pin: clock_buffer.clki
+GCLK                x020y070z2          0.000          1.302          pin: clock_buffer.clko
+net (fo=1288)                           1.930          3.232          net: storage/bmp/clk,  ../../rtl/storage/bmp_stream_decoder.v(6)
+                                                                      pin: storage/fat/boot_reg[187]_syn_74.clk
+capture edge                            0.000    r     3.232               
+--------------------------------------------------------------------  ---------------
+removal                                 0.253          3.485               
+clock uncertainty                       0.100          3.585               
+clock pessimism                        -0.247          3.338               
+--------------------------------------------------------------------  ---------------
+Required                                               3.338               
+--------------------------------------------------------------------  ---------------
+Slack                                                  0.030               
+
+Slack               : 0.038ns
+Begin Point         : storage/bmp/mux190_syn_136.clk (rising edge triggered by clock sys_clk  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+End Point           : storage/bmp/state_b[3]_syn_14.sr (rising edge triggered by clock sys_clk  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+Check Type          : removal
+Process             : fast
+Budget              : 0.000ns { sys_clk rising@0.000ns - sys_clk rising@0.000ns }
+Data Path Delay     : 0.436ns (cell 0.196ns (44%), net 0.240ns (56%))
+Clock Skew          : 0.045ns
+Logic Level         : 0
+Max Fanout          : 27
+Clock Uncertainty   : 0.100ns (sdc uncertainty: 0.000ns, default uncertainty: 0.100ns)
+
+Delay Type          Location             Incr           Path   Level  Netlist Info
+--------------------------------------------------------------------  ---------------
+source latency                          0.000          0.000               
+port                R7                  0.000          0.000          pin: clk
+hierarchy                               0.000          0.000          pin: clk_syn_2.ipad
+PAD                 x020y071            1.184          1.184          pin: clk_syn_2.di
+net (fo=1)                              0.000          1.184          net: clk_dup_1,  ../../rtl/storage/hx4s20c_storage_bringup.v(7)
+                                                                      pin: clock_buffer.clki
+GCLK                x020y070z2          0.000          1.184          pin: clock_buffer.clko
+net (fo=1288)                           1.756          2.940          net: storage/bmp/clk,  ../../rtl/storage/bmp_stream_decoder.v(6)
+                                                                      pin: storage/bmp/mux190_syn_136.clk
+launch edge                             0.000    r     2.940               
+--------------------------------------------------------------------  ---------------
+clk2q               x012y007z2          0.109    f     3.049          pin: storage/bmp/mux190_syn_136.q[0]
+net (fo=27)                             0.240          3.289          net: storage/rst_n_dup_4,  ../../rtl/storage/storage_pipeline.v(9)
+                                                                      pin: storage/bmp/state_b[3]_syn_14.sr
+reg                 x013y007z2          0.087    r     3.376               
+--------------------------------------------------------------------  ---------------
+Arrival                                                3.376               
+
+source latency                          0.000          0.000               
+port                R7                  0.000          0.000          pin: clk
+hierarchy                               0.000          0.000          pin: clk_syn_2.ipad
+PAD                 x020y071            1.302          1.302          pin: clk_syn_2.di
+net (fo=1)                              0.000          1.302          net: clk_dup_1,  ../../rtl/storage/hx4s20c_storage_bringup.v(7)
+                                                                      pin: clock_buffer.clki
+GCLK                x020y070z2          0.000          1.302          pin: clock_buffer.clko
+net (fo=1288)                           1.930          3.232          net: storage/bmp/clk,  ../../rtl/storage/bmp_stream_decoder.v(6)
+                                                                      pin: storage/bmp/state_b[3]_syn_14.clk
+capture edge                            0.000    r     3.232               
+--------------------------------------------------------------------  ---------------
+removal                                 0.253          3.485               
+clock uncertainty                       0.100          3.585               
+clock pessimism                        -0.247          3.338               
+--------------------------------------------------------------------  ---------------
+Required                                               3.338               
+--------------------------------------------------------------------  ---------------
+Slack                                                  0.038               
+
+Slack               : 0.038ns
+Begin Point         : storage/bmp/mux190_syn_136.clk (rising edge triggered by clock sys_clk  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+End Point           : storage/bmp/size_latched_reg[0]_syn_4.sr (rising edge triggered by clock sys_clk  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+Check Type          : removal
+Process             : fast
+Budget              : 0.000ns { sys_clk rising@0.000ns - sys_clk rising@0.000ns }
+Data Path Delay     : 0.436ns (cell 0.196ns (44%), net 0.240ns (56%))
+Clock Skew          : 0.045ns
+Logic Level         : 0
+Max Fanout          : 27
+Clock Uncertainty   : 0.100ns (sdc uncertainty: 0.000ns, default uncertainty: 0.100ns)
+
+Delay Type          Location             Incr           Path   Level  Netlist Info
+--------------------------------------------------------------------  ---------------
+source latency                          0.000          0.000               
+port                R7                  0.000          0.000          pin: clk
+hierarchy                               0.000          0.000          pin: clk_syn_2.ipad
+PAD                 x020y071            1.184          1.184          pin: clk_syn_2.di
+net (fo=1)                              0.000          1.184          net: clk_dup_1,  ../../rtl/storage/hx4s20c_storage_bringup.v(7)
+                                                                      pin: clock_buffer.clki
+GCLK                x020y070z2          0.000          1.184          pin: clock_buffer.clko
+net (fo=1288)                           1.756          2.940          net: storage/bmp/clk,  ../../rtl/storage/bmp_stream_decoder.v(6)
+                                                                      pin: storage/bmp/mux190_syn_136.clk
+launch edge                             0.000    r     2.940               
+--------------------------------------------------------------------  ---------------
+clk2q               x012y007z2          0.109    f     3.049          pin: storage/bmp/mux190_syn_136.q[0]
+net (fo=27)                             0.240          3.289          net: storage/rst_n_dup_4,  ../../rtl/storage/storage_pipeline.v(9)
+                                                                      pin: storage/bmp/size_latched_reg[0]_syn_4.sr
+reg                 x014y007z2          0.087    r     3.376               
+--------------------------------------------------------------------  ---------------
+Arrival                                                3.376               
+
+source latency                          0.000          0.000               
+port                R7                  0.000          0.000          pin: clk
+hierarchy                               0.000          0.000          pin: clk_syn_2.ipad
+PAD                 x020y071            1.302          1.302          pin: clk_syn_2.di
+net (fo=1)                              0.000          1.302          net: clk_dup_1,  ../../rtl/storage/hx4s20c_storage_bringup.v(7)
+                                                                      pin: clock_buffer.clki
+GCLK                x020y070z2          0.000          1.302          pin: clock_buffer.clko
+net (fo=1288)                           1.930          3.232          net: storage/bmp/clk,  ../../rtl/storage/bmp_stream_decoder.v(6)
+                                                                      pin: storage/bmp/size_latched_reg[0]_syn_4.clk
+capture edge                            0.000    r     3.232               
+--------------------------------------------------------------------  ---------------
+removal                                 0.253          3.485               
+clock uncertainty                       0.100          3.585               
+clock pessimism                        -0.247          3.338               
+--------------------------------------------------------------------  ---------------
+Required                                               3.338               
+--------------------------------------------------------------------  ---------------
+Slack                                                  0.038               
+
+Slack               : 0.038ns
+Begin Point         : storage/fat/add6_syn_386.clk (rising edge triggered by clock sys_clk  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+End Point           : storage/fat/fat_base_reg[0]_syn_3.sr (rising edge triggered by clock sys_clk  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+Check Type          : removal
+Process             : fast
+Budget              : 0.000ns { sys_clk rising@0.000ns - sys_clk rising@0.000ns }
+Data Path Delay     : 0.436ns (cell 0.196ns (44%), net 0.240ns (56%))
+Clock Skew          : 0.045ns
+Logic Level         : 0
+Max Fanout          : 18
+Clock Uncertainty   : 0.100ns (sdc uncertainty: 0.000ns, default uncertainty: 0.100ns)
+
+Delay Type          Location             Incr           Path   Level  Netlist Info
+--------------------------------------------------------------------  ---------------
+source latency                          0.000          0.000               
+port                R7                  0.000          0.000          pin: clk
+hierarchy                               0.000          0.000          pin: clk_syn_2.ipad
+PAD                 x020y071            1.184          1.184          pin: clk_syn_2.di
+net (fo=1)                              0.000          1.184          net: clk_dup_1,  ../../rtl/storage/hx4s20c_storage_bringup.v(7)
+                                                                      pin: clock_buffer.clki
+GCLK                x020y070z2          0.000          1.184          pin: clock_buffer.clko
+net (fo=1288)                           1.756          2.940          net: storage/bmp/clk,  ../../rtl/storage/bmp_stream_decoder.v(6)
+                                                                      pin: storage/fat/add6_syn_386.clk
+launch edge                             0.000    r     2.940               
+--------------------------------------------------------------------  ---------------
+ADDER (clk2q)       x026y019z2          0.109    f     3.049          pin: storage/fat/add6_syn_386.q[0]
+net (fo=18)                             0.240          3.289          net: storage/rst_n_dup_11,  ../../rtl/storage/storage_pipeline.v(9)
+                                                                      pin: storage/fat/fat_base_reg[0]_syn_3.sr
+reg                 x026y017z2          0.087    r     3.376               
+--------------------------------------------------------------------  ---------------
+Arrival                                                3.376               
+
+source latency                          0.000          0.000               
+port                R7                  0.000          0.000          pin: clk
+hierarchy                               0.000          0.000          pin: clk_syn_2.ipad
+PAD                 x020y071            1.302          1.302          pin: clk_syn_2.di
+net (fo=1)                              0.000          1.302          net: clk_dup_1,  ../../rtl/storage/hx4s20c_storage_bringup.v(7)
+                                                                      pin: clock_buffer.clki
+GCLK                x020y070z2          0.000          1.302          pin: clock_buffer.clko
+net (fo=1288)                           1.930          3.232          net: storage/bmp/clk,  ../../rtl/storage/bmp_stream_decoder.v(6)
+                                                                      pin: storage/fat/fat_base_reg[0]_syn_3.clk
+capture edge                            0.000    r     3.232               
+--------------------------------------------------------------------  ---------------
+removal                                 0.253          3.485               
+clock uncertainty                       0.100          3.585               
+clock pessimism                        -0.247          3.338               
+--------------------------------------------------------------------  ---------------
+Required                                               3.338               
+--------------------------------------------------------------------  ---------------
+Slack                                                  0.038               
+
+Slack               : 0.038ns
+Begin Point         : storage/fat/add6_syn_386.clk (rising edge triggered by clock sys_clk  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+End Point           : storage/fat/fat_base_reg[1]_syn_3.sr (rising edge triggered by clock sys_clk  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+Check Type          : removal
+Process             : fast
+Budget              : 0.000ns { sys_clk rising@0.000ns - sys_clk rising@0.000ns }
+Data Path Delay     : 0.436ns (cell 0.196ns (44%), net 0.240ns (56%))
+Clock Skew          : 0.045ns
+Logic Level         : 0
+Max Fanout          : 18
+Clock Uncertainty   : 0.100ns (sdc uncertainty: 0.000ns, default uncertainty: 0.100ns)
+
+Delay Type          Location             Incr           Path   Level  Netlist Info
+--------------------------------------------------------------------  ---------------
+source latency                          0.000          0.000               
+port                R7                  0.000          0.000          pin: clk
+hierarchy                               0.000          0.000          pin: clk_syn_2.ipad
+PAD                 x020y071            1.184          1.184          pin: clk_syn_2.di
+net (fo=1)                              0.000          1.184          net: clk_dup_1,  ../../rtl/storage/hx4s20c_storage_bringup.v(7)
+                                                                      pin: clock_buffer.clki
+GCLK                x020y070z2          0.000          1.184          pin: clock_buffer.clko
+net (fo=1288)                           1.756          2.940          net: storage/bmp/clk,  ../../rtl/storage/bmp_stream_decoder.v(6)
+                                                                      pin: storage/fat/add6_syn_386.clk
+launch edge                             0.000    r     2.940               
+--------------------------------------------------------------------  ---------------
+ADDER (clk2q)       x026y019z2          0.109    f     3.049          pin: storage/fat/add6_syn_386.q[0]
+net (fo=18)                             0.240          3.289          net: storage/rst_n_dup_11,  ../../rtl/storage/storage_pipeline.v(9)
+                                                                      pin: storage/fat/fat_base_reg[1]_syn_3.sr
+reg                 x026y017z3          0.087    r     3.376               
+--------------------------------------------------------------------  ---------------
+Arrival                                                3.376               
+
+source latency                          0.000          0.000               
+port                R7                  0.000          0.000          pin: clk
+hierarchy                               0.000          0.000          pin: clk_syn_2.ipad
+PAD                 x020y071            1.302          1.302          pin: clk_syn_2.di
+net (fo=1)                              0.000          1.302          net: clk_dup_1,  ../../rtl/storage/hx4s20c_storage_bringup.v(7)
+                                                                      pin: clock_buffer.clki
+GCLK                x020y070z2          0.000          1.302          pin: clock_buffer.clko
+net (fo=1288)                           1.930          3.232          net: storage/bmp/clk,  ../../rtl/storage/bmp_stream_decoder.v(6)
+                                                                      pin: storage/fat/fat_base_reg[1]_syn_3.clk
+capture edge                            0.000    r     3.232               
+--------------------------------------------------------------------  ---------------
+removal                                 0.253          3.485               
+clock uncertainty                       0.100          3.585               
+clock pessimism                        -0.247          3.338               
+--------------------------------------------------------------------  ---------------
+Required                                               3.338               
+--------------------------------------------------------------------  ---------------
+Slack                                                  0.038               
+
+Slack               : 0.038ns
+Begin Point         : storage/fat/sub0_syn_54.clk (rising edge triggered by clock sys_clk  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+End Point           : storage/fat/signature_reg[15]_syn_4.sr (rising edge triggered by clock sys_clk  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+Check Type          : removal
+Process             : fast
+Budget              : 0.000ns { sys_clk rising@0.000ns - sys_clk rising@0.000ns }
+Data Path Delay     : 0.436ns (cell 0.196ns (44%), net 0.240ns (56%))
+Clock Skew          : 0.045ns
+Logic Level         : 0
+Max Fanout          : 18
+Clock Uncertainty   : 0.100ns (sdc uncertainty: 0.000ns, default uncertainty: 0.100ns)
+
+Delay Type          Location             Incr           Path   Level  Netlist Info
+--------------------------------------------------------------------  ---------------
+source latency                          0.000          0.000               
+port                R7                  0.000          0.000          pin: clk
+hierarchy                               0.000          0.000          pin: clk_syn_2.ipad
+PAD                 x020y071            1.184          1.184          pin: clk_syn_2.di
+net (fo=1)                              0.000          1.184          net: clk_dup_1,  ../../rtl/storage/hx4s20c_storage_bringup.v(7)
+                                                                      pin: clock_buffer.clki
+GCLK                x020y070z2          0.000          1.184          pin: clock_buffer.clko
+net (fo=1288)                           1.756          2.940          net: storage/bmp/clk,  ../../rtl/storage/bmp_stream_decoder.v(6)
+                                                                      pin: storage/fat/sub0_syn_54.clk
+launch edge                             0.000    r     2.940               
+--------------------------------------------------------------------  ---------------
+ADDER (clk2q)       x019y038z2          0.109    f     3.049          pin: storage/fat/sub0_syn_54.q[0]
+net (fo=18)                             0.240          3.289          net: storage/rst_n_dup_23,  ../../rtl/storage/storage_pipeline.v(9)
+                                                                      pin: storage/fat/signature_reg[15]_syn_4.sr
+reg                 x018y038z2          0.087    r     3.376               
+--------------------------------------------------------------------  ---------------
+Arrival                                                3.376               
+
+source latency                          0.000          0.000               
+port                R7                  0.000          0.000          pin: clk
+hierarchy                               0.000          0.000          pin: clk_syn_2.ipad
+PAD                 x020y071            1.302          1.302          pin: clk_syn_2.di
+net (fo=1)                              0.000          1.302          net: clk_dup_1,  ../../rtl/storage/hx4s20c_storage_bringup.v(7)
+                                                                      pin: clock_buffer.clki
+GCLK                x020y070z2          0.000          1.302          pin: clock_buffer.clko
+net (fo=1288)                           1.930          3.232          net: storage/bmp/clk,  ../../rtl/storage/bmp_stream_decoder.v(6)
+                                                                      pin: storage/fat/signature_reg[15]_syn_4.clk
+capture edge                            0.000    r     3.232               
+--------------------------------------------------------------------  ---------------
+removal                                 0.253          3.485               
+clock uncertainty                       0.100          3.585               
+clock pessimism                        -0.247          3.338               
+--------------------------------------------------------------------  ---------------
+Required                                               3.338               
+--------------------------------------------------------------------  ---------------
+Slack                                                  0.038               
+
+Slack               : 0.046ns
+Begin Point         : storage/fat/sub0_syn_54.clk (rising edge triggered by clock sys_clk  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+End Point           : storage/fat/signature_reg[5]_syn_4.sr (rising edge triggered by clock sys_clk  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+Check Type          : removal
+Process             : fast
+Budget              : 0.000ns { sys_clk rising@0.000ns - sys_clk rising@0.000ns }
+Data Path Delay     : 0.428ns (cell 0.196ns (45%), net 0.232ns (55%))
+Clock Skew          : 0.029ns
+Logic Level         : 0
+Max Fanout          : 18
+Clock Uncertainty   : 0.100ns (sdc uncertainty: 0.000ns, default uncertainty: 0.100ns)
+
+Delay Type          Location             Incr           Path   Level  Netlist Info
+--------------------------------------------------------------------  ---------------
+source latency                          0.000          0.000               
+port                R7                  0.000          0.000          pin: clk
+hierarchy                               0.000          0.000          pin: clk_syn_2.ipad
+PAD                 x020y071            1.184          1.184          pin: clk_syn_2.di
+net (fo=1)                              0.000          1.184          net: clk_dup_1,  ../../rtl/storage/hx4s20c_storage_bringup.v(7)
+                                                                      pin: clock_buffer.clki
+GCLK                x020y070z2          0.000          1.184          pin: clock_buffer.clko
+net (fo=1288)                           1.756          2.940          net: storage/bmp/clk,  ../../rtl/storage/bmp_stream_decoder.v(6)
+                                                                      pin: storage/fat/sub0_syn_54.clk
+launch edge                             0.000    r     2.940               
+--------------------------------------------------------------------  ---------------
+ADDER (clk2q)       x019y038z2          0.109    f     3.049          pin: storage/fat/sub0_syn_54.q[0]
+net (fo=18)                             0.232          3.281          net: storage/rst_n_dup_23,  ../../rtl/storage/storage_pipeline.v(9)
+                                                                      pin: storage/fat/signature_reg[5]_syn_4.sr
+reg                 x019y037z3          0.087    r     3.368               
+--------------------------------------------------------------------  ---------------
+Arrival                                                3.368               
+
+source latency                          0.000          0.000               
+port                R7                  0.000          0.000          pin: clk
+hierarchy                               0.000          0.000          pin: clk_syn_2.ipad
+PAD                 x020y071            1.302          1.302          pin: clk_syn_2.di
+net (fo=1)                              0.000          1.302          net: clk_dup_1,  ../../rtl/storage/hx4s20c_storage_bringup.v(7)
+                                                                      pin: clock_buffer.clki
+GCLK                x020y070z2          0.000          1.302          pin: clock_buffer.clko
+net (fo=1288)                           1.930          3.232          net: storage/bmp/clk,  ../../rtl/storage/bmp_stream_decoder.v(6)
+                                                                      pin: storage/fat/signature_reg[5]_syn_4.clk
+capture edge                            0.000    r     3.232               
+--------------------------------------------------------------------  ---------------
+removal                                 0.253          3.485               
+clock uncertainty                       0.100          3.585               
+clock pessimism                        -0.263          3.322               
+--------------------------------------------------------------------  ---------------
+Required                                               3.322               
+--------------------------------------------------------------------  ---------------
+Slack                                                  0.046               
+
+Slack               : 0.046ns
+Begin Point         : storage/fat/left_shift4_syn_742.clk (rising edge triggered by clock sys_clk  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+End Point           : storage/fat/total_sectors_reg[31]_syn_5.sr (rising edge triggered by clock sys_clk  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+Check Type          : removal
+Process             : fast
+Budget              : 0.000ns { sys_clk rising@0.000ns - sys_clk rising@0.000ns }
+Data Path Delay     : 0.444ns (cell 0.196ns (44%), net 0.248ns (56%))
+Clock Skew          : 0.045ns
+Logic Level         : 0
+Max Fanout          : 42
+Clock Uncertainty   : 0.100ns (sdc uncertainty: 0.000ns, default uncertainty: 0.100ns)
+
+Delay Type          Location             Incr           Path   Level  Netlist Info
+--------------------------------------------------------------------  ---------------
+source latency                          0.000          0.000               
+port                R7                  0.000          0.000          pin: clk
+hierarchy                               0.000          0.000          pin: clk_syn_2.ipad
+PAD                 x020y071            1.184          1.184          pin: clk_syn_2.di
+net (fo=1)                              0.000          1.184          net: clk_dup_1,  ../../rtl/storage/hx4s20c_storage_bringup.v(7)
+                                                                      pin: clock_buffer.clki
+GCLK                x020y070z2          0.000          1.184          pin: clock_buffer.clko
+net (fo=1288)                           1.756          2.940          net: storage/bmp/clk,  ../../rtl/storage/bmp_stream_decoder.v(6)
+                                                                      pin: storage/fat/left_shift4_syn_742.clk
+launch edge                             0.000    r     2.940               
+--------------------------------------------------------------------  ---------------
+clk2q               x019y028z2          0.109    f     3.049          pin: storage/fat/left_shift4_syn_742.q[0]
+net (fo=42)                             0.248          3.297          net: storage/rst_n_dup_20,  ../../rtl/storage/storage_pipeline.v(9)
+                                                                      pin: storage/fat/total_sectors_reg[31]_syn_5.sr
+reg                 x020y028z2          0.087    r     3.384               
+--------------------------------------------------------------------  ---------------
+Arrival                                                3.384               
+
+source latency                          0.000          0.000               
+port                R7                  0.000          0.000          pin: clk
+hierarchy                               0.000          0.000          pin: clk_syn_2.ipad
+PAD                 x020y071            1.302          1.302          pin: clk_syn_2.di
+net (fo=1)                              0.000          1.302          net: clk_dup_1,  ../../rtl/storage/hx4s20c_storage_bringup.v(7)
+                                                                      pin: clock_buffer.clki
+GCLK                x020y070z2          0.000          1.302          pin: clock_buffer.clko
+net (fo=1288)                           1.930          3.232          net: storage/bmp/clk,  ../../rtl/storage/bmp_stream_decoder.v(6)
+                                                                      pin: storage/fat/total_sectors_reg[31]_syn_5.clk
+capture edge                            0.000    r     3.232               
+--------------------------------------------------------------------  ---------------
+removal                                 0.253          3.485               
+clock uncertainty                       0.100          3.585               
+clock pessimism                        -0.247          3.338               
+--------------------------------------------------------------------  ---------------
+Required                                               3.338               
+--------------------------------------------------------------------  ---------------
+Slack                                                  0.046               
+
+Slack               : 0.054ns
+Begin Point         : reset_release_reg[2]_syn_89.clk (rising edge triggered by clock sys_clk  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+End Point           : add1_syn_194.sr (rising edge triggered by clock sys_clk  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+Check Type          : removal
+Process             : fast
+Budget              : 0.000ns { sys_clk rising@0.000ns - sys_clk rising@0.000ns }
+Data Path Delay     : 0.436ns (cell 0.196ns (44%), net 0.240ns (56%))
+Clock Skew          : 0.029ns
+Logic Level         : 0
+Max Fanout          : 13
+Clock Uncertainty   : 0.100ns (sdc uncertainty: 0.000ns, default uncertainty: 0.100ns)
+
+Delay Type          Location             Incr           Path   Level  Netlist Info
+--------------------------------------------------------------------  ---------------
+source latency                          0.000          0.000               
+port                R7                  0.000          0.000          pin: clk
+hierarchy                               0.000          0.000          pin: clk_syn_2.ipad
+PAD                 x020y071            1.184          1.184          pin: clk_syn_2.di
+net (fo=1)                              0.000          1.184          net: clk_dup_1,  ../../rtl/storage/hx4s20c_storage_bringup.v(7)
+                                                                      pin: clock_buffer.clki
+GCLK                x020y070z2          0.000          1.184          pin: clock_buffer.clko
+net (fo=1288)                           1.756          2.940          net: storage/bmp/clk,  ../../rtl/storage/bmp_stream_decoder.v(6)
+                                                                      pin: reset_release_reg[2]_syn_89.clk
+launch edge                             0.000    r     2.940               
+--------------------------------------------------------------------  ---------------
+clk2q               x009y001z0          0.109    f     3.049          pin: reset_release_reg[2]_syn_89.q[0]
+net (fo=13)                             0.240          3.289          net: storage/rst_n_dup_3,  ../../rtl/storage/storage_pipeline.v(9)
+                                                                      pin: add1_syn_194.sr
+ADDER (reg)         x009y003z2          0.087    r     3.376               
+--------------------------------------------------------------------  ---------------
+Arrival                                                3.376               
+
+source latency                          0.000          0.000               
+port                R7                  0.000          0.000          pin: clk
+hierarchy                               0.000          0.000          pin: clk_syn_2.ipad
+PAD                 x020y071            1.302          1.302          pin: clk_syn_2.di
+net (fo=1)                              0.000          1.302          net: clk_dup_1,  ../../rtl/storage/hx4s20c_storage_bringup.v(7)
+                                                                      pin: clock_buffer.clki
+GCLK                x020y070z2          0.000          1.302          pin: clock_buffer.clko
+net (fo=1288)                           1.930          3.232          net: storage/bmp/clk,  ../../rtl/storage/bmp_stream_decoder.v(6)
+                                                                      pin: add1_syn_194.clk
+capture edge                            0.000    r     3.232               
+--------------------------------------------------------------------  ---------------
+removal                                 0.253          3.485               
+clock uncertainty                       0.100          3.585               
+clock pessimism                        -0.263          3.322               
+--------------------------------------------------------------------  ---------------
+Required                                               3.322               
+--------------------------------------------------------------------  ---------------
+Slack                                                  0.054               
+
+Slack               : 0.054ns
+Begin Point         : reset_release_reg[2]_syn_89.clk (rising edge triggered by clock sys_clk  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+End Point           : pixel_count_reg[1]_syn_3.sr (rising edge triggered by clock sys_clk  { rise@0.000000ns  fall@10.000000ns  period=20.000000 })
+Check Type          : removal
+Process             : fast
+Budget              : 0.000ns { sys_clk rising@0.000ns - sys_clk rising@0.000ns }
+Data Path Delay     : 0.436ns (cell 0.196ns (44%), net 0.240ns (56%))
+Clock Skew          : 0.029ns
+Logic Level         : 0
+Max Fanout          : 13
+Clock Uncertainty   : 0.100ns (sdc uncertainty: 0.000ns, default uncertainty: 0.100ns)
+
+Delay Type          Location             Incr           Path   Level  Netlist Info
+--------------------------------------------------------------------  ---------------
+source latency                          0.000          0.000               
+port                R7                  0.000          0.000          pin: clk
+hierarchy                               0.000          0.000          pin: clk_syn_2.ipad
+PAD                 x020y071            1.184          1.184          pin: clk_syn_2.di
+net (fo=1)                              0.000          1.184          net: clk_dup_1,  ../../rtl/storage/hx4s20c_storage_bringup.v(7)
+                                                                      pin: clock_buffer.clki
+GCLK                x020y070z2          0.000          1.184          pin: clock_buffer.clko
+net (fo=1288)                           1.756          2.940          net: storage/bmp/clk,  ../../rtl/storage/bmp_stream_decoder.v(6)
+                                                                      pin: reset_release_reg[2]_syn_89.clk
+launch edge                             0.000    r     2.940               
+--------------------------------------------------------------------  ---------------
+clk2q               x009y001z0          0.109    f     3.049          pin: reset_release_reg[2]_syn_89.q[0]
+net (fo=13)                             0.240          3.289          net: storage/rst_n_dup_3,  ../../rtl/storage/storage_pipeline.v(9)
+                                                                      pin: pixel_count_reg[1]_syn_3.sr
+reg                 x009y002z3          0.087    r     3.376               
+--------------------------------------------------------------------  ---------------
+Arrival                                                3.376               
+
+source latency                          0.000          0.000               
+port                R7                  0.000          0.000          pin: clk
+hierarchy                               0.000          0.000          pin: clk_syn_2.ipad
+PAD                 x020y071            1.302          1.302          pin: clk_syn_2.di
+net (fo=1)                              0.000          1.302          net: clk_dup_1,  ../../rtl/storage/hx4s20c_storage_bringup.v(7)
+                                                                      pin: clock_buffer.clki
+GCLK                x020y070z2          0.000          1.302          pin: clock_buffer.clko
+net (fo=1288)                           1.930          3.232          net: storage/bmp/clk,  ../../rtl/storage/bmp_stream_decoder.v(6)
+                                                                      pin: pixel_count_reg[1]_syn_3.clk
+capture edge                            0.000    r     3.232               
+--------------------------------------------------------------------  ---------------
+removal                                 0.253          3.485               
+clock uncertainty                       0.100          3.585               
+clock pessimism                        -0.263          3.322               
+--------------------------------------------------------------------  ---------------
+Required                                               3.322               
+--------------------------------------------------------------------  ---------------
+Slack                                                  0.054               
+
+
+Inter clock domain timing
+--------------------------------------------------
+
+IP timing
+--------------------------------------------------

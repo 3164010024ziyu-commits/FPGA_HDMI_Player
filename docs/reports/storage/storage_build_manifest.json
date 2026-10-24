@@ -1,0 +1,67 @@
+{
+  "tool": "Tang Dynasty V6.2.168116",
+  "device": "EG4S20BG256",
+  "top": "hx4s20c_storage_bringup",
+  "clock_mhz": 50,
+  "setup_wns_ns": 2.2,
+  "hold_wns_ns": 0.03,
+  "lut": 4849,
+  "registers": 1872,
+  "test_cases": {
+    "bmp_stream_decoder": 49,
+    "fat32_bmp_reader": 24,
+    "sd_spi_reader": 9,
+    "storage_pipeline": 6,
+    "hx4s20c_storage_bringup": 4
+  },
+  "total_test_cases": 92,
+  "board_tested": false,
+  "external_io_timing_verified": false,
+  "bitstream_sha256": "606a9f83be813e970c31be57caff83095baba29f6306f752e1d95af8332df428",
+  "source_sha256": {
+    "rtl/storage/spi_byte_master.v": "fe3ca1a7fda9a5ae2bf4d6fe1317b28058965b175550b8316b49e955c7e5c99f",
+    "rtl/storage/sd_spi_reader.v": "4acafdb5536bafefe78a0979628ca09cf8d8bb04a8fc45a1805cee420243586b",
+    "rtl/storage/fat32_bmp_reader.v": "debcc68d4ad48f3e003ccc1c8041720f4d64d367046470c7df5323ff1804af8e",
+    "rtl/storage/bmp_stream_decoder.v": "62c33983d862236dc0c56f7d95ebcb4c51df5506443cfd4a1b6ba5ec6aae3093",
+    "rtl/storage/storage_pipeline.v": "7ec5c19101a94d65e86372d0502d34fdf4114bfe0ce6778bb2c15af3adfe2bb7",
+    "rtl/storage/hx4s20c_storage_bringup.v": "4bf07fbd24ee3b4f13c86bbb3911736b73bebf11a5dc2a3385f2415492574b06",
+    "constraints/hx4s20c_storage_bringup.adc": "9826f673b071f37f259ad5d806c4f45feaffa91ef9ada0fcf77dbbda0b61a40b",
+    "constraints/hx4s20c_storage_bringup.sdc": "82dd1f0357961f0cd38940c2b8ab138fe99c370a3bb1705d81068c8d8a50a215",
+    "project/td/Storage_Bringup.al": "3736d3fa3fb703067c6ee81ac4fc5b5664c293ee2ab57ac62438e684f128d77d",
+    "tools/run_td_storage.tcl": "e1f72a1aa47a0dccc7f8aa5e977c9e663e4d9af0beadb90d10c9c36baebe13f2",
+    "tools/run_td_storage_pnr.tcl": "f4fa486c9097a7cc0e1e8eb09d74cb181660ef8989295540440cb7cc04032c6a",
+    "tools/run_td_storage.ps1": "a88f9a2b1b2c821769c67592974440292b396b275957dcc079824a2cd8f3dc86"
+  },
+  "simulation_input_sha256": {
+    "rtl/storage/spi_byte_master.v": "fe3ca1a7fda9a5ae2bf4d6fe1317b28058965b175550b8316b49e955c7e5c99f",
+    "rtl/storage/sd_spi_reader.v": "4acafdb5536bafefe78a0979628ca09cf8d8bb04a8fc45a1805cee420243586b",
+    "rtl/storage/fat32_bmp_reader.v": "debcc68d4ad48f3e003ccc1c8041720f4d64d367046470c7df5323ff1804af8e",
+    "rtl/storage/bmp_stream_decoder.v": "62c33983d862236dc0c56f7d95ebcb4c51df5506443cfd4a1b6ba5ec6aae3093",
+    "rtl/storage/storage_pipeline.v": "7ec5c19101a94d65e86372d0502d34fdf4114bfe0ce6778bb2c15af3adfe2bb7",
+    "rtl/storage/hx4s20c_storage_bringup.v": "4bf07fbd24ee3b4f13c86bbb3911736b73bebf11a5dc2a3385f2415492574b06",
+    "tb/storage/sd_spi_card_model.sv": "8f8714d1170f5ee82b8419faaae92e2d18d0a8f4183c5305ee5b8a3e86fa4c67",
+    "tb/storage/eg_clock_buffer_model.v": "8858b81f3d80cafdfb2ef4f40d14c1a1fe454f3b571dd415ffc765983d03bde7",
+    "tb/storage/bmp_stream_decoder_tb.sv": "044383b46cb289db50cb596feace5045331f056dbc44ac8fce9cc822f6634334",
+    "tb/storage/fat32_bmp_reader_tb.sv": "f30feee848170cc4a779fdc2e4038300ba1d9a9c62478553c4552b0ce15e8c9e",
+    "tb/storage/sd_spi_reader_tb.sv": "ed1d8f584b2323746c1924cf90d1c00ffee2be4b454e15a618b6b94c22a2e2c5",
+    "tb/storage/storage_pipeline_tb.sv": "46ffbec98986fc3e3e507e244cd6a53dd805d8e2421c32d0981e4f431caaf5d2",
+    "tb/storage/hx4s20c_storage_bringup_tb.sv": "649f1f629516c7a877d5e69e3a15aebdd66dd04048a8bf166c7470b942fcbd29",
+    "tools/run_storage_tests.ps1": "1a210e6224c9e3730a33d38b347a8ba2db08e03c248e4d1a8fdc0e35858d2f55",
+    "tools/make_storage_vectors.py": "dc7a8e6a70450b6c0928680f871aec4ca6a56c46bc6e499f3bad7bd614c4c429",
+    "tb/storage/vectors/card.hex": "eba58ea5dd71fd2250d0dec2c059dc01fcea4195ddd9df62c8f6f367aa694be0",
+    "tb/storage/vectors/image.hex": "669febeed6b75ada299096bf48a1db37fd5af10102e78233e701b1d51c651885"
+  },
+  "reports_sha256": {
+    "Storage_Bringup_phy.area": "1864708bd0080a280c6832e7dff9699a461547fdd01e11be0836708e615187b2",
+    "Storage_Bringup_phy.ts": "f45d7a156440be60d14953a8f100a4bb3df27ffb77b3732974d2f0b144ee222a",
+    "Storage_Bringup_pr.timing": "37296962850f6c91793781181910736043b11931aac1fd1105bd8a1d403fba78"
+  },
+  "test_bmp": {
+    "file": "TEST640.BMP",
+    "width": 640,
+    "height": 480,
+    "bpp": 24,
+    "rgb_sum_hex": "31CE2080",
+    "sha256": "68a355caac441cdfa2e0e68c0d2269e4c97cf80f2cb697647bc2fe01b9ac3bf0"
+  }
+}
