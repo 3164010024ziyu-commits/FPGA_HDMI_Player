@@ -2,7 +2,7 @@
 
 更新日期：2026-10-25（北京时间）
 
-核对范围：本机工程 `C:\Users\31640\Desktop\FPGA_Projects\FPGA_HDMI_Player`、已保存的 TD 综合报告、HX4S20 资料包，以及 FFF 中的审核与验证记录。本轮在 `memory` 分支接入参考 IP，在暂存副本完成 ModelSim 编译、保留层次的零时加载和 PLL 时钟测量；未进行真实 SDRAM 写入读回。2026-10-22 的历史测试结论单独保留。2026-10-23 导入时用户模块保持原样；2026-10-24 经用户明确授权，给 `memory_top` 增加物理 SDRAM 总线声明及 SIP 原语例化，其余用户模块和测试台保持原样。
+核对范围：本机工程、FFF验证记录和资料。2026-10-25先提交检查点6a6fc1c，再执行真实参考IP与SDRAM行为模型测试，按证据应用刷新仲裁修复。PLL、加密IP和FIFO保持不变；本次用户明确授权助手进行必要工程修改。当前完整读回仍未通过，下文分开报告刷新和读采样结果。
 
 协作约定：用户负责主要模块代码；助手负责资料查阅、接口核对、验证和必要提示。助手默认不修改用户模块实现、不直接提供模块实现代码；用户明确授权的定点修改按指定范围执行并展示差异。
 
@@ -12,7 +12,51 @@
 
 已在 `memory` 分支导入匹配板载 50 MHz 输入的 PLL，以及 APUG011 的 `sdr_as_ram`、`sdr_init_ref`、`sdr_wrrd`；现有 `sdram_write_ctrl` 复用用户文件。TD 源文件清单与顶层已调整为 `memory_top`。PLL 使用配套例程的 100/125/125 MHz、0/0/180° 配置，刷新周期参数同步为 125 MHz。ModelSim 编译和零时层次加载通过，PLL 输出周期及相位测量通过；物理 SDRAM 总线与 SIP 原语已按参考例程接入并经零时层次检查；未用读请求已停用，LED已按用户选择指示PLL锁定且初始化完成，尚不表示数据校验通过。
 
-2026-10-24冻结回归的4376字模型存储检查正确，但应用读回每组第四字为Z，共1094错；2026-10-25使用用户更新后的写控制器做单组四字测试，再次复现同类错误，未冒充新版全量回归。问题已定位到参考模型组合下的读捕获窗口，尚未修复；刷新执行延后及允许等待预算仍待核实，完整存储链路未通过。帧缓存读出、HDMI输出和板级运行仍无完成证据。本文不使用整体完成百分比，避免将基础模块测试与系统完成混为一谈。
+2026-10-25新方案：15µs周期的应用侧刷新仲裁，pending暂停启动新四字组，等待在途写入与下游忙解除后发送单拍请求。三种512µs最终生产场景均34请求/34确认/34占用/34实际刷新；pending到实际刷新最长196ns，相邻刷新最长15.064µs。11场景4376字模型存储全部正确、刷新覆盖通过，但工程125MHz/180°仍每组第四字读回Z，共1094错。仅测试台270°诊断的11场景全部通过，未改工程PLL。帧缓存、显示、板级时序和实板运行尚未完成。详见 [刷新修复记录](SDRAM_REFRESH_VERIFICATION.md)。
+
+## 2026-10-25 迭代修复与逐步验证
+
+用户授权：先提交当前版本，再按测试证据修改工程；每步测试完成即同步本节。检查点为 `6a6fc1c`，保留原始故障供对照。
+
+- **busy_gate/continuous**：执行失败。来源：`candidate_busy`。这是隔离候选副本，尚未应用到工程的结果；PLL配置未改。[记录](C:/Users/31640/Documents/ChatGPT/FFF/memory_followup_20261025/busy_gate/continuous/results.json)。
+
+- **explicit_refresh/continuous**：通过执行。来源：`candidate_refresh`。请求/确认/占用/实际刷新次数=34/34/34/34；最大请求到后续刷新=60.0ns，未响应请求=0。这是隔离候选副本，尚未应用到工程的结果；PLL配置未改。[记录](C:/Users/31640/Documents/ChatGPT/FFF/memory_followup_20261025/explicit_refresh/continuous/results.json)。
+
+- **explicit_refresh/idle**：通过执行。来源：`candidate_refresh`。请求/确认/占用/实际刷新次数=34/34/34/34；最大请求到后续刷新=60.0ns，未响应请求=0。这是隔离候选副本，尚未应用到工程的结果；PLL配置未改。[记录](C:/Users/31640/Documents/ChatGPT/FFF/memory_followup_20261025/explicit_refresh/idle/results.json)。
+
+- **explicit_refresh/pause**：通过执行。来源：`candidate_refresh`。请求/确认/占用/实际刷新次数=34/34/34/34；最大请求到后续刷新=60.0ns，未响应请求=0。这是隔离候选副本，尚未应用到工程的结果；PLL配置未改。[记录](C:/Users/31640/Documents/ChatGPT/FFF/memory_followup_20261025/explicit_refresh/pause/results.json)。
+
+- **refresh_matrix_180**：完整11场景回归未全部通过；统计={"cases": 11, "accepted": 4376, "app_writes": 4376, "reads": 4376, "physical_writes": 1094, "physical_reads": 1094, "physical_refreshes": 60, "write_refresh_overlap": 0, "data_errors": 1094, "storage_checks": 4376, "storage_errors": 0, "coverage_errors": 0}；模型时序错误=0。使用工程125MHz/180° PLL；已知末字读采样故障单独统计，不以存储检查替代读回通过。 [记录](C:/Users/31640/Documents/ChatGPT/FFF/memory_followup_20261025/refresh_matrix_180/results.json)。
+
+- **refresh_matrix_phase270_diagnostic**：完整11场景回归通过；统计={"cases": 11, "accepted": 4376, "app_writes": 4376, "reads": 4376, "physical_writes": 1094, "physical_reads": 1094, "physical_refreshes": 60, "write_refresh_overlap": 0, "data_errors": 0, "storage_checks": 4376, "storage_errors": 0, "coverage_errors": 0}；模型时序错误=0。仅测试台将SDRAM时钟移到270°进行读采样诊断，工程PLL未改。 [记录](C:/Users/31640/Documents/ChatGPT/FFF/memory_followup_20261025/refresh_matrix_phase270_diagnostic/results.json)。
+
+- **refresh_unit**：刷新仲裁器6项单元测试失败：初始化前抑制、精确周期、手动请求保持高仅触发一次、写/读/下游忙排空与静默保护、确认超时锁存、故障及忙中复位。 [记录](C:/Users/31640/Documents/ChatGPT/FFF/memory_followup_20261025/refresh_unit/results.json)。
+
+- **refresh_unit_harness_fixed**：刷新仲裁器6项单元测试通过：初始化前抑制、精确周期、手动请求保持高仅触发一次、写/读/下游忙排空与静默保护、确认超时锁存、故障及忙中复位。前次测试的6项断言实际均通过，但测试台$finish被onbreak按退出码1处理；已修复测试结束方式，未更改RTL。 [记录](C:/Users/31640/Documents/ChatGPT/FFF/memory_followup_20261025/refresh_unit_harness_fixed/results.json)。
+
+- **apply_verified_refresh**：已应用通过的刷新仲裁候选：新增调度器、写启动pending门控、顶层单一请求来源、TD源清单和旧测试台端口绑0。PLL、加密IP、FIFO哈希与检查点相同；准备生产文件复测。 [记录](C:/Users/31640/Documents/ChatGPT/FFF/memory_followup_20261025/applied.json)。
+
+- **production_refresh/continuous**：通过执行。来源：`production`。请求/确认/占用/实际刷新次数=34/34/34/34；最大请求到后续刷新=60.0ns，未响应请求=0。这是工程源码的结果；PLL配置未改。[记录](C:/Users/31640/Documents/ChatGPT/FFF/memory_followup_20261025/production_refresh/continuous/results.json)。
+
+- **refresh_unit_deadline_overlap**：刷新仲裁器7项单元测试失败：原6项外增加手动请求紧邻周期到期，要求该请求满足本次刷新而不误报超时；完整仿真日志保留。 [记录](C:/Users/31640/Documents/ChatGPT/FFF/memory_followup_20261025/refresh_unit_deadline_overlap/results.json)。
+
+- **refresh_unit_deadline_fixed**：刷新仲裁器7项单元测试通过：原6项外增加手动请求紧邻周期到期，要求该请求满足本次刷新而不误报超时；完整仿真日志保留。 [记录](C:/Users/31640/Documents/ChatGPT/FFF/memory_followup_20261025/refresh_unit_deadline_fixed/results.json)。
+
+- **apply_deadline_fix**：手动请求紧邻周期到期会误置refresh_error，已复现并修复：接收新的手动请求时重新开始周期计时；忙中额外手动边沿仍合并。新增第7项单元测试修复前失败、修复后通过，已应用工程，准备最终复测。 [记录](C:/Users/31640/Documents/ChatGPT/FFF/memory_followup_20261025/applied_final.json)。
+
+- **production_final/idle**：通过执行。来源：`production`。请求/确认/占用/实际刷新次数=34/34/34/34；最大请求到后续刷新=60.0ns，未响应请求=0。这是工程源码的结果；PLL配置未改。[记录](C:/Users/31640/Documents/ChatGPT/FFF/memory_followup_20261025/production_final/idle/results.json)。
+
+- **production_final/continuous**：通过执行。来源：`production`。请求/确认/占用/实际刷新次数=34/34/34/34；最大请求到后续刷新=60.0ns，未响应请求=0。这是工程源码的结果；PLL配置未改。[记录](C:/Users/31640/Documents/ChatGPT/FFF/memory_followup_20261025/production_final/continuous/results.json)。
+
+- **production_final/pause**：通过执行。来源：`production`。请求/确认/占用/实际刷新次数=34/34/34/34；最大请求到后续刷新=60.0ns，未响应请求=0。这是工程源码的结果；PLL配置未改。[记录](C:/Users/31640/Documents/ChatGPT/FFF/memory_followup_20261025/production_final/pause/results.json)。
+
+- **production_matrix_180**：完整11场景回归未全部通过；统计={"cases": 11, "accepted": 4376, "app_writes": 4376, "reads": 4376, "physical_writes": 1094, "physical_reads": 1094, "physical_refreshes": 57, "write_refresh_overlap": 0, "data_errors": 1094, "storage_checks": 4376, "storage_errors": 0, "coverage_errors": 0}；模型时序错误=0。使用工程125MHz/180° PLL；已知末字读采样故障单独统计，不以存储检查替代读回通过。 [记录](C:/Users/31640/Documents/ChatGPT/FFF/memory_followup_20261025/production_matrix_180/results.json)。
+
+- **production_matrix_phase270_diagnostic**：完整11场景回归通过；统计={"cases": 11, "accepted": 4376, "app_writes": 4376, "reads": 4376, "physical_writes": 1094, "physical_reads": 1094, "physical_refreshes": 57, "write_refresh_overlap": 0, "data_errors": 0, "storage_checks": 4376, "storage_errors": 0, "coverage_errors": 0}；模型时序错误=0。仅测试台将SDRAM时钟移到270°进行读采样诊断，工程PLL未改。 [记录](C:/Users/31640/Documents/ChatGPT/FFF/memory_followup_20261025/production_matrix_phase270_diagnostic/results.json)。
+
+- **final_source_and_results_audit**：最终生产RTL哈希与测试输入一致；PLL/IP/FIFO哈希与检查点相同，TD的10项源文件存在且编译顺序连续。三场景请求/确认/占用/命令逐项匹配，最长16ns/24ns/60ns，pending到刷新最长196ns，实际刷新间隔最长15.064µs。7项单元通过；正式配置4376字存储正确但1094读回错，270°诊断全通过。此检查不等于TD综合或时序签核。 [记录](C:/Users/31640/Documents/ChatGPT/FFF/memory_followup_20261025/final_summary.json)。
+
+- **saved_rerun_entrypoint**：随工程保存的run_refresh.py重跑入口编译及1µs观察器绑定检查通过，源码未改变；只是入口复核，完整功能结论以production_final和production_matrix记录为准。 [记录](C:/Users/31640/Documents/ChatGPT/FFF/memory_followup_20261025/final_summary.json)。
 
 ## 当前重点问题（2026-10-25）
 
@@ -21,28 +65,25 @@
 | 编号 | 问题 | 当前状态 |
 | --- | --- | --- |
 | 1 | 1094次每组第四字返回Z | 已定位参考模型下的读捕获窗口不匹配；未修复，原125MHz/180°配置读回仍失败 |
-| 2 | 连续供数时实际刷新延后 | 已观察到延后；具体内部仲裁原因、最大允许等待及是否补足刷新次数尚待核实 |
+| 2 | 连续供数时实际刷新延后 | 已应用15µs仲裁修复，三场景与逐拍刷新生产复测通过；实板及长期保持未验证 |
 
 ### 问题1：第四字读回Z（读采样问题）
 
 - 2026-10-24共4376字、1094组测试：应用写拍和模型存储内容全部正确，物理DQ也输出第四字；应用返回每组第四字为Z，共1094错。这批错误不是第四字漏写的证据。
 - 当前125MHz周期为8ns，逻辑与SDRAM时钟相差180°。以最后字的SDRAM发数沿为0，参考模型的末字有效窗为5.5～10.5ns，两个相邻逻辑采样沿为4ns、12ns，均不在窗口内。控制器先捕获Z，测试台随后才消费该Z；单纯延后比较不能修复。
-- 2026-10-25新版本单组四字复现相同窗口。上轮仅在测试台覆盖移相输入为270°时，4376字读回0错；没有把270°写入工程，该诊断仍因刷新覆盖不足而整体未通过。
+- 2026-10-25新版本单组四字复现相同窗口。上轮仅在测试台覆盖移相输入为270°时，4376字读回0错；没有把270°写入工程，该历史诊断因刷新覆盖不足未整体通过；本轮刷新修复后的270°诊断11场景已全通过，但仍未改工程PLL。
 - 结论适用于IS42s32200 -7参考模型与当前配置组合；不能据此宣称实物EM638325必然失败。模型无输入时序ERROR，也不等于FPGA端读捕获满足时序。
 - 下一步：结合EM638325速度档参数、FPGA输入建立/保持及TD时序核定PLL相位与读捕获安排；确认方案后再修改，并对正式配置执行正常及刷新交叉读回回归。
 - 证据：[根因复核及当前版本复现](C:/Users/31640/Documents/ChatGPT/FFF/sdram_read_z_root_cause_20261025/README.md)、[4376字正式回归与相位诊断](C:/Users/31640/Documents/ChatGPT/FFF/sdram_functional_20261024/README.md)。
 
 ### 问题2：连续四字组供数时的刷新执行等待
 
-- “持续写流”指上游持续供数，状态机反复执行WRITE→DONE→IDLE→PREFETCH；仍然四个字一组，App_wr_en并未一直为高。冻结波形首组写拍相对时间为0/8/16/24ns，下一组为96/104/112/120ns，组间确有间隙。
-- PREFETCH检查 `!Sdr_init_ref_vld` 的现有逻辑能阻止刷新已经占用时启动新组；该信号表示初始化或实际刷新占用，不是尚待执行的刷新请求。请求已提出、占用尚未拉高时，它仍可能为0。应用四拍间隙也不能单独证明后端IP已经空闲。
-- 四个消费写拍分别请求刷新时，真实IP均将占用和AUTO REFRESH延后；已测写入内容正确。真实刷新有效时供数，新组等待解除再启动的检查通过。App写拍与真实刷新占用的重叠覆盖为0，因此尚未证明“占用真的在四拍中间升高时仍续写剩余数据”安全。
-- 连续4096字写窗口98.232μs内无实际AUTO REFRESH，前后命令间隔最大99.544μs；该用例预期至少两次实际刷新的覆盖未达成。这是已观察到的延后现象，不是已确认违反器件刷新规格或已丢数据的结论。
-- 内部仲裁主体加密，目前不能断言具体是写优先、忙状态持续还是请求保留/合并机制导致；参考模型也没有长期缺刷新数据衰减机制。
-- 下一步：尽可能跟踪刷新请求→确认→读写活动→占用→实际AUTO REFRESH，核对器件允许的最大延后时间、整轮刷新次数及延后补偿；再决定是否需要调整仲裁或供数节流，不直接把WRITE中途停拍定为方案。
-- 证据：[正式刷新矩阵、事件和波形](C:/Users/31640/Documents/ChatGPT/FFF/sdram_functional_20261024/README.md)、[实际刷新时间统计](C:/Users/31640/Documents/ChatGPT/FFF/sdram_functional_20261024/event_analysis.json)。
-
-本次仅同步已有问题与验证边界，没有修改RTL、PLL或测试台，也没有新增仿真；以下历史测试记录按原日期保留。
+- 原逻辑仍为四字一组，组间有间隙；`Sdr_init_ref_vld` 只表示初始化/刷新实际占用，不表示待处理请求。基线512µs连续写入16请求、0确认、0实际刷新，最早等待至少480.828µs；暂停后才刷新，不能指望PREFETCH的占用检查自行终止内部持续忙。
+- Etron EM638325 Rev1.4要求4096次刷新/64ms，均摊15.625µs；不能将2048行直接当成刷新次数。新调度器每15µs置pending，完成当前四拍后阻止新组，等待应用和下游空闲连续4拍，再单拍请求；占用拉高、解除且下游空闲后释放pending。内部周期发生器关闭，避免双重调度。
+- 空闲、持续写入、8192字后暂停三个512µs最终生产测试均34/34/34/34；到期pending→实际刷新最长196ns、IP请求→实际刷新最长60ns，相邻实际刷新最长15.064µs。完整11场景4376字落存0错、刷新覆盖错误0、写/占用重叠0，4096字连续写阶段实际刷新6次。
+- 仅加Sdr_busy启动门控的候选出现间隔8ns的两条刷新及tRC错误，已拒绝，不加入工程。
+- 7项仲裁单元测试通过，包含修复后的手动/定时交界；超时将锁存内部refresh_error并保持禁止启动；当前LED仍仅指示初始化。后续读控制器也须遵守pending禁止新组并与写互斥。
+- 本次已按用户授权修改RTL及工程源清单；逐步候选结果和生产复测分开保留。没有更改PLL、加密IP、FIFO；正式读回错误尚存，无板级与长期数据保持通过证据。完整记录见 [SDRAM_REFRESH_VERIFICATION.md](SDRAM_REFRESH_VERIFICATION.md)。
 
 ## 模块与工程状态
 
@@ -50,12 +91,12 @@
 | --- | --- | --- |
 | 同步 FIFO `sync_fifo` | 参数化 RTL；现有短用例自动复核通过，读出 11、22、33；另以 32 位、深度 16 接入写控制器，20 个字传递正确 | 满写阻止、空读阻止、并发读写、指针回绕等完整自动回归；旧 ModelSim 验证记录需补可复现证据 |
 | 异步 FIFO `async_fifo` | RTL 包含 Gray 指针与两级同步；现有短用例读出 11、22、33、44；当前 TD 综合报告对应此模块 | 双时钟压力、满空边界、复位和参数回归；CDC 与实际时钟约束检查 |
-| 写控制器 `sdram_write_ctrl` | IDLE/PREFETCH/WRITE/DONE；预取四字、连续输出四拍、基址加 4；11 项历史自动测试通过；已列入 TD 源清单 | 刷新请求/占用约定及连续供数的执行等待预算待核实；1094次Z另列为读捕获问题，不认定四字写入失败 |
+| 写控制器 `sdram_write_ctrl` | IDLE/PREFETCH/WRITE/DONE；预取四字、连续输出四拍、基址加 4；11 项历史自动测试通过；已列入 TD 源清单 | 已增加pending启动门控并通过逐拍刷新及连续供数模型测试；1094次Z仍属读捕获，实板待验证 |
 | FIFO → 写控制器 | 历史真实 `sync_fifo` 集成测试通过，20 字、五组四拍、地址 0–19；新顶层连接已核对 | 新顶层4376字供数及模型落存正确；异步FIFO集成未验证，当前应用读回失败 |
-| 存储顶层 `memory_top` | 32 位×16 条目 FIFO、上游写端口与应用写控制器连接；复位极性已核对；物理总线已显式声明，已例化 `EG_PHY_SDRAM_2M_32`；ModelSim 编译及零时加载通过，四类物理总线位宽警告消除 | 10月24日回归1094次末字读采样错误，25日新版单组复现；刷新等待预算、上游时钟约定及实板功能待核实；LED仅表示初始化状态 |
-| 公共参数 `include/global_def.v` | 数据 32 位、地址 21 位、DM 4 位、行 11 位、BANK 2 位；125 MHz 计时宏已修复分组，常量及两次自动请求检查通过 | 含端点计数的刷新预算、确认等待与器件行为仍需验证 |
+| 存储顶层 `memory_top` | 32 位×16 条目 FIFO、上游写端口与应用写控制器连接；复位极性已核对；物理总线已显式声明，已例化 `EG_PHY_SDRAM_2M_32`；ModelSim 编译及零时加载通过，四类物理总线位宽警告消除 | 10月24日回归1094次末字读采样错误，25日新版单组复现；已接入15µs刷新仲裁；上游时钟约定及实板功能待核实；LED仅表示初始化状态 |
+| 公共参数 `include/global_def.v` | 数据 32 位、地址 21 位、DM 4 位、行 11 位、BANK 2 位；125 MHz 计时宏已修复分组，常量及两次自动请求检查通过 | 旧内部周期发生器已关闭，该宏当前不控制实际刷新；新仲裁器按1875拍周期运行 |
 | PLL `clk_pll` | 导入配套 Anlogic 生成配置，输入 50 MHz，输出 100/125/125 MHz，后两路相差 180°；行为模型测量通过；`local_clk` 当前未使用 | 125MHz/180°与参考模型读捕获窗不匹配，需结合EM638325及FPGA时序核定；板级时序仍未验证 |
-| SDRAM 控制器与器件模型 | 三份 APUG011 控制器文件已导入 `rtl/ip/sdram` 并经 ModelSim 编译；已接入原样参考行为模型并执行4376字回归 | 初始化、刷新协调、接收条件、读采样窗及持续写刷新等待预算；当前模型应用读回失败，SIP尚无实板功能结果 |
+| SDRAM 控制器与器件模型 | 三份 APUG011 控制器文件已导入 `rtl/ip/sdram` 并经 ModelSim 编译；已接入原样参考行为模型并执行4376字回归 | 刷新仲裁已通过三场景及逐拍模型测试；正式读采样仍失败，未来读写协调、SIP实板功能待验证 |
 | SDRAM 读通路与帧缓存管理 | 当前目录中未发现实现 | 读请求、显示供数、帧地址管理与读写协调 |
 | 存储与显示接口 | `docs/.gitkeep` 中有像素接口草稿，包括 pix_clk、pix_req、frame_sync、pix_rgb、pix_valid、frame_ready、pix_underflow | 整理为正式接口文档，明确时钟、复位、请求与返回时序，并落实到 RTL |
 | SD 卡与 BMP 解析 | 当前本地 `rtl/storage` 仅有占位文件 | 若其他成员已有代码，需同步后重新核对；本地尚无功能验证记录 |
@@ -157,7 +198,7 @@
 - 四字为一组，共 16 字节，组首低两位为 00，组内递增、组间可跳转。应用层读写必须互斥。
 - 应用掩码每位对应一字节，1 为屏蔽；当前 0000 是整字写入。部分字节写入及物理 DM 的处理仍需实际 IP 验证。
 - 初始化完成、初始化/刷新有效标志为低后开始读写；接口没有逐拍 ready/ack。明文部分表明 `Sdr_init_ref_vld` 是初始化或刷新占用标志，刷新请求另有信号。
-- 默认参考顶层使用控制器定时刷新，手动请求为 0；本项目的当前例化延续该配置。部分内部协调逻辑加密，无法据资料确认中途刷新时剩余拍的接收保证。
+- 参考顶层原用控制器定时刷新；本项目2026-10-25已切换到应用侧15µs调度，关闭内部周期发生器，App_ref_req由仲裁器驱动。部分内部协调逻辑加密，无法据资料确认中途刷新时剩余拍的接收保证。
 - 手册对 `Sdr_busy` 存在“暂不使用”与“操作前检查”的不一致，保留为待核实项，不把它直接解释为 ready。
 
 旧 APUG011 PLL 按 25 MHz 输入设计，参考测试台却使用 80 ns 输入周期，即 12.5 MHz，与其声明不一致。本轮已改用配套板卡例程的 50 MHz 输入 PLL，存储时钟为 125 MHz。`SDR_CLK_PERIOD` 只是计时参数，不会改变 PLL 输出频率。
@@ -194,12 +235,12 @@
 | 顺序 | 工作 | 完成条件 |
 | --- | --- | --- |
 | 1 | 处理问题1：读捕获时序 | 依据器件和FPGA时序核定相位/采样安排；正式配置正常及刷新交叉读回无末字Z，不以测试台相位覆盖冒充工程修复 |
-| 2 | 核实问题2：刷新执行等待与预算 | 跟踪请求到实际刷新，确认最大延后、刷新次数和补偿符合器件要求；四字分组、真实占用门控和连续供数压力均有验证证据 |
+| 2 | 扩展刷新修复验证 | 模型短窗三场景和逐拍测试已完成；进一步核对实物速度/温度档、长期调度与板级运行，未来读控制器也遵守pending约定 |
 | 3 | 按接口结果完善写通路 | 需要修改时补充相应断言并回归；异步 FIFO 接入和 FIFO 边界用例有可复现记录 |
 | 4 | 补齐读通路与显示供数 | 写入的数据能经读通路按帧输出，frame_ready、pix_valid 与缺数处理有明确行为 |
 | 5 | 完善工程并推进上板 | 相关 RTL 纳入工程，约束完整，布局布线与时序检查完成，板级读写及显示验证有记录 |
 
-当前优先项是上面的两个独立问题：先核定读捕获时序，同时核实刷新请求到执行的等待预算；并明确上游时钟域。保留四字分组及刷新占用门控，不仅因观察到刷新延后就认定写状态机有错；是否修改须依据器件要求和进一步接口验证。
+当前优先项是正式读捕获时序与上游时钟域。刷新仲裁已有模型通过证据，后续补实板与长期验证；不得将270°测试台诊断当作正式PLL配置或完整工程通过。
 
 ## 证据与重跑入口
 
@@ -226,4 +267,4 @@
 | PLL 周期与相位验证 | [pll_smoke/results.json](C:/Users/31640/Desktop/FPGA_Projects/FPGA_HDMI_Player/verification/ip_integration_20261023/pll_smoke/results.json) |
 | Git 内同步的进度总表 | [PROJECT_PROGRESS.md](C:/Users/31640/Desktop/FPGA_Projects/FPGA_HDMI_Player/docs/PROJECT_PROGRESS.md) |
 
-本文件作为截至 2026-10-25 的进度总表，与原工程 `docs/PROJECT_PROGRESS.md` 同步保存。Git 保存用户模块、参考 IP、工程配置和验证证据，不表示完整存储功能通过。助手已导入IP、修复计时宏，并按用户明确授权给顶层增加物理原语连接；其余模块实现及用户测试台保留。后续每次更新记录“具体改动、验证方法、证据位置、剩余问题”，历史测试数量不自动代表新版本已经验证。
+本文件作为截至 2026-10-25 的进度总表，与原工程 `docs/PROJECT_PROGRESS.md` 同步保存。Git 保存用户模块、参考 IP、工程配置和验证证据，不表示完整存储功能通过。助手已导入IP、修复计时宏，并按用户明确授权给顶层增加物理原语连接；2026-10-25按新增授权修改刷新启动门控、顶层仲裁及测试台新端口，PLL/IP/FIFO未改。后续每次更新记录“具体改动、验证方法、证据位置、剩余问题”，历史测试数量不自动代表新版本已经验证。

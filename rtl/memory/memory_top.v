@@ -29,6 +29,10 @@ wire [`ROW_WIDTH-1:0] SDR_ADDR;
 wire [`DM_WIDTH-1:0] SDR_DM;
 wire [`DATA_WIDTH-1:0] SDR_DQ;
 wire Sdr_busy;
+wire refresh_pending;
+wire refresh_error;
+wire app_refresh_req;
+wire manual_refresh_req = 1'b0;
 
 wire 		Sdr_init_done,Sdr_init_ref_vld;
 
@@ -86,6 +90,7 @@ sdram_write_ctrl uut (
         .Reset_n            (~Rst            ),
         .Sdr_init_done      (Sdr_init_done      ),
         .Sdr_init_ref_vld   (Sdr_init_ref_vld   ),
+        .Sdr_refresh_pending(refresh_pending   ),
         .fifo_rd_data       (fifo_rd_data      ),
         .fifo_rd_valid      (fifo_rd_valid      ),
         .fifo_empty         (fifo_empty        ),
@@ -97,7 +102,18 @@ sdram_write_ctrl uut (
     );
 
 
-sdr_as_ram  #( .self_refresh_open(1'b1))
+// Quiesce application traffic before issuing a single refresh request.
+// 1875 cycles at 125 MHz = 15 us (EM638325: 4096 refreshes / 64 ms).
+sdram_refresh_ctrl u_refresh (
+    .Clk(Clk), .Reset_n(~Rst), .Sdr_init_done(Sdr_init_done),
+    .Sdr_init_ref_vld(Sdr_init_ref_vld), .Sdr_busy(Sdr_busy),
+    .App_wr_en(App_wr_en), .App_rd_en(App_rd_en),
+    .manual_refresh_req(manual_refresh_req),
+    .refresh_pending(refresh_pending), .App_ref_req(app_refresh_req),
+    .refresh_error(refresh_error)
+);
+
+sdr_as_ram  #( .self_refresh_open(1'b0))
 	u2_ram( 
 		.Sdr_clk(Clk),
 		.Sdr_clk_sft(Clk_sft),
@@ -107,7 +123,7 @@ sdr_as_ram  #( .self_refresh_open(1'b1))
 		.Sdr_init_ref_vld(Sdr_init_ref_vld),
 		.Sdr_busy(Sdr_busy),
 		
-		.App_ref_req(1'b0),
+		.App_ref_req(app_refresh_req),
 		
         .App_wr_en(App_wr_en), 
         .App_wr_addr(App_wr_addr),  	

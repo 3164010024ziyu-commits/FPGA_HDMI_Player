@@ -1,0 +1,43 @@
+{
+  "passed": true,
+  "commands": [
+    {
+      "command": [
+        "D:\\modelsim2020\\win64\\vmap.exe",
+        "-c"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "D:\\modelsim2020\\win64\\vlib.exe",
+        "work"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "D:\\modelsim2020\\win64\\vlog.exe",
+        "C:\\Users\\31640\\Documents\\ChatGPT\\FFF\\memory_followup_20261025\\refresh_unit_harness_fixed\\sdram_refresh_ctrl.v",
+        "C:\\Users\\31640\\Documents\\ChatGPT\\FFF\\memory_followup_20261025\\refresh_unit_harness_fixed\\refresh_ctrl_tb.v"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "D:\\modelsim2020\\win64\\vsim.exe",
+        "-c",
+        "-onfinish",
+        "stop",
+        "work.refresh_ctrl_tb",
+        "-do",
+        "run.do"
+      ],
+      "exit_code": 0
+    }
+  ],
+  "sources": {
+    "C:\\Users\\31640\\Documents\\ChatGPT\\FFF\\memory_followup_20261025\\candidate_refresh\\rtl\\memory\\sdram_refresh_ctrl.v": "d2f0d9d8a88bc6c68b0b434c0d947dfec77f97883a2c7ad320c4580809500813",
+    "C:\\Users\\31640\\Documents\\ChatGPT\\FFF\\memory_followup_20261025\\refresh_ctrl_tb.v": "2540ce7747ead11d169f575d4728bdf7587bcc631a5ffab06cfc955ac2adf8c6"
+  }
+}

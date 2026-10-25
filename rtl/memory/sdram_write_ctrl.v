@@ -4,6 +4,7 @@ module sdram_write_ctrl(
 
     input         Sdr_init_done,
     input         Sdr_init_ref_vld,
+    input         Sdr_refresh_pending, // Finish an active group; defer the next group.
 
     // FIFO 读取侧
     input  [31:0] fifo_rd_data,
@@ -91,7 +92,7 @@ always @(posedge Clk or negedge Reset_n) begin
                 end
             PREFETCH:
                 begin
-                    if(recv_cnt == 3'd4 && Sdr_init_done && !Sdr_init_ref_vld)
+                    if(recv_cnt == 3'd4 && Sdr_init_done && !Sdr_init_ref_vld && !Sdr_refresh_pending)
                         state <= WRITE;
                 end
             WRITE:

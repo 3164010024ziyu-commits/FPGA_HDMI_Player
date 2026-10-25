@@ -20,6 +20,7 @@ module sdram_write_ctrl_tb;
         .Reset_n            (Reset_n            ),
         .Sdr_init_done      (Sdr_init_done      ),
         .Sdr_init_ref_vld   (Sdr_init_ref_vld   ),
+        .Sdr_refresh_pending(1'b0              ),
         .fifo_rd_data       (fifo_rd_data       ),
         .fifo_rd_valid      (fifo_rd_valid      ),
         .fifo_empty         (fifo_empty         ),
