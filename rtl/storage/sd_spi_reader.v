@@ -9,7 +9,7 @@ module sd_spi_reader #(
     parameter INIT_RETRIES=5000, parameter TOKEN_TIMEOUT_BYTES=400000
 )(
     input wire clk, input wire rst_n,
-    output reg sd_cs_n, output wire sd_sck, output wire sd_mosi,
+    output reg sd_cs_n, output reg sd_sck, output reg sd_mosi,
     input wire sd_miso,
     output reg initialized, output reg high_capacity,
     input wire req_valid, output wire req_ready, input wire [31:0] req_lba,
@@ -39,16 +39,15 @@ module sd_spi_reader #(
     reg [7:0] sector [0:511];
     reg byte_start;
     reg [7:0] byte_tx;
-    wire [7:0] byte_rx;
-    wire byte_busy, byte_done;
+    reg [7:0] byte_rx;
+    reg byte_busy, byte_done;
     wire [15:0] half_period=initialized ? READ_HALF_PERIOD : INIT_HALF_PERIOD;
-    spi_byte_master spi(.clk(clk),.rst_n(rst_n),.start(byte_start),
-        .tx_data(byte_tx),.half_period(half_period),.miso(sd_miso),
-        .sck(sd_sck),.mosi(sd_mosi),.busy(byte_busy),.done(byte_done),.rx_data(byte_rx));
+
     assign req_ready=initialized && state==IDLE;
     assign valid=(state==DRAIN);
     assign data=sector[out_offset];
     assign last=valid && out_offset==511;
+    // Command CRC7 and data CRC16.
     function [6:0] crc7;
         input [39:0] bits;
         reg [6:0] c; integer i;
@@ -71,6 +70,7 @@ module sd_spi_reader #(
             crc16_byte=c;
         end
     endfunction
+    // Schedule one byte or one SD command; the state machine waits for completion.
     task transfer;
         input [7:0] tx; input [5:0] next_state;
         begin byte_tx<=tx; byte_start<=1; byte_return<=next_state; state<=WAIT_BYTE; end
@@ -91,6 +91,7 @@ module sd_spi_reader #(
             release_return<=initialized ? IDLE : FATAL; state<=RELEASE;
         end
     endtask
+    // SD initialization and CRC-checked single-sector reads.
     always @(posedge clk or negedge rst_n) begin
         if(!rst_n) begin
             sd_cs_n<=1; initialized<=0; high_capacity<=0;
@@ -194,6 +195,41 @@ module sd_spi_reader #(
                 WAIT_BYTE: if(byte_done) state<=byte_return;
                 default: begin end
             endcase
+        end
+    end
+
+    // SPI mode 0, MSB first. SCK is an output; all registers use clk.
+    reg [15:0] spi_divider;
+    reg [2:0] spi_bit_index;
+    reg [7:0] spi_tx_shift, spi_rx_shift;
+    always @(posedge clk or negedge rst_n) begin
+        if (!rst_n) begin
+            sd_sck<=0; sd_mosi<=1; byte_busy<=0; byte_done<=0; byte_rx<=0;
+            spi_divider<=0; spi_bit_index<=0; spi_tx_shift<=0; spi_rx_shift<=0;
+        end else begin
+            byte_done<=0;
+            if (!byte_busy) begin
+                sd_sck<=0;
+                if (byte_start) begin
+                    byte_busy<=1; spi_bit_index<=7; spi_tx_shift<=byte_tx;
+                    sd_mosi<=byte_tx[7]; spi_divider<=half_period-1'b1;
+                    spi_rx_shift<=0;
+                end
+            end else if (spi_divider!=0) spi_divider<=spi_divider-1'b1;
+            else begin
+                spi_divider<=half_period-1'b1;
+                if (!sd_sck) begin
+                    sd_sck<=1; spi_rx_shift<={spi_rx_shift[6:0],sd_miso};
+                end else begin
+                    sd_sck<=0;
+                    if (spi_bit_index==0) begin
+                        byte_busy<=0; byte_done<=1; byte_rx<=spi_rx_shift; sd_mosi<=1;
+                    end else begin
+                        spi_bit_index<=spi_bit_index-1'b1;
+                        spi_tx_shift<={spi_tx_shift[6:0],1'b1}; sd_mosi<=spi_tx_shift[6];
+                    end
+                end
+            end
         end
     end
 endmodule

@@ -38,7 +38,7 @@ module fat32_bmp_reader #(
     reg [3:0] cluster_shift;
     reg [15:0] wanted, found;
     reg chain_is_file;
-    reg [31:0] next_fat_offset;
+    reg [8:0] fat_byte;
     integer j;
     function [15:0] le16;
         input [8:0] a;
@@ -70,7 +70,6 @@ module fat32_bmp_reader #(
         (mbr[20]==8'h0b || mbr[20]==8'h0c) ? 3'd2 :
         (mbr[36]==8'h0b || mbr[36]==8'h0c) ? 3'd3 :
         (mbr[52]==8'h0b || mbr[52]==8'h0c) ? 3'd4 : 3'd0;
-    wire [8:0] fat_byte=next_fat_offset[8:0];
     wire [31:0] fat_link=fat_value & 32'h0fffffff;
     wire [8:0] sector_read_offset=(state==DIR_CAPTURE) ? dir_offset+{4'd0,entry_offset} :
                                  (state==FAT_CAPTURE) ? fat_byte+{7'd0,fat_capture_offset} : out_offset;
@@ -99,7 +98,7 @@ module fat32_bmp_reader #(
             fat_sectors<=0; cluster_count<=0; cluster<=0; data_sectors<=0;
             chain_steps<=0; bytes_left<=0; sectors_per_cluster<=0;
             cluster_sector<=0; cluster_shift<=0; wanted<=0; found<=0;
-            chain_is_file<=0; next_fat_offset<=0;
+            chain_is_file<=0; fat_byte<=0;
             signature<=0; fat_capture_offset<=0; fat_value<=0;
         end else begin
             done<=0; file_open<=0;
@@ -203,7 +202,7 @@ module fat32_bmp_reader #(
                     end
                 FAT_LOAD: if((cluster>>7)>=fat_sectors) fail(8'h35);
                     else begin
-                        next_fat_offset<=(cluster & 127)<<2;
+                        fat_byte<={cluster[6:0],2'b00};
                         fat_capture_offset<=0;
                         read_sector(fat_base+(cluster>>7),FAT_CAPTURE);
                     end

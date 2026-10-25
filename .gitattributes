@@ -1,4 +1,0 @@
-# Preserve tool-generated report whitespace without source-style lint warnings.
-docs/reports/storage/*.area -whitespace
-docs/reports/storage/*.timing -whitespace
-docs/reports/storage/*.ts -whitespace
