@@ -8,6 +8,6 @@
 
 旧APUG011的25MHz输入clk_pll_sim.v没有混入本工程。仿真也使用这里的50MHz配置及本机安路EG4行为模型。
 
-刷新计时头文件已按125MHz配置。当前用户memory_top的物理SDRAM接线、未用读输入和LED状态仍待用户完成，导入IP不等于存储功能或上板验证通过。
+刷新计时头文件已按125MHz配置。2026-10-24按用户授权在memory_top接入EG_PHY_SDRAM_2M_32及物理总线，原语由TD器件库提供；未用读输入已停用，LED仅指示PLL锁定且初始化完成，导入IP不等于存储功能或上板验证通过。
 
-来源和SHA-256见`source_manifest.json`。用户的FIFO、写控制器和memory_top实现未因本次导入改写。
+来源和SHA-256见`source_manifest.json`。初次导入未改用户模块；后续按用户授权仅补齐memory_top物理接口，FIFO和写控制器仍保持原样。

@@ -19,6 +19,17 @@ wire [`DATA_WIDTH-1:0]fifo_rd_data;
 wire fifo_rd_en;
 wire fifo_rd_valid;
 
+// Physical interface to the SDRAM packaged with EG4S20.
+wire SDRAM_CLK;
+wire SDR_RAS;
+wire SDR_CAS;
+wire SDR_WE;
+wire [`BA_WIDTH-1:0] SDR_BA;
+wire [`ROW_WIDTH-1:0] SDR_ADDR;
+wire [`DM_WIDTH-1:0] SDR_DM;
+wire [`DATA_WIDTH-1:0] SDR_DQ;
+wire Sdr_busy;
+
 wire 		Sdr_init_done,Sdr_init_ref_vld;
 
 wire 					App_wr_en;
@@ -33,7 +44,12 @@ wire [`DATA_WIDTH-1:0]	Sdr_rd_dout;
 
 wire		Check_ok;//synthesis keep
 
+// Initialization status only; data readback is not checked here.
+assign Check_ok = lock && Sdr_init_done;
 assign LED=Check_ok;
+
+assign App_rd_en = 0;
+assign App_rd_addr = 21'd0;
 
 
 clk_pll u0_clk(
@@ -113,5 +129,22 @@ sdr_as_ram  #( .self_refresh_open(1'b1))
 		.SDR_DQ(SDR_DQ)	
 	);
 
+
+// Device primitive: connect the controller to the packaged SDRAM.
+EG_PHY_SDRAM_2M_32 u_sdram_phy (
+    .clk   (SDRAM_CLK),
+    .ras_n (SDR_RAS),
+    .cas_n (SDR_CAS),
+    .we_n  (SDR_WE),
+    .addr  (SDR_ADDR),
+    .ba    (SDR_BA),
+    .dq    (SDR_DQ),
+    .cs_n  (1'b0),
+    .dm0   (SDR_DM[0]),
+    .dm1   (SDR_DM[1]),
+    .dm2   (SDR_DM[2]),
+    .dm3   (SDR_DM[3]),
+    .cke   (1'b1)
+);
 
 endmodule

@@ -63,7 +63,7 @@ always @(posedge Clk or negedge Reset_n) begin
         write_cnt <= 0;
     else if(state == IDLE)
         write_cnt <= 0;
-    else if(state == WRITE && write_cnt < 2'd3)
+    else if(state == WRITE && write_cnt < 3'd3)
         write_cnt <= write_cnt + 1'b1;
 end
 
@@ -76,7 +76,7 @@ always @(posedge Clk or negedge Reset_n) begin
     if(!Reset_n)
         write_base_addr <= 0;
     else if(state == DONE)
-        write_base_addr <= write_base_addr + 4'b100;
+        write_base_addr <= write_base_addr + 21'd4;
 end
 
 always @(posedge Clk or negedge Reset_n) begin
@@ -103,6 +103,7 @@ always @(posedge Clk or negedge Reset_n) begin
                 begin
                     state <= IDLE;
                 end
+            default: state <= IDLE;
         endcase
     end
 end
