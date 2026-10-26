@@ -1,6 +1,6 @@
 # FPGA HDMI Player 项目进度
 
-更新日期：2026-10-25（北京时间）
+更新日期：2026-10-26（北京时间）
 
 核对范围：本机工程、FFF验证记录和资料。2026-10-25先提交检查点6a6fc1c，再执行真实参考IP与SDRAM行为模型测试，按证据应用刷新仲裁修复。PLL、加密IP和FIFO保持不变；本次用户明确授权助手进行必要工程修改。当前完整读回仍未通过，下文分开报告刷新和读采样结果。
 
@@ -13,6 +13,15 @@
 已在 `memory` 分支导入匹配板载 50 MHz 输入的 PLL，以及 APUG011 的 `sdr_as_ram`、`sdr_init_ref`、`sdr_wrrd`；现有 `sdram_write_ctrl` 复用用户文件。TD 源文件清单与顶层已调整为 `memory_top`。PLL 使用配套例程的 100/125/125 MHz、0/0/180° 配置，刷新周期参数同步为 125 MHz。ModelSim 编译和零时层次加载通过，PLL 输出周期及相位测量通过；物理 SDRAM 总线与 SIP 原语已按参考例程接入并经零时层次检查；未用读请求已停用，LED已按用户选择指示PLL锁定且初始化完成，尚不表示数据校验通过。
 
 2026-10-25新方案：15µs周期的应用侧刷新仲裁，pending暂停启动新四字组，等待在途写入与下游忙解除后发送单拍请求。三种512µs最终生产场景均34请求/34确认/34占用/34实际刷新；pending到实际刷新最长196ns，相邻刷新最长15.064µs。11场景4376字模型存储全部正确、刷新覆盖通过，但工程125MHz/180°仍每组第四字读回Z，共1094错。仅测试台270°诊断的11场景全部通过，未改工程PLL。帧缓存、显示、板级时序和实板运行尚未完成。详见 [刷新修复记录](SDRAM_REFRESH_VERIFICATION.md)。
+
+## 2026-10-26 GitHub工程同步
+
+- 已获取GitHub `origin/main` 的 `74ebebc`（合并storage PR #2），合入本地 `memory` 分支。合并前本地检查点为 `2690162`，已有PLL、FIFO、SDRAM及刷新修复提交保留，无合并冲突。
+- 本轮接收4个storage RTL：`storage_pipeline`、`sd_spi_reader`、`fat32_bmp_reader`、`bmp_stream_decoder`，以及 `docs/storage.md`。每个新文件的Git对象与远端main一致；除本进度文档外，原有受版本控制文件内容未改变。
+- Icarus以Verilog-2005模式编译 `storage_pipeline` 及三个子模块通过。这里只确认新文件语法和模块依赖，本轮没有重新运行功能仿真，没有把storage接入memory_top或修改TD源文件清单。
+- 2026-10-25审核中原有92个场景已通过（其中4项属于恢复的历史独立包装层）；新增MBR识别测试复现的0x34错误仍在当前同步版本中，本轮没有修改队友实现。审核证据见 [storage审核记录](C:/Users/31640/Documents/ChatGPT/FFF/storage_review_20261025/REVIEW.md)。
+- 后续联调仍需处理像素地址、50/125MHz时钟域、四字组对齐及末尾不足4字、写事务排空后换帧。同步不代表这些接口已接通，也不改变正式180°配置1094次末字读回错误的状态。
+- [本轮文件一致性和编译记录](C:/Users/31640/Documents/ChatGPT/FFF/github_sync_20261026/verification.json)。
 
 ## 2026-10-25 迭代修复与逐步验证
 
@@ -99,7 +108,7 @@
 | SDRAM 控制器与器件模型 | 三份 APUG011 控制器文件已导入 `rtl/ip/sdram` 并经 ModelSim 编译；已接入原样参考行为模型并执行4376字回归 | 刷新仲裁已通过三场景及逐拍模型测试；正式读采样仍失败，未来读写协调、SIP实板功能待验证 |
 | SDRAM 读通路与帧缓存管理 | 当前目录中未发现实现 | 读请求、显示供数、帧地址管理与读写协调 |
 | 存储与显示接口 | `docs/.gitkeep` 中有像素接口草稿，包括 pix_clk、pix_req、frame_sync、pix_rgb、pix_valid、frame_ready、pix_underflow | 整理为正式接口文档，明确时钟、复位、请求与返回时序，并落实到 RTL |
-| SD 卡与 BMP 解析 | 当前本地 `rtl/storage` 仅有占位文件 | 若其他成员已有代码，需同步后重新核对；本地尚无功能验证记录 |
+| SD 卡与 BMP 解析 | 已从远端main同步4个storage RTL及接入说明；模块语法/依赖编译通过，历史92项审核回归有记录 | 已复现的MBR识别错误待修；像素地址、时钟域、四字对齐及SDRAM/HDMI联调未完成 |
 | HDMI 显示与音频 | 本地 `display.v` 为空模块 | 有效实现、显示通路集成与测试；其他成员的外部进度不在本次核对范围内 |
 | TD 综合与约束 | `memory` 分支源清单包含参数头文件、PLL、FIFO、写控制器、三个 IP 文件及 `memory_top`，顶层设为 `memory_top`；目标 EG4S20BG256 | 仅完成工程配置，尚未运行新顶层综合；旧报告仍对应 `async_fifo`；约束、布局布线、时序与上板待完成 |
 
@@ -267,4 +276,4 @@
 | PLL 周期与相位验证 | [pll_smoke/results.json](C:/Users/31640/Desktop/FPGA_Projects/FPGA_HDMI_Player/verification/ip_integration_20261023/pll_smoke/results.json) |
 | Git 内同步的进度总表 | [PROJECT_PROGRESS.md](C:/Users/31640/Desktop/FPGA_Projects/FPGA_HDMI_Player/docs/PROJECT_PROGRESS.md) |
 
-本文件作为截至 2026-10-25 的进度总表，与原工程 `docs/PROJECT_PROGRESS.md` 同步保存。Git 保存用户模块、参考 IP、工程配置和验证证据，不表示完整存储功能通过。助手已导入IP、修复计时宏，并按用户明确授权给顶层增加物理原语连接；2026-10-25按新增授权修改刷新启动门控、顶层仲裁及测试台新端口，PLL/IP/FIFO未改。后续每次更新记录“具体改动、验证方法、证据位置、剩余问题”，历史测试数量不自动代表新版本已经验证。
+本文件作为截至 2026-10-26 的进度总表，与原工程 `docs/PROJECT_PROGRESS.md` 同步保存。Git 保存用户模块、参考 IP、工程配置和验证证据，不表示完整存储功能通过。助手已导入IP、修复计时宏，并按用户明确授权给顶层增加物理原语连接；2026-10-25按新增授权修改刷新启动门控、顶层仲裁及测试台新端口，PLL/IP/FIFO未改。后续每次更新记录“具体改动、验证方法、证据位置、剩余问题”，历史测试数量不自动代表新版本已经验证。
