@@ -92,7 +92,7 @@ always @(posedge Clk or negedge Reset_n) begin
                 end
             PREFETCH:
                 begin
-                    if(recv_cnt == 3'd4 && Sdr_init_done && !Sdr_init_ref_vld && !Sdr_refresh_pending)
+                    if(recv_cnt == 3'd4 && Sdr_init_done && !Sdr_init_ref_vld && !Sdr_refresh_pending)//新增与sdram_refresh_ctrl配合的Sdr_refresh_pending
                         state <= WRITE;
                 end
             WRITE:

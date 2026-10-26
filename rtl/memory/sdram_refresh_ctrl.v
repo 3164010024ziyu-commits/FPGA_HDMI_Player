@@ -19,7 +19,7 @@ module sdram_refresh_ctrl #(
 );
     localparam IDLE = 2'd0, DRAIN = 2'd1, WAIT_START = 2'd2, WAIT_END = 2'd3;
     reg [1:0] state;
-    reg [31:0] interval_count;
+    reg [31:0] interval_count;  //0到INTERVAL_CYCLES计数器
     reg [31:0] quiet_count;
     reg [31:0] wait_count;
     reg manual_d;

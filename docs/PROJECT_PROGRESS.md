@@ -14,6 +14,16 @@
 
 2026-10-25新方案：15µs周期的应用侧刷新仲裁，pending暂停启动新四字组，等待在途写入与下游忙解除后发送单拍请求。三种512µs最终生产场景均34请求/34确认/34占用/34实际刷新；pending到实际刷新最长196ns，相邻刷新最长15.064µs。11场景4376字模型存储全部正确、刷新覆盖通过，但工程125MHz/180°仍每组第四字读回Z，共1094错。仅测试台270°诊断的11场景全部通过，未改工程PLL。帧缓存、显示、板级时序和实板运行尚未完成。详见 [刷新修复记录](SDRAM_REFRESH_VERIFICATION.md)。
 
+## 2026-10-26 storage与memory对接前检查点
+
+- 用户要求再次检查并保存当前Git版本，后续由用户自行连接两个模块；继续使用memory分支，保存基线为0e5c450之后的当前工作区。
+- 本次两个RTL文件的差异均为用户新增注释：sdram_refresh_ctrl的interval_count说明，以及sdram_write_ctrl中Sdr_refresh_pending启动条件说明。去除注释与空白后和原提交逐项相同，逻辑未变；原样保存用户注释，没有代写连接代码。
+- 注释精度提示：interval_count实际为0到INTERVAL_CYCLES-1，默认0～1874，1875拍为15µs；用户新增注释写到INTERVAL_CYCLES，尚未替用户改动。
+- 对接状态仍为：storage输出尚未连接memory_top，现有TD顶层和清单仍为memory部分；50/125MHz跨域、像素地址/颜色、四字分组和帧排空完成由用户后续实现。
+- 本日对接前独立测试已验证56位、深度16的async_fifo在50MHz写/125MHz读下，复位前后各4096条地址与颜色正确，覆盖满空、随机背压、回绕和有数据时共同复位；尚非硬件CDC时序签核。391字尾部检查为388字输出、3字留在预取缓存且FIFO空；392字对照全部输出。详见 [对接检查和独立测试记录](C:/Users/31640/Documents/ChatGPT/FFF/storage_memory_readiness_20261026/README.md)。
+- 本次检查未重跑功能仿真：两处变化只涉及注释，历史通过及已知失败按原测试配置保留。1094次正式180°读回错误、MBR识别兼容性问题及整机联调仍未解决。
+- [本次保存前核对及源码快照](C:/Users/31640/Documents/ChatGPT/FFF/checkpoint_storage_memory_20261026/checks.json)。
+
 ## 2026-10-26 GitHub工程同步
 
 - 已获取GitHub `origin/main` 的 `74ebebc`（合并storage PR #2），合入本地 `memory` 分支。合并前本地检查点为 `2690162`，已有PLL、FIFO、SDRAM及刷新修复提交保留，无合并冲突。
