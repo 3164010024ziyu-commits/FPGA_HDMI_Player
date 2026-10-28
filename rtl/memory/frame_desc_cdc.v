@@ -19,10 +19,10 @@ module frame_desc_cdc (
     output reg  [20:0] dst_base_addr,
     output reg  [15:0] dst_width,
     output reg  [15:0] dst_height,
-    output reg         dst_top_down
+    output reg         dst_top_down,
 
-    input frame_write_done;
-    output reg frame_write_done_sync;
+    input wire frame_write_done,
+    output wire frame_write_done_sync
 );
 
 wire src_fire;
@@ -114,8 +114,8 @@ reg frame_write_done_sync1;
 
 always @(posedge src_clk or negedge src_rst_n) begin
     if (!src_rst_n) begin
-        ack_sync0 <= 1'b0;
-        ack_sync1 <= 1'b0;
+        frame_write_done_sync0 <= 1'b0;
+        frame_write_done_sync1 <= 1'b0;
     end
     else begin
         frame_write_done_sync0 <= frame_write_done;

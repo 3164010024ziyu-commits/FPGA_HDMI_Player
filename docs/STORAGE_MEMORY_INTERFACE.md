@@ -1,5 +1,9 @@
 # storage / memory 接口约定（2026-10-26）
 
+> 后续复位更新：外部Reset_n现已接入整个memory控制通路，50/125MHz分别同步释放；初始化前就绪关闭。当前行为及测试范围见[MEMORY_RESET_VERIFICATION.md](MEMORY_RESET_VERIFICATION.md)，以下保留此前阶段记录。
+
+> 2026-10-28更新：帧描述已接入写控制器，memory完成输出已改为50MHz的frame_write_done_sync；完成保持电平、有效帧和下游排空判断已实现，首次启动/本帧完成归属已修复。当前实现和测试范围见[FRAME_COMPLETION_FIX.md](FRAME_COMPLETION_FIX.md)。以下保留2026-10-26接口预留阶段记录，其中“新端口未实现”等说明属于当时状态。
+
 本轮按用户选择，采用 **memory 根据帧信息自行计算地址** 的方案。storage 保留现有端口和全部逻辑；memory 只改模块端口声明与说明，`localparam ADDR_WIDTH = 4;` 起至文件结束的内容与本轮修改前逐字节一致。系统顶层补全接线、请求配置锁存、复位释放和初始化状态同步。新增 memory 端口的功能由用户继续实现。
 
 ## storage 顶层检查

@@ -24,7 +24,23 @@ module memory_top (
 
 localparam ADDR_WIDTH = 4;
 
-wire			lock,local_clk,Clk,Clk_sft,Rst;
+wire            lock,local_clk,Clk,Clk_sft,Rst;
+
+// Keep the PLL running. External reset or loss of lock discards the memory task.
+wire reset_request = !Reset_n || !lock;
+reg [1:0] sys_reset_release;
+reg [1:0] mem_reset_release;
+always @(posedge SYS_CLK or posedge reset_request) begin
+    if(reset_request) sys_reset_release <= 2'b00;
+    else sys_reset_release <= {sys_reset_release[0],1'b1};
+end
+always @(posedge Clk or posedge reset_request) begin
+    if(reset_request) mem_reset_release <= 2'b00;
+    else mem_reset_release <= {mem_reset_release[0],1'b1};
+end
+wire sys_reset_n = sys_reset_release[1];
+wire mem_reset_n = mem_reset_release[1];
+reg [1:0] init_done_sync;
 
 wire fifo_empty;
 wire [`DATA_WIDTH-1:0]fifo_rd_data;
@@ -64,14 +80,19 @@ wire [`DATA_WIDTH-1:0]	Sdr_rd_dout;
 wire		Check_ok;//synthesis keep
 
 // Initialization status only; data readback is not checked here.
-assign Check_ok = lock && Sdr_init_done;
+// Readiness is in SYS_CLK; a reset domain that has not resumed cannot be ready.
+always @(posedge SYS_CLK or negedge sys_reset_n) begin
+    if(!sys_reset_n) init_done_sync <= 2'b00;
+    else init_done_sync <= {init_done_sync[0],mem_reset_n && Sdr_init_done};
+end
+assign Check_ok = sys_reset_n && init_done_sync[1];
 assign LED=Check_ok;
 
 assign App_rd_en = 0;
 assign App_rd_addr = 21'd0;
 
 wire full;
-assign pixel_ready =~full;
+assign pixel_ready = sys_reset_n && init_done_sync[1] && !full;
 
 //负责由frame_desc_cdc输送给sdram_write_ctrl的帧描述信息
 wire dst_valid;     
@@ -90,7 +111,7 @@ clk_pll u0_clk(
 		.clk1_out(Clk),
 		.clk2_out(Clk_sft)
 		);
-assign Rst=!lock;
+assign Rst = !mem_reset_n;
 
 async_fifo #(
     .DATA_WIDTH(`DATA_WIDTH),
@@ -98,10 +119,10 @@ async_fifo #(
 ) dut (
     .wr_clk(SYS_CLK),
     .rd_clk(Clk),
-    .Reset_n(~Rst),
+    .Reset_n(!reset_request),
 
     // Write interface
-    .wr_en(pixel_valid),
+    .wr_en(pixel_valid && pixel_ready),
     .wr_data(fifo_wr_data),
     .full(full),
 
@@ -114,8 +135,8 @@ async_fifo #(
 
 frame_desc_cdc ucdc (
         .src_clk        (SYS_CLK        ),
-        .src_rst_n      (~Rst      ),
-        .src_valid      (frame_start      ),
+        .src_rst_n      (sys_reset_n),
+        .src_valid      (frame_start && init_done_sync[1]),
         .src_ready      (      ),
         .src_base_addr  (frame_base_addr  ),
         .src_width      (frame_width      ),
@@ -124,7 +145,7 @@ frame_desc_cdc ucdc (
 
 
         .dst_clk        (Clk        ),
-        .dst_rst_n      (~Rst      ),
+        .dst_rst_n      (mem_reset_n),
         .dst_valid      (dst_valid      ),
         .dst_base_addr  (dst_base_addr  ),
         .dst_width      (dst_width      ),
@@ -138,10 +159,11 @@ frame_desc_cdc ucdc (
 
 sdram_write_ctrl uut (
         .Clk                (Clk                ),
-        .Reset_n            (~Rst            ),
+        .Reset_n            (mem_reset_n      ),
         .Sdr_init_done      (Sdr_init_done      ),
         .Sdr_init_ref_vld   (Sdr_init_ref_vld   ),
         .Sdr_refresh_pending(refresh_pending   ),
+        .Sdr_busy           (Sdr_busy          ),
         .fifo_rd_data       (fifo_rd_data      ),
         .fifo_rd_valid      (fifo_rd_valid      ),
         .fifo_empty         (fifo_empty        ),
@@ -165,7 +187,7 @@ sdram_write_ctrl uut (
 // Quiesce application traffic before issuing a single refresh request.
 // 1875 cycles at 125 MHz = 15 us (EM638325: 4096 refreshes / 64 ms).
 sdram_refresh_ctrl u_refresh (
-    .Clk(Clk), .Reset_n(~Rst), .Sdr_init_done(Sdr_init_done),
+    .Clk(Clk), .Reset_n(mem_reset_n), .Sdr_init_done(Sdr_init_done),
     .Sdr_init_ref_vld(Sdr_init_ref_vld), .Sdr_busy(Sdr_busy),
     .App_wr_en(App_wr_en), .App_rd_en(App_rd_en),
     .manual_refresh_req(manual_refresh_req),

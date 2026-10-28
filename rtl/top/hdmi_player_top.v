@@ -49,14 +49,17 @@ module hdmi_player_top #(
     assign LED = memory_initialized;    //LED = lock && Sdr_init_done
     //memory_init_sync[1] == 1代表 Memory 报告初始化完成
 
+    reg frame_in_progress;  //当前已有一张图片任务正在执行
+    reg frame_done_low_seen;    //已观察到本次任务对应的完成信号处于低电平
+    reg frame_metadata_seen;    //本次任务已经产生过有效帧描述
     wire storage_ready; //ready = card_initialized && !busy;
     wire storage_start = start && load_ready;
-    assign load_ready = sys_reset_n && memory_init_sync[1] && storage_ready && memory_frame_write_done;    
+    assign load_ready = sys_reset_n && memory_init_sync[1] && storage_ready && !frame_in_progress;    
                         // 系统复位已经解除；
                         // Memory 报告初始化完成；
                         // SD 卡已经初始化；
                         // Storage 当前不忙。
-                        // 上张图片已经完整写入 SDRAM
+                        // 初次空闲或本帧已完成下游写入
 
     reg [`ADDR_WIDTH-1:0] selected_frame_base;
     always @(posedge SYS_CLK or negedge sys_reset_n) begin
@@ -78,6 +81,29 @@ module hdmi_player_top #(
     wire [15:0] image_height;
     wire image_top_down;
 
+    // Accept the first frame while idle. Later frames must observe their own
+    // done level go low then high, rather than reusing the previous frame's 1.
+    always @(posedge SYS_CLK or negedge sys_reset_n) begin
+        if(!sys_reset_n) begin
+            frame_in_progress <= 0;
+            frame_done_low_seen <= 0;
+            frame_metadata_seen <= 0;
+        end
+        else if(storage_start) begin
+            frame_in_progress <= 1;
+            frame_done_low_seen <= 0;
+            frame_metadata_seen <= 0;
+        end
+        else if(frame_in_progress) begin
+            if(image_meta_valid) frame_metadata_seen <= 1;
+            if(!memory_frame_write_done) frame_done_low_seen <= 1;
+            if((frame_done_low_seen && memory_frame_write_done && storage_ready) ||
+                //已经观察到本次任务的完成信号为低,随后完成信号变为高,Storage 已经恢复空闲。
+               (load_error && storage_ready && !frame_metadata_seen && !image_meta_valid))
+                frame_in_progress <= 0;
+        end
+    end
+
     memory_top u_memory (
         .SYS_CLK(SYS_CLK),
         .Reset_n(sys_reset_n),
@@ -91,7 +117,7 @@ module hdmi_player_top #(
         .frame_top_down(image_top_down),
         .frame_end(load_done),
         .frame_abort(load_error),
-        .frame_write_done(memory_frame_write_done),
+        .frame_write_done_sync(memory_frame_write_done),
         .LED(memory_initialized)
     );
 

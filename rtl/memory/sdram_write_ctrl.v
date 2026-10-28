@@ -5,6 +5,7 @@ module sdram_write_ctrl(
     input         Sdr_init_done,
     input         Sdr_init_ref_vld,
     input         Sdr_refresh_pending, // Finish an active group; defer the next group.
+    input         Sdr_busy,
 
     //帧描述信息
     input  dst_valid,     
@@ -94,7 +95,7 @@ always @(posedge Clk or negedge Reset_n) begin
             pixel_x_cnt <= 0;
             pixel_y_cnt <= 0;
         end
-        if(state == WRITE && write_cnt <= 3'd3)begin
+        else if(state == WRITE && write_cnt <= 3'd3)begin
             if(pixel_x_cnt == dst_width - 1)begin
                 pixel_x_cnt <= 0;
                 pixel_y_cnt <= pixel_y_cnt + 1;
@@ -109,14 +110,33 @@ assign App_wr_addr = write_base_addr
                      + ((dst_top_down == 1)?pixel_y_cnt:(dst_height - 1 -pixel_y_cnt)) * dst_width
                      + pixel_x_cnt;
 
+// A frame becomes complete only after its last word and downstream drain.
+// Four quiet clocks match the existing refresh arbiter's pipeline guard.
+reg frame_active;   //前确实存在一张需要完成写入的有效图片。
+reg [2:0] drain_quiet_count;    //下游写入通路已经连续空闲了多少个 125 MHz 时钟周期
 always @(posedge Clk or negedge Reset_n) begin
-    if(!Reset_n)
+    if(!Reset_n) begin
         frame_write_done <= 0;
-    else begin
-        if(dst_valid)
-            frame_write_done <= 0;
-        if((pixel_y_cnt == dst_height) && (pixel_x_cnt == 0))
-            frame_write_done <= 1;
+        frame_active <= 0;
+        drain_quiet_count <= 0;
+    end
+    else if(dst_valid) begin
+        frame_write_done <= 0;
+        frame_active <= (dst_width != 0) && (dst_height != 0);
+        drain_quiet_count <= 0;
+    end
+    else if(frame_active) begin
+        if((pixel_y_cnt == dst_height) && (pixel_x_cnt == 0) &&
+           Sdr_init_done && !App_wr_en && !Sdr_busy && !Sdr_init_ref_vld &&
+           fifo_empty && !fifo_rd_valid) begin
+            if(drain_quiet_count == 3'd3) begin
+                frame_write_done <= 1;
+                frame_active <= 0;
+                drain_quiet_count <= 0;
+            end
+            else drain_quiet_count <= drain_quiet_count + 1'b1;
+        end
+        else drain_quiet_count <= 0;
     end
 end
 

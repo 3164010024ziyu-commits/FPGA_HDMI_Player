@@ -131,6 +131,14 @@
                     <Attr Name="CompileOrder" Val="15" />
                 </FileInfo>
             </File>
+            <File Path="../../rtl/memory/frame_desc_cdc.v">
+                <FileInfo>
+                    <Attr Name="UsedInSyn" Val="true" />
+                    <Attr Name="UsedInP&R" Val="true" />
+                    <Attr Name="BelongTo" Val="design_1" />
+                    <Attr Name="CompileOrder" Val="16" />
+                </FileInfo>
+            </File>
         </Verilog>
     </Source_Files>
     <FileSets>

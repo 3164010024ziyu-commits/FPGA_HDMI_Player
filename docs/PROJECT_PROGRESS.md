@@ -14,9 +14,25 @@
 
 已在 `memory` 分支导入匹配板载 50 MHz 输入的 PLL，以及 APUG011 的 `sdr_as_ram`、`sdr_init_ref`、`sdr_wrrd`；现有 `sdram_write_ctrl` 复用用户文件。此前 TD 源文件清单与顶层调整为 `memory_top`；本轮接口对接后已增加 storage 与系统顶层，切换为 `hdmi_player_top`。PLL 使用配套例程的 100/125/125 MHz、0/0/180° 配置，刷新周期参数同步为 125 MHz。ModelSim 编译和零时层次加载通过，PLL 输出周期及相位测量通过；物理 SDRAM 总线与 SIP 原语已按参考例程接入并经零时层次检查；未用读请求已停用，LED已按用户选择指示PLL锁定且初始化完成，尚不表示数据校验通过。
 
-当前按用户选择采用memory自行计算地址：storage接口保留；memory仅调整帧描述/控制端口，模块体逐字节不变；hdmi_player_top已补全接线，TD工程已切换系统顶层。当前真实层次编译与零时刻加载通过，真实storage配合测试memory模型的3场景接线测试通过。新增帧基址、宽高、行方向、取消、外部复位及写完成端口仍待用户实现，不能据此宣称真实memory已经支持完整帧写入。内部仍为32位、深度16异步FIFO，50MHz写/125MHz读。
+当前已接入帧描述CDC、行列写地址、帧完成保持电平及50MHz返回同步。本轮已把外部Reset_n接入memory：两域异步进入、各自两级同步释放，FIFO内部按读写域释放，SDRAM重新初始化前关闭像素/描述接收和就绪状态。12组复位及回归通过；PLL保持锁定的WRITE中复位后，真实IP重新初始化并正确完成新8字；真实storage与memory在替身IP下的中途复位重读也通过。尾包、帧中止、整机单独失锁恢复及正式读采样继续独立处理；未宣称SDRAM物理内容/读回和实板时序验收。
 
 2026-10-25新方案：15µs周期的应用侧刷新仲裁，pending暂停启动新四字组，等待在途写入与下游忙解除后发送单拍请求。三种512µs最终生产场景均34请求/34确认/34占用/34实际刷新；pending到实际刷新最长196ns，相邻刷新最长15.064µs。11场景4376字模型存储全部正确、刷新覆盖通过，但工程125MHz/180°仍每组第四字读回Z，共1094错。仅测试台270°诊断的11场景全部通过，未改工程PLL。帧缓存、显示、板级时序和实板运行尚未完成。详见 [刷新修复记录](SDRAM_REFRESH_VERIFICATION.md)。
+
+## 2026-10-28 memory外部复位接入与验证
+
+已按用户授权检查整个工程复位，并让外部Reset_n清除memory旧任务。仅修改memory_top、async_fifo两个RTL及原异步FIFO测试台：共同请求由外部复位或PLL失锁产生，50MHz/125MHz分别两级释放；FIFO端口不变但内部按写/读域释放；writer/refresh/IP使用125MHz复位，CDC两侧分别复位。初始化状态同步回50MHz，就绪和写入握手在复位及重新初始化期间关闭，PLL配置保持不变。原有顶层/storage复位无需改动。
+
+12组检查通过：8种锁定PLL下的外部复位、7次新帧/56字无旧数据；6组FIFO矩阵共49152条目；原4字FIFO测试；完整TD层次；真实IP在WRITE中复位并两次初始化、新8字完成；原同高度两帧16字完成回归；真实storage和memory在替身IP下接收2像素后复位、改基址和颜色重读8像素正确。复位不清物理存储阵列，只使旧内容失效，不再消费旧FIFO和帧状态。
+
+FIFO在复位/两拍释放阶段full=1、empty=1，表示暂不可读写；原测试台新增等待full解除。源码和记录见[MEMORY_RESET_VERIFICATION.md](MEMORY_RESET_VERIFICATION.md)、[测试结果](C:/Users/31640/Documents/ChatGPT/FFF/memory_reset_integration_20261028/verification_results.json)。真实IP验证使用受控时钟，不含物理内容/读回和板级时序；单独PLL失锁的整机自动重播仍未实现。未创建Git提交，保留此前未提交修复和用户注释。
+
+## 2026-10-28 帧完成与50MHz同步最小修复
+
+用户明确授权先保存Git、再尽量少改修复三个完成问题。已原样提交修复前检查点35b7335；后续修复代码保留在工作区供查看。修改4个RTL和TD清单：修正用户同步块的端口/复位及旧输出名连接；writer新增Sdr_busy、有效帧与4拍排空保护；新描述优先清done；顶层首次空闲可启动，任务等待本次done低后高并等storage空闲，保留头部失败且无描述时的重试；TD加入CDC为第16项。四字状态机和地址公式字节比对不变，FIFO/PLL/刷新/IP及storage哈希不变。
+
+7组验证通过：writer无描述和同高度连续两帧/延迟busy/尾包保护、50MHz同步高低/共同复位、24字正反行序及刷新暂停、顶层5场景启动/旧done/错误重试、完整TD零时层次、真实IP两帧16字，以及真实storage配测试memory的3场景782像素接线。真实IP完成均在末次App提交后120ns、Sdr_busy解除后32ns，busy=0后才done。同步代码不再有ack重复驱动和done同步寄存器未复位问题。
+
+测试边界：真实IP时序使用测试台受控时钟并绕过PLL模型启动，没有改工程PLL或检查SDRAM物理内容/读回；storage接线回归用memory替身，不等于391字尾包已修好。metadata后的部分帧错误/abort仍可能保持占用，外部复位和实板时序仍待处理。详见[FRAME_COMPLETION_FIX.md](FRAME_COMPLETION_FIX.md)，[完整命令/源码哈希/结果](C:/Users/31640/Documents/ChatGPT/FFF/completion_minimal_fix_20261028/verification_results.json)。
 
 ## 2026-10-28 CDC修正验证与开发前Git检查点
 
