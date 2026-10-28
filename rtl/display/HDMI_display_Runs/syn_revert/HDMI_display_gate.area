@@ -1,0 +1,52 @@
+standard
+***Report Model: hdmi_demo_top Device: EG4S20BG256***
+
+IO Statistics
+#IO                         6   out of    188    3.19%
+  #input                    2
+  #output                   4
+  #inout                    0
+
+LUT Statistics
+#Total_luts              1069
+  #lut4                   925
+  #lut5                   144
+  #lut6                     0
+  #lut5_mx41                0
+  #lut4_alu1b               0
+
+Utilization Statistics
+#lut                     1615   out of  19600    8.24%
+#reg                      752   out of  19600    3.84%
+#bram                       0   out of     64    0.00%
+  #bram9k                   0
+  #fifo9k                   0
+#bram32k                    8   out of     16   50.00%
+#dsp                        1   out of     29    3.45%
+#pad                       10   out of    188    5.32%
+  #ireg                     0
+  #oreg                     4
+  #treg                     0
+#pll                        1   out of      4   25.00%
+#gclk                       1   out of     16    6.25%
+
+Report Hierarchy Area:
++--------------------------------------------------------------------------------------------+
+|Instance                |Module                |lut     |ripple  |seq     |bram    |dsp     |
++--------------------------------------------------------------------------------------------+
+|top                     |hdmi_demo_top         |1366    |249     |756     |8       |1       |
+|  u_display             |hdmi_tx_display       |1172    |159     |622     |8       |1       |
+|    u3_hdmi_tx          |hdmi_tx               |859     |81      |492     |0       |1       |
+|      Inst_hdmi_tx_core |hdmi_tx_core          |859     |81      |492     |0       |1       |
+|        u_assembler     |hdmi_packet_assembler |165     |0       |45      |0       |0       |
+|        u_enc0          |tmds_encoder          |94      |9       |14      |0       |0       |
+|        u_enc1          |tmds_encoder          |79      |9       |14      |0       |0       |
+|        u_enc2          |tmds_encoder          |86      |9       |14      |0       |0       |
+|        u_picker        |packet_picker         |245     |10      |334     |0       |1       |
+|        u_serializer    |tmds_serializer       |33      |0       |30      |0       |0       |
+|    u_audio_fifo        |audio_fifo            |61      |8       |34      |0       |0       |
+|    u_clk_wize          |clk_wize              |0       |0       |0       |0       |0       |
+|    u_osd               |osd_overlay           |195     |34      |75      |8       |0       |
+|      u_font            |font_16x16_rom        |0       |0       |3       |8       |0       |
+|    u_read_RAM          |read_RAM              |57      |36      |21      |0       |0       |
++--------------------------------------------------------------------------------------------+
