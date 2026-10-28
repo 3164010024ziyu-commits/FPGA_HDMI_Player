@@ -91,6 +91,46 @@
                     <Attr Name="CompileOrder" Val="10" />
                 </FileInfo>
             </File>
+            <File Path="../../rtl/storage/sd_spi_reader.v">
+                <FileInfo>
+                    <Attr Name="UsedInSyn" Val="true" />
+                    <Attr Name="UsedInP&R" Val="true" />
+                    <Attr Name="BelongTo" Val="design_1" />
+                    <Attr Name="CompileOrder" Val="11" />
+                </FileInfo>
+            </File>
+            <File Path="../../rtl/storage/fat32_bmp_reader.v">
+                <FileInfo>
+                    <Attr Name="UsedInSyn" Val="true" />
+                    <Attr Name="UsedInP&R" Val="true" />
+                    <Attr Name="BelongTo" Val="design_1" />
+                    <Attr Name="CompileOrder" Val="12" />
+                </FileInfo>
+            </File>
+            <File Path="../../rtl/storage/bmp_stream_decoder.v">
+                <FileInfo>
+                    <Attr Name="UsedInSyn" Val="true" />
+                    <Attr Name="UsedInP&R" Val="true" />
+                    <Attr Name="BelongTo" Val="design_1" />
+                    <Attr Name="CompileOrder" Val="13" />
+                </FileInfo>
+            </File>
+            <File Path="../../rtl/storage/storage_pipeline.v">
+                <FileInfo>
+                    <Attr Name="UsedInSyn" Val="true" />
+                    <Attr Name="UsedInP&R" Val="true" />
+                    <Attr Name="BelongTo" Val="design_1" />
+                    <Attr Name="CompileOrder" Val="14" />
+                </FileInfo>
+            </File>
+            <File Path="../../rtl/top/hdmi_player_top.v">
+                <FileInfo>
+                    <Attr Name="UsedInSyn" Val="true" />
+                    <Attr Name="UsedInP&R" Val="true" />
+                    <Attr Name="BelongTo" Val="design_1" />
+                    <Attr Name="CompileOrder" Val="15" />
+                </FileInfo>
+            </File>
         </Verilog>
     </Source_Files>
     <FileSets>
@@ -100,8 +140,8 @@
         </FileSet>
     </FileSets>
     <TOP_MODULE>
-        <LABEL>memory_top</LABEL>
-        <MODULE>memory_top</MODULE>
+        <LABEL>hdmi_player_top</LABEL>
+        <MODULE>hdmi_player_top</MODULE>
         <CREATEINDEX>user</CREATEINDEX>
     </TOP_MODULE>
     <Property>

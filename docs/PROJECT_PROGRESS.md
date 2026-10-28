@@ -1,6 +1,6 @@
 # FPGA HDMI Player 项目进度
 
-更新日期：2026-10-26（北京时间）
+更新日期：2026-10-28（北京时间）
 
 核对范围：本机工程、FFF验证记录和资料。2026-10-25先提交检查点6a6fc1c，再执行真实参考IP与SDRAM行为模型测试，按证据应用刷新仲裁修复。PLL、加密IP和FIFO保持不变；本次用户明确授权助手进行必要工程修改。当前完整读回仍未通过，下文分开报告刷新和读采样结果。
 
@@ -8,11 +8,149 @@
 
 ## 当前阶段
 
+最新storage状态：MBR误识别已在fat32_bmp_reader中修复，121场景复测通过；此前快照中的0x34误判记录作为历史保留。memory尾包、FIFO最小深度和正式读采样问题仍独立跟踪。
+
 存储部分已具备同步 FIFO、异步 FIFO 和四字预取写控制器；写控制器的历史单模块自动检查与真实同步 FIFO 连接测试通过。用户已新增 `memory_top.v` 和 `include/global_def.v`，完成 32 位、深度 16 的同步 FIFO 与写控制器之间的连接，以及上游写数据、写使能和满标志端口。复位极性、数据位宽、FIFO 深度和端口分隔符已在静态复核中纠正。
 
-已在 `memory` 分支导入匹配板载 50 MHz 输入的 PLL，以及 APUG011 的 `sdr_as_ram`、`sdr_init_ref`、`sdr_wrrd`；现有 `sdram_write_ctrl` 复用用户文件。TD 源文件清单与顶层已调整为 `memory_top`。PLL 使用配套例程的 100/125/125 MHz、0/0/180° 配置，刷新周期参数同步为 125 MHz。ModelSim 编译和零时层次加载通过，PLL 输出周期及相位测量通过；物理 SDRAM 总线与 SIP 原语已按参考例程接入并经零时层次检查；未用读请求已停用，LED已按用户选择指示PLL锁定且初始化完成，尚不表示数据校验通过。
+已在 `memory` 分支导入匹配板载 50 MHz 输入的 PLL，以及 APUG011 的 `sdr_as_ram`、`sdr_init_ref`、`sdr_wrrd`；现有 `sdram_write_ctrl` 复用用户文件。此前 TD 源文件清单与顶层调整为 `memory_top`；本轮接口对接后已增加 storage 与系统顶层，切换为 `hdmi_player_top`。PLL 使用配套例程的 100/125/125 MHz、0/0/180° 配置，刷新周期参数同步为 125 MHz。ModelSim 编译和零时层次加载通过，PLL 输出周期及相位测量通过；物理 SDRAM 总线与 SIP 原语已按参考例程接入并经零时层次检查；未用读请求已停用，LED已按用户选择指示PLL锁定且初始化完成，尚不表示数据校验通过。
+
+当前按用户选择采用memory自行计算地址：storage接口保留；memory仅调整帧描述/控制端口，模块体逐字节不变；hdmi_player_top已补全接线，TD工程已切换系统顶层。当前真实层次编译与零时刻加载通过，真实storage配合测试memory模型的3场景接线测试通过。新增帧基址、宽高、行方向、取消、外部复位及写完成端口仍待用户实现，不能据此宣称真实memory已经支持完整帧写入。内部仍为32位、深度16异步FIFO，50MHz写/125MHz读。
 
 2026-10-25新方案：15µs周期的应用侧刷新仲裁，pending暂停启动新四字组，等待在途写入与下游忙解除后发送单拍请求。三种512µs最终生产场景均34请求/34确认/34占用/34实际刷新；pending到实际刷新最长196ns，相邻刷新最长15.064µs。11场景4376字模型存储全部正确、刷新覆盖通过，但工程125MHz/180°仍每组第四字读回Z，共1094错。仅测试台270°诊断的11场景全部通过，未改工程PLL。帧缓存、显示、板级时序和实板运行尚未完成。详见 [刷新修复记录](SDRAM_REFRESH_VERIFICATION.md)。
+
+## 2026-10-28 CDC修正验证与开发前Git检查点
+
+用户已自行修正frame_desc_cdc中ack_sync的声明顺序。本轮直接使用当前生产文件快照编译和测试，未修改模块代码：原文件编译通过，20/8ns、8/20ns、14/22ns及20/20ns错相四种时钟组合各512组帧描述、共2048组传输全部通过；共同复位并错开释放后恢复测试通过。结果不再依赖上轮仅调整声明顺序的诊断副本。
+
+两侧独立复位的协议边界仍沿用上轮记录：目标侧独立复位可能重放旧描述，源侧独立复位可能产生全零伪描述；当前实现需协调两侧复位。数字仿真未替代器件CDC时序签核。
+
+当前frame_desc_cdc尚未加入TD文件清单，也未在memory_top中例化；memory仍未消费帧基址、宽高与方向，外部Reset_n和frame_write_done的内部逻辑仍待用户实现。下一步先在memory_top中接入CDC并建立描述先于像素生效的控制，再由用户扩展sdram_write_ctrl的帧基址/行列地址处理及完成条件。四字尾包和正式读采样问题继续独立跟踪。
+
+按用户要求，准备把当前已有的storage MBR修复及回归资料、storage/memory接口、系统顶层接线、TD文件清单、用户新增并修正的CDC及同步文档一并保存为memory分支的本地Git检查点。本轮不改PLL、写控制器或其他模块逻辑；本地保存范围不含FFF临时仿真库。
+
+[本轮真实CDC测试结果](C:/Users/31640/Documents/ChatGPT/FFF/git_checkpoint_20261028/cdc_results.json)。上轮错误定位与复位边界见[检查记录](C:/Users/31640/Documents/ChatGPT/FFF/project_review_20261028/README.md)。
+
+## 2026-10-26 storage / memory 接口与系统顶层对接
+
+**接口和接线已更新，memory内部帧逻辑由用户继续完成。** 按用户授权仅改memory端口，并补全hdmi_player_top；storage端口无需增删，全部实现保留。删除未定义的frame_id，新增21位字地址frame_base_addr、16位宽高、frame_top_down、frame_abort、Reset_n和预留输出frame_write_done；保留像素valid/data/ready及frame_start/end。frame_start来自meta_valid，frame_end来自storage.done，frame_abort来自error。
+
+顶层补全SD SPI、复位释放、读取启动/文件选择、请求基址锁存、图像元信息、像素握手和状态。初始化完成前不启动或传像素。load_done表示源端成功结束，memory_frame_write_done另行表示真实帧写完；目前后者没有驱动。load_ready仅表示storage空闲且memory已初始化；后续启动下一帧、复用缓冲区还必须等待memory完成并处理错误恢复。TD添加5个源文件条目、顶层设为hdmi_player_top；未执行板级管脚/布局布线/时序签核。
+
+- 真实工程ModelSim编译、零时刻层次加载：通过，0错误；保留两项参考IP常量告警和一项PLL模型位宽告警。
+- 顶层接线功能测试：真实storage + SPI卡模型 + 测试memory接收模型，3场景通过；两次成功帧各391像素，共782像素和2314次背压保持检查；错误BMP返回0x20/abort后恢复成功。覆盖基址锁存、元信息、过早启动门控、长背压和源完成/写完成区分。
+- 本轮边界：memory从localparam开始的模块体与修改前逐字节相同；新端口尚未驱动内部地址/复位/完成逻辑。模型接线测试不等于真实SDRAM帧地址功能验证。391字尾部3字等待、正式180度读采样问题及异步FIFO深度2边界仍在，不因端口修改而解决。
+- 用户下一步：先在SYS_CLK域按frame_start锁存帧基址、尺寸与方向，再设计与125MHz写侧的可靠跨时钟控制、行地址、尾包/取消/复位及排空完成。完整约定见[STORAGE_MEMORY_INTERFACE.md](STORAGE_MEMORY_INTERFACE.md)。
+
+[本轮命令、快照和结果](C:/Users/31640/Documents/ChatGPT/FFF/storage_memory_interface_20261026/results.json)。本轮未提交Git，原有未提交修改保留。
+
+## 2026-10-26 storage MBR识别修复
+
+**已修复并复测通过。** 仅修改fat32_bmp_reader，新增单次MBR回退；18项FAT专项、6项SPI专项、原92场景及5项背压共121场景通过。有效MBR和superfloppy均可读取，坏分区仍按原规则报错；其他RTL哈希未变。详见 [STORAGE_MBR_FIX.md](STORAGE_MBR_FIX.md)，随工程保留24项专项重跑入口。
+
+用户已授权修复FAT32/MBR识别问题；先用成功加载为预期复现错误，再修改单一storage模块并重跑回归。每步完成即记录，未涉及memory尾包或模块对接。
+
+- **baseline/targeted_fat**：修复前按成功加载预期测试；已复现0x34错误，正常MBR对照通过 [记录](C:/Users/31640/Documents/ChatGPT/FFF/storage_mbr_fix_20261026/baseline/targeted_fat/results.json)。
+
+- **baseline/targeted_spi**：修复前按成功加载预期测试；已复现0x34错误，正常MBR对照通过 [记录](C:/Users/31640/Documents/ChatGPT/FFF/storage_mbr_fix_20261026/baseline/targeted_spi/results.json)。
+
+- **应用修复，等待回归**：仅修改fat32_bmp_reader，新增MBR回退状态与LBA0探测标志；扇区0的完整BPB或几何校验失败且存在支持的分区时，转读分区启动扇区；进入分区读取后关闭再次回退。未修改memory及其他RTL。[差异与哈希](C:/Users/31640/Documents/ChatGPT/FFF/storage_mbr_fix_20261026/applied.json)。
+
+- **fixed/targeted_fat**：通过；# MBR_REGRESSION_PASS cases=18 [记录](C:/Users/31640/Documents/ChatGPT/FFF/storage_mbr_fix_20261026/fixed/targeted_fat/results.json)。
+
+- **fixed/targeted_spi**：通过；# MBR_PIN_REGRESSION_PASS cases=6 [记录](C:/Users/31640/Documents/ChatGPT/FFF/storage_mbr_fix_20261026/fixed/targeted_spi/results.json)。
+
+- **fixed/bmp_stream_decoder**：通过；# PASS bmp_stream_decoder: 49 cases, randomized stalls and bubbles [记录](C:/Users/31640/Documents/ChatGPT/FFF/storage_mbr_fix_20261026/fixed/bmp_stream_decoder/results.json)。
+
+- **fixed/fat32_bmp_reader**：通过；# PASS fat32_bmp_reader: 24 cases, fragmented files/root, stalls, corruption [记录](C:/Users/31640/Documents/ChatGPT/FFF/storage_mbr_fix_20261026/fixed/fat32_bmp_reader/results.json)。
+
+- **fixed/sd_spi_reader**：通过；# PASS sd_spi_reader: 9 cases, SDHC/SDSC, CRC rejection, timeouts, recovery [记录](C:/Users/31640/Documents/ChatGPT/FFF/storage_mbr_fix_20261026/fixed/sd_spi_reader/results.json)。
+
+- **fixed/storage_pipeline**：通过；# PASS storage_pipeline: 6 pin-level end-to-end cases [记录](C:/Users/31640/Documents/ChatGPT/FFF/storage_mbr_fix_20261026/fixed/storage_pipeline/results.json)。
+
+- **fixed/hx4s20c_storage_bringup**：通过；# PASS hx4s20c_storage_bringup: 4 board-wrapper cases [记录](C:/Users/31640/Documents/ChatGPT/FFF/storage_mbr_fix_20261026/fixed/hx4s20c_storage_bringup/results.json)。
+
+- **fixed/backpressure**：通过；# STORAGE_BACKPRESSURE_PASS cases=5 pixels_per_case=391 normal_transaction=1 [记录](C:/Users/31640/Documents/ChatGPT/FFF/storage_mbr_fix_20261026/fixed/backpressure/results.json)。
+
+- **工程内重跑入口复核**：随工程保存的run_mbr_regression.py已在当前生产RTL上再次跑通18项FAT与6项SPI专项；这24项重复检查不另计入121场景。源码哈希与已测试修复一致。[入口](C:/Users/31640/Desktop/FPGA_Projects/FPGA_HDMI_Player/verification/storage_mbr_fix_20261026/README.md)。
+
+## 2026-10-26 当前底层模块全面回归
+
+以下为MBR修复前的历史快照；其中MBR失败已由上面的修复及新回归解决，其余问题状态不变。
+
+**本轮已完成：30项验证任务，24项通过、1项仅诊断通过、3项既有功能失败复现、1项最小深度参数不支持、1项尾包限制确认。** 两项MBR复现属于同一缺陷。底层常用配置未见新的功能回归；当前顶层按用户要求作为未完成草稿隔离。新增问题为async_fifo的ADDR_WIDTH=1不能展开，当前深度16不受影响。正式读回1094个末字Z和MBR识别错误仍未修复；各任务证据如下。
+
+本轮按用户要求冻结当前工作区，独立测试底层模块；memory_top与hdmi_player_top正在编写的接口/连接不作为底层失败项。验证夹具只存在FFF，实例化本轮当前底层RTL；不修改用户模块，不把历史测试结果直接当作本轮通过。每项完成即同步本节。
+
+[完整回归记录](C:/Users/31640/Documents/ChatGPT/FFF/lower_modules_regression_20261026/README.md)。
+
+- **sync_w8_d2_10_10**：同步FIFO，宽8/深2，满空、随机背压、回绕和非空复位；两轮各4096有效条目；通过 [记录](C:/Users/31640/Documents/ChatGPT/FFF/lower_modules_regression_20261026/tests/sync_w8_d2_10_10/results.json)。
+
+- **sync_w8_d4_10_10**：同步FIFO，宽8/深4，满空、随机背压、回绕和非空复位；两轮各4096有效条目；通过 [记录](C:/Users/31640/Documents/ChatGPT/FFF/lower_modules_regression_20261026/tests/sync_w8_d4_10_10/results.json)。
+
+- **sync_w32_d16_10_10**：同步FIFO，宽32/深16，满空、随机背压、回绕和非空复位；两轮各4096有效条目；通过 [记录](C:/Users/31640/Documents/ChatGPT/FFF/lower_modules_regression_20261026/tests/sync_w32_d16_10_10/results.json)。
+
+- **sync_w56_d16_10_10**：同步FIFO，宽56/深16，满空、随机背压、回绕和非空复位；两轮各4096有效条目；通过 [记录](C:/Users/31640/Documents/ChatGPT/FFF/lower_modules_regression_20261026/tests/sync_w56_d16_10_10/results.json)。
+
+- **async_w8_d4_10_4**：异步FIFO，宽8/深4，满空、随机背压、回绕和非空复位；两轮各4096有效条目；通过 [记录](C:/Users/31640/Documents/ChatGPT/FFF/lower_modules_regression_20261026/tests/async_w8_d4_10_4/results.json)。
+
+- **async_w32_d16_10_4**：异步FIFO，宽32/深16，满空、随机背压、回绕和非空复位；两轮各4096有效条目；通过 [记录](C:/Users/31640/Documents/ChatGPT/FFF/lower_modules_regression_20261026/tests/async_w32_d16_10_4/results.json)。
+
+- **async_w56_d16_10_4**：异步FIFO，宽56/深16，满空、随机背压、回绕和非空复位；两轮各4096有效条目；通过 [记录](C:/Users/31640/Documents/ChatGPT/FFF/lower_modules_regression_20261026/tests/async_w56_d16_10_4/results.json)。
+
+- **async_w32_d16_4_10**：异步FIFO，宽32/深16，满空、随机背压、回绕和非空复位；两轮各4096有效条目；通过 [记录](C:/Users/31640/Documents/ChatGPT/FFF/lower_modules_regression_20261026/tests/async_w32_d16_4_10/results.json)。
+
+- **async_w8_d4_4_10**：异步FIFO，宽8/深4，满空、随机背压、回绕和非空复位；两轮各4096有效条目；通过 [记录](C:/Users/31640/Documents/ChatGPT/FFF/lower_modules_regression_20261026/tests/async_w8_d4_4_10/results.json)。
+
+- **async_w56_d4_10_4**：异步FIFO，宽56/深4，满空、随机背压、回绕和非空复位；两轮各4096有效条目；通过 [记录](C:/Users/31640/Documents/ChatGPT/FFF/lower_modules_regression_20261026/tests/async_w56_d4_10_4/results.json)。
+
+- **async_depth2_boundary**：异步FIFO深度2参数边界（ADDR_WIDTH=1）；未通过；见展开/仿真错误，不影响默认ADDR_WIDTH=4的独立结果 [记录](C:/Users/31640/Documents/ChatGPT/FFF/lower_modules_regression_20261026/tests/async_depth2_boundary/results.json)。
+
+- **writer_unit_11**：写控制器历史11项自检查，当前新增pending输入在本组绑0；通过 [记录](C:/Users/31640/Documents/ChatGPT/FFF/lower_modules_regression_20261026/tests/writer_unit_11/results.json)。
+
+- **writer_sync_fifo**：实际同步FIFO到当前写控制器20字；其中占用标志中途注入仅验证输出行为；通过 [记录](C:/Users/31640/Documents/ChatGPT/FFF/lower_modules_regression_20261026/tests/writer_sync_fifo/results.json)。
+
+- **writer_pending**：pending禁止新组、已开始四拍完成、下一组等待后恢复；通过 [记录](C:/Users/31640/Documents/ChatGPT/FFF/lower_modules_regression_20261026/tests/writer_pending/results.json)。
+
+- **writer_tail**：四字尾包限制：391字只输出388字、缓存3字；392字对照全部输出，尚无尾包协议 [记录](C:/Users/31640/Documents/ChatGPT/FFF/lower_modules_regression_20261026/tests/writer_tail/results.json)。
+
+- **refresh_unit_7**：刷新仲裁7项，包括手动/周期相邻、排空、超时锁存与复位；通过 [记录](C:/Users/31640/Documents/ChatGPT/FFF/lower_modules_regression_20261026/tests/refresh_unit_7/results.json)。
+
+- **pll**：实际PLL行为模型50MHz输入、100/125/125MHz输出及180度相位；通过 [记录](C:/Users/31640/Documents/ChatGPT/FFF/lower_modules_regression_20261026/tests/pll/results.json)。
+
+- **storage_bmp_stream_decoder**：storage历史回归49场景，生产模块为当前快照；通过 [记录](C:/Users/31640/Documents/ChatGPT/FFF/lower_modules_regression_20261026/tests/storage_bmp_stream_decoder/results.json)。
+
+- **storage_fat32_bmp_reader**：storage历史回归24场景，生产模块为当前快照；通过 [记录](C:/Users/31640/Documents/ChatGPT/FFF/lower_modules_regression_20261026/tests/storage_fat32_bmp_reader/results.json)。
+
+- **storage_sd_spi_reader**：storage历史回归9场景，生产模块为当前快照；通过 [记录](C:/Users/31640/Documents/ChatGPT/FFF/lower_modules_regression_20261026/tests/storage_sd_spi_reader/results.json)。
+
+- **storage_storage_pipeline**：storage历史回归6场景，生产模块为当前快照；通过 [记录](C:/Users/31640/Documents/ChatGPT/FFF/lower_modules_regression_20261026/tests/storage_storage_pipeline/results.json)。
+
+- **storage_hx4s20c_storage_bringup**：storage历史回归4场景，该组独立包装层来自历史提交，仅作补充；通过 [记录](C:/Users/31640/Documents/ChatGPT/FFF/lower_modules_regression_20261026/tests/storage_hx4s20c_storage_bringup/results.json)。
+
+- **storage_backpressure**：storage首/行末/中/末及随机背压5项，最长200微秒、每项391像素；通过 [记录](C:/Users/31640/Documents/ChatGPT/FFF/lower_modules_regression_20261026/tests/storage_backpressure/results.json)。
+
+- **mbr_fat_probe**：既有MBR识别缺陷：仅改引导代码3字节，合法分区卡只读LBA0即0x34，扇区接口层复现 [记录](C:/Users/31640/Documents/ChatGPT/FFF/lower_modules_regression_20261026/tests/mbr_fat_probe/results.json)。
+
+- **mbr_pin_probe**：既有MBR识别缺陷在SPI引脚完整链路复现；不是新增回归通过项 [记录](C:/Users/31640/Documents/ChatGPT/FFF/lower_modules_regression_20261026/tests/mbr_pin_probe/results.json)。
+
+- **refresh_idle**：512微秒真实IP刷新场景：idle；50MHz异步写入、125MHz后端；通过；请求/确认/占用/命令=34/34/34/34；最长pending→命令=92.0ns，命令间隔=15000.0ns [记录](C:/Users/31640/Documents/ChatGPT/FFF/lower_modules_regression_20261026/tests/refresh_idle/results.json)。
+
+- **refresh_continuous**：512微秒真实IP刷新场景：continuous；50MHz异步写入、125MHz后端；通过；请求/确认/占用/命令=34/34/34/34；最长pending→命令=212.0ns，命令间隔=15064.0ns [记录](C:/Users/31640/Documents/ChatGPT/FFF/lower_modules_regression_20261026/tests/refresh_continuous/results.json)。
+
+- **refresh_pause**：512微秒真实IP刷新场景：pause；50MHz异步写入、125MHz后端；通过；请求/确认/占用/命令=34/34/34/34；最长pending→命令=212.0ns，命令间隔=15064.0ns [记录](C:/Users/31640/Documents/ChatGPT/FFF/lower_modules_regression_20261026/tests/refresh_pause/results.json)。
+
+- **sdram_formal_180**：正式125MHz/180度的11场景写入、模型存储与读回；独立夹具隔离未完成顶层；统计={"cases": 11, "accepted": 4376, "app_writes": 4376, "reads": 4376, "physical_writes": 1094, "physical_reads": 1094, "physical_refreshes": 57, "write_refresh_overlap": 0, "data_errors": 1094, "storage_checks": 4376, "storage_errors": 0, "coverage_errors": 0}；模型时序错误=0 [记录](C:/Users/31640/Documents/ChatGPT/FFF/lower_modules_regression_20261026/tests/sdram_formal_180/results.json)。
+
+- **sdram_diagnostic_270**：仅测试台270度采样诊断；未改工程PLL，不能计入正式读回通过 [记录](C:/Users/31640/Documents/ChatGPT/FFF/lower_modules_regression_20261026/tests/sdram_diagnostic_270/results.json)。
+
+## 2026-10-26 异步FIFO接线与storage背压验证
+
+- 用户已将memory_top内同步FIFO换为async_fifo，wr_clk接SYS_CLK（50MHz），rd_clk接Clk（125MHz），32位、深度16；助手只检查和验证，未改模块实现。用户同时整理的sdram_refresh_ctrl注释经去注释比较无逻辑变化。
+- 当前顶层真实IP/器件模型写入测试通过：上游50MHz域接受1024字，应用写1024拍、物理WRITE256组，模型存储1024字全部正确，覆盖初始化等待、FIFO满背压及1次自然刷新。尚未验证读回或硬件复位释放时序。
+- storage背压5场景通过：首像素、行末、最后像素分别停顿1000个50MHz周期（20µs），中途停顿10000拍（200µs），以及随机背压。每场景391像素地址/颜色/坐标/标志正确；有效像素等待时所有载荷及valid保持，恢复后不丢不重，最后像素握手前不done。
+- pixel_ready低表示没有交付，已有待传像素应保持valid为1。空输出寄存器可以先缓存一个像素，SD已发起读取也可完成并缓存；不等于所有内部活动立即停止。复位/abort/读卡错误中止另按帧作废处理。
+- 接口后续约定：按50MHz侧full及memory可用状态形成pixel_ready，FIFO写使能以pixel_valid与pixel_ready同拍成立为准；复位时full为0不能单独作为可用依据。当前FIFO仍仅32位数据，像素地址/帧协议以及两域同步释放复位仍待用户完善。
+- [完整报告、当前源码快照与命令日志](C:/Users/31640/Documents/ChatGPT/FFF/async_fifo_storage_ready_20261026/README.md)。本轮未改PLL、模块代码，也未将storage实际接入memory；原有读采样及MBR识别问题继续跟踪。
 
 ## 2026-10-26 storage与memory对接前检查点
 
@@ -77,14 +215,16 @@
 
 - **saved_rerun_entrypoint**：随工程保存的run_refresh.py重跑入口编译及1µs观察器绑定检查通过，源码未改变；只是入口复核，完整功能结论以production_final和production_matrix记录为准。 [记录](C:/Users/31640/Documents/ChatGPT/FFF/memory_followup_20261025/final_summary.json)。
 
-## 当前重点问题（2026-10-25）
+## 当前重点问题（2026-10-26）
 
-以下两项独立跟踪：问题1属于已有SDRAM控制器的物理读捕获时序；问题2属于刷新请求到实际执行的等待及预算。四字写数据已正确进入参考模型，不把读回Z统称为写入失败。
+读采样、刷新调度、文件系统识别和FIFO参数边界分别跟踪。四字写数据已正确进入参考模型，不把读回Z统称为写入失败；未完成的系统连接不计底层失败。
 
 | 编号 | 问题 | 当前状态 |
 | --- | --- | --- |
 | 1 | 1094次每组第四字返回Z | 已定位参考模型下的读捕获窗口不匹配；未修复，原125MHz/180°配置读回仍失败 |
-| 2 | 连续供数时实际刷新延后 | 已应用15µs仲裁修复，三场景与逐拍刷新生产复测通过；实板及长期保持未验证 |
+| 2 | 连续供数时实际刷新延后 | 15µs仲裁已修复，本轮异步夹具三场景及逐拍测试通过；实板及长期保持未验证 |
+| 3 | MBR卡被误判superfloppy | 已修复单次回退路径，18项FAT及6项SPI专项通过，原storage回归及背压通过；实卡待验证 |
+| 4 | async_fifo最小深度 | 新发现ADDR_WIDTH=1展开失败；当前ADDR_WIDTH=4以及2均通过 |
 
 ### 问题1：第四字读回Z（读采样问题）
 
@@ -99,7 +239,7 @@
 
 - 原逻辑仍为四字一组，组间有间隙；`Sdr_init_ref_vld` 只表示初始化/刷新实际占用，不表示待处理请求。基线512µs连续写入16请求、0确认、0实际刷新，最早等待至少480.828µs；暂停后才刷新，不能指望PREFETCH的占用检查自行终止内部持续忙。
 - Etron EM638325 Rev1.4要求4096次刷新/64ms，均摊15.625µs；不能将2048行直接当成刷新次数。新调度器每15µs置pending，完成当前四拍后阻止新组，等待应用和下游空闲连续4拍，再单拍请求；占用拉高、解除且下游空闲后释放pending。内部周期发生器关闭，避免双重调度。
-- 空闲、持续写入、8192字后暂停三个512µs最终生产测试均34/34/34/34；到期pending→实际刷新最长196ns、IP请求→实际刷新最长60ns，相邻实际刷新最长15.064µs。完整11场景4376字落存0错、刷新覆盖错误0、写/占用重叠0，4096字连续写阶段实际刷新6次。
+- 2026-10-25的三个512µs生产测试均34/34/34/34、最长pending→命令196ns；2026-10-26采用50MHz异步输入独立夹具重跑，三个场景仍各34/34/34/34，最长pending→命令212ns、IP请求→命令60ns、命令间隔15.064µs。本轮11场景4376字落存0错，刷新覆盖/写占用重叠均0，4096字连续写阶段刷新6次；当前接口草稿未参与该夹具。
 - 仅加Sdr_busy启动门控的候选出现间隔8ns的两条刷新及tRC错误，已拒绝，不加入工程。
 - 7项仲裁单元测试通过，包含修复后的手动/定时交界；超时将锁存内部refresh_error并保持禁止启动；当前LED仍仅指示初始化。后续读控制器也须遵守pending禁止新组并与写互斥。
 - 本次已按用户授权修改RTL及工程源清单；逐步候选结果和生产复测分开保留。没有更改PLL、加密IP、FIFO；正式读回错误尚存，无板级与长期数据保持通过证据。完整记录见 [SDRAM_REFRESH_VERIFICATION.md](SDRAM_REFRESH_VERIFICATION.md)。
@@ -108,17 +248,17 @@
 
 | 部分 | 当前已完成或已确认 | 尚需完成或核实 |
 | --- | --- | --- |
-| 同步 FIFO `sync_fifo` | 参数化 RTL；现有短用例自动复核通过，读出 11、22、33；另以 32 位、深度 16 接入写控制器，20 个字传递正确 | 满写阻止、空读阻止、并发读写、指针回绕等完整自动回归；旧 ModelSim 验证记录需补可复现证据 |
-| 异步 FIFO `async_fifo` | RTL 包含 Gray 指针与两级同步；现有短用例读出 11、22、33、44；当前 TD 综合报告对应此模块 | 双时钟压力、满空边界、复位和参数回归；CDC 与实际时钟约束检查 |
-| 写控制器 `sdram_write_ctrl` | IDLE/PREFETCH/WRITE/DONE；预取四字、连续输出四拍、基址加 4；11 项历史自动测试通过；已列入 TD 源清单 | 已增加pending启动门控并通过逐拍刷新及连续供数模型测试；1094次Z仍属读捕获，实板待验证 |
-| FIFO → 写控制器 | 历史真实 `sync_fifo` 集成测试通过，20 字、五组四拍、地址 0–19；新顶层连接已核对 | 新顶层4376字供数及模型落存正确；异步FIFO集成未验证，当前应用读回失败 |
-| 存储顶层 `memory_top` | 32 位×16 条目 FIFO、上游写端口与应用写控制器连接；复位极性已核对；物理总线已显式声明，已例化 `EG_PHY_SDRAM_2M_32`；ModelSim 编译及零时加载通过，四类物理总线位宽警告消除 | 10月24日回归1094次末字读采样错误，25日新版单组复现；已接入15µs刷新仲裁；上游时钟约定及实板功能待核实；LED仅表示初始化状态 |
+| 同步 FIFO `sync_fifo` | 本轮4组参数回归通过：8/32/56位、深度2/4/16的选定组合；满空、并发、回绕、非空复位；32位FIFO到writer的20字也通过 | 其他参数、综合推断和实际时序需按使用配置验证 |
+| 异步 FIFO `async_fifo` | 本轮6组参数回归通过：8/32/56位、深度4/16、50→125MHz及125→50MHz；满空、回绕、背压和共同复位通过 | ADDR_WIDTH=1（深度2）位选越界无法展开；实际CDC、复位释放及Gray总线约束待检查 |
+| 写控制器 `sdram_write_ctrl` | 本轮11项单元/306次写拍通过，pending启动/中途交界检查通过；四拍连续、地址/数据/DM正确 | 仍要求四字成组；391字只出388，尾部/帧地址与排空协议待后续扩展 |
+| FIFO → 写控制器 | 当前同步FIFO20字检查通过；异步FIFO→当前写入/刷新/IP独立夹具4376字应用写及模型落存正确 | 系统顶层连接由用户继续处理；正式读回仍失败，尾包和帧协议待完善 |
+| 存储顶层 `memory_top` | 已有FIFO/写入/刷新/SIP连接基础，历史1024字接线检查通过；当前正在重构像素/帧接口 | 本轮隔离该接口草稿，未宣称它当前编译或整机通过；上游接口/复位/地址仍由用户完善 |
 | 公共参数 `include/global_def.v` | 数据 32 位、地址 21 位、DM 4 位、行 11 位、BANK 2 位；125 MHz 计时宏已修复分组，常量及两次自动请求检查通过 | 旧内部周期发生器已关闭，该宏当前不控制实际刷新；新仲裁器按1875拍周期运行 |
-| PLL `clk_pll` | 导入配套 Anlogic 生成配置，输入 50 MHz，输出 100/125/125 MHz，后两路相差 180°；行为模型测量通过；`local_clk` 当前未使用 | 125MHz/180°与参考模型读捕获窗不匹配，需结合EM638325及FPGA时序核定；板级时序仍未验证 |
-| SDRAM 控制器与器件模型 | 三份 APUG011 控制器文件已导入 `rtl/ip/sdram` 并经 ModelSim 编译；已接入原样参考行为模型并执行4376字回归 | 刷新仲裁已通过三场景及逐拍模型测试；正式读采样仍失败，未来读写协调、SIP实板功能待验证 |
+| PLL `clk_pll` | 本轮真实行为模型周期及相位检查通过：50MHz输入，100/125/125MHz输出，后两路180度 | 正式180度读捕获仍不匹配参考模型；硬件冷启动、板级时序尚未验证 |
+| SDRAM 控制器与器件模型 | 本轮原样参考IP和IS42s32200模型完成11场景4376字回归，写入存储0错；三种刷新场景通过 | 正式180度读回1094错；270度仅测试台诊断通过，实板/时序签核待完成 |
 | SDRAM 读通路与帧缓存管理 | 当前目录中未发现实现 | 读请求、显示供数、帧地址管理与读写协调 |
 | 存储与显示接口 | `docs/.gitkeep` 中有像素接口草稿，包括 pix_clk、pix_req、frame_sync、pix_rgb、pix_valid、frame_ready、pix_underflow | 整理为正式接口文档，明确时钟、复位、请求与返回时序，并落实到 RTL |
-| SD 卡与 BMP 解析 | 已从远端main同步4个storage RTL及接入说明；模块语法/依赖编译通过，历史92项审核回归有记录 | 已复现的MBR识别错误待修；像素地址、时钟域、四字对齐及SDRAM/HDMI联调未完成 |
+| SD 卡与 BMP 解析 | MBR误识别已修复；18项FAT和6项SPI专项通过；原88项直接测试、4项历史包装层及5项背压全部通过 | 真实卡、外部时序和整机接口留待后续；修复后TD时序需重新核定 |
 | HDMI 显示与音频 | 本地 `display.v` 为空模块 | 有效实现、显示通路集成与测试；其他成员的外部进度不在本次核对范围内 |
 | TD 综合与约束 | `memory` 分支源清单包含参数头文件、PLL、FIFO、写控制器、三个 IP 文件及 `memory_top`，顶层设为 `memory_top`；目标 EG4S20BG256 | 仅完成工程配置，尚未运行新顶层综合；旧报告仍对应 `async_fifo`；约束、布局布线、时序与上板待完成 |
 

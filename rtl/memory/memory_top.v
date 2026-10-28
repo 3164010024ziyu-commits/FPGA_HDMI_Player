@@ -1,14 +1,31 @@
-
 `include "../../include/global_def.v"
 
-module memory_top(   
-		input   SYS_CLK,
-		input wr_en,
-        input [`DATA_WIDTH-1:0]wr_data,
-		output full,
+module memory_top (
+    input wire SYS_CLK,
+    // Interface reservation only: existing internal reset logic is unchanged.
+    input wire Reset_n,
 
-		output			LED
-	);
+    // Pixel transfers use the 50 MHz SYS_CLK write-side domain.
+    input wire pixel_valid,
+    input wire [23:0] pixel_data,
+    output wire pixel_ready,
+
+    // On frame_start, capture all frame metadata atomically in SYS_CLK.
+    // Addresses are 32-bit-WORD addresses, not bytes or per-pixel addresses.
+    input wire frame_start,
+    input wire [`ADDR_WIDTH-1:0] frame_base_addr,
+    input wire [15:0] frame_width,
+    input wire [15:0] frame_height,
+    input wire frame_top_down,
+    // Source success and cancellation; neither means SDRAM has drained.
+    input wire frame_end,
+    input wire frame_abort,
+    // TODO (user): drive a SYS_CLK pulse only after this frame is fully written.
+    // All new reset/frame ports await implementation; body intentionally intact.
+    output wire frame_write_done,
+
+    output wire LED
+);
 
 localparam ADDR_WIDTH = 4;
 
@@ -18,6 +35,9 @@ wire fifo_empty;
 wire [`DATA_WIDTH-1:0]fifo_rd_data;
 wire fifo_rd_en;
 wire fifo_rd_valid;
+
+wire [`DATA_WIDTH-1:0]fifo_wr_data;
+assign fifo_wr_data = {8'b0,pixel_data};
 
 // Physical interface to the SDRAM packaged with EG4S20.
 wire SDRAM_CLK;
@@ -55,6 +75,8 @@ assign LED=Check_ok;
 assign App_rd_en = 0;
 assign App_rd_addr = 21'd0;
 
+wire full;
+assign pixel_ready =~full;
 
 clk_pll u0_clk(
 		.refclk(SYS_CLK),
@@ -66,16 +88,17 @@ clk_pll u0_clk(
 		);
 assign Rst=!lock;
 
-sync_fifo #(
+async_fifo #(
     .DATA_WIDTH(`DATA_WIDTH),
     .ADDR_WIDTH(ADDR_WIDTH)
 ) dut (
-    .Clk(Clk),
+    .wr_clk(SYS_CLK),
+    .rd_clk(Clk),
     .Reset_n(~Rst),
 
     // Write interface
-    .wr_en(wr_en),
-    .wr_data(wr_data),
+    .wr_en(pixel_valid),
+    .wr_data(fifo_wr_data),
     .full(full),
 
     // Read interface

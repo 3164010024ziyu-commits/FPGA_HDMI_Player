@@ -1,0 +1,136 @@
+`include "../../include/global_def.v"
+
+// System integration and 50 MHz control. Memory frame handling is implemented
+// separately by the user; load_done and memory_frame_write_done are distinct.
+module hdmi_player_top #(
+    parameter integer CLK_HZ = 50000000,
+    parameter integer INIT_HALF_PERIOD = (CLK_HZ+799999)/800000,
+    parameter integer READ_HALF_PERIOD = (CLK_HZ+49999999)/50000000,
+    parameter integer MAX_WIDTH = 1920,
+    parameter integer MAX_HEIGHT = 1080
+)(
+    input wire SYS_CLK,
+    input wire Reset_n,
+
+    // One request in the SYS_CLK domain; configuration is sampled on acceptance.
+    input wire start,   //整个模块外部的开始信号
+    input wire [15:0] file_index,   //要读取 SD 卡中的哪张图片
+    input wire [`ADDR_WIDTH-1:0] frame_base_addr,
+    output wire load_ready,
+    output wire load_busy,
+    output wire load_done,
+    output wire load_error,
+    output wire [7:0] load_error_code,
+    output wire card_initialized,
+
+    output wire sd_cs_n,
+    output wire sd_sck,
+    output wire sd_mosi,
+    input wire sd_miso,
+
+    
+    output wire memory_frame_write_done,    //这张图片是否已经完整写入 SDRAM
+    output wire LED
+);
+    reg [1:0] reset_release;
+    always @(posedge SYS_CLK or negedge Reset_n) begin
+        if (!Reset_n) reset_release <= 2'b00;
+        else reset_release <= {reset_release[0],1'b1};
+    end
+    wire sys_reset_n = reset_release[1];    //同步复位
+
+    
+    wire memory_initialized;
+    reg [1:0] memory_init_sync;
+    always @(posedge SYS_CLK or negedge sys_reset_n) begin
+        if (!sys_reset_n) memory_init_sync <= 2'b00;
+        else memory_init_sync <= {memory_init_sync[0],memory_initialized};
+    end
+    assign LED = memory_initialized;    //LED = lock && Sdr_init_done
+    //memory_init_sync[1] == 1代表 Memory 报告初始化完成
+
+    wire storage_ready; //ready = card_initialized && !busy;
+    wire storage_start = start && load_ready;
+    assign load_ready = sys_reset_n && memory_init_sync[1] && storage_ready;    
+                        // 系统复位已经解除；
+                        // Memory 报告初始化完成；
+                        // SD 卡已经初始化；
+                        // Storage 当前不忙。
+
+    reg [`ADDR_WIDTH-1:0] selected_frame_base;
+    always @(posedge SYS_CLK or negedge sys_reset_n) begin
+        if (!sys_reset_n) selected_frame_base <= 0;
+        else if (storage_start) selected_frame_base <= frame_base_addr;
+    end
+
+    wire storage_pixel_valid;
+    wire [23:0] pixel_rgb888;
+    wire memory_pixel_ready;
+    wire storage_pixel_ready = sys_reset_n && memory_init_sync[1] && memory_pixel_ready;
+                                // 系统复位已经解除；
+                                // Memory 报告初始化完成；
+                                // Memory可以接收数据
+    wire pixel_transfer = storage_pixel_valid && storage_pixel_ready;
+
+    wire image_meta_valid;
+    wire [15:0] image_width;
+    wire [15:0] image_height;
+    wire image_top_down;
+
+    memory_top u_memory (
+        .SYS_CLK(SYS_CLK),
+        .Reset_n(sys_reset_n),
+        .pixel_valid(pixel_transfer),
+        .pixel_data(pixel_rgb888),
+        .pixel_ready(memory_pixel_ready),
+        .frame_start(image_meta_valid),
+        .frame_base_addr(selected_frame_base),
+        .frame_width(image_width),
+        .frame_height(image_height),
+        .frame_top_down(image_top_down),
+        .frame_end(load_done),
+        .frame_abort(load_error),
+        .frame_write_done(memory_frame_write_done),
+        .LED(memory_initialized)
+    );
+
+    storage_pipeline #(
+        .CLK_HZ(CLK_HZ),
+        .INIT_HALF_PERIOD(INIT_HALF_PERIOD),
+        .READ_HALF_PERIOD(READ_HALF_PERIOD),
+        .MAX_WIDTH(MAX_WIDTH),
+        .MAX_HEIGHT(MAX_HEIGHT)
+    ) u_storage_pipeline (
+        .clk(SYS_CLK),
+        .rst_n(sys_reset_n),
+        .sd_cs_n(sd_cs_n),
+        .sd_sck(sd_sck),
+        .sd_mosi(sd_mosi),
+        .sd_miso(sd_miso),
+        .start(storage_start),
+        .file_index(file_index),
+        .ready(storage_ready),
+        .busy(load_busy),
+        .card_initialized(card_initialized),
+        .done(load_done),
+        .error(load_error),
+        .error_code(load_error_code),
+        .short_name(),
+        .file_size(),
+        .meta_valid(image_meta_valid),
+        .width(image_width),
+        .height(image_height),
+        .top_down(image_top_down),
+        .pixel_valid(storage_pixel_valid),
+        .pixel_ready(storage_pixel_ready),
+        .pixel_rgb888(pixel_rgb888),
+        .pixel_rgb565(),
+        .pixel_x(),
+        .pixel_y(),
+        // This design computes pixel addresses in memory from frame metadata.
+        .pixel_addr(),
+        .pixel_sof(),
+        .pixel_eol(),
+        .pixel_eof()
+    );
+endmodule
