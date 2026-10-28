@@ -1,0 +1,29 @@
+{
+  "command": {
+    "command": [
+      "D:/modelsim2020/win64/vsim.exe",
+      "-c",
+      "-onfinish",
+      "stop",
+      "-modelsimini",
+      "C:/Users/31640/Documents/ChatGPT/FFF/storage_mbr_fix_20261026/fixed/modelsim.ini",
+      "-voptargs=+acc",
+      "work.storage_mbr_regression_tb",
+      "-do",
+      "run.do"
+    ],
+    "cwd": "C:\\Users\\31640\\Documents\\ChatGPT\\FFF\\storage_mbr_fix_20261026\\fixed\\targeted_spi",
+    "exit_code": 0
+  },
+  "passed": true,
+  "errors": [],
+  "markers": [
+    "# MBR_PIN_CASE_PASS case=1 name=normal_mbr pixels=391 reads=8 error=00",
+    "# MBR_PIN_CASE_PASS case=2 name=partial_bpb_collision pixels=391 reads=8 error=00",
+    "# MBR_PIN_CASE_PASS case=3 name=geometry_collision pixels=391 reads=8 error=00",
+    "# MBR_PIN_CASE_PASS case=4 name=valid_superfloppy_with_fake_mbr pixels=391 reads=7 error=00",
+    "# MBR_PIN_CASE_PASS case=5 name=bad_partition_stops_after_fallback pixels=0 reads=2 error=34",
+    "# MBR_PIN_CASE_PASS case=6 name=successful_retry_after_error pixels=391 reads=8 error=00",
+    "# MBR_PIN_REGRESSION_PASS cases=6"
+  ]
+}

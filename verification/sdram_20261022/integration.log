@@ -1,0 +1,27 @@
+VCD info: dumpfile integration.vcd opened for output.
+INTEGRATION_CHECK: initialization gate held after four real FIFO deliveries
+INTEGRATION_CHECK: refresh before burst blocked all writes
+INTEGRATION_WRITE t=425000 word=0 addr=0 data=a5000000 refresh=0
+INTEGRATION_WRITE t=435000 word=1 addr=1 data=a5000203 refresh=0
+INTEGRATION_WRITE t=445000 word=2 addr=2 data=a5000406 refresh=0
+INTEGRATION_WRITE t=455000 word=3 addr=3 data=a5000609 refresh=0
+INTEGRATION_WRITE t=545000 word=4 addr=4 data=a500080c refresh=0
+INTEGRATION_WRITE t=555000 word=5 addr=5 data=a5000a0f refresh=0
+INTEGRATION_WRITE t=565000 word=6 addr=6 data=a5000c12 refresh=0
+INTEGRATION_WRITE t=575000 word=7 addr=7 data=a5000e15 refresh=0
+INTEGRATION_CHECK: two-word starvation gap held data without partial burst
+INTEGRATION_WRITE t=935000 word=8 addr=8 data=a5001018 refresh=0
+INTEGRATION_WRITE t=945000 word=9 addr=9 data=a500121b refresh=0
+INTEGRATION_WRITE t=955000 word=10 addr=10 data=a500141e refresh=0
+INTEGRATION_WRITE t=965000 word=11 addr=11 data=a5001621 refresh=0
+INTEGRATION_WRITE t=1145000 word=12 addr=12 data=a5001824 refresh=0
+INTEGRATION_WRITE t=1155000 word=13 addr=13 data=a5001a27 refresh=1
+INTEGRATION_WRITE t=1165000 word=14 addr=14 data=a5001c2a refresh=1
+INTEGRATION_WRITE t=1175000 word=15 addr=15 data=a5001e2d refresh=1
+INTEGRATION_INFO: mid-burst refresh flag overlaps remaining three writes; interface arbitration is not modeled
+INTEGRATION_WRITE t=1405000 word=16 addr=16 data=a5002030 refresh=0
+INTEGRATION_WRITE t=1415000 word=17 addr=17 data=a5002233 refresh=0
+INTEGRATION_WRITE t=1425000 word=18 addr=18 data=a5002436 refresh=0
+INTEGRATION_WRITE t=1435000 word=19 addr=19 data=a5002639 refresh=0
+INTEGRATION_PASS: real sync_fifo -> sdram_write_ctrl; 20 ordered words, 5 four-cycle bursts, addresses 0..19, dm=0, init/refresh start gates, starvation, refresh probe overlap=3
+C:\Users\31640\Documents\ChatGPT\FFF\sdram_sim_20261022\sdram_fifo_integration_tb.v:207: $finish called at 1560000 (1ps)

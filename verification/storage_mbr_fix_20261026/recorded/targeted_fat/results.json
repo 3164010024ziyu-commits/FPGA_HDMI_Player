@@ -1,0 +1,41 @@
+{
+  "command": {
+    "command": [
+      "D:/modelsim2020/win64/vsim.exe",
+      "-c",
+      "-onfinish",
+      "stop",
+      "-modelsimini",
+      "C:/Users/31640/Documents/ChatGPT/FFF/storage_mbr_fix_20261026/fixed/modelsim.ini",
+      "-voptargs=+acc",
+      "work.fat32_mbr_regression_tb",
+      "-do",
+      "run.do"
+    ],
+    "cwd": "C:\\Users\\31640\\Documents\\ChatGPT\\FFF\\storage_mbr_fix_20261026\\fixed\\targeted_fat",
+    "exit_code": 0
+  },
+  "passed": true,
+  "errors": [],
+  "markers": [
+    "# MBR_REGRESSION_CASE_PASS case=1 name=normal_mbr requests=8 bytes=1250 error=00",
+    "# MBR_REGRESSION_CASE_PASS case=2 name=partial_bpb_collision_each_mbr_slot requests=8 bytes=1250 error=00",
+    "# MBR_REGRESSION_CASE_PASS case=3 name=partial_bpb_collision_each_mbr_slot requests=8 bytes=1250 error=00",
+    "# MBR_REGRESSION_CASE_PASS case=4 name=partial_bpb_collision_each_mbr_slot requests=8 bytes=1250 error=00",
+    "# MBR_REGRESSION_CASE_PASS case=5 name=partial_bpb_collision_each_mbr_slot requests=8 bytes=1250 error=00",
+    "# MBR_REGRESSION_CASE_PASS case=6 name=geometry_collision_each_mbr_slot requests=8 bytes=1250 error=00",
+    "# MBR_REGRESSION_CASE_PASS case=7 name=geometry_collision_each_mbr_slot requests=8 bytes=1250 error=00",
+    "# MBR_REGRESSION_CASE_PASS case=8 name=geometry_collision_each_mbr_slot requests=8 bytes=1250 error=00",
+    "# MBR_REGRESSION_CASE_PASS case=9 name=geometry_collision_each_mbr_slot requests=8 bytes=1250 error=00",
+    "# MBR_REGRESSION_CASE_PASS case=10 name=valid_superfloppy_with_fake_mbr requests=7 bytes=1250 error=00",
+    "# MBR_REGRESSION_CASE_PASS case=11 name=bad_superfloppy_bpb_no_fallback requests=1 bytes=0 error=34",
+    "# MBR_REGRESSION_CASE_PASS case=12 name=bad_superfloppy_geometry_no_fallback requests=1 bytes=0 error=34",
+    "# MBR_REGRESSION_CASE_PASS case=13 name=bad_partition_bpb_after_fallback_stops requests=2 bytes=0 error=34",
+    "# MBR_REGRESSION_CASE_PASS case=14 name=bad_partition_geometry_after_fallback_stops requests=2 bytes=0 error=34",
+    "# MBR_REGRESSION_CASE_PASS case=15 name=invalid_partition_start_rejected requests=1 bytes=0 error=33",
+    "# MBR_REGRESSION_CASE_PASS case=16 name=overflow_partition_end_rejected requests=1 bytes=0 error=33",
+    "# MBR_REGRESSION_CASE_PASS case=17 name=unsupported_partition_rejected requests=1 bytes=0 error=33",
+    "# MBR_REGRESSION_CASE_PASS case=18 name=normal_mbr_recovers_after_errors requests=8 bytes=1250 error=00",
+    "# MBR_REGRESSION_PASS cases=18"
+  ]
+}

@@ -1,0 +1,98 @@
+{
+  "started_at": "2026-10-22T23:13:56.354629+08:00",
+  "source_project": "C:\\Users\\31640\\Desktop\\FPGA_Projects\\FPGA_HDMI_Player",
+  "sources": [
+    {
+      "path": "C:\\Users\\31640\\Desktop\\FPGA_Projects\\FPGA_HDMI_Player\\rtl\\memory\\sdram_write_ctrl.v",
+      "bytes": 2834,
+      "sha256": "e75616176812ee5307dd087744b15c3d19ca2c0a80ce44c7ff46f01f43b1d731",
+      "snapshot": "sources\\sdram_write_ctrl.v"
+    },
+    {
+      "path": "C:\\Users\\31640\\Desktop\\FPGA_Projects\\FPGA_HDMI_Player\\rtl\\memory\\sync_fifo.v",
+      "bytes": 1746,
+      "sha256": "f635586bc50ee01bcb7fde6f352a015c4fa576908ae53a19e2172accfa037ff8",
+      "snapshot": "sources\\sync_fifo.v"
+    },
+    {
+      "path": "C:\\Users\\31640\\Desktop\\FPGA_Projects\\FPGA_HDMI_Player\\tb\\memory\\sdram_write_ctrl_tb.v",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "snapshot": "sources\\sdram_write_ctrl_tb.v"
+    }
+  ],
+  "testbenches": [
+    {
+      "path": "sdram_write_ctrl_tb.v",
+      "sha256": "a44332bdbbe8c9b555a7c28de6469aa85767f808d003b148503646b4da10ecdb"
+    },
+    {
+      "path": "sdram_fifo_integration_tb.v",
+      "sha256": "4fe521e3ed16bf60c80c769d4e0aa7080a0a43249db171b1465f419aedd5c3bd"
+    }
+  ],
+  "suites": [
+    {
+      "name": "sdram_write_ctrl_tb",
+      "compile": {
+        "command": [
+          "D:\\2026-2027\\iverilog\\iverilog\\bin\\iverilog.EXE",
+          "-g2012",
+          "-Wall",
+          "-s",
+          "sdram_write_ctrl_tb",
+          "-o",
+          "C:\\Users\\31640\\Documents\\ChatGPT\\FFF\\sdram_sim_20261022\\sdram_write_ctrl.vvp",
+          "C:\\Users\\31640\\Documents\\ChatGPT\\FFF\\sdram_sim_20261022\\sources\\sdram_write_ctrl.v",
+          "C:\\Users\\31640\\Documents\\ChatGPT\\FFF\\sdram_sim_20261022\\sdram_write_ctrl_tb.v"
+        ],
+        "exit_code": 0,
+        "log": "sdram_write_ctrl_compile.log"
+      },
+      "simulation": {
+        "command": [
+          "D:\\2026-2027\\iverilog\\iverilog\\bin\\vvp.EXE",
+          "-n",
+          "C:\\Users\\31640\\Documents\\ChatGPT\\FFF\\sdram_sim_20261022\\sdram_write_ctrl.vvp"
+        ],
+        "exit_code": 0,
+        "log": "sdram_write_ctrl.log"
+      },
+      "passed": true,
+      "waveform": "sdram_write_ctrl.vcd"
+    },
+    {
+      "name": "sdram_fifo_integration_tb",
+      "compile": {
+        "command": [
+          "D:\\2026-2027\\iverilog\\iverilog\\bin\\iverilog.EXE",
+          "-g2012",
+          "-Wall",
+          "-s",
+          "sdram_fifo_integration_tb",
+          "-o",
+          "C:\\Users\\31640\\Documents\\ChatGPT\\FFF\\sdram_sim_20261022\\integration.vvp",
+          "C:\\Users\\31640\\Documents\\ChatGPT\\FFF\\sdram_sim_20261022\\sources\\sdram_write_ctrl.v",
+          "C:\\Users\\31640\\Documents\\ChatGPT\\FFF\\sdram_sim_20261022\\sources\\sync_fifo.v",
+          "C:\\Users\\31640\\Documents\\ChatGPT\\FFF\\sdram_sim_20261022\\sdram_fifo_integration_tb.v"
+        ],
+        "exit_code": 0,
+        "log": "integration_compile.log"
+      },
+      "simulation": {
+        "command": [
+          "D:\\2026-2027\\iverilog\\iverilog\\bin\\vvp.EXE",
+          "-n",
+          "C:\\Users\\31640\\Documents\\ChatGPT\\FFF\\sdram_sim_20261022\\integration.vvp"
+        ],
+        "exit_code": 0,
+        "log": "integration.log"
+      },
+      "passed": true,
+      "waveform": "integration.vcd"
+    }
+  ],
+  "source_files_unchanged": true,
+  "finished_at": "2026-10-22T23:13:56.667669+08:00",
+  "passed": true
+}

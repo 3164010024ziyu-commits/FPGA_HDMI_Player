@@ -1,0 +1,189 @@
+{
+  "scenario": "pause",
+  "probe_only": false,
+  "started_utc": "2026-10-25T15:02:03.143326+00:00",
+  "commands": [
+    {
+      "name": "vmap_init",
+      "command": [
+        "D:\\modelsim2020\\win64\\vmap.exe",
+        "-c"
+      ],
+      "cwd": "C:\\Users\\31640\\Documents\\ChatGPT\\FFF\\memory_followup_20261025\\explicit_refresh\\pause",
+      "exit_code": 0
+    },
+    {
+      "name": "vlib_work",
+      "command": [
+        "D:\\modelsim2020\\win64\\vlib.exe",
+        "work"
+      ],
+      "cwd": "C:\\Users\\31640\\Documents\\ChatGPT\\FFF\\memory_followup_20261025\\explicit_refresh\\pause",
+      "exit_code": 0
+    },
+    {
+      "name": "map_work",
+      "command": [
+        "D:\\modelsim2020\\win64\\vmap.exe",
+        "work",
+        "C:\\Users\\31640\\Documents\\ChatGPT\\FFF\\memory_followup_20261025\\explicit_refresh\\pause\\work"
+      ],
+      "cwd": "C:\\Users\\31640\\Documents\\ChatGPT\\FFF\\memory_followup_20261025\\explicit_refresh\\pause",
+      "exit_code": 0
+    },
+    {
+      "name": "map_al",
+      "command": [
+        "D:\\modelsim2020\\win64\\vmap.exe",
+        "al",
+        "C:\\Users\\31640\\Documents\\ChatGPT\\FFF\\sdram_sip_integration_20261024\\run\\al"
+      ],
+      "cwd": "C:\\Users\\31640\\Documents\\ChatGPT\\FFF\\memory_followup_20261025\\explicit_refresh\\pause",
+      "exit_code": 0
+    },
+    {
+      "name": "map_eg",
+      "command": [
+        "D:\\modelsim2020\\win64\\vmap.exe",
+        "eg",
+        "C:\\Users\\31640\\Documents\\ChatGPT\\FFF\\sdram_sip_integration_20261024\\run\\eg"
+      ],
+      "cwd": "C:\\Users\\31640\\Documents\\ChatGPT\\FFF\\memory_followup_20261025\\explicit_refresh\\pause",
+      "exit_code": 0
+    },
+    {
+      "name": "compile_design",
+      "command": [
+        "D:\\modelsim2020\\win64\\vlog.exe",
+        "-modelsimini",
+        "C:\\Users\\31640\\Documents\\ChatGPT\\FFF\\memory_followup_20261025\\explicit_refresh\\pause\\modelsim.ini",
+        "-mfcu",
+        "-work",
+        "work",
+        "+define+REFRESH_ARBITER",
+        "+incdir+C:\\Users\\31640\\Documents\\ChatGPT\\FFF\\memory_followup_20261025\\explicit_refresh\\pause\\project_snapshot\\include",
+        "C:\\Users\\31640\\Documents\\ChatGPT\\FFF\\memory_followup_20261025\\explicit_refresh\\pause\\project_snapshot\\include\\global_def.v",
+        "C:\\Users\\31640\\Documents\\ChatGPT\\FFF\\memory_followup_20261025\\explicit_refresh\\pause\\project_snapshot\\rtl\\ip\\clk_pll\\clk_pll.v",
+        "C:\\Users\\31640\\Documents\\ChatGPT\\FFF\\memory_followup_20261025\\explicit_refresh\\pause\\project_snapshot\\rtl\\ip\\sdram\\sdr_init_ref.enc.v",
+        "C:\\Users\\31640\\Documents\\ChatGPT\\FFF\\memory_followup_20261025\\explicit_refresh\\pause\\project_snapshot\\rtl\\ip\\sdram\\sdr_wrrd.enc.v",
+        "C:\\Users\\31640\\Documents\\ChatGPT\\FFF\\memory_followup_20261025\\explicit_refresh\\pause\\project_snapshot\\rtl\\ip\\sdram\\sdr_as_ram.enc.v",
+        "C:\\Users\\31640\\Documents\\ChatGPT\\FFF\\memory_followup_20261025\\explicit_refresh\\pause\\project_snapshot\\rtl\\memory\\sync_fifo.v",
+        "C:\\Users\\31640\\Documents\\ChatGPT\\FFF\\memory_followup_20261025\\explicit_refresh\\pause\\project_snapshot\\rtl\\memory\\sdram_write_ctrl.v",
+        "C:\\Users\\31640\\Documents\\ChatGPT\\FFF\\memory_followup_20261025\\explicit_refresh\\pause\\project_snapshot\\rtl\\memory\\sdram_refresh_ctrl.v",
+        "C:\\Users\\31640\\Documents\\ChatGPT\\FFF\\memory_followup_20261025\\explicit_refresh\\pause\\project_snapshot\\rtl\\memory\\memory_top.v",
+        "C:\\Users\\31640\\Documents\\ChatGPT\\FFF\\memory_followup_20261025\\explicit_refresh\\pause\\IS42s32200.v",
+        "C:\\Users\\31640\\Documents\\ChatGPT\\FFF\\memory_followup_20261025\\explicit_refresh\\pause\\refresh_wait_tb.v",
+        "C:\\Anlogic\\TD_6.2.1_Engineer_6.2.168.116\\sim_release\\eg4\\eg_phy_glbl.v"
+      ],
+      "cwd": "C:\\Users\\31640\\Documents\\ChatGPT\\FFF\\memory_followup_20261025\\explicit_refresh\\pause\\project_snapshot\\rtl\\memory",
+      "exit_code": 0
+    },
+    {
+      "name": "compile_probe",
+      "command": [
+        "D:\\modelsim2020\\win64\\vlog.exe",
+        "-modelsimini",
+        "C:\\Users\\31640\\Documents\\ChatGPT\\FFF\\memory_followup_20261025\\explicit_refresh\\pause\\modelsim.ini",
+        "-sv",
+        "-work",
+        "work",
+        "C:\\Users\\31640\\Documents\\ChatGPT\\FFF\\memory_followup_20261025\\explicit_refresh\\pause\\refresh_probe.sv"
+      ],
+      "cwd": "C:\\Users\\31640\\Documents\\ChatGPT\\FFF\\memory_followup_20261025\\explicit_refresh\\pause",
+      "exit_code": 0
+    },
+    {
+      "name": "simulation",
+      "command": [
+        "D:\\modelsim2020\\win64\\vsim.exe",
+        "-c",
+        "-onfinish",
+        "stop",
+        "-modelsimini",
+        "modelsim.ini",
+        "-voptargs=+acc",
+        "-L",
+        "al",
+        "-L",
+        "eg",
+        "work.refresh_wait_tb",
+        "work.refresh_bind_top",
+        "work.glbl",
+        "+SCENARIO=2",
+        "-do",
+        "run_check.do"
+      ],
+      "cwd": "C:\\Users\\31640\\Documents\\ChatGPT\\FFF\\memory_followup_20261025\\explicit_refresh\\pause",
+      "exit_code": 0
+    }
+  ],
+  "sources": [
+    {
+      "path": "C:\\Users\\31640\\Documents\\ChatGPT\\FFF\\memory_followup_20261025\\candidate_refresh\\include\\global_def.v",
+      "snapshot": "C:\\Users\\31640\\Documents\\ChatGPT\\FFF\\memory_followup_20261025\\explicit_refresh\\pause\\project_snapshot\\include\\global_def.v",
+      "sha256": "90dd44681c2eccb88d5c3ec9cf8440791df5ab28628f26b8f34ec14c74649841"
+    },
+    {
+      "path": "C:\\Users\\31640\\Documents\\ChatGPT\\FFF\\memory_followup_20261025\\candidate_refresh\\rtl\\ip\\clk_pll\\clk_pll.v",
+      "snapshot": "C:\\Users\\31640\\Documents\\ChatGPT\\FFF\\memory_followup_20261025\\explicit_refresh\\pause\\project_snapshot\\rtl\\ip\\clk_pll\\clk_pll.v",
+      "sha256": "fd2d214467f866543e6c45c3cc514ce4cdf622cb5df688850d28577e5f36e995"
+    },
+    {
+      "path": "C:\\Users\\31640\\Documents\\ChatGPT\\FFF\\memory_followup_20261025\\candidate_refresh\\rtl\\ip\\sdram\\sdr_init_ref.enc.v",
+      "snapshot": "C:\\Users\\31640\\Documents\\ChatGPT\\FFF\\memory_followup_20261025\\explicit_refresh\\pause\\project_snapshot\\rtl\\ip\\sdram\\sdr_init_ref.enc.v",
+      "sha256": "622432952e6838aad5a10bc8092fdf2c89e60173e04310abfe442ef98ad52f7d"
+    },
+    {
+      "path": "C:\\Users\\31640\\Documents\\ChatGPT\\FFF\\memory_followup_20261025\\candidate_refresh\\rtl\\ip\\sdram\\sdr_wrrd.enc.v",
+      "snapshot": "C:\\Users\\31640\\Documents\\ChatGPT\\FFF\\memory_followup_20261025\\explicit_refresh\\pause\\project_snapshot\\rtl\\ip\\sdram\\sdr_wrrd.enc.v",
+      "sha256": "c7d7fe07d75f66aa88d9f986b3006319c995162434f104f9990664b374cdfdd2"
+    },
+    {
+      "path": "C:\\Users\\31640\\Documents\\ChatGPT\\FFF\\memory_followup_20261025\\candidate_refresh\\rtl\\ip\\sdram\\sdr_as_ram.enc.v",
+      "snapshot": "C:\\Users\\31640\\Documents\\ChatGPT\\FFF\\memory_followup_20261025\\explicit_refresh\\pause\\project_snapshot\\rtl\\ip\\sdram\\sdr_as_ram.enc.v",
+      "sha256": "a3555c3d2a6675da55055651f00cb60102239042ed3e5df06970bfee88ffd7f1"
+    },
+    {
+      "path": "C:\\Users\\31640\\Documents\\ChatGPT\\FFF\\memory_followup_20261025\\candidate_refresh\\rtl\\memory\\sync_fifo.v",
+      "snapshot": "C:\\Users\\31640\\Documents\\ChatGPT\\FFF\\memory_followup_20261025\\explicit_refresh\\pause\\project_snapshot\\rtl\\memory\\sync_fifo.v",
+      "sha256": "f635586bc50ee01bcb7fde6f352a015c4fa576908ae53a19e2172accfa037ff8"
+    },
+    {
+      "path": "C:\\Users\\31640\\Documents\\ChatGPT\\FFF\\memory_followup_20261025\\candidate_refresh\\rtl\\memory\\sdram_write_ctrl.v",
+      "snapshot": "C:\\Users\\31640\\Documents\\ChatGPT\\FFF\\memory_followup_20261025\\explicit_refresh\\pause\\project_snapshot\\rtl\\memory\\sdram_write_ctrl.v",
+      "sha256": "a8efd32987b73580272d06ac5adabbee7ed7637bc2e1288f0a96bdc86f50fdd6"
+    },
+    {
+      "path": "C:\\Users\\31640\\Documents\\ChatGPT\\FFF\\memory_followup_20261025\\candidate_refresh\\rtl\\memory\\sdram_refresh_ctrl.v",
+      "snapshot": "C:\\Users\\31640\\Documents\\ChatGPT\\FFF\\memory_followup_20261025\\explicit_refresh\\pause\\project_snapshot\\rtl\\memory\\sdram_refresh_ctrl.v",
+      "sha256": "d2f0d9d8a88bc6c68b0b434c0d947dfec77f97883a2c7ad320c4580809500813"
+    },
+    {
+      "path": "C:\\Users\\31640\\Documents\\ChatGPT\\FFF\\memory_followup_20261025\\candidate_refresh\\rtl\\memory\\memory_top.v",
+      "snapshot": "C:\\Users\\31640\\Documents\\ChatGPT\\FFF\\memory_followup_20261025\\explicit_refresh\\pause\\project_snapshot\\rtl\\memory\\memory_top.v",
+      "sha256": "9de5de0f893d3ed39524b171567c370676d8e90d520e07d0dd615c78eaa8ea27"
+    },
+    {
+      "path": "C:\\Users\\31640\\Desktop\\FPGA_Projects\\APUG011_high_performance_sdram_read_write_reference_design_v1.2\\APUG011_high_performance_sdram_read_write_reference_design_v1.2\\source_code\\model\\IS42s32200.v",
+      "snapshot": "C:\\Users\\31640\\Documents\\ChatGPT\\FFF\\memory_followup_20261025\\explicit_refresh\\pause\\IS42s32200.v",
+      "sha256": "6aad09c411b00e319ea6e7ff5a85453eb990532541ae368084406f78a276690b"
+    },
+    {
+      "path": "C:\\Users\\31640\\Documents\\ChatGPT\\FFF\\memory_followup_20261025\\refresh_wait_tb.v",
+      "snapshot": "C:\\Users\\31640\\Documents\\ChatGPT\\FFF\\memory_followup_20261025\\explicit_refresh\\pause\\refresh_wait_tb.v",
+      "sha256": "852001a792f53b172fc2bd07909d812bd0ec69e69ff7a9dda3fc448f8522dc3d"
+    },
+    {
+      "path": "C:\\Users\\31640\\Documents\\ChatGPT\\FFF\\memory_followup_20261025\\refresh_probe.sv",
+      "snapshot": "C:\\Users\\31640\\Documents\\ChatGPT\\FFF\\memory_followup_20261025\\explicit_refresh\\pause\\refresh_probe.sv",
+      "sha256": "4004aa6606ae166b4553f85b46a4faf5bfaa80264e87c4022f7348ea00034571"
+    }
+  ],
+  "passed": true,
+  "markers": [
+    "# WAIT_TEST_COMPLETE scenario=2 origin_ns=1049799.200 end_ns=1561799.200 accepted=8192 app_writes=8192 physical_writes=2048 physical_refreshes=34"
+  ],
+  "model_errors": [],
+  "sources_unchanged": true,
+  "finished_utc": "2026-10-25T15:02:18.951393+00:00"
+}

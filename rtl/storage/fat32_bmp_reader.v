@@ -16,7 +16,7 @@ module fat32_bmp_reader #(
     localparam IDLE=0, REQUEST=1, RECEIVE=2, BOOT=3, BPB=4, GEOMETRY=5,
         DIR_LOAD=6, DIR_SCAN=7, DIR_NEXT=8, FAT_LOAD=9, FAT_NEXT=10,
         FILE_LOAD=11, FILE_STREAM=12, FILE_NEXT=13, FAILED=14, GEO_CHECK=15,
-        DIR_CAPTURE=16, FAT_CAPTURE=17;
+        DIR_CAPTURE=16, FAT_CAPTURE=17, MBR=18;
     reg [4:0] state, return_state;
     reg [7:0] sector[0:511];
     // Keep small fixed metadata fields separately so the large sector array
@@ -38,6 +38,7 @@ module fat32_bmp_reader #(
     reg [3:0] cluster_shift;
     reg [15:0] wanted, found;
     reg chain_is_file;
+    reg probe_lba0; // A candidate volume at sector zero may fall back to its MBR.
     reg [8:0] fat_byte;
     integer j;
     function [15:0] le16;
@@ -98,7 +99,7 @@ module fat32_bmp_reader #(
             fat_sectors<=0; cluster_count<=0; cluster<=0; data_sectors<=0;
             chain_steps<=0; bytes_left<=0; sectors_per_cluster<=0;
             cluster_sector<=0; cluster_shift<=0; wanted<=0; found<=0;
-            chain_is_file<=0; fat_byte<=0;
+            chain_is_file<=0; probe_lba0<=0; fat_byte<=0;
             signature<=0; fat_capture_offset<=0; fat_value<=0;
         end else begin
             done<=0; file_open<=0;
@@ -106,6 +107,7 @@ module fat32_bmp_reader #(
                 IDLE: if(start) begin
                     busy<=1; error<=0; error_code<=0; wanted<=file_index; found<=0;
                     partition_lba<=0; partition_size<=0;
+                    probe_lba0<=1;
                     read_sector(0,BOOT);
                 end
                 REQUEST: if(req_ready) begin rx_offset<=0; state<=RECEIVE; end
@@ -125,8 +127,11 @@ module fat32_bmp_reader #(
                     end
                 BOOT: if(signature!=16'haa55) fail(8'h32);
                     else if(le16(11)==512 && boot[13]!=0 && le16(17)==0 && le16(22)==0)
-                        state<=BPB; // superfloppy
-                    else begin
+                        state<=BPB; // Candidate only: full BPB and geometry must pass.
+                    else state<=MBR;
+                MBR: begin
+                        // Fall back at most once. The cache still contains LBA0.
+                        probe_lba0<=0;
                         // First supported primary MBR partition; no GPT/extended partitions.
                         if(chosen_partition==0) fail(8'h33);
                         else begin
@@ -146,7 +151,10 @@ module fat32_bmp_reader #(
                        boot[13]==0 || boot[13]>128 || ((boot[13] & (boot[13]-1'b1))!=0) ||
                        overhead>={32'd0,bpb_total} || volume_end>64'h100000000 ||
                        (partition_size!=0 && bpb_total>partition_size) ||
-                       (ext_flags[7] && ext_flags[3:0]>=boot[16])) fail(8'h34);
+                       (ext_flags[7] && ext_flags[3:0]>=boot[16])) begin
+                        if(probe_lba0 && chosen_partition!=0) state<=MBR;
+                        else fail(8'h34);
+                    end
                     else begin
                         sectors_per_cluster<=boot[13];
                         for(j=0;j<8;j=j+1) if(boot[13]==(1<<j)) cluster_shift<=j;
@@ -164,7 +172,10 @@ module fat32_bmp_reader #(
                 GEO_CHECK: if(cluster_count<65525 || cluster_count>32'h0ffffff5 ||
                              ({32'd0,fat_sectors}<<7)<({32'd0,cluster_count}+64'd2) ||
                              (le32(44)&32'h0fffffff)<2 ||
-                             (le32(44)&32'h0fffffff)>cluster_count+1) fail(8'h34);
+                             (le32(44)&32'h0fffffff)>cluster_count+1) begin
+                        if(probe_lba0 && chosen_partition!=0) state<=MBR;
+                        else fail(8'h34);
+                    end
                     else begin
                         cluster<=le32(44)&32'h0fffffff; cluster_sector<=0;
                         chain_steps<=0; state<=DIR_LOAD;
