@@ -6,6 +6,15 @@ module sdram_write_ctrl(
     input         Sdr_init_ref_vld,
     input         Sdr_refresh_pending, // Finish an active group; defer the next group.
 
+    //帧描述信息
+    input  dst_valid,     
+    input  [20:0]dst_base_addr,  
+    input  [15:0]dst_width,      
+    input  [15:0]dst_height,     
+    input  dst_top_down,   
+
+    output reg frame_write_done,
+
     // FIFO 读取侧
     input  [31:0] fifo_rd_data,
     input         fifo_rd_valid,
@@ -70,14 +79,54 @@ end
 
 assign App_wr_en = (state == WRITE);
 assign App_wr_din = prefetch_buf[write_cnt];
-assign App_wr_addr = write_base_addr + write_cnt;
 assign App_wr_dm = 4'b0000;
+
+//增加frame_drsc_cdc后修改的地址逻辑
+reg [15:0]pixel_x_cnt;
+reg [15:0]pixel_y_cnt;
+always @(posedge Clk or negedge Reset_n) begin
+    if(!Reset_n)begin
+        pixel_x_cnt <= 0;
+        pixel_y_cnt <= 0;
+    end
+    else begin
+        if(dst_valid)begin
+            pixel_x_cnt <= 0;
+            pixel_y_cnt <= 0;
+        end
+        if(state == WRITE && write_cnt <= 3'd3)begin
+            if(pixel_x_cnt == dst_width - 1)begin
+                pixel_x_cnt <= 0;
+                pixel_y_cnt <= pixel_y_cnt + 1;
+            end
+        else
+            pixel_x_cnt <= pixel_x_cnt + 1;
+        end
+    end
+end
+
+assign App_wr_addr = write_base_addr 
+                     + ((dst_top_down == 1)?pixel_y_cnt:(dst_height - 1 -pixel_y_cnt)) * dst_width
+                     + pixel_x_cnt;
+
+always @(posedge Clk or negedge Reset_n) begin
+    if(!Reset_n)
+        frame_write_done <= 0;
+    else begin
+        if(dst_valid)
+            frame_write_done <= 0;
+        if((pixel_y_cnt == dst_height) && (pixel_x_cnt == 0))
+            frame_write_done <= 1;
+    end
+end
+
+
 
 always @(posedge Clk or negedge Reset_n) begin
     if(!Reset_n)
         write_base_addr <= 0;
-    else if(state == DONE)
-        write_base_addr <= write_base_addr + 21'd4;
+    else if(dst_valid)
+        write_base_addr <= dst_base_addr;
 end
 
 always @(posedge Clk or negedge Reset_n) begin

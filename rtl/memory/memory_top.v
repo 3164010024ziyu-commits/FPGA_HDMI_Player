@@ -2,27 +2,22 @@
 
 module memory_top (
     input wire SYS_CLK,
-    // Interface reservation only: existing internal reset logic is unchanged.
+    
     input wire Reset_n,
 
-    // Pixel transfers use the 50 MHz SYS_CLK write-side domain.
     input wire pixel_valid,
     input wire [23:0] pixel_data,
     output wire pixel_ready,
 
-    // On frame_start, capture all frame metadata atomically in SYS_CLK.
-    // Addresses are 32-bit-WORD addresses, not bytes or per-pixel addresses.
     input wire frame_start,
     input wire [`ADDR_WIDTH-1:0] frame_base_addr,
     input wire [15:0] frame_width,
     input wire [15:0] frame_height,
     input wire frame_top_down,
-    // Source success and cancellation; neither means SDRAM has drained.
     input wire frame_end,
+
     input wire frame_abort,
-    // TODO (user): drive a SYS_CLK pulse only after this frame is fully written.
-    // All new reset/frame ports await implementation; body intentionally intact.
-    output wire frame_write_done,
+    output wire frame_write_done_sync,
 
     output wire LED
 );
@@ -78,6 +73,15 @@ assign App_rd_addr = 21'd0;
 wire full;
 assign pixel_ready =~full;
 
+//负责由frame_desc_cdc输送给sdram_write_ctrl的帧描述信息
+wire dst_valid;     
+wire [20:0]dst_base_addr;  
+wire [15:0]dst_width;      
+wire [15:0]dst_height;     
+wire dst_top_down;   
+
+wire frame_write_done;
+
 clk_pll u0_clk(
 		.refclk(SYS_CLK),
 		.reset(1'b0),
@@ -108,6 +112,30 @@ async_fifo #(
     .empty(fifo_empty)
 );
 
+frame_desc_cdc ucdc (
+        .src_clk        (SYS_CLK        ),
+        .src_rst_n      (~Rst      ),
+        .src_valid      (frame_start      ),
+        .src_ready      (      ),
+        .src_base_addr  (frame_base_addr  ),
+        .src_width      (frame_width      ),
+        .src_height     (frame_height     ),
+        .src_top_down   (frame_top_down   ),
+
+
+        .dst_clk        (Clk        ),
+        .dst_rst_n      (~Rst      ),
+        .dst_valid      (dst_valid      ),
+        .dst_base_addr  (dst_base_addr  ),
+        .dst_width      (dst_width      ),
+        .dst_height     (dst_height     ),
+        .dst_top_down   (dst_top_down   ),
+
+        .frame_write_done(frame_write_done),
+        .frame_write_done_sync(frame_write_done_sync)
+    );
+
+
 sdram_write_ctrl uut (
         .Clk                (Clk                ),
         .Reset_n            (~Rst            ),
@@ -121,7 +149,16 @@ sdram_write_ctrl uut (
         .App_wr_en          (App_wr_en          ),
         .App_wr_addr        (App_wr_addr        ),
         .App_wr_din         (App_wr_din         ),
-        .App_wr_dm          (App_wr_dm          )
+        .App_wr_dm          (App_wr_dm          ),
+
+        .dst_valid(dst_valid),     
+        .dst_base_addr(dst_base_addr),  
+        .dst_width(dst_width),      
+        .dst_height(dst_height),     
+        .dst_top_down(dst_top_down),   
+
+        .frame_write_done(frame_write_done)
+
     );
 
 
@@ -135,6 +172,8 @@ sdram_refresh_ctrl u_refresh (
     .refresh_pending(refresh_pending), .App_ref_req(app_refresh_req),
     .refresh_error(refresh_error)
 );
+
+
 
 sdr_as_ram  #( .self_refresh_open(1'b0))
 	u2_ram( 

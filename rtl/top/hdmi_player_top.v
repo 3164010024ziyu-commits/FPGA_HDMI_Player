@@ -51,11 +51,12 @@ module hdmi_player_top #(
 
     wire storage_ready; //ready = card_initialized && !busy;
     wire storage_start = start && load_ready;
-    assign load_ready = sys_reset_n && memory_init_sync[1] && storage_ready;    
+    assign load_ready = sys_reset_n && memory_init_sync[1] && storage_ready && memory_frame_write_done;    
                         // 系统复位已经解除；
                         // Memory 报告初始化完成；
                         // SD 卡已经初始化；
                         // Storage 当前不忙。
+                        // 上张图片已经完整写入 SDRAM
 
     reg [`ADDR_WIDTH-1:0] selected_frame_base;
     always @(posedge SYS_CLK or negedge sys_reset_n) begin
