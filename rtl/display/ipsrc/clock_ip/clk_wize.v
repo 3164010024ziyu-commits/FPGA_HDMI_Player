@@ -23,12 +23,14 @@
 module clk_wize (
   refclk,
   reset,
+  extlock,
   clk0_out,
   clk1_out 
 );
 
   input refclk;
   input reset;
+  output extlock;
   output clk0_out;
   output clk1_out;
 
@@ -67,7 +69,7 @@ module clk_wize (
     .refclk(refclk),
     .reset(reset),
     .stdby(1'b0),
-    .extlock(clk_wize_open78),
+    .extlock(extlock),
     .load_reg(1'b0),
     .psclk(1'b0),
     .psdown(1'b0),

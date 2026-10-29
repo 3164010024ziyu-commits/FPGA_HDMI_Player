@@ -1,7 +1,8 @@
 // Elaboration-only stubs for modules implemented as IP / VHDL / other files.
 `timescale 1ns/1ps
 
-module clk_wize (input refclk, input reset, output clk0_out, output clk1_out);
+module clk_wize (input refclk, input reset, output extlock, output clk0_out, output clk1_out);
+    assign extlock = !reset;
     assign clk0_out = refclk;
     assign clk1_out = refclk;
 endmodule

@@ -1,13 +1,13 @@
 `include "../../include/global_def.v"
 
-// System integration and 50 MHz control. Memory frame handling is implemented
-// separately by the user; load_done and memory_frame_write_done are distinct.
+// Storage -> asynchronous write FIFO -> SDRAM double buffer -> asynchronous
+// display FIFO -> HDMI. Source completion and SDRAM completion are distinct.
 module hdmi_player_top #(
     parameter integer CLK_HZ = 50000000,
     parameter integer INIT_HALF_PERIOD = (CLK_HZ+799999)/800000,
     parameter integer READ_HALF_PERIOD = (CLK_HZ+49999999)/50000000,
-    parameter integer MAX_WIDTH = 1920,
-    parameter integer MAX_HEIGHT = 1080
+    parameter integer MAX_WIDTH = 640,
+    parameter integer MAX_HEIGHT = 480
 )(
     input wire SYS_CLK,
     input wire Reset_n,
@@ -30,7 +30,13 @@ module hdmi_player_top #(
 
     
     output wire memory_frame_write_done,    //这张图片是否已经完整写入 SDRAM
-    output wire LED
+    output wire LED,
+    output wire display_ready,
+    output wire display_underflow,
+    output wire HDMI_CLK_P,
+    output wire HDMI_D2_P,
+    output wire HDMI_D1_P,
+    output wire HDMI_D0_P
 );
     reg [1:0] reset_release;
     always @(posedge SYS_CLK or negedge Reset_n) begin
@@ -52,9 +58,31 @@ module hdmi_player_top #(
     reg frame_in_progress;  //当前已有一张图片任务正在执行
     reg frame_done_low_seen;    //已观察到本次任务对应的完成信号处于低电平
     reg frame_metadata_seen;    //本次任务已经产生过有效帧描述
+    wire frame_write_ready, frame_buffer_error;
+    wire storage_start;
+    wire storage_done, storage_error;
+    wire [7:0] storage_error_code;
+    reg format_error;
+    always @(posedge SYS_CLK or negedge sys_reset_n) begin
+        if(!sys_reset_n) format_error <= 0;
+        else if(storage_start) format_error <= 0;
+        else if(frame_buffer_error) format_error <= 1;
+    end
+    assign load_done = storage_done && !format_error;
+    assign load_error = storage_error || format_error;
+    assign load_error_code = format_error ? 8'hE1 : storage_error_code;
+    // Unsupported geometry cancels the source transaction rather than leaving
+    // storage blocked on pixel_ready. Card initialization is then repeated.
+    reg [1:0] storage_release;
+    wire storage_reset_req = !sys_reset_n || frame_buffer_error;
+    always @(posedge SYS_CLK or posedge storage_reset_req) begin
+        if(storage_reset_req) storage_release <= 0;
+        else storage_release <= {storage_release[0],1'b1};
+    end
+    wire storage_reset_n = storage_release[1];
     wire storage_ready; //ready = card_initialized && !busy;
-    wire storage_start = start && load_ready;
-    assign load_ready = sys_reset_n && memory_init_sync[1] && storage_ready && !frame_in_progress;    
+    assign storage_start = start && load_ready;
+    assign load_ready = sys_reset_n && memory_init_sync[1] && storage_ready && frame_write_ready && !frame_in_progress;
                         // 系统复位已经解除；
                         // Memory 报告初始化完成；
                         // SD 卡已经初始化；
@@ -99,10 +127,29 @@ module hdmi_player_top #(
             if(!memory_frame_write_done) frame_done_low_seen <= 1;
             if((frame_done_low_seen && memory_frame_write_done && storage_ready) ||
                 //已经观察到本次任务的完成信号为低,随后完成信号变为高,Storage 已经恢复空闲。
-               (load_error && storage_ready && !frame_metadata_seen && !image_meta_valid))
+               (load_error && storage_ready && frame_write_ready))
                 frame_in_progress <= 0;
         end
     end
+
+    wire display_clk, display_reset_n, display_frame_sync, display_pixel_req;
+    wire [23:0] display_rgb;
+    wire display_valid;
+
+    // The image path is connected here. Audio/OSD remain available in the
+    // display component for a later integration; this system supplies video.
+    hdmi_tx_display #(.HDMI_AUDIO_EN(0),.HDMI_SUBTITLE_EN(0)) u_display (
+        .sys_clk(SYS_CLK), .sys_rst_n(sys_reset_n && memory_initialized),
+        .pix_rgb(display_rgb), .pix_valid(display_valid), .frame_ready(display_ready),
+        .pix_underflow(display_underflow), .pix_clk(display_clk), .pix_reset_n(display_reset_n),
+        .pix_req(display_pixel_req), .frame_sync(display_frame_sync),
+        .audio_clk(SYS_CLK), .audio_sample(32'd0), .audio_valid(1'b0),
+        .audio_ready(), .audio_status(), .audio_pkt(), .key_in(7'h7f),
+        .osd_slot(1'b0), .osd_char_idx(4'd0), .osd_char_code(16'd0), .osd_char_we(1'b0),
+        .osd_y(10'd0), .osd_fg(24'hffffff),
+        .HDMI_CLK_P(HDMI_CLK_P), .HDMI_D2_P(HDMI_D2_P),
+        .HDMI_D1_P(HDMI_D1_P), .HDMI_D0_P(HDMI_D0_P)
+    );
 
     memory_top u_memory (
         .SYS_CLK(SYS_CLK),
@@ -116,7 +163,17 @@ module hdmi_player_top #(
         .frame_height(image_height),
         .frame_top_down(image_top_down),
         .frame_end(load_done),
-        .frame_abort(load_error),
+        .frame_abort(storage_error),
+        .frame_write_ready(frame_write_ready),
+        .frame_error(frame_buffer_error),
+        .display_clk(display_clk),
+        .display_reset_n(display_reset_n),
+        .display_frame_sync(display_frame_sync),
+        .display_pixel_req(display_pixel_req),
+        .display_pixel_rgb(display_rgb),
+        .display_pixel_valid(display_valid),
+        .display_frame_ready(display_ready),
+        .display_underflow(display_underflow),
         .frame_write_done_sync(memory_frame_write_done),
         .LED(memory_initialized)
     );
@@ -129,7 +186,7 @@ module hdmi_player_top #(
         .MAX_HEIGHT(MAX_HEIGHT)
     ) u_storage_pipeline (
         .clk(SYS_CLK),
-        .rst_n(sys_reset_n),
+        .rst_n(storage_reset_n),
         .sd_cs_n(sd_cs_n),
         .sd_sck(sd_sck),
         .sd_mosi(sd_mosi),
@@ -139,9 +196,9 @@ module hdmi_player_top #(
         .ready(storage_ready),
         .busy(load_busy),
         .card_initialized(card_initialized),
-        .done(load_done),
-        .error(load_error),
-        .error_code(load_error_code),
+        .done(storage_done),
+        .error(storage_error),
+        .error_code(storage_error_code),
         .short_name(),
         .file_size(),
         .meta_valid(image_meta_valid),

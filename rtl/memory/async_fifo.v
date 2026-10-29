@@ -10,6 +10,7 @@ module async_fifo #(
     input                       wr_en,
     input  [DATA_WIDTH-1:0]     wr_data,
     output                      full,
+    output wire [ADDR_WIDTH:0]   wr_used,
 
     // Read interface
     input                       rd_en,
@@ -92,6 +93,19 @@ reg [ADDR_WIDTH:0] wr_gray_sync2;
 
 reg [ADDR_WIDTH:0] rd_gray_sync1;
 reg [ADDR_WIDTH:0] rd_gray_sync2;
+
+// Conservative occupancy in the write domain. The synchronized read pointer
+// can lag, so this never claims newly freed space before CDC completes.
+function [ADDR_WIDTH:0] gray_to_binary;
+    input [ADDR_WIDTH:0] gray;
+    integer bit_index;
+    begin
+        gray_to_binary[ADDR_WIDTH] = gray[ADDR_WIDTH];
+        for(bit_index=ADDR_WIDTH-1;bit_index>=0;bit_index=bit_index-1)
+            gray_to_binary[bit_index] = gray_to_binary[bit_index+1] ^ gray[bit_index];
+    end
+endfunction
+assign wr_used = wr_bin_ptr - gray_to_binary(rd_gray_sync2);
 
 always @(posedge rd_clk or negedge rd_reset_n) begin
     if (!rd_reset_n) begin
