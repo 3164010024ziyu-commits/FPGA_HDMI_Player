@@ -81,14 +81,21 @@ module read_RAM
 			hs <= !((hcnt >= H_SYNC_START) && (hcnt < H_SYNC_END));
 	end
 
-	// VSYNC and frame_sync are combinational from vcnt.
+    // frame_sync drives asynchronous FIFO reset: never decode a binary
+    // line counter combinationally onto that reset. Update only at a line
+    // boundary so it is high for exactly line 480 without transition glitches.
+    always @(posedge clk25M or negedge reset_n) begin
+        if(!reset_n) frame <= 1'b0;
+        else if(hcnt == H_TOTAL - 10'd1)
+            frame <= (vcnt == FRAME_LINE - 10'd1);
+    end
+
+	// VSYNC is sampled by the transmitter in the pixel-clock domain.
 	always @* begin
 		if (!reset_n) begin
 			vs    = 1'b1;
-			frame = 1'b0;
 		end else begin
 			vs    = !((vcnt >= V_SYNC_START) && (vcnt < V_SYNC_END));
-			frame = (vcnt == FRAME_LINE);
 		end
 	end
 

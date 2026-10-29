@@ -34,6 +34,7 @@ module memory_top #(
     output wire display_frame_ready,
     output wire display_underflow,
 
+    output wire [2:0] debug_error_flags, // {refresh, read timeout, FIFO underflow}
     output wire LED
 );
 
@@ -130,6 +131,7 @@ end
 wire pixel_fifo_valid, pixel_fifo_underflow;
 assign display_pixel_valid = pixel_fifo_valid && !read_error_sync[1];
 assign display_underflow = pixel_fifo_underflow || read_error_sync[1];
+assign debug_error_flags = {refresh_error,read_error,pixel_fifo_underflow};
 
 wire full;
 assign pixel_ready = sys_reset_n && init_done_sync[1] && pixel_accept && !full;

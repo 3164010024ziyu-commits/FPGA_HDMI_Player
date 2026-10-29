@@ -19,8 +19,7 @@ module async_fifo #(
     output                      empty
 );
 
-//用寄存器来保存空满，以防止出现组合环路
-// Reset both sides together; release each side only on its own clock.
+//两级寄存器来将异步复位同步
 reg [1:0] wr_reset_release;
 reg [1:0] rd_reset_release;
 always @(posedge wr_clk or negedge Reset_n) begin
@@ -34,6 +33,7 @@ end
 wire wr_reset_n = wr_reset_release[1];
 wire rd_reset_n = rd_reset_release[1];
 
+//用寄存器来保存空满，以防止出现组合环路
 reg full_reg;
 reg empty_reg;
 
@@ -52,13 +52,14 @@ wire rd_fire;
 assign wr_fire = wr_en&&(!full);
 assign rd_fire = rd_en&&(!empty);
 
-
+//下一个时钟上升沿的二进制码
 wire [ADDR_WIDTH:0] wr_bin_next;
 wire [ADDR_WIDTH:0] rd_bin_next;
 
 assign wr_bin_next = wr_bin_ptr + wr_fire;
 assign rd_bin_next = rd_bin_ptr + rd_fire;
 
+//下一个时钟上升沿的格雷码
 wire [ADDR_WIDTH:0] wr_gray_next;
 wire [ADDR_WIDTH:0] rd_gray_next;
 

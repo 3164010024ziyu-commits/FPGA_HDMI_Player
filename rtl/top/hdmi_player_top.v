@@ -22,6 +22,7 @@ module hdmi_player_top #(
     output wire load_error,
     output wire [7:0] load_error_code,
     output wire card_initialized,
+    output wire [3:0] debug_error_flags, // {load, refresh, read timeout, FIFO underflow}
 
     output wire sd_cs_n,
     output wire sd_sck,
@@ -151,7 +152,10 @@ module hdmi_player_top #(
         .HDMI_D1_P(HDMI_D1_P), .HDMI_D0_P(HDMI_D0_P)
     );
 
+    wire [2:0] memory_error_flags;
+    assign debug_error_flags = {load_error,memory_error_flags};
     memory_top u_memory (
+        .debug_error_flags(memory_error_flags),
         .SYS_CLK(SYS_CLK),
         .Reset_n(sys_reset_n),
         .pixel_valid(pixel_transfer),
