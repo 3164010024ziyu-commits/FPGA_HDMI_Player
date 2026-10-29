@@ -1,6 +1,10 @@
 `include "../../include/global_def.v"
 
-module memory_top (
+module memory_top #(
+    parameter integer DISPLAY_WIDTH=640,
+    parameter integer DISPLAY_HEIGHT=480,
+    parameter integer DISPLAY_FIFO_ADDR_WIDTH=11
+)(
     input wire SYS_CLK,
     
     input wire Reset_n,
@@ -18,6 +22,17 @@ module memory_top (
 
     input wire frame_abort,
     output wire frame_write_done_sync,
+    output wire frame_write_ready,
+    output wire frame_error,
+
+    input wire display_clk,
+    input wire display_reset_n,
+    input wire display_frame_sync,
+    input wire display_pixel_req,
+    output wire [23:0] display_pixel_rgb,
+    output wire display_pixel_valid,
+    output wire display_frame_ready,
+    output wire display_underflow,
 
     output wire LED
 );
@@ -88,11 +103,36 @@ end
 assign Check_ok = sys_reset_n && init_done_sync[1];
 assign LED=Check_ok;
 
-assign App_rd_en = 0;
-assign App_rd_addr = 21'd0;
+// Read and write groups share the application port; refresh can stop both.
+wire write_request, write_grant, write_owned;
+wire read_request, read_grant, read_active;
+wire writer_reset_n, write_block;
+wire desc_ready, desc_valid, pixel_accept;
+wire [20:0] desc_base;
+wire front_valid;
+wire [20:0] front_base;
+wire [15:0] front_width, front_height;
+wire read_fifo_full, read_fifo_wr_en, read_error, read_urgent;
+wire read_raster_active;
+wire [23:0] read_fifo_data;
+wire display_path_reset_n = !reset_request && display_reset_n;
+reg [1:0] blank_sync;
+always @(posedge Clk or negedge mem_reset_n) begin
+    if(!mem_reset_n) blank_sync <= 0;
+    else blank_sync <= {blank_sync[0],display_frame_sync && display_reset_n};
+end
+wire blank_flush = blank_sync[1];
+reg [1:0] read_error_sync;
+always @(posedge display_clk or negedge display_path_reset_n) begin
+    if(!display_path_reset_n) read_error_sync <= 0;
+    else read_error_sync <= {read_error_sync[0],read_error};
+end
+wire pixel_fifo_valid, pixel_fifo_underflow;
+assign display_pixel_valid = pixel_fifo_valid && !read_error_sync[1];
+assign display_underflow = pixel_fifo_underflow || read_error_sync[1];
 
 wire full;
-assign pixel_ready = sys_reset_n && init_done_sync[1] && !full;
+assign pixel_ready = sys_reset_n && init_done_sync[1] && pixel_accept && !full;
 
 //负责由frame_desc_cdc输送给sdram_write_ctrl的帧描述信息
 wire dst_valid;     
@@ -103,9 +143,13 @@ wire dst_top_down;
 
 wire frame_write_done;
 
+// Start the PLL once after FPGA configuration. Keep its SDRAM clock
+// running across task resets so reset cannot truncate a clock pulse.
+reg [7:0] pll_boot_release = 0;
+always @(posedge SYS_CLK) pll_boot_release <= {pll_boot_release[6:0],1'b1};
 clk_pll u0_clk(
 		.refclk(SYS_CLK),
-		.reset(1'b0),
+		.reset(!pll_boot_release[7]),
 		.extlock(lock),
 		.clk0_out(local_clk),
 		.clk1_out(Clk),
@@ -119,7 +163,7 @@ async_fifo #(
 ) dut (
     .wr_clk(SYS_CLK),
     .rd_clk(Clk),
-    .Reset_n(!reset_request),
+    .Reset_n(!reset_request && writer_reset_n),
 
     // Write interface
     .wr_en(pixel_valid && pixel_ready),
@@ -136,9 +180,9 @@ async_fifo #(
 frame_desc_cdc ucdc (
         .src_clk        (SYS_CLK        ),
         .src_rst_n      (sys_reset_n),
-        .src_valid      (frame_start && init_done_sync[1]),
-        .src_ready      (      ),
-        .src_base_addr  (frame_base_addr  ),
+        .src_valid      (desc_valid),
+        .src_ready      (desc_ready),
+        .src_base_addr  (desc_base  ),
         .src_width      (frame_width      ),
         .src_height     (frame_height     ),
         .src_top_down   (frame_top_down   ),
@@ -159,16 +203,17 @@ frame_desc_cdc ucdc (
 
 sdram_write_ctrl uut (
         .Clk                (Clk                ),
-        .Reset_n            (mem_reset_n      ),
+        .Reset_n            (writer_reset_n   ),
         .Sdr_init_done      (Sdr_init_done      ),
         .Sdr_init_ref_vld   (Sdr_init_ref_vld   ),
-        .Sdr_refresh_pending(refresh_pending   ),
+        .Sdr_refresh_pending(refresh_pending || !write_grant || write_block),
         .Sdr_busy           (Sdr_busy          ),
         .fifo_rd_data       (fifo_rd_data      ),
         .fifo_rd_valid      (fifo_rd_valid      ),
         .fifo_empty         (fifo_empty        ),
         .fifo_rd_en         (fifo_rd_en       ),
         .App_wr_en          (App_wr_en          ),
+        .write_request      (write_request      ),
         .App_wr_addr        (App_wr_addr        ),
         .App_wr_din         (App_wr_din         ),
         .App_wr_dm          (App_wr_dm          ),
@@ -184,9 +229,57 @@ sdram_write_ctrl uut (
     );
 
 
+frame_buffer_ctrl #(
+    .DISPLAY_WIDTH(DISPLAY_WIDTH), .DISPLAY_HEIGHT(DISPLAY_HEIGHT)
+) u_frame_buffers (
+    .sys_clk(SYS_CLK), .sys_rst_n(sys_reset_n), .initialized(init_done_sync[1]),
+    .frame_start(frame_start), .frame_end(frame_end), .frame_abort(frame_abort),
+    .frame_base_addr(frame_base_addr), .frame_width(frame_width), .frame_height(frame_height),
+    .desc_ready(desc_ready), .desc_valid(desc_valid), .desc_base(desc_base),
+    .pixel_accept(pixel_accept), .frame_write_ready(frame_write_ready), .frame_error(frame_error),
+    .mem_clk(Clk), .mem_rst_n(mem_reset_n), .dst_valid(dst_valid),
+    .dst_base(dst_base_addr), .dst_width(dst_width), .dst_height(dst_height),
+    .writer_done(frame_write_done), .write_owned(write_owned), .read_active(read_active),
+    .blank_flush(blank_flush), .writer_reset_n(writer_reset_n), .write_block(write_block),
+    .front_valid(front_valid), .front_base(front_base),
+    .front_width(front_width), .front_height(front_height)
+);
+
+// Sdr_busy, read_active and read_return cover physical drain.
+// Retain one idle cycle after all three are inactive before granting again.
+sdram_app_arbiter #(.QUIET_CYCLES(1)) u_app_arbiter (
+    .Clk(Clk), .Reset_n(mem_reset_n), .initialized(Sdr_init_done),
+    .refresh_pending(refresh_pending), .refresh_active(Sdr_init_ref_vld), .sdram_busy(Sdr_busy),
+    .write_request(write_request && !write_block), .write_active(App_wr_en),
+    .read_request(read_request), .read_urgent(read_urgent && read_raster_active), .read_active(read_active), .read_return(Sdr_rd_en),
+    .write_grant(write_grant), .read_grant(read_grant), .write_owned(write_owned)
+);
+
+sdram_read_ctrl #(
+    .DISPLAY_WIDTH(DISPLAY_WIDTH), .DISPLAY_HEIGHT(DISPLAY_HEIGHT)
+) u_reader (
+    .Clk(Clk), .Reset_n(mem_reset_n), .blank_flush(blank_flush),
+    .front_valid(front_valid), .front_base(front_base),
+    .front_width(front_width), .front_height(front_height),
+    .read_request(read_request), .read_grant(read_grant), .read_active(read_active),
+    .raster_active(read_raster_active),
+    .App_rd_en(App_rd_en), .App_rd_addr(App_rd_addr),
+    .Sdr_rd_en(Sdr_rd_en), .Sdr_rd_dout(Sdr_rd_dout),
+    .fifo_full(read_fifo_full), .fifo_wr_en(read_fifo_wr_en), .fifo_wr_data(read_fifo_data),
+    .read_error(read_error)
+);
+
+display_pixel_fifo #(.ADDR_WIDTH(DISPLAY_FIFO_ADDR_WIDTH)) u_display_fifo (
+    .mem_clk(Clk), .pix_clk(display_clk), .Reset_n(display_path_reset_n),
+    .blank_flush(display_frame_sync), .frame_valid_mem(front_valid),
+    .wr_en(read_fifo_wr_en), .wr_data(read_fifo_data), .full(read_fifo_full), .read_urgent(read_urgent),
+    .pix_req(display_pixel_req), .pix_rgb(display_pixel_rgb), .pix_valid(pixel_fifo_valid),
+    .frame_ready(display_frame_ready), .underflow(pixel_fifo_underflow)
+);
+
 // Quiesce application traffic before issuing a single refresh request.
-// 1875 cycles at 125 MHz = 15 us (EM638325: 4096 refreshes / 64 ms).
-sdram_refresh_ctrl u_refresh (
+// 1500 cycles at 100 MHz = 15 us (EM638325: 4096 refreshes / 64 ms).
+sdram_refresh_ctrl #(.INTERVAL_CYCLES(1500)) u_refresh (
     .Clk(Clk), .Reset_n(mem_reset_n), .Sdr_init_done(Sdr_init_done),
     .Sdr_init_ref_vld(Sdr_init_ref_vld), .Sdr_busy(Sdr_busy),
     .App_wr_en(App_wr_en), .App_rd_en(App_rd_en),

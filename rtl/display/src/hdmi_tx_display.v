@@ -43,6 +43,7 @@ module hdmi_tx_display #(
     input  wire        pix_underflow,
 
     output wire        pix_clk,
+    output wire        pix_reset_n,
     output wire        pix_req,
     output wire        frame_sync,
 
@@ -79,7 +80,16 @@ module hdmi_tx_display #(
     wire [9:0]  VGA_Y;
 
     wire pixel_clk;
-    wire pixel_clk_5x;
+wire pixel_clk_5x;
+    wire pll_locked;
+    wire reset_request = !sys_rst_n || !pll_locked;
+    reg [1:0] pixel_release;
+    always @(posedge pixel_clk or posedge reset_request) begin
+        if(reset_request) pixel_release <= 0;
+        else pixel_release <= {pixel_release[0],1'b1};
+    end
+    wire video_reset_n = pixel_release[1];
+    assign pix_reset_n = video_reset_n;
 
     assign pix_clk = pixel_clk;
 
@@ -87,6 +97,7 @@ module hdmi_tx_display #(
     clk_wize u_clk_wize (
         .refclk   (sys_clk),
         .reset    (1'b0),
+        .extlock  (pll_locked),
         .clk0_out (pixel_clk_5x),
         .clk1_out (pixel_clk)
     );
@@ -94,7 +105,7 @@ module hdmi_tx_display #(
     // ------------------------------------------------------------- timing
     read_RAM u_read_RAM (
         .clk25M     (pixel_clk),
-        .reset_n    (sys_rst_n),
+        .reset_n    (video_reset_n),
         .pix_rgb    (pix_rgb),
         .pix_valid  (pix_valid),
 
@@ -119,8 +130,8 @@ module hdmi_tx_display #(
     reg [17:0] key_timer [0:6];
     integer    ki;
 
-    always @(posedge pixel_clk or negedge sys_rst_n) begin
-        if (!sys_rst_n) begin
+    always @(posedge pixel_clk or negedge video_reset_n) begin
+        if (!video_reset_n) begin
             key_meta     <= 7'd0;
             key_sync     <= 7'd0;
             key_stable   <= 7'h7F;   // all released / switches "off"
@@ -172,8 +183,8 @@ module hdmi_tx_display #(
         end
     endfunction
 
-    always @(posedge pixel_clk or negedge sys_rst_n) begin
-        if (!sys_rst_n) begin
+    always @(posedge pixel_clk or negedge video_reset_n) begin
+        if (!video_reset_n) begin
             vol_level <= VOL_LEVEL_MAX;
             sub_x     <= SUB_X_START;
         end else begin
@@ -192,13 +203,14 @@ module hdmi_tx_display #(
     wire [1:0] osd_en = (HDMI_SUBTITLE_EN != 0) ? {sw_ts, sw_sub} : 2'b00;
 
     // ---------------------------------------------------------------- OSD
+    generate if(HDMI_SUBTITLE_EN != 0) begin : g_osd
     osd_overlay #(
         .OSD_EN (HDMI_SUBTITLE_EN),
         .TS_X   (TS_X),
         .TS_Y   (TS_Y)
     ) u_osd (
         .clk          (pixel_clk),
-        .reset        (~sys_rst_n),
+        .reset        (~video_reset_n),
         .de           (VGA_DE),
         .x            (VGA_X),
         .y            (VGA_Y),
@@ -214,6 +226,10 @@ module hdmi_tx_display #(
         .fg           (osd_fg)
     );
 
+    end else begin : g_no_osd
+        assign OSD_D = VGA_D;
+    end endgenerate
+
     // -------------------------------------------------------------- audio
     wire [31:0] audio_rd_data;
     wire        audio_empty;
@@ -223,13 +239,13 @@ module hdmi_tx_display #(
 
     audio_fifo #(.AWIDTH(5)) u_audio_fifo (
         .wr_clk   (audio_clk),
-        .wr_rst   (~sys_rst_n),
+        .wr_rst   (~video_reset_n),
         .wr_en    (audio_valid && HDMI_AUDIO_EN != 0),
         .wr_data  (audio_sample),
         .full     (audio_full),
         .overflow (audio_overflow),
         .rd_clk   (pixel_clk),
-        .rd_rst   (~sys_rst_n),
+        .rd_rst   (~video_reset_n),
         .rd_en    (audio_pop),
         .rd_data  (audio_rd_data),
         .empty    (audio_empty)
@@ -246,7 +262,7 @@ module hdmi_tx_display #(
     ) u3_hdmi_tx (
         .PXLCLK_I    (pixel_clk),
         .PXLCLK_5X_I (pixel_clk_5x),
-        .RST_N       (sys_rst_n),
+        .RST_N       (video_reset_n),
 
         .H_COUNT     (VGA_X),
         .V_COUNT     (VGA_Y),

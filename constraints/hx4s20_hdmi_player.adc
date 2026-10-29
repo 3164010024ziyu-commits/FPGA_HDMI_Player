@@ -1,0 +1,28 @@
+# HX4S20 / EG4S20BG256. Top: hdmi_player_board_top.
+# Source: HX4S20 HDL board manual 2410, PDF pp.6,8,19-22;
+#         2_FPGA.pdf and 6_EX_DEVICE.pdf schematic page 1.
+# These HDMI locations are connector A. LVDS33 consumes the paired N pins
+# automatically; no separate negative-side RTL ports are needed.
+
+set_pin_assignment { SYS_CLK }    { LOCATION = R7; IOSTANDARD = LVCMOS33; PULLTYPE = NONE; }
+set_pin_assignment { Reset_n }    { LOCATION = A2; IOSTANDARD = LVCMOS33; PULLTYPE = PULLUP; }
+set_pin_assignment { KEY_LOAD_N } { LOCATION = B2; IOSTANDARD = LVCMOS33; PULLTYPE = PULLUP; }
+
+# Four discrete, active-high LEDs: LED1..LED4 on the PCB.
+set_pin_assignment { LED[0] } { LOCATION = A4;  IOSTANDARD = LVCMOS33; DRIVESTRENGTH = 8; PULLTYPE = NONE; }
+set_pin_assignment { LED[1] } { LOCATION = A3;  IOSTANDARD = LVCMOS33; DRIVESTRENGTH = 8; PULLTYPE = NONE; }
+set_pin_assignment { LED[2] } { LOCATION = C10; IOSTANDARD = LVCMOS33; DRIVESTRENGTH = 8; PULLTYPE = NONE; }
+set_pin_assignment { LED[3] } { LOCATION = B12; IOSTANDARD = LVCMOS33; DRIVESTRENGTH = 8; PULLTYPE = NONE; }
+
+# TF card in SPI mode: DAT3=CS, CMD=MOSI, DAT0=MISO, CLK=SCK.
+set_pin_assignment { sd_cs_n } { LOCATION = A12; IOSTANDARD = LVCMOS33; DRIVESTRENGTH = 8; PULLTYPE = NONE; }
+set_pin_assignment { sd_sck }  { LOCATION = A14; IOSTANDARD = LVCMOS33; DRIVESTRENGTH = 8; PULLTYPE = NONE; }
+set_pin_assignment { sd_mosi } { LOCATION = A13; IOSTANDARD = LVCMOS33; DRIVESTRENGTH = 8; PULLTYPE = NONE; }
+set_pin_assignment { sd_miso } { LOCATION = B14; IOSTANDARD = LVCMOS33; PULLTYPE = PULLUP; }
+
+set_pin_assignment { HDMI_CLK_P } { LOCATION = K1; IOSTANDARD = LVDS33; PULLTYPE = NONE; }
+set_pin_assignment { HDMI_D0_P }  { LOCATION = F5; IOSTANDARD = LVDS33; PULLTYPE = NONE; }
+set_pin_assignment { HDMI_D1_P }  { LOCATION = E3; IOSTANDARD = LVDS33; PULLTYPE = NONE; }
+set_pin_assignment { HDMI_D2_P }  { LOCATION = B3; IOSTANDARD = LVDS33; PULLTYPE = NONE; }
+
+# Packaged SDRAM uses EG_PHY_SDRAM_2M_32; do not assign package GPIOs to it.

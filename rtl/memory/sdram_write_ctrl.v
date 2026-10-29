@@ -24,12 +24,15 @@ module sdram_write_ctrl(
 
     // SDRAM 写入侧
     output        App_wr_en,
+    output        write_request,
     output [20:0] App_wr_addr,
     output [31:0] App_wr_din,
     output [3:0]  App_wr_dm
 );
 
 reg [1:0] state;
+reg frame_active;   //确实存在一张需要完成写入的有效图片。
+
 
 localparam IDLE     = 2'd0;
 localparam PREFETCH = 2'd1;
@@ -44,6 +47,13 @@ reg [31:0] prefetch_buf [0:3];  //用于存储四个数据
 
 reg [2:0] write_cnt;
 reg [20:0] write_base_addr;
+
+// Prepare the first row in separate cycles. The running write address then
+// needs only an increment, or one row-step addition at an end-of-line beat.
+reg [15:0] first_row, frame_width_latched, last_column;
+reg [20:0] first_row_offset, row_step, row_base_addr, current_addr;
+reg [1:0] address_init_phase;
+reg address_ready;
 
 assign fifo_rd_en = (state == PREFETCH)
                  && (req_cnt < 3'd4)
@@ -79,6 +89,9 @@ always @(posedge Clk or negedge Reset_n) begin
 end
 
 assign App_wr_en = (state == WRITE);
+// Independent of the grant (carried by Sdr_refresh_pending) to avoid a loop.
+assign write_request = frame_active && address_ready && state == PREFETCH && recv_cnt == 4 &&
+                       Sdr_init_done && !Sdr_init_ref_vld;
 assign App_wr_din = prefetch_buf[write_cnt];
 assign App_wr_dm = 4'b0000;
 
@@ -96,7 +109,7 @@ always @(posedge Clk or negedge Reset_n) begin
             pixel_y_cnt <= 0;
         end
         else if(state == WRITE && write_cnt <= 3'd3)begin
-            if(pixel_x_cnt == dst_width - 1)begin
+            if(pixel_x_cnt == last_column)begin
                 pixel_x_cnt <= 0;
                 pixel_y_cnt <= pixel_y_cnt + 1;
             end
@@ -106,13 +119,49 @@ always @(posedge Clk or negedge Reset_n) begin
     end
 end
 
-assign App_wr_addr = write_base_addr 
-                     + ((dst_top_down == 1)?pixel_y_cnt:(dst_height - 1 -pixel_y_cnt)) * dst_width
-                     + pixel_x_cnt;
+always @(posedge Clk or negedge Reset_n) begin
+    if(!Reset_n) begin
+        first_row <= 0;
+        frame_width_latched <= 0;
+        last_column <= 0;
+        first_row_offset <= 0;
+        row_step <= 0;
+        row_base_addr <= 0;
+        current_addr <= 0;
+        address_init_phase <= 0;
+        address_ready <= 0;
+    end
+    else if(dst_valid) begin
+        first_row <= dst_top_down ? 16'd0 : dst_height - 16'd1;
+        frame_width_latched <= dst_width;
+        last_column <= dst_width - 16'd1;
+        row_step <= dst_top_down ? {5'd0,dst_width} : 21'd0 - {5'd0,dst_width};
+        address_init_phase <= 1;
+        address_ready <= 0;
+    end
+    else if(address_init_phase == 1) begin
+        first_row_offset <= first_row * frame_width_latched;
+        address_init_phase <= 2;
+    end
+    else if(address_init_phase == 2) begin
+        row_base_addr <= write_base_addr + first_row_offset;
+        current_addr <= write_base_addr + first_row_offset;
+        address_init_phase <= 0;
+        address_ready <= 1;
+    end
+    else if(state == WRITE) begin
+        if(pixel_x_cnt == last_column) begin
+            row_base_addr <= row_base_addr + row_step;
+            current_addr <= row_base_addr + row_step;
+        end
+        else current_addr <= current_addr + 21'd1;
+    end
+end
+
+assign App_wr_addr = current_addr;
 
 // A frame becomes complete only after its last word and downstream drain.
 // Four quiet clocks match the existing refresh arbiter's pipeline guard.
-reg frame_active;   //前确实存在一张需要完成写入的有效图片。
 reg [2:0] drain_quiet_count;    //下游写入通路已经连续空闲了多少个 125 MHz 时钟周期
 always @(posedge Clk or negedge Reset_n) begin
     if(!Reset_n) begin
@@ -156,12 +205,12 @@ always @(posedge Clk or negedge Reset_n) begin
         case(state)
             IDLE:
                 begin
-                    if(!fifo_empty)
+                    if(frame_active && !fifo_empty)
                         state <= PREFETCH;
                 end
             PREFETCH:
                 begin
-                    if(recv_cnt == 3'd4 && Sdr_init_done && !Sdr_init_ref_vld && !Sdr_refresh_pending)//新增与sdram_refresh_ctrl配合的Sdr_refresh_pending
+                    if(recv_cnt == 3'd4 && address_ready && Sdr_init_done && !Sdr_init_ref_vld && !Sdr_refresh_pending)//新增与sdram_refresh_ctrl配合的Sdr_refresh_pending
                         state <= WRITE;
                 end
             WRITE:

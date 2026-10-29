@@ -46,9 +46,9 @@ module read_RAM
 	assign HDMI_Y     = vcnt;
 	assign HDMI_EN    = dis_en;
 
-	// request active pixels plus two prefetch pixels at the end of the line
-	assign pix_req    = ((hcnt < H_ACTIVE) || (hcnt >= H_TOTAL - 10'd2)) &&
-	                    (vcnt < V_ACTIVE);
+	// Consume exactly one FIFO pixel for each active coordinate.
+    // The FIFO adapter prefetches independently during blanking.
+    assign pix_req = dis_en;
 	assign frame_sync = frame;
 
 	// pixel data, DE and coordinates come from the same clock edge
