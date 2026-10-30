@@ -5,8 +5,16 @@
 # automatically; no separate negative-side RTL ports are needed.
 
 set_pin_assignment { SYS_CLK }    { LOCATION = R7; IOSTANDARD = LVCMOS33; PULLTYPE = NONE; }
-set_pin_assignment { Reset_n }    { LOCATION = A2; IOSTANDARD = LVCMOS33; PULLTYPE = PULLUP; }
-set_pin_assignment { KEY_LOAD_N } { LOCATION = B2; IOSTANDARD = LVCMOS33; PULLTYPE = PULLUP; }
+set_pin_assignment { Reset_n }    { LOCATION = C8; IOSTANDARD = LVCMOS33; PULLTYPE = PULLUP; }
+set_pin_assignment { KEY_LOAD_N } { LOCATION = C7; IOSTANDARD = LVCMOS33; PULLTYPE = PULLUP; }
+
+# Image adjustment keys, active low, wired to GND:
+#   key_img[0] = BRT+ (C1), key_img[1] = BRT- (B1),
+#   key_img[2] = CON+ (B2), key_img[3] = CON- (A2)
+set_pin_assignment { key_img[0] } { LOCATION = C1; IOSTANDARD = LVCMOS33; PULLTYPE = PULLUP; }
+set_pin_assignment { key_img[1] } { LOCATION = B1; IOSTANDARD = LVCMOS33; PULLTYPE = PULLUP; }
+set_pin_assignment { key_img[2] } { LOCATION = B2; IOSTANDARD = LVCMOS33; PULLTYPE = PULLUP; }
+set_pin_assignment { key_img[3] } { LOCATION = A2; IOSTANDARD = LVCMOS33; PULLTYPE = PULLUP; }
 
 # Four discrete, active-high LEDs: LED1..LED4 on the PCB.
 set_pin_assignment { LED[0] } { LOCATION = A4;  IOSTANDARD = LVCMOS33; DRIVESTRENGTH = 8; PULLTYPE = NONE; }

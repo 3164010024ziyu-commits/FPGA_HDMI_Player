@@ -16,6 +16,8 @@ module hdmi_player_top #(
     input wire start,   //整个模块外部的开始信号
     input wire [15:0] file_index,   //要读取 SD 卡中的哪张图片
     input wire [`ADDR_WIDTH-1:0] frame_base_addr,
+    // image adjustment keys: {CON-, CON+, BRT-, BRT+}, pressed = 0
+    input wire [3:0] key_img,
     output wire load_ready,
     output wire load_busy,
     output wire load_done,
@@ -146,6 +148,7 @@ module hdmi_player_top #(
         .pix_req(display_pixel_req), .frame_sync(display_frame_sync),
         .audio_clk(SYS_CLK), .audio_sample(32'd0), .audio_valid(1'b0),
         .audio_ready(), .audio_status(), .audio_pkt(), .key_in(7'h7f),
+        .key_img(key_img),
         .osd_slot(1'b0), .osd_char_idx(4'd0), .osd_char_code(16'd0), .osd_char_we(1'b0),
         .osd_y(10'd0), .osd_fg(24'hffffff),
         .HDMI_CLK_P(HDMI_CLK_P), .HDMI_D2_P(HDMI_D2_P),

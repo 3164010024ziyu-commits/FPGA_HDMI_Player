@@ -9,6 +9,7 @@ module hdmi_player_board_top #(
     input wire SYS_CLK,
     input wire Reset_n,
     input wire KEY_LOAD_N,
+    input wire [3:0] key_img,
     output wire [3:0] LED,
     output wire sd_cs_n,
     output wire sd_sck,
@@ -98,6 +99,7 @@ module hdmi_player_board_top #(
     hdmi_player_top #(.CLK_HZ(CLK_HZ)) u_player (
         .SYS_CLK(SYS_CLK),.Reset_n(board_reset_n),
         .start(load_start),.file_index(16'd0),.frame_base_addr(21'd0),
+        .key_img(key_img),
         .debug_error_flags(debug_error_flags),
         .load_ready(load_ready),.load_busy(),.load_done(),
         .load_error(load_error),.load_error_code(),.card_initialized(card_initialized),
