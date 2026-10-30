@@ -1,6 +1,4 @@
-// Two SDRAM frame slots. A completed back slot becomes the front slot only
-// during the display flush line, after the previous read transaction drains.
-// The pool base is fixed by the first accepted descriptor until external reset.
+// 双帧缓存管理
 module frame_buffer_ctrl #(
     parameter integer DISPLAY_WIDTH=640,
     parameter integer DISPLAY_HEIGHT=480

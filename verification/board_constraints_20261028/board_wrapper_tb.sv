@@ -52,6 +52,7 @@ endmodule
 module hdmi_player_top #(parameter CLK_HZ=50000000)(
     input SYS_CLK,Reset_n,start,input [15:0] file_index,input [20:0] frame_base_addr,
     output load_ready,load_busy,load_done,load_error,output [7:0] load_error_code,
+    output [3:0] debug_error_flags,
     output card_initialized,sd_cs_n,sd_sck,sd_mosi,input sd_miso,
     output memory_frame_write_done,LED,display_ready,display_underflow,
     output HDMI_CLK_P,HDMI_D2_P,HDMI_D1_P,HDMI_D0_P
@@ -63,6 +64,7 @@ module hdmi_player_top #(parameter CLK_HZ=50000000)(
         starts=starts+1;
     end
     assign load_ready=Reset_n && ready_drive;assign load_busy=0;assign load_done=0;
+    assign debug_error_flags=4'b0000;
     assign load_error=0;assign load_error_code=0;assign card_initialized=Reset_n && card_drive;
     assign LED=Reset_n && memory_drive;assign display_ready=Reset_n && display_drive;
     assign display_underflow=Reset_n && underflow_drive;assign memory_frame_write_done=0;

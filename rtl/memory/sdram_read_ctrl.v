@@ -1,4 +1,4 @@
-// Fetch four pixels at a time, then enqueue a complete display raster.
+// Fetch four pixels per transaction, draining returned pixels concurrently.
 // Images are top-left aligned; unused columns/lines are black. Widths and
 // base addresses must be multiples of four, matching the existing SDRAM IP.
 module sdram_read_ctrl #(
@@ -55,7 +55,12 @@ module sdram_read_ctrl #(
     assign raster_active = state != WAIT_FRAME;
     assign App_rd_en = state == ISSUE;
     assign App_rd_addr = base + row_offset[20:0] + x + issue_count;
-    assign fifo_wr_en = state == EMIT && !fifo_full && !blank_flush;
+    // Forward buffered return words while the remaining response is arriving.
+    // The accepted group always has four local slots, so FIFO backpressure
+    // cannot discard a response. Reuse the group only after its fourth emit.
+    assign fifo_wr_en = (state == ISSUE || state == RECEIVE || state == EMIT) &&
+                        received > {1'b0,emit_count} && !fifo_full &&
+                        !blank_flush && !cancel_group;
     assign fifo_wr_data = pixels[emit_count];
 
     always @(posedge Clk or negedge Reset_n) begin
@@ -75,6 +80,8 @@ module sdram_read_ctrl #(
                 pixels[received] <= Sdr_rd_dout[23:0];
                 received <= received_next;
             end
+            if(fifo_wr_en && emit_count != 3)
+                emit_count <= emit_count + 1'b1;
             if(read_active) begin
                 timeout_count <= timeout_count + 1'b1;
                 if(timeout_count == READ_TIMEOUT-1) begin
@@ -98,6 +105,7 @@ module sdram_read_ctrl #(
                     else if(x >= width || y >= height) begin
                         pixels[0] <= 0; pixels[1] <= 0;
                         pixels[2] <= 0; pixels[3] <= 0;
+                        received <= 4;
                         state <= EMIT;
                     end else if(!fifo_full) state <= read_grant ? ISSUE : REQUEST;
                 end
@@ -112,7 +120,6 @@ module sdram_read_ctrl #(
                 end
                 RECEIVE: begin
                     if(received_next == 4) begin
-                        emit_count <= 0;
                         state <= (blank_flush || cancel_group) ? WAIT_FRAME : EMIT;
                     end
                 end
@@ -133,7 +140,7 @@ module sdram_read_ctrl #(
                                 x <= x + 4;
                                 state <= read_grant ? ISSUE : PREPARE;
                             end
-                        end else emit_count <= emit_count + 1'b1;
+                        end
                     end
                 end
                 default: state <= WAIT_FRAME;

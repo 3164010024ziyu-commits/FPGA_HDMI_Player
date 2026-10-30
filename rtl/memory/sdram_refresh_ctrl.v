@@ -81,7 +81,8 @@ module sdram_refresh_ctrl #(
                         quiet_count <= 0;
                         App_ref_req <= 1'b1;    //向厂家 IP 发出刷新请求
                         state <= WAIT_START;
-                    end else
+                    end
+                    else
                         quiet_count <= quiet_count + 1'b1;
                 end
                 WAIT_START: if (Sdr_init_ref_vld) state <= WAIT_END;

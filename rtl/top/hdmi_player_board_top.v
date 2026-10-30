@@ -2,6 +2,7 @@
 // The application core keeps its reusable configuration/status interface.
 module hdmi_player_board_top #(
     parameter integer CLK_HZ=50000000,
+    parameter integer DIAGNOSTIC_LEDS=0,
     parameter integer POWERUP_CYCLES=CLK_HZ/50,
     parameter integer DEBOUNCE_CYCLES=CLK_HZ/50
 )(
@@ -78,11 +79,26 @@ module hdmi_player_board_top #(
         end
     end
     // Four discrete LEDs are active high (not the multiplexed digit LEDs).
-    assign LED={error_seen,display_status_sync[1],card_initialized,memory_ready};
+    // Diagnostic build only: LED1=memory ready, LED2=FIFO underflow,
+    // LED3=read-response timeout, LED4=load/refresh error. Reset clears all.
+    wire [3:0] debug_error_flags;
+    reg [3:0] debug_meta, debug_sync, debug_seen;
+    always @(posedge SYS_CLK or negedge board_reset_n) begin
+        if(!board_reset_n) begin debug_meta<=0; debug_sync<=0; debug_seen<=0; end
+        else begin
+            debug_meta<=debug_error_flags;
+            debug_sync<=debug_meta;
+            debug_seen<=debug_seen | debug_sync;
+        end
+    end
+    assign LED=DIAGNOSTIC_LEDS ?
+        {(|debug_seen[3:2]),debug_seen[1],debug_seen[0],memory_ready} :
+        {error_seen,display_status_sync[1],card_initialized,memory_ready};
 
     hdmi_player_top #(.CLK_HZ(CLK_HZ)) u_player (
         .SYS_CLK(SYS_CLK),.Reset_n(board_reset_n),
         .start(load_start),.file_index(16'd0),.frame_base_addr(21'd0),
+        .debug_error_flags(debug_error_flags),
         .load_ready(load_ready),.load_busy(),.load_done(),
         .load_error(load_error),.load_error_code(),.card_initialized(card_initialized),
         .sd_cs_n(sd_cs_n),.sd_sck(sd_sck),.sd_mosi(sd_mosi),.sd_miso(sd_miso),

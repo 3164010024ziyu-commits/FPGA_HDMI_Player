@@ -1,6 +1,4 @@
-// Reserve the SDRAM application port for a complete four-word transaction.
-// Refresh has priority. Urgent display reads take priority over writes;
-// otherwise reads and writes alternate when both are waiting.
+// SDRAM 读写仲裁
 module sdram_app_arbiter #(
     parameter integer QUIET_CYCLES = 4
 )(
