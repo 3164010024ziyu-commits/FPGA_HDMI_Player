@@ -10,6 +10,8 @@ module async_fifo #(
     input                       wr_en,
     input  [DATA_WIDTH-1:0]     wr_data,
     output                      full,
+
+    //告诉写时钟域异步 FIFO 当前大约存了多少个数据
     output wire [ADDR_WIDTH:0]   wr_used,
 
     // Read interface
@@ -60,6 +62,7 @@ assign wr_bin_next = wr_bin_ptr + wr_fire;
 assign rd_bin_next = rd_bin_ptr + rd_fire;
 
 //下一个时钟上升沿的格雷码
+//格雷码能降低跨时钟域亚稳态的影响（只变化一位）
 wire [ADDR_WIDTH:0] wr_gray_next;
 wire [ADDR_WIDTH:0] rd_gray_next;
 
@@ -88,15 +91,9 @@ always @(posedge rd_clk or negedge rd_reset_n) begin
     end
 end
 
-//两级同步
-reg [ADDR_WIDTH:0] wr_gray_sync1;
-reg [ADDR_WIDTH:0] wr_gray_sync2;
+// 计算异步 FIFO 当前大约存了多少个数据，并通过 wr_used 把这个数量告诉写时钟域的其他模块。
 
-reg [ADDR_WIDTH:0] rd_gray_sync1;
-reg [ADDR_WIDTH:0] rd_gray_sync2;
-
-// Conservative occupancy in the write domain. The synchronized read pointer
-// can lag, so this never claims newly freed space before CDC completes.
+//首先，读时钟域传递给写时钟域的是格雷码指针，不能通过与读直接加减计算出当前占用量，所以需要先转化成二进制码
 function [ADDR_WIDTH:0] gray_to_binary;
     input [ADDR_WIDTH:0] gray;
     integer bit_index;
@@ -106,7 +103,16 @@ function [ADDR_WIDTH:0] gray_to_binary;
             gray_to_binary[bit_index] = gray_to_binary[bit_index+1] ^ gray[bit_index];
     end
 endfunction
+
 assign wr_used = wr_bin_ptr - gray_to_binary(rd_gray_sync2);
+//同步后的读指针可能滞后，所以 wr_used 可能暂时高估占用量
+
+//两级同步
+reg [ADDR_WIDTH:0] wr_gray_sync1;
+reg [ADDR_WIDTH:0] wr_gray_sync2;
+
+reg [ADDR_WIDTH:0] rd_gray_sync1;
+reg [ADDR_WIDTH:0] rd_gray_sync2;
 
 always @(posedge rd_clk or negedge rd_reset_n) begin
     if (!rd_reset_n) begin
