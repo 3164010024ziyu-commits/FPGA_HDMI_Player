@@ -41,7 +41,6 @@ module packet_picker #(
     // ---------------------------------------------------------------- audio
     reg [31:0] samp0, samp1, samp2, samp3;
     reg [2:0]  samp_cnt;
-    reg [31:0] pkt0, pkt1, pkt2, pkt3;
     reg [7:0]  frame_counter;           // IEC60958 frame, 0..191
     reg [19:0] pix_count;               // pixel clocks since last ACR packet
     reg [19:0] acr_cts;
@@ -90,12 +89,7 @@ module packet_picker #(
         if (reset) begin
             samp_cnt <= 3'd0;
             samp0 <= 32'd0; samp1 <= 32'd0; samp2 <= 32'd0; samp3 <= 32'd0;
-            pkt0  <= 32'd0; pkt1  <= 32'd0; pkt2  <= 32'd0; pkt3  <= 32'd0;
         end else if (use_audio_now) begin
-            pkt0 <= samp0;
-            pkt1 <= samp1;
-            pkt2 <= samp2;
-            pkt3 <= samp3;
             samp_cnt <= 3'd0;
         end else if (!audio_empty && samp_cnt < 3'd4) begin
             case (samp_cnt)
@@ -186,14 +180,16 @@ module packet_picker #(
 
     // audio_sample = {L[15:0], R[15:0]}; HDMI puts the left sample in
     // subpacket bits [23:0] and the right sample in bits [47:24].
-    wire [23:0] l0 = {pkt0[31:16], 8'h00};
-    wire [23:0] r0 = {pkt0[15:0],  8'h00};
-    wire [23:0] l1 = {pkt1[31:16], 8'h00};
-    wire [23:0] r1 = {pkt1[15:0],  8'h00};
-    wire [23:0] l2 = {pkt2[31:16], 8'h00};
-    wire [23:0] r2 = {pkt2[15:0],  8'h00};
-    wire [23:0] l3 = {pkt3[31:16], 8'h00};
-    wire [23:0] r3 = {pkt3[15:0],  8'h00};
+    // Payload registers capture these staged samples on use_audio_now. An
+    // extra pkt register here would transmit the preceding group of four.
+    wire [23:0] l0 = {samp0[31:16], 8'h00};
+    wire [23:0] r0 = {samp0[15:0],  8'h00};
+    wire [23:0] l1 = {samp1[31:16], 8'h00};
+    wire [23:0] r1 = {samp1[15:0],  8'h00};
+    wire [23:0] l2 = {samp2[31:16], 8'h00};
+    wire [23:0] r2 = {samp2[15:0],  8'h00};
+    wire [23:0] l3 = {samp3[31:16], 8'h00};
+    wire [23:0] r3 = {samp3[15:0],  8'h00};
 
     wire pl0 = ^{CS_L[fc0], l0};
     wire pr0 = ^{CS_R[fc0], r0};

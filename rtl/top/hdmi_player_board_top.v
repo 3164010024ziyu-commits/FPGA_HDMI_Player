@@ -11,6 +11,7 @@ module hdmi_player_board_top #(
     input wire KEY_LOAD_N,
     input wire KEY_PREV_N,
     input wire KEY_NEXT_N,
+    input wire SW_AUDIO_N,SW_MUTE_N,
     input wire [3:0] key_img,
     output wire [3:0] LED,
     output wire sd_cs_n,
@@ -80,6 +81,25 @@ module hdmi_player_board_top #(
         end
     end
     wire [1:0] nav_press=nav_previous & ~nav_stable;
+    // SW3/SW4 are active-low level controls, independently debounced at 20ms.
+    reg [1:0] audio_meta,audio_sync,audio_stable;
+    reg [DEBOUNCE_BITS-1:0] audio_count[0:1];
+    integer audio_i;
+    always @(posedge SYS_CLK or negedge board_reset_n)begin
+        if(!board_reset_n)begin
+            audio_meta<=3;audio_sync<=3;audio_stable<=3;
+            for(audio_i=0;audio_i<2;audio_i=audio_i+1)audio_count[audio_i]<=0;
+        end else begin
+            audio_meta<={SW_MUTE_N,SW_AUDIO_N};audio_sync<=audio_meta;
+            for(audio_i=0;audio_i<2;audio_i=audio_i+1)begin
+                if(audio_sync[audio_i]==audio_stable[audio_i])audio_count[audio_i]<=0;
+                else if(audio_count[audio_i]==DEBOUNCE_CYCLES-1)begin
+                    audio_stable[audio_i]<=audio_sync[audio_i];audio_count[audio_i]<=0;
+                end else audio_count[audio_i]<=audio_count[audio_i]+1'b1;
+            end
+        end
+    end
+    wire audio_error;
     wire request_pending;
     wire load_ready,load_done,load_error,card_initialized,memory_ready;
     wire [7:0] load_error_code;
@@ -106,7 +126,7 @@ module hdmi_player_board_top #(
         end else begin
             display_status_meta<={display_ready,display_underflow};
             display_status_sync<=display_status_meta;
-            if(navigation_error || display_status_sync[0])error_seen<=1;
+            if(navigation_error || audio_error || display_status_sync[0])error_seen<=1;
         end
     end
     // Four discrete LEDs are active high (not the multiplexed digit LEDs).
@@ -117,7 +137,7 @@ module hdmi_player_board_top #(
     always @(posedge SYS_CLK or negedge board_reset_n) begin
         if(!board_reset_n) begin debug_meta<=0; debug_sync<=0; debug_seen<=0; end
         else begin
-            debug_meta<={navigation_error,debug_error_flags[2:0]};
+            debug_meta<={navigation_error | audio_error,debug_error_flags[2:0]};
             debug_sync<=debug_meta;
             debug_seen<=debug_seen | debug_sync;
         end
@@ -126,8 +146,9 @@ module hdmi_player_board_top #(
         {(|debug_seen[3:2]),debug_seen[1],debug_seen[0],memory_ready} :
         {error_seen,display_status_sync[1],card_initialized,memory_ready};
 
-    hdmi_player_top #(.CLK_HZ(CLK_HZ)) u_player (
+    hdmi_player_top #(.CLK_HZ(CLK_HZ),.ENABLE_AUDIO(1)) u_player (
         .SYS_CLK(SYS_CLK),.Reset_n(board_reset_n),
+        .audio_enable(!audio_stable[0]),.audio_mute(!audio_stable[1]),.audio_error(audio_error),.audio_error_code(),
         .start(load_start),.file_index(selected_file_index),
         .select_last(select_last),.opened_file_index(opened_file_index),.frame_base_addr(21'd0),
         .key_img(key_img),

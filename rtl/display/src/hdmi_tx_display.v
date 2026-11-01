@@ -335,9 +335,16 @@ wire pixel_clk_5x;
     wire        audio_overflow;
     wire        audio_pop;
 
+    // Assert audio reset with video; release it in the source clock domain.
+    wire audio_reset_request=~video_reset_n;
+    reg [1:0] audio_reset_release;
+    always @(posedge audio_clk or posedge audio_reset_request)begin
+        if(audio_reset_request)audio_reset_release<=0;
+        else audio_reset_release<={audio_reset_release[0],1'b1};
+    end
     audio_fifo #(.AWIDTH(5)) u_audio_fifo (
         .wr_clk   (audio_clk),
-        .wr_rst   (~video_reset_n),
+        .wr_rst   (~audio_reset_release[1]),
         .wr_en    (audio_valid && HDMI_AUDIO_EN != 0),
         .wr_data  (audio_sample),
         .full     (audio_full),

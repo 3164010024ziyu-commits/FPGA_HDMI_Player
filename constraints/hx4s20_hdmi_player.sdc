@@ -11,6 +11,7 @@ derive_clocks
 set_false_path -from [get_ports {Reset_n}]
 set_false_path -from [get_ports {KEY_LOAD_N}]
 set_false_path -from [get_ports {KEY_PREV_N KEY_NEXT_N}]
+set_false_path -from [get_ports {SW_AUDIO_N SW_MUTE_N}]
 set_false_path -from [get_ports {key_img[*]}]
 
 # Bound only the actual crossing nets to the destination clock. Selecting
@@ -51,3 +52,14 @@ set_multicycle_path -hold -from [get_pins -hier {*u_sdram_phy.dq*}] -to [get_clo
 # to the tool's 0.1 ns allowance. TD supports per-clock uncertainty only,
 # so apply this conservative budget to all memory capture paths.
 set_clock_uncertainty -setup 0.600 [get_clocks {u_player/u_memory/u0_clk/pll_inst.clkc[1]}]
+
+# Audio mailbox: payload is held until the three-stage request/ack handshake.
+# Limit just the crossing nets; the following synchronizer stages stay timed.
+set_max_delay -datapath_only -through [get_nets -hier {*u_audio_fifo/wr_tog *u_audio_fifo/mailbox*}] -to [get_clocks {u_player/u_display/u_clk_wize/pll_inst.clkc[1]}] 8.000
+set_max_delay -datapath_only -through [get_nets -hier {*u_audio_fifo/rd_tog}] -to [get_clocks {SYS_CLK}] 8.000
+# Frame-buffer handshake and status levels, all captured by existing 2/3 stages.
+set_max_delay -datapath_only -through [get_nets -hier {*u_frame_buffers/abort_ack *u_frame_buffers/back_bank *u_frame_buffers/available_mem}] -to [get_clocks {SYS_CLK}] 8.000
+set_max_delay -datapath_only -through [get_nets -hier {*u_frame_buffers/abort_toggle}] -to [get_clocks {u_player/u_memory/u0_clk/pll_inst.clkc[1]}] 8.000
+# Existing initialization status and new audio sink-ready status, first stage only.
+set_max_delay -datapath_only -through [get_nets -hier {*u_memory/mem_reset_n *u_memory/Sdr_init_done}] -to [get_clocks {SYS_CLK}] 8.000
+set_max_delay -datapath_only -through [get_nets -hier {*u_display/pix_reset_n}] -to [get_clocks {SYS_CLK}] 8.000

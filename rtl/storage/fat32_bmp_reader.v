@@ -1,7 +1,8 @@
 // Read-only FAT32 root-directory BMP enumeration and fragmented file streaming.
 // Generic sector port: req handshake, then exactly 512 bytes ending in sec_last.
 module fat32_bmp_reader #(
-    parameter MAX_FILE_BYTES=16777216, parameter MAX_DIR_CLUSTERS=1024
+    parameter MAX_FILE_BYTES=16777216, parameter MAX_DIR_CLUSTERS=1024,
+    parameter FILE_EXTENSION=24'h424d50, parameter MIN_FILE_BYTES=54
 )(
     input wire clk, input wire rst_n,
     input wire start, input wire [15:0] file_index,
@@ -70,9 +71,7 @@ module fat32_bmp_reader #(
     wire [63:0] volume_end={32'd0,partition_lba}+{32'd0,bpb_total};
     wire [31:0] entry_cluster={dir_entry[21],dir_entry[20],dir_entry[27],dir_entry[26]};
     wire [31:0] entry_size={dir_entry[31],dir_entry[30],dir_entry[29],dir_entry[28]};
-    wire bmp_entry=(dir_entry[8]==8'h42 || dir_entry[8]==8'h62) &&
-                   (dir_entry[9]==8'h4d || dir_entry[9]==8'h6d) &&
-                   (dir_entry[10]==8'h50 || dir_entry[10]==8'h70);
+    wire bmp_entry=({dir_entry[8]&8'hdf,dir_entry[9]&8'hdf,dir_entry[10]&8'hdf}==FILE_EXTENSION);
     wire [2:0] chosen_partition=
         (mbr[4]==8'h0b || mbr[4]==8'h0c) ? 3'd1 :
         (mbr[20]==8'h0b || mbr[20]==8'h0c) ? 3'd2 :
@@ -102,7 +101,7 @@ module fat32_bmp_reader #(
         input [87:0] name;
         input [15:0] number;
         begin
-            if(size<54 || size>MAX_FILE_BYTES || first_cluster<2 || first_cluster>cluster_count+1)
+            if(size<MIN_FILE_BYTES || size>MAX_FILE_BYTES || first_cluster<2 || first_cluster>cluster_count+1)
                 fail(8'h37);
             else begin
                 short_name<=name;file_size<=size;bytes_left<=size;
