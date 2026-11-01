@@ -5,6 +5,7 @@ module fat32_bmp_reader #(
 )(
     input wire clk, input wire rst_n,
     input wire start, input wire [15:0] file_index,
+    input wire select_last, output reg [15:0] opened_index,
     output reg busy, output reg done, output reg error, output reg [7:0] error_code,
     output reg file_open, output reg [31:0] file_size,
     output reg [87:0] short_name,
@@ -36,7 +37,13 @@ module fat32_bmp_reader #(
     reg [31:0] cluster, chain_steps, bytes_left;
     reg [7:0] sectors_per_cluster, cluster_sector;
     reg [3:0] cluster_shift;
-    reg [15:0] wanted, found;
+    reg [15:0] wanted;
+    reg [16:0] found;
+    reg last_mode, last_found;
+    reg [31:0] last_cluster,last_size;
+    reg [87:0] last_name;
+    reg [15:0] last_number;
+    wire [87:0] entry_name={dir_entry[0],dir_entry[1],dir_entry[2],dir_entry[3],dir_entry[4],dir_entry[5],dir_entry[6],dir_entry[7],dir_entry[8],dir_entry[9],dir_entry[10]};
     reg chain_is_file;
     reg probe_lba0; // A candidate volume at sector zero may fall back to its MBR.
     reg [8:0] fat_byte;
@@ -90,9 +97,30 @@ module fat32_bmp_reader #(
         input [7:0] code;
         begin error<=1; error_code<=code; state<=FAILED; end
     endtask
+    task open_image;
+        input [31:0] first_cluster,size;
+        input [87:0] name;
+        input [15:0] number;
+        begin
+            if(size<54 || size>MAX_FILE_BYTES || first_cluster<2 || first_cluster>cluster_count+1)
+                fail(8'h37);
+            else begin
+                short_name<=name;file_size<=size;bytes_left<=size;
+                file_open<=1;opened_index<=number;cluster<=first_cluster;
+                cluster_sector<=0;chain_steps<=0;state<=FILE_LOAD;
+            end
+        end
+    endtask
+    task finish_last;
+        begin
+            if(last_found)open_image(last_cluster,last_size,last_name,last_number);
+            else fail(8'h36);
+        end
+    endtask
     always @(posedge clk or negedge rst_n) begin
         if(!rst_n) begin
             state<=IDLE; return_state<=0; busy<=0; done<=0; error<=0; error_code<=0;
+            last_mode<=0;last_found<=0;last_cluster<=0;last_size<=0;last_name<=0;last_number<=0;opened_index<=0;
             file_open<=0; file_size<=0; short_name<=0; req_lba<=0;
             rx_offset<=0; out_offset<=0; dir_offset<=0; entry_offset<=0; partition_lba<=0;
             partition_size<=0; total_sectors<=0; fat_base<=0; data_base<=0;
@@ -106,6 +134,7 @@ module fat32_bmp_reader #(
             case(state)
                 IDLE: if(start) begin
                     busy<=1; error<=0; error_code<=0; wanted<=file_index; found<=0;
+                    last_mode<=0;if(select_last)last_mode<=1;last_found<=0;
                     partition_lba<=0; partition_size<=0;
                     probe_lba0<=1;
                     read_sector(0,BOOT);
@@ -188,20 +217,21 @@ module fat32_bmp_reader #(
                     else entry_offset<=entry_offset+1'b1;
                 end
                 DIR_SCAN: begin
-                    if(dir_entry[0]==0) fail(8'h36); // no such BMP index
-                    else if(dir_entry[0]!=8'he5 &&
+                    if(dir_entry[0]==0) begin
+                        if(last_mode)finish_last();else fail(8'h36);
+                    end else if(dir_entry[0]!=8'he5 &&
                             (dir_entry[11]&8'h18)==0 &&
                             dir_entry[11]!=8'h0f && bmp_entry) begin
-                        if(found==wanted) begin
-                            if(entry_size<54 || entry_size>MAX_FILE_BYTES ||
-                               entry_cluster<2 || entry_cluster>cluster_count+1) fail(8'h37);
+                        if(last_mode)begin
+                            if(found>=17'd65536)fail(8'h39);
                             else begin
-                                for(j=0;j<11;j=j+1) short_name[87-j*8-:8]<=dir_entry[j];
-                                file_size<=entry_size; bytes_left<=entry_size; file_open<=1;
-                                cluster<=entry_cluster; cluster_sector<=0; chain_steps<=0;
-                                state<=FILE_LOAD;
+                                last_found<=1;last_cluster<=entry_cluster;last_size<=entry_size;
+                                last_name<=entry_name;last_number<=found[15:0];
+                                found<=found+1'b1;state<=DIR_NEXT;
                             end
-                        end else begin found<=found+1'b1; state<=DIR_NEXT; end
+                        end else if(found=={1'b0,wanted})
+                            open_image(entry_cluster,entry_size,entry_name,wanted);
+                        else begin found<=found+1'b1;state<=DIR_NEXT;end
                     end else state<=DIR_NEXT;
                 end
                 DIR_NEXT: if(dir_offset!=480) begin dir_offset<=dir_offset+32; state<=DIR_CAPTURE; end
@@ -223,7 +253,10 @@ module fat32_bmp_reader #(
                     else fat_capture_offset<=fat_capture_offset+1'b1;
                 end
                 FAT_NEXT: begin
-                    if(fat_link>=32'h0ffffff8) fail(chain_is_file ? 8'h38 : 8'h36);
+                    if(fat_link>=32'h0ffffff8)begin
+                        if(!chain_is_file && last_mode)finish_last();
+                        else fail(chain_is_file ? 8'h38 : 8'h36);
+                    end
                     else if(fat_link<2 || fat_link>cluster_count+1 ||
                             fat_link>=32'h0ffffff0 || fat_link==cluster) fail(8'h35);
                     else if(chain_steps>=cluster_count-1 ||

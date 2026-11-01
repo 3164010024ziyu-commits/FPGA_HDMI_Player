@@ -15,7 +15,7 @@ module storage_mbr_regression_tb;
     integer reads,commands;
     storage_pipeline #(.INIT_HALF_PERIOD(3),.MAX_WIDTH(64),.MAX_HEIGHT(64)) dut(
         .clk(clk),.rst_n(rst_n),.sd_cs_n(cs),.sd_sck(sck),.sd_mosi(mosi),.sd_miso(miso),
-        .start(start),.file_index(file_index),.ready(ready),.busy(busy),
+        .start(start),.file_index(file_index),.select_last(1'b0),.opened_index(),.ready(ready),.busy(busy),
         .card_initialized(card_initialized),.done(done),.error(error),.error_code(error_code),
         .short_name(short_name),.file_size(file_size),.meta_valid(meta_valid),
         .width(width),.height(height),.top_down(top_down),.pixel_valid(pixel_valid),

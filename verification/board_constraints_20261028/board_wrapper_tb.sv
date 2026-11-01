@@ -5,7 +5,7 @@ module board_wrapper_tb;
     wire [3:0] led;
     wire cs,sck,mosi,hclk,d0,d1,d2;
     hdmi_player_board_top #(.POWERUP_CYCLES(8),.DEBOUNCE_CYCLES(4)) dut(
-        .SYS_CLK(clk),.Reset_n(rst_n),.KEY_LOAD_N(key_n),.key_img(4'hf),.LED(led),
+        .SYS_CLK(clk),.Reset_n(rst_n),.KEY_LOAD_N(key_n),.KEY_PREV_N(1'b1),.KEY_NEXT_N(1'b1),.key_img(4'hf),.LED(led),
         .sd_cs_n(cs),.sd_sck(sck),.sd_mosi(mosi),.sd_miso(1'b1),
         .HDMI_CLK_P(hclk),.HDMI_D0_P(d0),.HDMI_D1_P(d1),.HDMI_D2_P(d2));
     task cycles(input integer n);repeat(n)@(negedge clk);endtask
@@ -50,6 +50,7 @@ module board_wrapper_tb;
 endmodule
 
 module hdmi_player_top #(parameter CLK_HZ=50000000)(
+    input select_last,output [15:0] opened_file_index,
     input [3:0] key_img,
     input SYS_CLK,Reset_n,start,input [15:0] file_index,input [20:0] frame_base_addr,
     output load_ready,load_busy,load_done,load_error,output [7:0] load_error_code,
@@ -64,7 +65,18 @@ module hdmi_player_top #(parameter CLK_HZ=50000000)(
         if(!load_ready || file_index!==0 || frame_base_addr!==0)$fatal(1,"incorrect core configuration");
         starts=starts+1;
     end
-    assign load_ready=Reset_n && ready_drive;assign load_busy=0;assign load_done=0;
+    reg [1:0] fake_busy=0;
+    reg fake_done=0;
+    always @(posedge SYS_CLK) begin
+        if(!Reset_n)begin fake_busy<=0;fake_done<=0;end
+        else begin
+            fake_done<=0;
+            if(start)fake_busy<=2;
+            else if(fake_busy!=0)begin fake_busy<=fake_busy-1'b1;if(fake_busy==1)fake_done<=1;end
+        end
+    end
+    assign opened_file_index=0;
+    assign load_ready=Reset_n && ready_drive && fake_busy==0;assign load_busy=fake_busy!=0;assign load_done=fake_done;
     assign debug_error_flags=4'b0000;
     assign load_error=0;assign load_error_code=0;assign card_initialized=Reset_n && card_drive;
     assign LED=Reset_n && memory_drive;assign display_ready=Reset_n && display_drive;

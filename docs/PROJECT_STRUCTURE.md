@@ -1,13 +1,14 @@
 # 当前工程结构
 
-更新：2026-10-29，整理 display 目录；模块逻辑与连接保持不变。
+更新：2026-11-01，增加外接 GPIO 循环切图控制及末图目录查询，保留原图像调整功能。
 
-主工程入口是 `project/td/HDMI_Player.al`，板级顶层是 `hdmi_player_board_top`，系统核心是 `hdmi_player_top`。该清单明确选择 34 个 Verilog / VHDL 文件，不要递归添加整个 `rtl/display`，否则会加入同名参考副本。
+主工程入口是 `project/td/HDMI_Player.al`，板级顶层是 `hdmi_player_board_top`，系统核心是 `hdmi_player_top`。该清单明确选择 36 个 Verilog / VHDL 文件，不要递归添加整个 `rtl/display`，否则会加入同名参考副本。
 
 ```text
 FPGA_HDMI_Player/
 ├─ rtl/
-│  ├─ top/hdmi_player_board_top.v    KEY1复位、KEY2加载、固定配置、四个状态LED
+│  ├─ top/hdmi_player_board_top.v    SW1复位、SW2重载、J1外接切图、状态LED
+│  │      image_navigation_ctrl.v    图片索引、排队、首尾循环、失败回退
 │  │      hdmi_player_top.v          系统请求、错误处理、storage/memory/display 连线
 │  ├─ storage/                      SD SPI → FAT32 → BMP → RGB888
 │  ├─ memory/
@@ -37,7 +38,7 @@ FPGA_HDMI_Player/
 │     └─ README.md                 当前源码与历史资料导航
 ├─ archive/display_legacy/         puresrc、旧独立工程、旧 IP、构建产物和日志（不编译）
 ├─ include/global_def.v            SDRAM 数据宽度、地址宽度和时钟周期
-├─ project/td/HDMI_Player.al        当前系统 TD 工程、34 个源码文件
+├─ project/td/HDMI_Player.al        当前系统 TD 工程、36 个源码文件
 ├─ constraints/                   HX4S20 ADC管脚与SDC时序约束
 ├─ tb/memory/                     既有 FIFO / writer 测试
 ├─ verification/display_memory_20261028/  本次可重复执行的集成测试
@@ -66,3 +67,5 @@ flowchart LR
 写控制器现在在帧开始分拍准备首行地址，正常写入逐字/逐行递增，见 [ADDRESS_TIMING_FIX.md](ADDRESS_TIMING_FIX.md)。
 
 当前时序与生产PLL验证结论以 [SDRAM_TIMING_CLOSURE.md](SDRAM_TIMING_CLOSURE.md) 为准。
+
+当前接线、循环行为与可重复测试见 [GPIO_NAVIGATION.md](GPIO_NAVIGATION.md)，新增测试在 `verification/gpio_navigation_20261101/`。

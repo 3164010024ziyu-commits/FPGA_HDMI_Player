@@ -3,6 +3,7 @@ module fat32_mbr_regression_tb;
     reg clk=0; always #10 clk=~clk;
     reg rst_n=0,start=0;
     reg [15:0] file_index=0;
+    wire select_last=1'b0;wire [15:0] opened_index;
     wire busy,done,error,file_open,valid,last,req_valid,sec_ready;
     wire [7:0] error_code,data;
     wire [31:0] file_size,req_lba;
