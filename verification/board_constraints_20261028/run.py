@@ -8,7 +8,7 @@ p.add_argument('--output',type=Path,default=Path(tempfile.gettempdir())/'hx4s20_
 args=p.parse_args();out=args.output.resolve();out.mkdir(parents=True,exist_ok=True)
 tools=Path(os.environ.get('IVERILOG_BIN',str(Path(shutil.which('iverilog') or r'D:\2026-2027\iverilog\iverilog\bin\iverilog.exe').parent)))
 wrapper=PROJECT/'rtl/top/hdmi_player_board_top.v'
-sources=[wrapper,HERE/'board_wrapper_tb.sv']
+sources=[wrapper,PROJECT/'rtl/top/image_navigation_ctrl.v',HERE/'board_wrapper_tb.sv']
 commands=[['iverilog.exe','-g2012','-s','board_wrapper_tb','-o',out/'board_wrapper.vvp',*sources],['vvp.exe',out/'board_wrapper.vvp']]
 result={'source_sha256':{str(s):hashlib.sha256(s.read_bytes()).hexdigest() for s in sources},'commands':[]}
 for index,command in enumerate(commands):

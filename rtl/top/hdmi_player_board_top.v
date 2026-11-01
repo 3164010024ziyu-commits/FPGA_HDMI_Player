@@ -1,4 +1,4 @@
-// HX4S20 board wrapper. KEY1 resets; KEY2 queues one image-load request.
+// HX4S20: SW1 resets, SW2 reloads; external J1 buttons select previous/next.
 // The application core keeps its reusable configuration/status interface.
 module hdmi_player_board_top #(
     parameter integer CLK_HZ=50000000,
@@ -9,6 +9,8 @@ module hdmi_player_board_top #(
     input wire SYS_CLK,
     input wire Reset_n,
     input wire KEY_LOAD_N,
+    input wire KEY_PREV_N,
+    input wire KEY_NEXT_N,
     input wire [3:0] key_img,
     output wire [3:0] LED,
     output wire sd_cs_n,
@@ -57,15 +59,43 @@ module hdmi_player_board_top #(
         end
     end
     wire key_press=key_previous && !key_stable;
-    reg request_pending;
-    wire load_ready,load_error,card_initialized,memory_ready;
-    wire display_ready,display_underflow;
-    wire load_start=request_pending && load_ready;
+    // Two external active-low buttons: independent synchronization and
+    // debounce. A held button produces only one press event.
+    reg [1:0] nav_meta, nav_sync, nav_stable, nav_previous;
+    reg [DEBOUNCE_BITS-1:0] nav_count [0:1];
+    integer nav_i;
     always @(posedge SYS_CLK or negedge board_reset_n) begin
-        if(!board_reset_n)request_pending<=0;
-        else if(key_press)request_pending<=1;
-        else if(load_start)request_pending<=0;
+        if(!board_reset_n) begin
+            nav_meta<=2'b11;nav_sync<=2'b11;nav_stable<=2'b11;nav_previous<=2'b11;
+            for(nav_i=0;nav_i<2;nav_i=nav_i+1)nav_count[nav_i]<=0;
+        end else begin
+            nav_meta<={KEY_NEXT_N,KEY_PREV_N};nav_sync<=nav_meta;
+            nav_previous<=nav_stable;
+            for(nav_i=0;nav_i<2;nav_i=nav_i+1)begin
+                if(nav_sync[nav_i]==nav_stable[nav_i])nav_count[nav_i]<=0;
+                else if(nav_count[nav_i]==DEBOUNCE_CYCLES-1)begin
+                    nav_stable[nav_i]<=nav_sync[nav_i];nav_count[nav_i]<=0;
+                end else nav_count[nav_i]<=nav_count[nav_i]+1'b1;
+            end
+        end
     end
+    wire [1:0] nav_press=nav_previous & ~nav_stable;
+    wire request_pending;
+    wire load_ready,load_done,load_error,card_initialized,memory_ready;
+    wire [7:0] load_error_code;
+    wire display_ready,display_underflow;
+    wire load_start, navigation_error;
+    wire [15:0] selected_file_index, current_file_index, opened_file_index;
+    wire select_last;
+    image_navigation_ctrl u_navigation (
+        .clk(SYS_CLK),.reset_n(board_reset_n),.reload_press(key_press),
+        .previous_press(nav_press[0]),.next_press(nav_press[1]),
+        .load_ready(load_ready),.load_done(load_done),.load_error(load_error),
+        .load_error_code(load_error_code),.start(load_start),
+        .select_last(select_last),.opened_index(opened_file_index),
+        .file_index(selected_file_index),.current_index(current_file_index),
+        .request_pending(request_pending),.report_load_error(navigation_error)
+    );
 
     // These two independent indicators originate in the pixel domain.
     reg [1:0] display_status_meta,display_status_sync;
@@ -76,7 +106,7 @@ module hdmi_player_board_top #(
         end else begin
             display_status_meta<={display_ready,display_underflow};
             display_status_sync<=display_status_meta;
-            if(load_error || display_status_sync[0])error_seen<=1;
+            if(navigation_error || display_status_sync[0])error_seen<=1;
         end
     end
     // Four discrete LEDs are active high (not the multiplexed digit LEDs).
@@ -87,7 +117,7 @@ module hdmi_player_board_top #(
     always @(posedge SYS_CLK or negedge board_reset_n) begin
         if(!board_reset_n) begin debug_meta<=0; debug_sync<=0; debug_seen<=0; end
         else begin
-            debug_meta<=debug_error_flags;
+            debug_meta<={navigation_error,debug_error_flags[2:0]};
             debug_sync<=debug_meta;
             debug_seen<=debug_seen | debug_sync;
         end
@@ -98,11 +128,12 @@ module hdmi_player_board_top #(
 
     hdmi_player_top #(.CLK_HZ(CLK_HZ)) u_player (
         .SYS_CLK(SYS_CLK),.Reset_n(board_reset_n),
-        .start(load_start),.file_index(16'd0),.frame_base_addr(21'd0),
+        .start(load_start),.file_index(selected_file_index),
+        .select_last(select_last),.opened_file_index(opened_file_index),.frame_base_addr(21'd0),
         .key_img(key_img),
         .debug_error_flags(debug_error_flags),
-        .load_ready(load_ready),.load_busy(),.load_done(),
-        .load_error(load_error),.load_error_code(),.card_initialized(card_initialized),
+        .load_ready(load_ready),.load_busy(),.load_done(load_done),
+        .load_error(load_error),.load_error_code(load_error_code),.card_initialized(card_initialized),
         .sd_cs_n(sd_cs_n),.sd_sck(sd_sck),.sd_mosi(sd_mosi),.sd_miso(sd_miso),
         .memory_frame_write_done(),.LED(memory_ready),
         .display_ready(display_ready),.display_underflow(display_underflow),

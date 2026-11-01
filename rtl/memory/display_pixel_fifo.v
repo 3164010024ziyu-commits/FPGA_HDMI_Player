@@ -1,23 +1,22 @@
-// 100 MHz producer -> pixel-clock consumer. The two-entry output queue
-// accounts for the registered read latency of async_fifo and allows one
-// pixel to be consumed on every active pixel clock.
+// 异步FIFO把 SDRAM 读取出来的像素缓存起来，再按照 HDMI 的像素时钟连续输出
 module display_pixel_fifo #(
     parameter integer ADDR_WIDTH=11
 )(
     input wire mem_clk,
     input wire pix_clk,
     input wire Reset_n,
-    input wire blank_flush,
-    input wire frame_valid_mem,
+
+    input wire blank_flush, //清空显示 FIFO 和预取队列
+    input wire frame_valid_mem, //Memory 中已有有效的前台帧
     input wire wr_en,
     input wire [23:0] wr_data,
     output wire full,
-    output wire read_urgent,
+    output wire read_urgent,    //显示 FIFO 水位较低，建议优先读取 SDRAM
     input wire pix_req,
     output wire [23:0] pix_rgb,
     output wire pix_valid,
-    output wire frame_ready,
-    output reg underflow
+    output wire frame_ready,    //前台帧有效状态同步到像素时钟域后的信号
+    output reg underflow    //显示端请求像素时，缓存没有可用数据的错误标志
 );
     wire fifo_reset_n = Reset_n && !blank_flush;
     wire empty, rd_valid;

@@ -14,6 +14,8 @@ module hdmi_player_top #(
 
     // One request in the SYS_CLK domain; configuration is sampled on acceptance.
     input wire start,   //整个模块外部的开始信号
+    input wire select_last,
+    output wire [15:0] opened_file_index,
     input wire [15:0] file_index,   //要读取 SD 卡中的哪张图片
     input wire [`ADDR_WIDTH-1:0] frame_base_addr,
     // image adjustment keys: {CON-, CON+, BRT-, BRT+}, pressed = 0
@@ -199,7 +201,7 @@ module hdmi_player_top #(
         .sd_mosi(sd_mosi),
         .sd_miso(sd_miso),
         .start(storage_start),
-        .file_index(file_index),
+        .file_index(file_index),.select_last(select_last),.opened_index(opened_file_index),
         .ready(storage_ready),
         .busy(load_busy),
         .card_initialized(card_initialized),

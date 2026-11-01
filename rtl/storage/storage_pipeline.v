@@ -9,6 +9,7 @@ module storage_pipeline #(
     input wire clk, input wire rst_n,
     output wire sd_cs_n, output wire sd_sck, output wire sd_mosi, input wire sd_miso,
     input wire start, input wire [15:0] file_index,
+    input wire select_last, output wire [15:0] opened_index,
     output wire ready, output reg busy, output wire card_initialized,
     output reg done, output reg error, output reg [7:0] error_code,
     output wire [87:0] short_name, output wire [31:0] file_size,
@@ -38,6 +39,7 @@ module storage_pipeline #(
         .done(),.error(sd_error),.error_code(sd_code));
     fat32_bmp_reader fat(
         .clk(clk),.rst_n(rst_n),.start(launch),.file_index(file_index),
+        .select_last(select_last),.opened_index(opened_index),
         .busy(),.done(fat_done),.error(fat_error),.error_code(fat_code),
         .file_open(file_open),.file_size(file_size),.short_name(short_name),
         .data(file_data),.valid(file_valid),.last(file_last),.ready(file_ready),

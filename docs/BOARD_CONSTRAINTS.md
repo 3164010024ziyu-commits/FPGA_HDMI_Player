@@ -1,5 +1,13 @@
 # HX4S20 板级封装与约束
 
+## 当前控制与构建（2026-11-01）
+
+当前板级顶层为 `hdmi_player_board_top`，TD 清单为36个源文件。SW1(C8)复位、SW2(C7)重载当前图片；KEY1(A2)/KEY2(B2)调对比度，KEY3(B1)/KEY4(C1)调亮度。新增 J1-1(D14)上一张、J1-2(G11)下一张，常开按键分别接 GND，内部上拉，首尾循环。接线、电平、行为及完整测试见 [GPIO_NAVIGATION.md](GPIO_NAVIGATION.md)。
+
+本轮 bit 为 `C:/Users/31640/Documents/ChatGPT/FFF/gpio_navigation_20261101/HDMI_Player_GPIO_navigation_20261101.bit`；本轮布局布线 setup +0.145ns、HWNS +0.030ns、终点检查15004项无负余量，尚未上板。原PLL 100MHz/306°配置保留。以下是此前检查的历史记录，其中旧 KEY1复位/KEY2加载、固定索引0、34源文件、旧bit的说明均以本段当前配置为准。
+
+## 历史记录
+
 2026-10-29 上板准备复核：已重新构建并生成独立的新 bit；主工程 Runs 中原 bit 仍是旧版本，请使用[上板准备记录](BOARD_READINESS.md)指定的新文件。以下保留历史约束过程，当前结论以上板准备记录和时序修复记录为准。
 
 
