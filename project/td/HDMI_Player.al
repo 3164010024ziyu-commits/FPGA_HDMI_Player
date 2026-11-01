@@ -278,6 +278,14 @@
                     <Attr Name="CompileOrder" Val="34"/>
                 </FileInfo>
             </File>
+            <File Path="../../rtl/display/src/param_osd.v">
+                <FileInfo>
+                    <Attr Name="UsedInSyn" Val="true"/>
+                    <Attr Name="UsedInP&R" Val="true"/>
+                    <Attr Name="BelongTo" Val="design_1"/>
+                    <Attr Name="CompileOrder" Val="35"/>
+                </FileInfo>
+            </File>
         </Verilog>
         <VHDL>
             <File Path="../../rtl/display/src/hdmi_tx.vhd">

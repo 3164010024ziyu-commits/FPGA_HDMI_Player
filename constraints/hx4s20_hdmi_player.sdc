@@ -10,6 +10,7 @@ derive_clocks
 # key_meta -> key_sync and all subsequent debounce logic stay timed.
 set_false_path -from [get_ports {Reset_n}]
 set_false_path -from [get_ports {KEY_LOAD_N}]
+set_false_path -from [get_ports {key_img[*]}]
 
 # Bound only the actual crossing nets to the destination clock. Selecting
 # packed register cells can also select a neighbour (including sync stage 2).

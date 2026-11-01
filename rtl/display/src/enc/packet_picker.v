@@ -236,7 +236,11 @@ module packet_picker #(
                 spd_sent <= 1'b0;
             end
 
-            if (slot_pulse && (AUDIO_EN != 0)) begin
+            // The data-island scheduler must run even when audio is disabled:
+            // AUDIO_EN only suppresses ACR/Audio Sample packets.  AVI/AIF/SPD
+            // InfoFrames are still required for the sink to identify the
+            // 640x480p RGB stream (without AVI many sinks stay blank).
+            if (slot_pulse) begin
                 if (acr_due) begin
                     header      <= {8'h00, 8'h00, 8'h01};
                     sub0        <= acr_sub;

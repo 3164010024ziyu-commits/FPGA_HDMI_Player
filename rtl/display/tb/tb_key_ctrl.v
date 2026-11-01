@@ -10,6 +10,7 @@ module tb_key_ctrl;
     reg        clk = 1'b0;
     reg        rst_n = 1'b0;
     reg  [6:0] key_in = 7'h7F;
+    reg  [3:0] key_img = 4'hF;
 
     always #10 clk = ~clk;   // 50 MHz (stub PLL passes sys_clk to the pixel domain)
 
@@ -20,7 +21,7 @@ module tb_key_ctrl;
     hdmi_tx_display #(
         .AUDIO_FS(48000), .HDMI_AUDIO_EN(1), .HDMI_SUBTITLE_EN(1),
         .DVI_MODE(0), .TS_X(8), .TS_Y(448), .SUB_X_INIT(200),
-        .KEY_ACTIVE_LOW(1), .SWITCH_ON_LOW(1)
+        .KEY_ACTIVE_LOW(1), .SWITCH_ON_LOW(1), .BANNER_CYCLES(1_000_000)
     ) u_dut (
         .sys_clk(clk), .sys_rst_n(rst_n),
         .pix_rgb(24'd0), .pix_valid(1'b0), .frame_ready(1'b1), .pix_underflow(1'b0),
@@ -28,6 +29,7 @@ module tb_key_ctrl;
         .audio_clk(clk), .audio_sample(32'd0), .audio_valid(1'b0),
         .audio_ready(), .audio_status(audio_status), .audio_pkt(audio_pkt),
         .key_in(key_in),
+        .key_img(key_img),
         .osd_slot(1'b0), .osd_char_idx(4'd0), .osd_char_code(16'd0),
         .osd_char_we(1'b0), .osd_y(10'd420), .osd_fg(24'hFFFFFF),
         .HDMI_CLK_P(), .HDMI_D2_P(), .HDMI_D1_P(), .HDMI_D0_P()
@@ -60,6 +62,26 @@ module tb_key_ctrl;
             $display("%0t %0s: lvl=%0d vol=%0d mute_sw=%b sub_sw=%b ts_sw=%b x=%0d osd_en=%b",
                      $time, tag, u_dut.vol_level, u_dut.volume, u_dut.sw_mute,
                      u_dut.sw_sub, u_dut.sw_ts, u_dut.sub_x, u_dut.osd_en);
+        end
+    endtask
+
+    // press an image-adjustment key (key_img[0]=BRT+, [1]=BRT-, [2]=CON+, [3]=CON-)
+    task press_img;
+        input integer b;
+        begin
+            key_img[b] = 1'b0;
+            #6_000_000;
+            key_img[b] = 1'b1;
+            #6_000_000;
+        end
+    endtask
+
+    task show_img;
+        input [255:0] tag;
+        begin
+            $display("%0t %0s: bri=%0d con=%0d sel=%0d val=%0d timer=%0d",
+                     $time, tag, u_dut.bri, u_dut.con, u_dut.param_sel,
+                     u_dut.param_val, u_dut.banner_timer);
         end
     endtask
 
@@ -98,6 +120,12 @@ module tb_key_ctrl;
         key_in[1] = 1'b1;
         #6_000_000;
         show("hold vol-     ");
+
+        // image adjustment keys + parameter banner
+        press_img(0);  show_img("BRT+          ");   // 10 -> 11
+        press_img(2);  show_img("CON+          ");   // 10 -> 11, banner switches
+        #15_000_000;
+        show_img("banner expired");
 
         $display("DONE");
         $finish;

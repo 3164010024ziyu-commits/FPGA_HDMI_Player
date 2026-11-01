@@ -5,7 +5,7 @@ module diagnostic_wrapper_tb;
     wire [3:0] led;
     wire cs,sck,mosi,hclk,d0,d1,d2;
     hdmi_player_board_top #(.DIAGNOSTIC_LEDS(1),.POWERUP_CYCLES(8),.DEBOUNCE_CYCLES(4)) dut(
-        .SYS_CLK(clk),.Reset_n(rst_n),.KEY_LOAD_N(key_n),.LED(led),
+        .SYS_CLK(clk),.Reset_n(rst_n),.KEY_LOAD_N(key_n),.key_img(4'hf),.LED(led),
         .sd_cs_n(cs),.sd_sck(sck),.sd_mosi(mosi),.sd_miso(1'b1),
         .HDMI_CLK_P(hclk),.HDMI_D0_P(d0),.HDMI_D1_P(d1),.HDMI_D2_P(d2));
     task cycles(input integer n);repeat(n)@(negedge clk);endtask
@@ -31,6 +31,7 @@ module diagnostic_wrapper_tb;
 endmodule
 
 module hdmi_player_top #(parameter CLK_HZ=50000000)(
+    input [3:0] key_img,
     input SYS_CLK,Reset_n,start,input [15:0] file_index,input [20:0] frame_base_addr,
     output load_ready,load_busy,load_done,load_error,output [7:0] load_error_code,
     output [3:0] debug_error_flags,
