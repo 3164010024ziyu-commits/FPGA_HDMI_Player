@@ -6,8 +6,8 @@
 // seven debounced keys.  Four are momentary push buttons (active low, pressed
 // = 0, one action per press):
 //
-//   key_in[0]  VOL+      5-step volume, level 0..4  ->  0/64/128/192/255
-//   key_in[1]  VOL-      (level 0 is digital silence, level 4 is 0 dB)
+//   key_in[0]  VOL+      20-step volume, level 0..19 -> 0 .. 255 (5 %/step)
+//   key_in[1]  VOL-      (level 0 is digital silence, level 19 is 0 dB)
 //   key_in[5]  SUB <-    move the normal subtitle one character (16 px) left
 //   key_in[6]  SUB ->    move the normal subtitle one character (16 px) right
 //
@@ -126,7 +126,7 @@ wire pixel_clk_5x;
     );
 
     // ------------------------------------------------------- key control
-    localparam [2:0]  VOL_LEVEL_MAX = 3'd4;      // 0..4 -> five steps
+    localparam [4:0]  VOL_LEVEL_MAX = 5'd19;     // 0..19 -> twenty steps
     localparam [9:0]  SUB_STEP      = 10'd16;    // one 16-pixel character
     localparam [9:0]  SUB_X_START   = SUB_X_INIT[9:0];
     localparam [9:0]  SUB_X_MAX     = 10'd400;   // 640 - 15*16
@@ -174,18 +174,34 @@ wire pixel_clk_5x;
     wire sw_sub  = (SWITCH_ON_LOW != 0) ? ~key_stable[3] : key_stable[3];
     wire sw_ts   = (SWITCH_ON_LOW != 0) ? ~key_stable[4] : key_stable[4];
 
-    reg [2:0]  vol_level;
+    reg [4:0]  vol_level;
     reg [9:0]  sub_x;
 
-    // 0, 64, 128, 192, 255 -> silence .. 0 dB
+    // level 0..19 -> 0 .. 255 (255/19 = 13.42 per step)
     function [7:0] vol_code;
-        input [2:0] lvl;
+        input [4:0] lvl;
         begin
             case (lvl)
-                3'd0:    vol_code = 8'd0;
-                3'd1:    vol_code = 8'd64;
-                3'd2:    vol_code = 8'd128;
-                3'd3:    vol_code = 8'd192;
+                5'd0:  vol_code = 8'd0;
+                5'd1:  vol_code = 8'd13;
+                5'd2:  vol_code = 8'd27;
+                5'd3:  vol_code = 8'd40;
+                5'd4:  vol_code = 8'd54;
+                5'd5:  vol_code = 8'd67;
+                5'd6:  vol_code = 8'd81;
+                5'd7:  vol_code = 8'd94;
+                5'd8:  vol_code = 8'd107;
+                5'd9:  vol_code = 8'd121;
+                5'd10: vol_code = 8'd134;
+                5'd11: vol_code = 8'd148;
+                5'd12: vol_code = 8'd161;
+                5'd13: vol_code = 8'd174;
+                5'd14: vol_code = 8'd188;
+                5'd15: vol_code = 8'd201;
+                5'd16: vol_code = 8'd215;
+                5'd17: vol_code = 8'd228;
+                5'd18: vol_code = 8'd242;
+                5'd19: vol_code = 8'd255;
                 default: vol_code = 8'd255;
             endcase
         end
@@ -197,9 +213,9 @@ wire pixel_clk_5x;
             sub_x     <= SUB_X_START;
         end else begin
             if (key_press[0] && (vol_level != VOL_LEVEL_MAX))
-                vol_level <= vol_level + 3'd1;
-            if (key_press[1] && (vol_level != 3'd0))
-                vol_level <= vol_level - 3'd1;
+                vol_level <= vol_level + 5'd1;
+            if (key_press[1] && (vol_level != 5'd0))
+                vol_level <= vol_level - 5'd1;
             if (key_press[5] && (sub_x >= SUB_STEP))
                 sub_x <= sub_x - SUB_STEP;
             if (key_press[6] && (sub_x <= SUB_X_MAX - SUB_STEP))
@@ -273,14 +289,14 @@ wire pixel_clk_5x;
                 param_sel <= 2'd1; param_val <= con - 5'd1;
                 banner_timer <= BANNER_CYCLES;
             end else if (key_press[0] && (vol_level != VOL_LEVEL_MAX)) begin
-                param_sel <= 2'd2; param_val <= {2'b0, vol_level} + 5'd1;
+                param_sel <= 2'd2; param_val <= vol_level + 5'd1;
                 banner_timer <= BANNER_CYCLES;
-            end else if (key_press[1] && (vol_level != 3'd0)) begin
-                param_sel <= 2'd2; param_val <= {2'b0, vol_level} - 5'd1;
+            end else if (key_press[1] && (vol_level != 5'd0)) begin
+                param_sel <= 2'd2; param_val <= vol_level - 5'd1;
                 banner_timer <= BANNER_CYCLES;
             end else if (sw_mute != sw_mute_d) begin
                 param_sel <= 2'd2;
-                param_val <= sw_mute ? 5'd0 : {2'b0, vol_level};
+                param_val <= sw_mute ? 5'd0 : vol_level;
                 banner_timer <= BANNER_CYCLES;
             end
         end
