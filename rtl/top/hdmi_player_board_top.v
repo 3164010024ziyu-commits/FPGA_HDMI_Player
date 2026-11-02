@@ -1,4 +1,4 @@
-// HX4S20: SW1 resets, SW2 reloads; external J1 buttons select previous/next.
+// HX4S20 main layout: SW4 resets, J1-1 reloads, KEY4/KEY3 previous/next.
 // The application core keeps its reusable configuration/status interface.
 module hdmi_player_board_top #(
     parameter integer CLK_HZ=50000000,
@@ -14,9 +14,10 @@ module hdmi_player_board_top #(
     input wire KEY_LOAD_N,
     input wire KEY_PREV_N,
     input wire KEY_NEXT_N,
-    input wire KEY_AUTO_N, // J1 pin3/G12: toggle automatic slideshow
+    input wire KEY_AUTO_N, // J1 pin10/L14: toggle automatic slideshow
     input wire SW_AUDIO_N,SW_MUTE_N,
     input wire [3:0] key_img,
+    input wire [6:0] key_in,
     output wire [3:0] LED,
     output wire sd_cs_n,
     output wire sd_sck,
@@ -29,7 +30,7 @@ module hdmi_player_board_top #(
 );
     localparam integer POWER_BITS=POWERUP_CYCLES>1?$clog2(POWERUP_CYCLES):1;
     localparam integer DEBOUNCE_BITS=DEBOUNCE_CYCLES>1?$clog2(DEBOUNCE_CYCLES):1;
-    // Explicit FPGA initialization also supplies reset when KEY1 is not held
+    // Explicit FPGA initialization also supplies reset when SW4 is not held
     // during configuration. After any reset, wait 20 ms at the default clock.
     reg [POWER_BITS-1:0] power_count=0;
     reg power_ready=0;
@@ -64,7 +65,7 @@ module hdmi_player_board_top #(
         end
     end
     wire key_press=key_previous && !key_stable;
-    // Two external active-low buttons: independent synchronization and
+    // Board KEY4/KEY3 active-low buttons: independent synchronization and
     // debounce. A held button produces only one press event.
     reg [1:0] nav_meta, nav_sync, nav_stable, nav_previous;
     reg [DEBOUNCE_BITS-1:0] nav_count [0:1];
@@ -85,7 +86,7 @@ module hdmi_player_board_top #(
         end
     end
     wire [1:0] nav_press=nav_previous & ~nav_stable;
-    // SW3/SW4 are active-low level controls, independently debounced at 20ms.
+    // SW3 and external J1-6 mute are active-low controls, debounced at 20ms.
     reg [1:0] audio_meta,audio_sync,audio_stable;
     reg [DEBOUNCE_BITS-1:0] audio_count[0:1];
     integer audio_i;
@@ -179,7 +180,7 @@ module hdmi_player_board_top #(
         .audio_enable(!audio_stable[0]),.audio_mute(!audio_stable[1]),.audio_error(audio_error),.audio_error_code(),
         .start(load_start),.file_index(selected_file_index),
         .select_last(select_last),.opened_file_index(opened_file_index),.frame_base_addr(21'd0),
-        .key_img(key_img),
+        .key_img(key_img),.key_in(key_in),
         .debug_error_flags(debug_error_flags),
         .load_ready(load_ready),.load_busy(),.load_done(load_done),
         .load_error(load_error),.load_error_code(load_error_code),.card_initialized(card_initialized),

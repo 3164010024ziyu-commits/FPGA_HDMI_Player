@@ -13,6 +13,8 @@ set_false_path -from [get_ports {KEY_LOAD_N}]
 set_false_path -from [get_ports {KEY_PREV_N KEY_NEXT_N KEY_AUTO_N}]
 set_false_path -from [get_ports {SW_AUDIO_N SW_MUTE_N}]
 set_false_path -from [get_ports {key_img[*]}]
+# Main exposes the display key bus; captured by the same first key synchronizer.
+set_false_path -from [get_ports {key_in[*]}]
 
 # Bound only the actual crossing nets to the destination clock. Selecting
 # packed register cells can also select a neighbour (including sync stage 2).

@@ -5,16 +5,16 @@
 # automatically; no separate negative-side RTL ports are needed.
 
 set_pin_assignment { SYS_CLK }    { LOCATION = R7; IOSTANDARD = LVCMOS33; PULLTYPE = NONE; }
-set_pin_assignment { Reset_n }    { LOCATION = C8; IOSTANDARD = LVCMOS33; PULLTYPE = PULLUP; }
-set_pin_assignment { KEY_LOAD_N } { LOCATION = C7; IOSTANDARD = LVCMOS33; PULLTYPE = PULLUP; }
+set_pin_assignment { Reset_n }    { LOCATION = C5; IOSTANDARD = LVCMOS33; PULLTYPE = PULLUP; }
+set_pin_assignment { KEY_LOAD_N } { LOCATION = D14; IOSTANDARD = LVCMOS33; PULLTYPE = PULLUP; }
 
-# Image adjustment keys, active low, wired to GND:
-#   key_img[0] = BRT+ (C1), key_img[1] = BRT- (B1),
-#   key_img[2] = CON+ (B2), key_img[3] = CON- (A2)
-set_pin_assignment { key_img[0] } { LOCATION = C1; IOSTANDARD = LVCMOS33; PULLTYPE = PULLUP; }
-set_pin_assignment { key_img[1] } { LOCATION = B1; IOSTANDARD = LVCMOS33; PULLTYPE = PULLUP; }
-set_pin_assignment { key_img[2] } { LOCATION = B2; IOSTANDARD = LVCMOS33; PULLTYPE = PULLUP; }
-set_pin_assignment { key_img[3] } { LOCATION = A2; IOSTANDARD = LVCMOS33; PULLTYPE = PULLUP; }
+# Main layout: external adjustment buttons, active-low to J1 GND.
+# key_img[0]=BRT+ J1-5/H13, [1]=BRT- J1-4/F13,
+# key_img[2]=CON+ J1-3/G12, [3]=CON- J1-2/G11.
+set_pin_assignment { key_img[0] } { LOCATION = H13; IOSTANDARD = LVCMOS33; PULLTYPE = PULLUP; }
+set_pin_assignment { key_img[1] } { LOCATION = F13; IOSTANDARD = LVCMOS33; PULLTYPE = PULLUP; }
+set_pin_assignment { key_img[2] } { LOCATION = G12; IOSTANDARD = LVCMOS33; PULLTYPE = PULLUP; }
+set_pin_assignment { key_img[3] } { LOCATION = G11; IOSTANDARD = LVCMOS33; PULLTYPE = PULLUP; }
 
 # Four discrete, active-high LEDs: LED1..LED4 on the PCB.
 set_pin_assignment { LED[0] } { LOCATION = A4;  IOSTANDARD = LVCMOS33; DRIVESTRENGTH = 8; PULLTYPE = NONE; }
@@ -33,15 +33,27 @@ set_pin_assignment { HDMI_D0_P }  { LOCATION = F5; IOSTANDARD = LVDS33; PULLTYPE
 set_pin_assignment { HDMI_D1_P }  { LOCATION = E3; IOSTANDARD = LVDS33; PULLTYPE = NONE; }
 set_pin_assignment { HDMI_D2_P }  { LOCATION = B3; IOSTANDARD = LVDS33; PULLTYPE = NONE; }
 
-# SW3 audio enable, SW4 mute: low level is ON. Board manual switch table.
+# SW3/C6 audio enable; SW4/C5 is now Reset_n.
+# SW_MUTE_N is external J1-6/H14, low level mutes the WAV source.
 set_pin_assignment { SW_AUDIO_N } { LOCATION = C6; IOSTANDARD = LVCMOS33; PULLTYPE = PULLUP; }
-set_pin_assignment { SW_MUTE_N } { LOCATION = C5; IOSTANDARD = LVCMOS33; PULLTYPE = PULLUP; }
+set_pin_assignment { SW_MUTE_N } { LOCATION = H14; IOSTANDARD = LVCMOS33; PULLTYPE = PULLUP; }
 
 # Packaged SDRAM uses EG_PHY_SDRAM_2M_32; do not assign package GPIOs to it.
 
-# External normally-open buttons: J1 pin1=GPIOA_0/D14, pin2=GPIOA_1/G11.
-# Each switch connects its signal to J1 GND pin12 or pin30; no 5V connection.
-set_pin_assignment { KEY_PREV_N } { LOCATION = D14; IOSTANDARD = LVCMOS33; PULLTYPE = PULLUP; }
-set_pin_assignment { KEY_NEXT_N } { LOCATION = G11; IOSTANDARD = LVCMOS33; PULLTYPE = PULLUP; }
-# J1 pin3=GPIOA_2/G12, normally-open slideshow toggle to GND.
-set_pin_assignment { KEY_AUTO_N } { LOCATION = G12; IOSTANDARD = LVCMOS33; PULLTYPE = PULLUP; }
+# Main navigation: board KEY4/C1 previous, board KEY3/B1 next.
+# KEY_LOAD_N=J1-1/D14. New slideshow toggle=J1-10/L14.
+# External switches connect to J1 GND pin12 or pin30; no supply connection.
+set_pin_assignment { KEY_PREV_N } { LOCATION = C1; IOSTANDARD = LVCMOS33; PULLTYPE = PULLUP; }
+set_pin_assignment { KEY_NEXT_N } { LOCATION = B1; IOSTANDARD = LVCMOS33; PULLTYPE = PULLUP; }
+
+
+set_pin_assignment { key_in[0] } { LOCATION = B2; IOSTANDARD = LVCMOS33; PULLTYPE = PULLUP; }
+set_pin_assignment { key_in[1] } { LOCATION = A2; IOSTANDARD = LVCMOS33; PULLTYPE = PULLUP; }
+set_pin_assignment { key_in[2] } { LOCATION = J14; IOSTANDARD = LVCMOS33; PULLTYPE = PULLUP; }
+set_pin_assignment { key_in[3] } { LOCATION = C7; IOSTANDARD = LVCMOS33; PULLTYPE = PULLUP; }
+set_pin_assignment { key_in[4] } { LOCATION = C8; IOSTANDARD = LVCMOS33; PULLTYPE = PULLUP; }
+set_pin_assignment { key_in[5] } { LOCATION = J13; IOSTANDARD = LVCMOS33; PULLTYPE = PULLUP; }
+set_pin_assignment { key_in[6] } { LOCATION = K12; IOSTANDARD = LVCMOS33; PULLTYPE = PULLUP; }
+
+# Relocated slideshow button: J1-10=GPIOA_9/L14 (G12 is CON+ now).
+set_pin_assignment { KEY_AUTO_N } { LOCATION = L14; IOSTANDARD = LVCMOS33; PULLTYPE = PULLUP; }

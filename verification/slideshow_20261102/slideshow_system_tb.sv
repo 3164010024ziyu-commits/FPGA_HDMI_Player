@@ -1,10 +1,11 @@
 `timescale 1ns/1ps
 module slideshow_system_tb;
 reg clk=0,rst_n=0,prev_n=1,next_n=1,auto_n=1;always #10 clk=~clk;
+reg [6:0] display_keys=7'h7f;
 wire cs,sck,mosi,miso;wire [3:0] led;
 hdmi_player_board_top #(.ENABLE_FADE(1),.FADE_STEP(8),.SLIDESHOW_CYCLES(5000),.POWERUP_CYCLES(8),.DEBOUNCE_CYCLES(4)) dut(
  .SYS_CLK(clk),.Reset_n(rst_n),.KEY_LOAD_N(1'b1),.KEY_AUTO_N(auto_n),.KEY_PREV_N(prev_n),.KEY_NEXT_N(next_n),
- .SW_AUDIO_N(1'b1),.SW_MUTE_N(1'b1),.key_img(4'hf),.LED(led),
+ .SW_AUDIO_N(1'b1),.SW_MUTE_N(1'b1),.key_in(display_keys),.key_img(4'hf),.LED(led),
  .sd_cs_n(cs),.sd_sck(sck),.sd_mosi(mosi),.sd_miso(miso),
  .HDMI_CLK_P(),.HDMI_D0_P(),.HDMI_D1_P(),.HDMI_D2_P());
 integer reads,commands,loads=0,source_pixels=0,display_pixels=0,tag=0,source_offset=0;
@@ -96,6 +97,18 @@ initial begin
  repeat(10020)@(negedge clk);
  if(dut.slideshow_enabled || dut.navigation_busy || dut.current_file_index!=0)$fatal(1,"AUTO stop did not hold picture");
  request(0,1); // manual navigation still works with fade while stopped
+ // Main key_in[1] is volume down, [2] is hold-to-mute.
+ display_keys[1]=0;repeat(600000)@(negedge clk);
+ if(dut.u_player.u_display.vol_level!=3)$fatal(1,"main volume key bus disconnected");
+ repeat(600000)@(negedge clk);
+ if(dut.u_player.u_display.vol_level!=3)$fatal(1,"held volume key repeated");
+ display_keys[1]=1;repeat(600000)@(negedge clk);
+ display_keys[2]=0;repeat(600000)@(negedge clk);
+ if(dut.u_player.u_display.volume!=0)$fatal(1,"main mute key bus disconnected");
+ display_keys[2]=1;repeat(600000)@(negedge clk);
+ if(dut.u_player.u_display.volume!=192)$fatal(1,"main mute release lost volume");
+ if(dut.slideshow_enabled || dut.navigation_busy)$fatal(1,"display key changed navigation");
+ $display("MAIN_DISPLAY_KEYS_PASS routed_bus=1 volume_down=1 hold_once=1 mute=1 restore_volume=1 navigation_isolated=1");
  if(black_swaps<7 || gain_checks<307200 || led[3])$fatal(1,"integration checks incomplete");
  $display("SLIDESHOW_SYSTEM_PASS auto_sequence=0,1,2,3,4,5,0 manual_after_stop=1 hold_once=1 bounce_ignored=1 black_swaps=%0d faded_pixels=%0d",black_swaps,gain_checks);$finish;
 end

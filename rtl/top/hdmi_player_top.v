@@ -25,6 +25,8 @@ module hdmi_player_top #(
     input wire [`ADDR_WIDTH-1:0] frame_base_addr,
     // image adjustment keys: {CON-, CON+, BRT-, BRT+}, pressed = 0
     input wire [3:0] key_img,
+    // Display controls: volume +/-, mute, subtitle enables and position.
+    input wire [6:0] key_in,
     output wire load_ready,
     output wire load_busy,
     output wire load_done,
@@ -162,7 +164,7 @@ module hdmi_player_top #(
         .pix_underflow(display_underflow), .pix_clk(display_clk), .pix_reset_n(display_reset_n),
         .pix_req(display_pixel_req), .frame_sync(display_frame_sync),
         .audio_clk(SYS_CLK), .audio_sample(audio_sample), .audio_valid(audio_valid),
-        .audio_ready(audio_ready), .audio_status(), .audio_pkt(), .key_in(7'h7f),
+        .audio_ready(audio_ready), .audio_status(), .audio_pkt(), .key_in(key_in),
         .key_img(key_img),
         .osd_slot(1'b0), .osd_char_idx(4'd0), .osd_char_code(16'd0), .osd_char_we(1'b0),
         .osd_y(10'd0), .osd_fg(24'hffffff),

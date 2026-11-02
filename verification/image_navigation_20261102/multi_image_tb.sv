@@ -4,7 +4,7 @@ reg clk=0,rst_n=0,prev_n=1,next_n=1;always #10 clk=~clk;
 wire cs,sck,mosi,miso;wire [3:0] led;
 hdmi_player_board_top #(.ENABLE_FADE(0),.POWERUP_CYCLES(8),.DEBOUNCE_CYCLES(4)) dut(
  .SYS_CLK(clk),.Reset_n(rst_n),.KEY_LOAD_N(1'b1),.KEY_AUTO_N(1'b1),.KEY_PREV_N(prev_n),.KEY_NEXT_N(next_n),
- .SW_AUDIO_N(1'b1),.SW_MUTE_N(1'b1),.key_img(4'hf),.LED(led),
+ .SW_AUDIO_N(1'b1),.SW_MUTE_N(1'b1),.key_in(7'h7f),.key_img(4'hf),.LED(led),
  .sd_cs_n(cs),.sd_sck(sck),.sd_mosi(mosi),.sd_miso(miso),
  .HDMI_CLK_P(),.HDMI_D0_P(),.HDMI_D1_P(),.HDMI_D2_P());
 integer reads,commands,loads=0,source_pixels=0,display_pixels=0,tag=0,source_offset=0;
