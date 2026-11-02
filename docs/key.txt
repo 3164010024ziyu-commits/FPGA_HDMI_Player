@@ -1,0 +1,27 @@
+固定：
+clk
+led
+
+乒乓开关：
+reset
+au_on
+sub_on     key3
+timesub_on key4
+
+按键：
+img_prev
+img_next
+vol+  key0
+vol-  key1
+
+GPIO拓展：
+img_load              1
+im0(con-)             2
+  1(con+)             3
+  2(bri-)             4
+  3(bri+)             5
+au_stop               6      
+mute       key2       7
+sub_left  key5        8
+sub_right key6        9
+
