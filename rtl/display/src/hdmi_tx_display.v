@@ -27,6 +27,8 @@ module hdmi_tx_display #(
     parameter integer HDMI_AUDIO_EN   = 1,
     parameter integer HDMI_SUBTITLE_EN = 1,
     parameter integer IMAGE_FADE_EN    = 0,
+    parameter integer ENABLE_SPECTRUM = 0,
+    parameter integer SPECTRUM_DB_CYCLES = 262144,
     parameter integer DVI_MODE        = 0,
     parameter integer TS_X            = 8,
     parameter integer TS_Y            = 448,
@@ -63,6 +65,7 @@ module hdmi_tx_display #(
     input  wire [6:0]  key_in,
     // image adjustment keys: {CON-, CON+, BRT-, BRT+}, pressed = 0
     input  wire [3:0]  key_img,
+    input wire spectrum_key_n,audio_playing,
 
     // OSD text write port (content is supplied by the top level)
     input  wire        osd_slot,
@@ -81,6 +84,7 @@ module hdmi_tx_display #(
     wire        VGA_DE;
     wire [23:0] VGA_D;
     wire [23:0] OSD_D;
+    wire [23:0] SPECTRUM_D;
     wire        VGA_HS, VGA_VS;
     wire [9:0]  VGA_X;
     wire [9:0]  VGA_Y;
@@ -388,6 +392,41 @@ wire pixel_clk_5x;
 
     assign audio_ready = !audio_full;
 
+    // Spectrum observes already-crossed PCM; no backpressure into audio/video.
+    generate if(ENABLE_SPECTRUM != 0)begin:g_spectrum
+        localparam DB_BITS=SPECTRUM_DB_CYCLES>1?$clog2(SPECTRUM_DB_CYCLES):1;
+        reg spectrum_meta,spectrum_sync,spectrum_stable,spectrum_previous;
+        reg [DB_BITS-1:0] spectrum_count;
+        reg selected;
+        reg [1:0] playing_sync;
+        always @(posedge pixel_clk or negedge video_reset_n)begin
+            if(!video_reset_n)begin
+                spectrum_meta<=1;spectrum_sync<=1;spectrum_stable<=1;
+                spectrum_previous<=1;spectrum_count<=0;selected<=0;playing_sync<=0;
+            end else begin
+                spectrum_meta<=spectrum_key_n;spectrum_sync<=spectrum_meta;
+                spectrum_previous<=spectrum_stable;
+                playing_sync<={playing_sync[0],audio_playing};
+                if(spectrum_sync==spectrum_stable)spectrum_count<=0;
+                else if(spectrum_count==SPECTRUM_DB_CYCLES-1)begin
+                    spectrum_stable<=spectrum_sync;spectrum_count<=0;
+                end else spectrum_count<=spectrum_count+1'b1;
+                if(spectrum_previous && !spectrum_stable)selected<=!selected;
+            end
+        end
+        wire running=selected && playing_sync[1];
+        wire [111:0] levels;
+        audio_spectrum u_analyzer(
+            .clk(pixel_clk),.rst_n(video_reset_n),.enable(running),
+            .sample(audio_rd_data),.sample_valid(audio_pop && !audio_empty),.volume(volume),
+            .levels(levels),.update());
+        spectrum_overlay u_overlay(
+            .clk(pixel_clk),.rst_n(video_reset_n),.enable(running),.frame_sync(frame_sync),
+            .de(VGA_DE),.x(VGA_X),.y(VGA_Y),.rgb_in(PARAM_D),.levels(levels),.rgb_out(SPECTRUM_D));
+    end else begin:g_no_spectrum
+        assign SPECTRUM_D=PARAM_D;
+    end endgenerate
+
     // ------------------------------------------------------------- HDMI TX
     hdmi_tx #(
         .FAMILY  ("EG4"),
@@ -403,7 +442,7 @@ wire pixel_clk_5x;
         .V_COUNT     (VGA_Y),
         .VGA_HS      (VGA_HS),
         .VGA_VS      (VGA_VS),
-        .VGA_RGB     (PARAM_D),
+        .VGA_RGB     (SPECTRUM_D),
 
         .AUDIO_I      (audio_rd_data),
         .AUDIO_VOL    (volume),

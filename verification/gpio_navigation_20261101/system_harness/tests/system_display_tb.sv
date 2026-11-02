@@ -7,7 +7,7 @@ module system_display_tb;
     wire cs,sck,mosi,miso,hclk,hd0,hd1,hd2;
     integer reads,commands;
     hdmi_player_top #(.INIT_HALF_PERIOD(3),.READ_HALF_PERIOD(2)) dut(
-        .SYS_CLK(clk),.Reset_n(rst_n),.select_last(last_mode),.opened_file_index(opened_index),.key_in(7'h7f),.key_img(4'hf),.start(start),.file_index(16'd0),.frame_base_addr(21'd256),
+        .SYS_CLK(clk),.Reset_n(rst_n),.select_last(last_mode),.opened_file_index(opened_index),.key_in(7'h7f),.spectrum_key_n(1'b1),.key_img(4'hf),.start(start),.file_index(16'd0),.frame_base_addr(21'd256),
         .load_ready(ready),.load_busy(busy),.load_done(done),.load_error(error),.load_error_code(error_code),.card_initialized(initialized),
         .sd_cs_n(cs),.sd_sck(sck),.sd_mosi(mosi),.sd_miso(miso),.memory_frame_write_done(mem_done),.LED(led),
         .display_ready(display_ready),.display_underflow(underflow),.HDMI_CLK_P(hclk),.HDMI_D0_P(hd0),.HDMI_D1_P(hd1),.HDMI_D2_P(hd2)

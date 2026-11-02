@@ -10,7 +10,7 @@ derive_clocks
 # key_meta -> key_sync and all subsequent debounce logic stay timed.
 set_false_path -from [get_ports {Reset_n}]
 set_false_path -from [get_ports {KEY_LOAD_N}]
-set_false_path -from [get_ports {KEY_PREV_N KEY_NEXT_N KEY_AUTO_N}]
+set_false_path -from [get_ports {KEY_PREV_N KEY_NEXT_N KEY_AUTO_N KEY_SPECTRUM_N}]
 set_false_path -from [get_ports {SW_AUDIO_N SW_MUTE_N}]
 set_false_path -from [get_ports {key_img[*]}]
 # Main exposes the display key bus; captured by the same first key synchronizer.
@@ -68,3 +68,12 @@ set_max_delay -datapath_only -through [get_nets -hier {*u_display/pix_reset_n}] 
 
 # Frame-rate Gray fade level, first pixel synchronizer stage only.
 set_max_delay -datapath_only -through [get_nets -hier {*u_memory/fade_gray*}] -to [get_clocks {u_player/u_display/u_clk_wize/pll_inst.clkc[1]}] 8.000
+
+# Registered WAV playing status to the first pixel-domain synchronizer.
+set_max_delay -datapath_only -through [get_nets -hier {*player/playing}] -to [get_clocks {u_player/u_display/u_clk_wize/pll_inst.clkc[1]}] 8.000
+
+# Existing two-stage display-status synchronizers: first SYS_CLK stage only.
+set_max_delay -datapath_only -through [get_nets -hier {*u_display_fifo/underflow *u_display_fifo/frame_ready}] -to [get_clocks {SYS_CLK}] 8.000
+
+# read_error_sync[1] is the other input of the synchronized display error level.
+set_max_delay -datapath_only -through [get_nets -hier {*u_memory/read_error_sync*}] -to [get_clocks {SYS_CLK}] 8.000

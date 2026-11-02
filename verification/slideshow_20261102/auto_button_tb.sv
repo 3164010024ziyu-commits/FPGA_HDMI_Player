@@ -2,7 +2,7 @@
 module auto_button_tb;
 reg clk=0,rst=0,key=1;always #10 clk=~clk;
 hdmi_player_board_top #(.ENABLE_FADE(0),.POWERUP_CYCLES(4),.DEBOUNCE_CYCLES(4),.SLIDESHOW_CYCLES(100)) dut(
- .SYS_CLK(clk),.Reset_n(rst),.KEY_LOAD_N(1'b1),.KEY_PREV_N(1'b1),.KEY_NEXT_N(1'b1),.KEY_AUTO_N(key),
+ .SYS_CLK(clk),.Reset_n(rst),.KEY_LOAD_N(1'b1),.KEY_PREV_N(1'b1),.KEY_NEXT_N(1'b1),.KEY_SPECTRUM_N(1'b1),.KEY_AUTO_N(key),
  .SW_AUDIO_N(1'b1),.SW_MUTE_N(1'b1),.key_in(7'h7f),.key_img(4'hf),.sd_miso(1'b1));
 task cycles(input integer n);repeat(n)@(negedge clk);endtask
 integer saved;
@@ -18,11 +18,11 @@ initial begin
 end
 initial begin #100000;$fatal(1,"AUTO watchdog");end
 endmodule
-module hdmi_player_top #(parameter CLK_HZ=50000000,parameter ENABLE_AUDIO=0,parameter ENABLE_FADE=0,parameter FADE_STEP=1)(
+module hdmi_player_top #(parameter CLK_HZ=50000000,parameter ENABLE_AUDIO=0,parameter ENABLE_FADE=0,parameter ENABLE_SPECTRUM=0,parameter SPECTRUM_DB_CYCLES=262144,parameter FADE_STEP=1)(
 input audio_enable,audio_mute,output audio_error,output [7:0] audio_error_code,
 input select_last,output [15:0] opened_file_index,
 input SYS_CLK,Reset_n,start,input [15:0] file_index,input [20:0] frame_base_addr,
-input [6:0] key_in, input [3:0] key_img,output load_ready,load_busy,output reg load_done,load_error,
+input spectrum_key_n,input [6:0] key_in, input [3:0] key_img,output load_ready,load_busy,output reg load_done,load_error,
 output reg [7:0] load_error_code,output card_initialized,
 output [3:0] debug_error_flags,output sd_cs_n,sd_sck,sd_mosi,input sd_miso,
 output memory_frame_write_done,LED,display_ready,display_underflow,

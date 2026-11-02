@@ -57,3 +57,5 @@ set_pin_assignment { key_in[6] } { LOCATION = K12; IOSTANDARD = LVCMOS33; PULLTY
 
 # Relocated slideshow button: J1-10=GPIOA_9/L14 (G12 is CON+ now).
 set_pin_assignment { KEY_AUTO_N } { LOCATION = L14; IOSTANDARD = LVCMOS33; PULLTYPE = PULLUP; }
+# J1-13 GPIOA_10/M14, normally-open spectrum toggle to J1 GND12/30.
+set_pin_assignment { KEY_SPECTRUM_N } { LOCATION = M14; IOSTANDARD = LVCMOS33; PULLTYPE = PULLUP; }

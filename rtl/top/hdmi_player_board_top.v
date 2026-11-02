@@ -7,6 +7,8 @@ module hdmi_player_board_top #(
     parameter integer DEBOUNCE_CYCLES=CLK_HZ/50,
     parameter integer SLIDESHOW_CYCLES=CLK_HZ*5,
     parameter integer ENABLE_FADE=1,
+    parameter integer ENABLE_SPECTRUM=1,
+    parameter integer SPECTRUM_DB_CYCLES=262144,
     parameter integer FADE_STEP=1
 )(
     input wire SYS_CLK,
@@ -14,6 +16,7 @@ module hdmi_player_board_top #(
     input wire KEY_LOAD_N,
     input wire KEY_PREV_N,
     input wire KEY_NEXT_N,
+    input wire KEY_SPECTRUM_N, // J1-13/M14: toggle spectrum overlay
     input wire KEY_AUTO_N, // J1 pin10/L14: toggle automatic slideshow
     input wire SW_AUDIO_N,SW_MUTE_N,
     input wire [3:0] key_img,
@@ -175,12 +178,13 @@ module hdmi_player_board_top #(
         {(|debug_seen[3:2]),debug_seen[1],debug_seen[0],memory_ready} :
         {error_seen,display_status_sync[1],card_initialized,memory_ready};
 
-    hdmi_player_top #(.CLK_HZ(CLK_HZ),.ENABLE_AUDIO(1),.ENABLE_FADE(ENABLE_FADE),.FADE_STEP(FADE_STEP)) u_player (
+    hdmi_player_top #(.CLK_HZ(CLK_HZ),.ENABLE_AUDIO(1),.ENABLE_FADE(ENABLE_FADE),.ENABLE_SPECTRUM(ENABLE_SPECTRUM),
+        .SPECTRUM_DB_CYCLES(SPECTRUM_DB_CYCLES),.FADE_STEP(FADE_STEP)) u_player (
         .SYS_CLK(SYS_CLK),.Reset_n(board_reset_n),
         .audio_enable(!audio_stable[0]),.audio_mute(!audio_stable[1]),.audio_error(audio_error),.audio_error_code(),
         .start(load_start),.file_index(selected_file_index),
         .select_last(select_last),.opened_file_index(opened_file_index),.frame_base_addr(21'd0),
-        .key_img(key_img),.key_in(key_in),
+        .key_img(key_img),.spectrum_key_n(KEY_SPECTRUM_N),.key_in(key_in),
         .debug_error_flags(debug_error_flags),
         .load_ready(load_ready),.load_busy(),.load_done(load_done),
         .load_error(load_error),.load_error_code(load_error_code),.card_initialized(card_initialized),

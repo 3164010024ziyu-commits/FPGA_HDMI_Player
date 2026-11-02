@@ -10,6 +10,7 @@ module storage_pipeline #(
     input wire audio_enable,audio_mute,audio_sink_active,audio_ready,
     output wire [31:0] audio_sample,output wire audio_valid,audio_error,
     output wire [7:0] audio_error_code,
+    output wire audio_playing,
     output wire sd_cs_n, output wire sd_sck, output wire sd_mosi, input wire sd_miso,
     input wire start, input wire [15:0] file_index,
     input wire select_last, output wire [15:0] opened_index,
@@ -59,7 +60,7 @@ module storage_pipeline #(
         wav_audio_player #(.CLK_HZ(CLK_HZ)) player(
             .clk(clk),.rst_n(rst_n),.enable(audio_enable),.mute(audio_mute),
             .card_initialized(card_initialized),.sink_active(audio_sink_active),.sink_ready(audio_ready),
-            .audio_sample(audio_sample),.audio_valid(audio_valid),.error(audio_error),.error_code(audio_error_code),
+            .playing(audio_playing),.audio_sample(audio_sample),.audio_valid(audio_valid),.error(audio_error),.error_code(audio_error_code),
             .req_valid(wav_req),.req_lba(wav_lba),.req_ready(wav_grant),
             .sec_data(card_data),.sec_valid(wav_valid),.sec_last(wav_last),.sec_error(wav_error),
             .sec_error_code(wav_code),.sec_ready(wav_ready),.reader_enabled(wav_enabled));
@@ -67,7 +68,7 @@ module storage_pipeline #(
         assign card_req=req_valid;assign req_ready=card_grant;assign card_lba=req_lba;
         assign sec_valid=card_valid;assign sec_last=card_last;assign card_ready=sec_ready;
         assign sd_error=card_error;assign sd_code=card_code;
-        assign audio_sample=0;assign audio_valid=0;assign audio_error=0;assign audio_error_code=0;
+        assign audio_playing=0;assign audio_sample=0;assign audio_valid=0;assign audio_error=0;assign audio_error_code=0;
     end endgenerate
     fat32_bmp_reader fat(
         .clk(clk),.rst_n(rst_n),.start(launch),.file_index(file_index),
