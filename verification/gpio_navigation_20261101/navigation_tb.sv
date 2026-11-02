@@ -43,8 +43,8 @@ press(3);idle();if(current!=0 || last_launched!=0)$fatal(1,"first navigation");
 press(3);wait(countdown>0);press(3);idle();if(current!=2)$fatal(1,"busy next queue");
 press(3);idle();if(current!=0 || reported)$fatal(1,"last to first wrap");
 press(2);repeat(3)begin @(negedge clk);if(reported)$fatal(1,"stale boundary fault leaked");end
-idle();if(current!=2 || reported)$fatal(1,"first to last cached wrap");
-press(3);idle();if(current!=0)$fatal(1,"cached next wrap");
+idle();if(current!=2 || reported)$fatal(1,"first to last wrap");
+press(3);idle();if(current!=0)$fatal(1,"next wrap");
 press(3);idle();if(current!=1)$fatal(1,"next failed");
 force_failure=1;press(3);idle();if(current!=1 || !reported)$fatal(1,"failed load changed displayed index");
 force_failure=0;press(3);idle();if(current!=2 || reported)$fatal(1,"recovery");
@@ -54,12 +54,12 @@ if(launches!=saved)$fatal(1,"simultaneous keys");
 accept_enable=0;press(3);cycles(5);if(!pending)$fatal(1,"busy queue lost");
 rst=0;cycles(2);rst=1;accept_enable=1;cycles(8);
 if(pending || current!=0 || launches!=saved)$fatal(1,"reset did not cancel request");
-press(2);idle();if(current!=2 || !dut.last_known)$fatal(1,"first previous must find last");
+press(2);idle();if(current!=2)$fatal(1,"first previous must find last");
 press(1);idle();if(current!=2 || last_launched!=2)$fatal(1,"reload must retain nonzero selection");
 // With one image, both directions remain on zero. An empty card is an error.
 rst=0;cycles(2);last_available=0;rst=1;
 press(3);idle();press(3);idle();press(2);idle();
-if(current!=0 || reported || !dut.last_known)$fatal(1,"single image circular navigation");
+if(current!=0 || reported)$fatal(1,"single image circular navigation");
 rst=0;cycles(2);empty_card=1;rst=1;press(2);idle();
 if(!reported || code!=8'h36 || dut.image_loaded)$fatal(1,"empty card error was suppressed");
 $display("NAVIGATION_PASS first_load=0 next_previous=1 busy_queue=1 circular_wrap=1 single_image=1 empty_error=1 failure_rollback=1 stale_error_filtered=1 simultaneous_ignore=1 reload_nonzero=1 reset=1");$finish;

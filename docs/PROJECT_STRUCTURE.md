@@ -1,5 +1,7 @@
 # 当前工程结构
 
+2026-11-02补充：已修复旧末图编号缓存导致的两图循环条件；最新40源工程bit及验证记录见 [IMAGE_SWITCH_FIX.md](IMAGE_SWITCH_FIX.md)。最新setup +0.192ns、HWNS +0.023ns，音频及原功能保留；尚待实板复测。以下保留此前版本的功能说明与构建记录。
+
 更新：2026-11-01，增加SD卡WAV背景音频/共享扇区仲裁，保留外接GPIO循环切图和图像调整功能。
 
 主工程入口是 `project/td/HDMI_Player.al`，板级顶层是 `hdmi_player_board_top`，系统核心是 `hdmi_player_top`。该清单明确选择 40 个 Verilog / VHDL 文件，不要递归添加整个 `rtl/display`，否则会加入同名参考副本。
