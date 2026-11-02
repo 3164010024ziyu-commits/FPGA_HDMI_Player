@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Project Version="3" Minor="2" Path="D:/FPGA_HDMI_Player/FPGA_HDMI_Player/project/td">
+<Project Version="3" Minor="2" Path="C:/Users/31640/Desktop/FPGA_Projects/FPGA_HDMI_Player/project/td">
     <Project_Created_Time></Project_Created_Time>
     <TD_Version>6.2.168116</TD_Version>
     <Name>HDMI_Player</Name>
@@ -284,6 +284,14 @@
                     <Attr Name="UsedInP&R" Val="true"/>
                     <Attr Name="BelongTo" Val="design_1"/>
                     <Attr Name="CompileOrder" Val="35"/>
+                </FileInfo>
+            </File>
+            <File Path="../../rtl/top/slideshow_ctrl.v">
+                <FileInfo>
+                    <Attr Name="UsedInSyn" Val="true"/>
+                    <Attr Name="UsedInP&R" Val="true"/>
+                    <Attr Name="BelongTo" Val="design_1"/>
+                    <Attr Name="CompileOrder" Val="41"/>
                 </FileInfo>
             </File>
             <File Path="../../rtl/top/image_navigation_ctrl.v">

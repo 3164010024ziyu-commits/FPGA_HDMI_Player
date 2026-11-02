@@ -1,16 +1,20 @@
-// HX4S20: SW1 resets, SW2 reloads; external J1 buttons select previous/next.
+// HX4S20 main layout: SW4 resets, J1-1 reloads, KEY4/KEY3 previous/next.
 // The application core keeps its reusable configuration/status interface.
 module hdmi_player_board_top #(
     parameter integer CLK_HZ=50000000,
     parameter integer DIAGNOSTIC_LEDS=0,
     parameter integer POWERUP_CYCLES=CLK_HZ/50,
-    parameter integer DEBOUNCE_CYCLES=CLK_HZ/50
+    parameter integer DEBOUNCE_CYCLES=CLK_HZ/50,
+    parameter integer SLIDESHOW_CYCLES=CLK_HZ*5,
+    parameter integer ENABLE_FADE=1,
+    parameter integer FADE_STEP=1
 )(
     input wire SYS_CLK,
     input wire Reset_n,
     input wire KEY_LOAD_N,
     input wire KEY_PREV_N,
     input wire KEY_NEXT_N,
+    input wire KEY_AUTO_N, // J1 pin10/L14: toggle automatic slideshow
     input wire SW_AUDIO_N,SW_MUTE_N,
     input wire [3:0] key_img,
     input wire [6:0] key_in,
@@ -26,7 +30,7 @@ module hdmi_player_board_top #(
 );
     localparam integer POWER_BITS=POWERUP_CYCLES>1?$clog2(POWERUP_CYCLES):1;
     localparam integer DEBOUNCE_BITS=DEBOUNCE_CYCLES>1?$clog2(DEBOUNCE_CYCLES):1;
-    // Explicit FPGA initialization also supplies reset when KEY1 is not held
+    // Explicit FPGA initialization also supplies reset when SW4 is not held
     // during configuration. After any reset, wait 20 ms at the default clock.
     reg [POWER_BITS-1:0] power_count=0;
     reg power_ready=0;
@@ -61,7 +65,7 @@ module hdmi_player_board_top #(
         end
     end
     wire key_press=key_previous && !key_stable;
-    // Two external active-low buttons: independent synchronization and
+    // Board KEY4/KEY3 active-low buttons: independent synchronization and
     // debounce. A held button produces only one press event.
     reg [1:0] nav_meta, nav_sync, nav_stable, nav_previous;
     reg [DEBOUNCE_BITS-1:0] nav_count [0:1];
@@ -82,7 +86,7 @@ module hdmi_player_board_top #(
         end
     end
     wire [1:0] nav_press=nav_previous & ~nav_stable;
-    // SW3/SW4 are active-low level controls, independently debounced at 20ms.
+    // SW3 and external J1-6 mute are active-low controls, debounced at 20ms.
     reg [1:0] audio_meta,audio_sync,audio_stable;
     reg [DEBOUNCE_BITS-1:0] audio_count[0:1];
     integer audio_i;
@@ -100,9 +104,31 @@ module hdmi_player_board_top #(
             end
         end
     end
+    // Third external button uses the same independent synchronizer/debounce.
+    reg auto_meta,auto_sync,auto_stable,auto_previous;
+    reg [DEBOUNCE_BITS-1:0] auto_count;
+    always @(posedge SYS_CLK or negedge board_reset_n) begin
+        if(!board_reset_n) begin
+            auto_meta<=1;auto_sync<=1;auto_stable<=1;auto_previous<=1;auto_count<=0;
+        end else begin
+            auto_meta<=KEY_AUTO_N;auto_sync<=auto_meta;auto_previous<=auto_stable;
+            if(auto_sync==auto_stable)auto_count<=0;
+            else if(auto_count==DEBOUNCE_CYCLES-1)begin
+                auto_stable<=auto_sync;auto_count<=0;
+            end else auto_count<=auto_count+1'b1;
+        end
+    end
+    wire load_ready,load_done,load_error,card_initialized,memory_ready;
+    wire auto_press=auto_previous && !auto_stable;
+    wire slideshow_enabled,auto_next,navigation_busy,image_loaded_status;
+    slideshow_ctrl #(.INTERVAL_CYCLES(SLIDESHOW_CYCLES)) u_slideshow (
+        .clk(SYS_CLK),.reset_n(board_reset_n),.toggle_press(auto_press),
+        .manual_press(key_press || (|nav_press)),
+        .can_advance(load_ready && !navigation_busy),.image_loaded(image_loaded_status),
+        .enabled(slideshow_enabled),.next_press(auto_next)
+    );
     wire audio_error;
     wire request_pending;
-    wire load_ready,load_done,load_error,card_initialized,memory_ready;
     wire [7:0] load_error_code;
     wire display_ready,display_underflow;
     wire load_start, navigation_error;
@@ -110,7 +136,9 @@ module hdmi_player_board_top #(
     wire select_last;
     image_navigation_ctrl u_navigation (
         .clk(SYS_CLK),.reset_n(board_reset_n),.reload_press(key_press),
-        .previous_press(nav_press[0]),.next_press(nav_press[1]),
+        .previous_press(nav_press[0]),
+        .next_press(nav_press[1] || (auto_next && !nav_press[0] && !key_press && !auto_press)),
+        .transaction_busy(navigation_busy),.image_loaded_status(image_loaded_status),
         .load_ready(load_ready),.load_done(load_done),.load_error(load_error),
         .load_error_code(load_error_code),.start(load_start),
         .select_last(select_last),.opened_index(opened_file_index),
@@ -147,7 +175,7 @@ module hdmi_player_board_top #(
         {(|debug_seen[3:2]),debug_seen[1],debug_seen[0],memory_ready} :
         {error_seen,display_status_sync[1],card_initialized,memory_ready};
 
-    hdmi_player_top #(.CLK_HZ(CLK_HZ),.ENABLE_AUDIO(1)) u_player (
+    hdmi_player_top #(.CLK_HZ(CLK_HZ),.ENABLE_AUDIO(1),.ENABLE_FADE(ENABLE_FADE),.FADE_STEP(FADE_STEP)) u_player (
         .SYS_CLK(SYS_CLK),.Reset_n(board_reset_n),
         .audio_enable(!audio_stable[0]),.audio_mute(!audio_stable[1]),.audio_error(audio_error),.audio_error_code(),
         .start(load_start),.file_index(selected_file_index),

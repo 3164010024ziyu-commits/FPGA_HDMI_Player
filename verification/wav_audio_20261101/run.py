@@ -13,7 +13,7 @@ def run(label,args,cwd=O):
 run('init',[B/'vmap.exe','-c'])
 if not (O/'work').exists():run('library',[B/'vlib.exe','work'])
 run('map',[B/'vmap.exe','work',O/'work'])
-run('compile',[B/'vlog.exe','-sv','+define+SIM_ODDR',*list((S/'rtl/storage').glob('*.v')),S/'rtl/display/src/audio_fifo.v',*list((S/'rtl/display/src/enc').glob('*.v')),R/'decoder_tb.sv',R/'spi_audio_tb.sv',R/'hdmi_audio_tb.sv',R/'audio_sd_card_model.sv',S/'rtl/top/hdmi_player_board_top.v',S/'rtl/top/image_navigation_ctrl.v',R/'board_audio_tb.sv'])
+run('compile',[B/'vlog.exe','-sv','+define+SIM_ODDR',*list((S/'rtl/storage').glob('*.v')),S/'rtl/display/src/audio_fifo.v',*list((S/'rtl/display/src/enc').glob('*.v')),R/'decoder_tb.sv',R/'spi_audio_tb.sv',R/'hdmi_audio_tb.sv',R/'audio_sd_card_model.sv',S/'rtl/top/hdmi_player_board_top.v',S/'rtl/top/slideshow_ctrl.v',S/'rtl/top/image_navigation_ctrl.v',R/'board_audio_tb.sv'])
 for top,marker in [('decoder_tb','WAV_DECODER_PASS'),('spi_audio_tb','SPI_WAV_PASS'),('hdmi_audio_tb','HDMI_AUDIO_PASS'),('board_audio_tb','BOARD_AUDIO_PASS')]:
  d=O/top;(d/'tb/storage/vectors').mkdir(parents=True,exist_ok=True)
  shutil.copy2(R/'fixtures/card.hex',d/'tb/storage/vectors/card.hex')

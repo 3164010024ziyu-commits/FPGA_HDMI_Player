@@ -10,9 +10,11 @@ derive_clocks
 # key_meta -> key_sync and all subsequent debounce logic stay timed.
 set_false_path -from [get_ports {Reset_n}]
 set_false_path -from [get_ports {KEY_LOAD_N}]
-set_false_path -from [get_ports {KEY_PREV_N KEY_NEXT_N}]
+set_false_path -from [get_ports {KEY_PREV_N KEY_NEXT_N KEY_AUTO_N}]
 set_false_path -from [get_ports {SW_AUDIO_N SW_MUTE_N}]
 set_false_path -from [get_ports {key_img[*]}]
+# Main exposes the display key bus; captured by the same first key synchronizer.
+set_false_path -from [get_ports {key_in[*]}]
 
 # Bound only the actual crossing nets to the destination clock. Selecting
 # packed register cells can also select a neighbour (including sync stage 2).
@@ -63,3 +65,6 @@ set_max_delay -datapath_only -through [get_nets -hier {*u_frame_buffers/abort_to
 # Existing initialization status and new audio sink-ready status, first stage only.
 set_max_delay -datapath_only -through [get_nets -hier {*u_memory/mem_reset_n *u_memory/Sdr_init_done}] -to [get_clocks {SYS_CLK}] 8.000
 set_max_delay -datapath_only -through [get_nets -hier {*u_display/pix_reset_n}] -to [get_clocks {SYS_CLK}] 8.000
+
+# Frame-rate Gray fade level, first pixel synchronizer stage only.
+set_max_delay -datapath_only -through [get_nets -hier {*u_memory/fade_gray*}] -to [get_clocks {u_player/u_display/u_clk_wize/pll_inst.clkc[1]}] 8.000
