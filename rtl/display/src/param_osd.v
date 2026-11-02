@@ -18,7 +18,7 @@ module param_osd (
     input  wire [23:0] rgb_in,
     output reg  [23:0] rgb_out,
     input  wire [1:0]  sel,         // 0 = brightness, 1 = contrast, 2 = volume
-    input  wire [4:0]  val,         // brightness/contrast 0..20, volume 0..4
+    input  wire [4:0]  val,         // brightness/contrast 0..20, volume 0..19
     input  wire        visible
 );
 
@@ -31,8 +31,10 @@ module param_osd (
     localparam integer CH_W  = 10;   // 5x7 glyph at 2x
 
     // ------------------------------------------------------------- percentage
-    // brightness/contrast: 21 levels -> 0..100%, volume: 5 levels -> 0..100%
-    wire [6:0] pct_raw = (sel == 2'd2) ? ({2'b0, val} * 7'd25)
+    // brightness/contrast: 21 levels -> 0..100%, volume: 20 levels -> 0..100%
+    wire [11:0] vol_full = {1'b0, val} * 12'd100;      // 0..1900
+    wire [6:0]  vol_pct  = vol_full / 12'd19;          // 0..100
+    wire [6:0] pct_raw = (sel == 2'd2) ? vol_pct
                                        : ({2'b0, val} * 7'd5);
     wire [6:0] pct     = (pct_raw > 7'd100) ? 7'd100 : pct_raw;
 

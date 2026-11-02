@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Project Version="3" Minor="2" Path="C:/Users/31640/Desktop/FPGA_Projects/FPGA_HDMI_Player/project/td">
+<Project Version="3" Minor="2" Path="D:/FPGA_HDMI_Player/FPGA_HDMI_Player/project/td">
     <Project_Created_Time></Project_Created_Time>
     <TD_Version>6.2.168116</TD_Version>
     <Name>HDMI_Player</Name>
