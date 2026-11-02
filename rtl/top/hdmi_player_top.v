@@ -5,6 +5,8 @@
 module hdmi_player_top #(
     parameter integer CLK_HZ = 50000000,
     parameter integer ENABLE_AUDIO = 0,
+    parameter integer ENABLE_SPECTRUM = 0,
+    parameter integer SPECTRUM_DB_CYCLES = 262144,
     parameter integer ENABLE_FADE = 0,
     parameter integer FADE_STEP = 1,
     parameter integer INIT_HALF_PERIOD = (CLK_HZ+799999)/800000,
@@ -27,6 +29,7 @@ module hdmi_player_top #(
     input wire [3:0] key_img,
     // Display controls: volume +/-, mute, subtitle enables and position.
     input wire [6:0] key_in,
+    input wire spectrum_key_n,
     output wire load_ready,
     output wire load_busy,
     output wire load_done,
@@ -152,20 +155,21 @@ module hdmi_player_top #(
     // The image path is connected here. Audio/OSD remain available in the
     // display component for a later integration; this system supplies video.
     wire [31:0] audio_sample;
-    wire audio_valid,audio_ready;
+    wire audio_valid,audio_ready,audio_playing;
     reg [1:0] audio_sink_sync;
     always @(posedge SYS_CLK or negedge sys_reset_n)begin
         if(!sys_reset_n)audio_sink_sync<=0;
         else audio_sink_sync<={audio_sink_sync[0],display_reset_n};
     end
-    hdmi_tx_display #(.AUDIO_FS(48000),.HDMI_AUDIO_EN(ENABLE_AUDIO),.HDMI_SUBTITLE_EN(0),.IMAGE_FADE_EN(ENABLE_FADE)) u_display (
+    hdmi_tx_display #(.AUDIO_FS(48000),.HDMI_AUDIO_EN(ENABLE_AUDIO),.HDMI_SUBTITLE_EN(0),.IMAGE_FADE_EN(ENABLE_FADE),.ENABLE_SPECTRUM(ENABLE_SPECTRUM),
+        .SPECTRUM_DB_CYCLES(SPECTRUM_DB_CYCLES)) u_display (
         .sys_clk(SYS_CLK), .sys_rst_n(sys_reset_n && memory_initialized),
         .fade_level(display_fade_level),.pix_rgb(display_rgb), .pix_valid(display_valid), .frame_ready(display_ready),
         .pix_underflow(display_underflow), .pix_clk(display_clk), .pix_reset_n(display_reset_n),
         .pix_req(display_pixel_req), .frame_sync(display_frame_sync),
         .audio_clk(SYS_CLK), .audio_sample(audio_sample), .audio_valid(audio_valid),
         .audio_ready(audio_ready), .audio_status(), .audio_pkt(), .key_in(key_in),
-        .key_img(key_img),
+        .key_img(key_img),.spectrum_key_n(spectrum_key_n),.audio_playing(audio_playing),
         .osd_slot(1'b0), .osd_char_idx(4'd0), .osd_char_code(16'd0), .osd_char_we(1'b0),
         .osd_y(10'd0), .osd_fg(24'hffffff),
         .HDMI_CLK_P(HDMI_CLK_P), .HDMI_D2_P(HDMI_D2_P),
@@ -213,7 +217,7 @@ module hdmi_player_top #(
     ) u_storage_pipeline (
         .clk(SYS_CLK),
         .rst_n(storage_reset_n),
-        .audio_enable(audio_enable),.audio_mute(audio_mute),.audio_sink_active(audio_sink_sync[1]),
+        .audio_playing(audio_playing),.audio_enable(audio_enable),.audio_mute(audio_mute),.audio_sink_active(audio_sink_sync[1]),
         .audio_ready(audio_ready),.audio_sample(audio_sample),.audio_valid(audio_valid),
         .audio_error(audio_error),.audio_error_code(audio_error_code),
         .sd_cs_n(sd_cs_n),

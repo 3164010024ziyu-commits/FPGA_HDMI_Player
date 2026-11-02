@@ -5,6 +5,7 @@ module wav_audio_player #(
 )(
     input wire clk,rst_n,enable,mute,card_initialized,sink_active,sink_ready,
     output reg [31:0] audio_sample,output reg audio_valid,
+    output reg playing, // registered status only; never changes audio flow
     output wire error,output wire [7:0] error_code,
     output wire req_valid,output wire [31:0] req_lba,input wire req_ready,
     input wire [7:0] sec_data,input wire sec_valid,sec_last,sec_error,
@@ -13,10 +14,15 @@ module wav_audio_player #(
     localparam WAIT=0,START=1,ACTIVE=2,RETRY=3,FAULT=4;
     reg [2:0] state;
     reg attempt_reset,fault,selected,file_finished,pcm_finished;
+    reg primed;
     reg [7:0] fault_code;
     reg [15:0] file_index;
     wire file_reset_n=rst_n && enable && !attempt_reset && !fault;
     assign reader_enabled=file_reset_n;
+    always @(posedge clk or negedge rst_n)begin
+        if(!rst_n)playing<=0;
+        else playing<=enable && primed && !fault && sink_active;
+    end
     wire fat_done,fat_error,file_open,file_valid,file_last,file_ready;
     wire [7:0] fat_code,file_data;
     wire [31:0] file_size;
@@ -87,7 +93,7 @@ module wav_audio_player #(
     // for startup prefill or recovering from a late card. No burst playback.
     localparam ACC_BITS=$clog2(CLK_HZ+48000);
     reg [ACC_BITS-1:0] phase;
-    reg primed,underflow,backpressure;
+    reg underflow,backpressure;
     wire tick=sink_active && phase>=CLK_HZ-48000;
     assign pop=tick && sink_ready && fifo_reset_n && primed && buffered_valid;
     assign error=fault || underflow || backpressure;

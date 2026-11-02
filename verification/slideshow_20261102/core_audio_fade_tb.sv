@@ -5,7 +5,7 @@ wire ready,busy,done,error,audio_error,cs,sck,mosi,miso,front,underflow;
 wire [7:0] error_code,audio_code;wire [3:0] flags;
 hdmi_player_top #(.ENABLE_AUDIO(1),.ENABLE_FADE(1),.FADE_STEP(8),.INIT_HALF_PERIOD(3)) dut(
  .SYS_CLK(clk),.Reset_n(rst_n),.audio_enable(enable),.audio_mute(mute),.audio_error(audio_error),.audio_error_code(audio_code),
- .start(start),.file_index(16'd0),.select_last(1'b0),.opened_file_index(),.frame_base_addr(21'd256),.key_in(7'h7f),.key_img(4'hf),
+ .start(start),.file_index(16'd0),.select_last(1'b0),.opened_file_index(),.frame_base_addr(21'd256),.key_in(7'h7f),.spectrum_key_n(1'b1),.key_img(4'hf),
  .load_ready(ready),.load_busy(busy),.load_done(done),.load_error(error),.load_error_code(error_code),.card_initialized(),.debug_error_flags(flags),
  .sd_cs_n(cs),.sd_sck(sck),.sd_mosi(mosi),.sd_miso(miso),.memory_frame_write_done(),.LED(),
  .display_ready(front),.display_underflow(underflow),.HDMI_CLK_P(),.HDMI_D2_P(),.HDMI_D1_P(),.HDMI_D0_P());
