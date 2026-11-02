@@ -1,5 +1,14 @@
 # 2026-10-29 首次上板准备检查
 
+2026-11-02补充：已修复旧末图编号缓存导致的两图循环条件；最新40源工程bit及验证记录见 [IMAGE_SWITCH_FIX.md](IMAGE_SWITCH_FIX.md)。最新setup +0.192ns、HWNS +0.023ns，音频及原功能保留；尚待实板复测。以下保留此前版本的功能说明与构建记录。
+
+## 当前音频版本（2026-11-01）
+
+在 d7f3204 外接切图版本上增加WAV背景音频，当前40个源文件，SW3(C6)向下开音频/向上关，SW4(C5)向下静音/向上正常；原SW1复位、SW2重载、四个KEY调图像和J1外接切图保留。音频错误也计入LED4锁存。格式、接线及全部结果见 [WAV_AUDIO.md](WAV_AUDIO.md)。
+
+最新bit为 `C:/Users/31640/Documents/ChatGPT/FFF/audio_wav_20261101/HDMI_Player_WAV_audio_20261101.bit`，setup +0.191ns、HWNS +0.010ns；本轮音频尚未上板试听。以下保留GPIO版和更早的历史记录，其中源文件数、旧bit、音频关闭状态均以本段为准。
+
+
 ## 当前控制与构建（2026-11-01）
 
 当前板级顶层为 `hdmi_player_board_top`，TD 清单为36个源文件。SW1(C8)复位、SW2(C7)重载当前图片；KEY1(A2)/KEY2(B2)调对比度，KEY3(B1)/KEY4(C1)调亮度。新增 J1-1(D14)上一张、J1-2(G11)下一张，常开按键分别接 GND，内部上拉，首尾循环。接线、电平、行为及完整测试见 [GPIO_NAVIGATION.md](GPIO_NAVIGATION.md)。

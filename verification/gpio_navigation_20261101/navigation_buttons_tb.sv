@@ -4,7 +4,7 @@ reg clk=0,rst=1,load_n=1,prev_n=1,next_n=1;
 always #10 clk=~clk;
 wire [3:0] leds;
 hdmi_player_board_top #(.POWERUP_CYCLES(8),.DEBOUNCE_CYCLES(4)) dut(
-.SYS_CLK(clk),.Reset_n(rst),.KEY_LOAD_N(load_n),.KEY_PREV_N(prev_n),.KEY_NEXT_N(next_n),
+.SYS_CLK(clk),.Reset_n(rst),.KEY_LOAD_N(load_n),.KEY_PREV_N(prev_n),.SW_AUDIO_N(1'b1),.SW_MUTE_N(1'b1),.KEY_NEXT_N(next_n),
 .key_img(4'hf),.LED(leds),.sd_cs_n(),.sd_sck(),.sd_mosi(),.sd_miso(1'b1),
 .HDMI_CLK_P(),.HDMI_D2_P(),.HDMI_D1_P(),.HDMI_D0_P());
 task cycles(input integer n);repeat(n)@(negedge clk);endtask
@@ -46,7 +46,8 @@ end
 initial begin #100000;$fatal(1,"GPIO timeout index=%d",dut.current_file_index);end
 endmodule
 
-module hdmi_player_top #(parameter CLK_HZ=50000000)(
+module hdmi_player_top #(parameter CLK_HZ=50000000,parameter ENABLE_AUDIO=0)(
+input audio_enable,audio_mute,output audio_error,output [7:0] audio_error_code,
 input select_last,output [15:0] opened_file_index,
 input SYS_CLK,Reset_n,start,input [15:0] file_index,input [20:0] frame_base_addr,
 input [3:0] key_img,output load_ready,load_busy,output reg load_done,load_error,
@@ -57,6 +58,7 @@ output HDMI_CLK_P,HDMI_D2_P,HDMI_D1_P,HDMI_D0_P);
 reg ready_drive=1,front_valid=0;
 integer remaining=0,starts=0;
 reg [15:0] latched_index;
+assign audio_error=0;assign audio_error_code=0;
 assign opened_file_index=latched_index;
 assign load_ready=Reset_n && ready_drive && remaining==0;
 assign load_busy=remaining!=0;assign card_initialized=Reset_n;

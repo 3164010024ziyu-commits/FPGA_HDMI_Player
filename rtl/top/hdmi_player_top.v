@@ -4,6 +4,7 @@
 // display FIFO -> HDMI. Source completion and SDRAM completion are distinct.
 module hdmi_player_top #(
     parameter integer CLK_HZ = 50000000,
+    parameter integer ENABLE_AUDIO = 0,
     parameter integer INIT_HALF_PERIOD = (CLK_HZ+799999)/800000,
     parameter integer READ_HALF_PERIOD = (CLK_HZ+49999999)/50000000,
     parameter integer MAX_WIDTH = 640,
@@ -11,6 +12,8 @@ module hdmi_player_top #(
 )(
     input wire SYS_CLK,
     input wire Reset_n,
+    input wire audio_enable,audio_mute,
+    output wire audio_error,output wire [7:0] audio_error_code,
 
     // One request in the SYS_CLK domain; configuration is sampled on acceptance.
     input wire start,   //整个模块外部的开始信号
@@ -143,13 +146,20 @@ module hdmi_player_top #(
 
     // The image path is connected here. Audio/OSD remain available in the
     // display component for a later integration; this system supplies video.
-    hdmi_tx_display #(.HDMI_AUDIO_EN(0),.HDMI_SUBTITLE_EN(0)) u_display (
+    wire [31:0] audio_sample;
+    wire audio_valid,audio_ready;
+    reg [1:0] audio_sink_sync;
+    always @(posedge SYS_CLK or negedge sys_reset_n)begin
+        if(!sys_reset_n)audio_sink_sync<=0;
+        else audio_sink_sync<={audio_sink_sync[0],display_reset_n};
+    end
+    hdmi_tx_display #(.AUDIO_FS(48000),.HDMI_AUDIO_EN(ENABLE_AUDIO),.HDMI_SUBTITLE_EN(0)) u_display (
         .sys_clk(SYS_CLK), .sys_rst_n(sys_reset_n && memory_initialized),
         .pix_rgb(display_rgb), .pix_valid(display_valid), .frame_ready(display_ready),
         .pix_underflow(display_underflow), .pix_clk(display_clk), .pix_reset_n(display_reset_n),
         .pix_req(display_pixel_req), .frame_sync(display_frame_sync),
-        .audio_clk(SYS_CLK), .audio_sample(32'd0), .audio_valid(1'b0),
-        .audio_ready(), .audio_status(), .audio_pkt(), .key_in(7'h7f),
+        .audio_clk(SYS_CLK), .audio_sample(audio_sample), .audio_valid(audio_valid),
+        .audio_ready(audio_ready), .audio_status(), .audio_pkt(), .key_in(7'h7f),
         .key_img(key_img),
         .osd_slot(1'b0), .osd_char_idx(4'd0), .osd_char_code(16'd0), .osd_char_we(1'b0),
         .osd_y(10'd0), .osd_fg(24'hffffff),
@@ -188,6 +198,7 @@ module hdmi_player_top #(
     );
 
     storage_pipeline #(
+        .ENABLE_AUDIO(ENABLE_AUDIO),
         .CLK_HZ(CLK_HZ),
         .INIT_HALF_PERIOD(INIT_HALF_PERIOD),
         .READ_HALF_PERIOD(READ_HALF_PERIOD),
@@ -196,6 +207,9 @@ module hdmi_player_top #(
     ) u_storage_pipeline (
         .clk(SYS_CLK),
         .rst_n(storage_reset_n),
+        .audio_enable(audio_enable),.audio_mute(audio_mute),.audio_sink_active(audio_sink_sync[1]),
+        .audio_ready(audio_ready),.audio_sample(audio_sample),.audio_valid(audio_valid),
+        .audio_error(audio_error),.audio_error_code(audio_error_code),
         .sd_cs_n(sd_cs_n),
         .sd_sck(sd_sck),
         .sd_mosi(sd_mosi),

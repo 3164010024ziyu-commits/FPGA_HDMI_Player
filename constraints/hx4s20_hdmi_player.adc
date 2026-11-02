@@ -33,6 +33,10 @@ set_pin_assignment { HDMI_D0_P }  { LOCATION = F5; IOSTANDARD = LVDS33; PULLTYPE
 set_pin_assignment { HDMI_D1_P }  { LOCATION = E3; IOSTANDARD = LVDS33; PULLTYPE = NONE; }
 set_pin_assignment { HDMI_D2_P }  { LOCATION = B3; IOSTANDARD = LVDS33; PULLTYPE = NONE; }
 
+# SW3 audio enable, SW4 mute: low level is ON. Board manual switch table.
+set_pin_assignment { SW_AUDIO_N } { LOCATION = C6; IOSTANDARD = LVCMOS33; PULLTYPE = PULLUP; }
+set_pin_assignment { SW_MUTE_N } { LOCATION = C5; IOSTANDARD = LVCMOS33; PULLTYPE = PULLUP; }
+
 # Packaged SDRAM uses EG_PHY_SDRAM_2M_32; do not assign package GPIOs to it.
 
 # External normally-open buttons: J1 pin1=GPIOA_0/D14, pin2=GPIOA_1/G11.

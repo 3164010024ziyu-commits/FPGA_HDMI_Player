@@ -1,8 +1,10 @@
 # 当前工程结构
 
-更新：2026-11-01，增加外接 GPIO 循环切图控制及末图目录查询，保留原图像调整功能。
+2026-11-02补充：已修复旧末图编号缓存导致的两图循环条件；最新40源工程bit及验证记录见 [IMAGE_SWITCH_FIX.md](IMAGE_SWITCH_FIX.md)。最新setup +0.192ns、HWNS +0.023ns，音频及原功能保留；尚待实板复测。以下保留此前版本的功能说明与构建记录。
 
-主工程入口是 `project/td/HDMI_Player.al`，板级顶层是 `hdmi_player_board_top`，系统核心是 `hdmi_player_top`。该清单明确选择 36 个 Verilog / VHDL 文件，不要递归添加整个 `rtl/display`，否则会加入同名参考副本。
+更新：2026-11-01，增加SD卡WAV背景音频/共享扇区仲裁，保留外接GPIO循环切图和图像调整功能。
+
+主工程入口是 `project/td/HDMI_Player.al`，板级顶层是 `hdmi_player_board_top`，系统核心是 `hdmi_player_top`。该清单明确选择 40 个 Verilog / VHDL 文件，不要递归添加整个 `rtl/display`，否则会加入同名参考副本。
 
 ```text
 FPGA_HDMI_Player/
@@ -38,7 +40,7 @@ FPGA_HDMI_Player/
 │     └─ README.md                 当前源码与历史资料导航
 ├─ archive/display_legacy/         puresrc、旧独立工程、旧 IP、构建产物和日志（不编译）
 ├─ include/global_def.v            SDRAM 数据宽度、地址宽度和时钟周期
-├─ project/td/HDMI_Player.al        当前系统 TD 工程、36 个源码文件
+├─ project/td/HDMI_Player.al        当前系统 TD 工程、40 个源码文件
 ├─ constraints/                   HX4S20 ADC管脚与SDC时序约束
 ├─ tb/memory/                     既有 FIFO / writer 测试
 ├─ verification/display_memory_20261028/  本次可重复执行的集成测试
@@ -69,3 +71,5 @@ flowchart LR
 当前时序与生产PLL验证结论以 [SDRAM_TIMING_CLOSURE.md](SDRAM_TIMING_CLOSURE.md) 为准。
 
 当前接线、循环行为与可重复测试见 [GPIO_NAVIGATION.md](GPIO_NAVIGATION.md)，新增测试在 `verification/gpio_navigation_20261101/`。
+
+音频旁路：同一 SD SPI 主机经 `sd_sector_arbiter` 分配给 BMP 与 WAV 文件上下文，WAV 经 `wav_stream_decoder` → `pcm_sample_fifo` → 48kHz 提交 → Display 音频FIFO/HDMI打包。模块位于 `rtl/storage/`，主控制为 `wav_audio_player.v`；不占SDRAM图片帧缓存。新增测试在 `verification/wav_audio_20261101/`，SW3/SW4及格式、错误码、bit见 [WAV_AUDIO.md](WAV_AUDIO.md)。

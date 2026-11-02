@@ -1,12 +1,15 @@
 // System-clock-domain storage subsystem. pixel_addr is a PIXEL index, not bytes.
 // done permits a frame commit only AFTER the memory writer has drained too.
 module storage_pipeline #(
-    parameter CLK_HZ=50000000,
+    parameter CLK_HZ=50000000, parameter ENABLE_AUDIO=0,
     parameter INIT_HALF_PERIOD=(CLK_HZ+799999)/800000,
     parameter READ_HALF_PERIOD=(CLK_HZ+49999999)/50000000,
     parameter MAX_WIDTH=1920, parameter MAX_HEIGHT=1080
 )(
     input wire clk, input wire rst_n,
+    input wire audio_enable,audio_mute,audio_sink_active,audio_ready,
+    output wire [31:0] audio_sample,output wire audio_valid,audio_error,
+    output wire [7:0] audio_error_code,
     output wire sd_cs_n, output wire sd_sck, output wire sd_mosi, input wire sd_miso,
     input wire start, input wire [15:0] file_index,
     input wire select_last, output wire [15:0] opened_index,
@@ -22,6 +25,9 @@ module storage_pipeline #(
     wire req_valid, req_ready, sec_valid, sec_ready, sec_last, sd_error;
     wire [7:0] sec_data, sd_code;
     wire [31:0] req_lba;
+    wire card_req,card_grant,card_valid,card_ready,card_last,card_error;
+    wire [31:0] card_lba;
+    wire [7:0] card_data,card_code;
     wire fat_done, fat_error, file_open, file_valid, file_last, file_ready;
     wire [7:0] fat_code, file_data;
     wire bmp_done, bmp_error, bmp_ready;
@@ -34,9 +40,35 @@ module storage_pipeline #(
         .READ_HALF_PERIOD(READ_HALF_PERIOD)) sd(
         .clk(clk),.rst_n(rst_n),.sd_cs_n(sd_cs_n),.sd_sck(sd_sck),
         .sd_mosi(sd_mosi),.sd_miso(sd_miso),.initialized(card_initialized),
-        .high_capacity(),.req_valid(req_valid),.req_ready(req_ready),.req_lba(req_lba),
-        .data(sec_data),.valid(sec_valid),.ready(sec_ready),.last(sec_last),
-        .done(),.error(sd_error),.error_code(sd_code));
+        .high_capacity(),.req_valid(card_req),.req_ready(card_grant),.req_lba(card_lba),
+        .data(card_data),.valid(card_valid),.ready(card_ready),.last(card_last),
+        .done(),.error(card_error),.error_code(card_code));
+    assign sec_data=card_data;
+    generate if(ENABLE_AUDIO!=0)begin:g_audio
+        wire wav_req,wav_grant,wav_valid,wav_ready,wav_last,wav_error,wav_enabled;
+        wire [31:0] wav_lba;
+        wire [7:0] wav_code;
+        sd_sector_arbiter arbiter(
+            .clk(clk),.rst_n(rst_n),
+            .a_req(req_valid),.a_lba(req_lba),.a_grant(req_ready),
+            .a_valid(sec_valid),.a_last(sec_last),.a_error(sd_error),.a_code(sd_code),.a_ready(sec_ready),
+            .b_enable(wav_enabled),.b_req(wav_req),.b_lba(wav_lba),.b_grant(wav_grant),
+            .b_valid(wav_valid),.b_last(wav_last),.b_error(wav_error),.b_code(wav_code),.b_ready(wav_ready),
+            .req(card_req),.grant(card_grant),.lba(card_lba),
+            .valid(card_valid),.last(card_last),.error(card_error),.code(card_code),.ready(card_ready));
+        wav_audio_player #(.CLK_HZ(CLK_HZ)) player(
+            .clk(clk),.rst_n(rst_n),.enable(audio_enable),.mute(audio_mute),
+            .card_initialized(card_initialized),.sink_active(audio_sink_active),.sink_ready(audio_ready),
+            .audio_sample(audio_sample),.audio_valid(audio_valid),.error(audio_error),.error_code(audio_error_code),
+            .req_valid(wav_req),.req_lba(wav_lba),.req_ready(wav_grant),
+            .sec_data(card_data),.sec_valid(wav_valid),.sec_last(wav_last),.sec_error(wav_error),
+            .sec_error_code(wav_code),.sec_ready(wav_ready),.reader_enabled(wav_enabled));
+    end else begin:g_no_audio
+        assign card_req=req_valid;assign req_ready=card_grant;assign card_lba=req_lba;
+        assign sec_valid=card_valid;assign sec_last=card_last;assign card_ready=sec_ready;
+        assign sd_error=card_error;assign sd_code=card_code;
+        assign audio_sample=0;assign audio_valid=0;assign audio_error=0;assign audio_error_code=0;
+    end endgenerate
     fat32_bmp_reader fat(
         .clk(clk),.rst_n(rst_n),.start(launch),.file_index(file_index),
         .select_last(select_last),.opened_index(opened_index),
@@ -62,7 +94,7 @@ module storage_pipeline #(
             file_finished<=0; image_finished<=0; parsing_started<=0; parsing_failed<=0;
         end else begin
             done<=0;
-            if(!card_initialized && sd_error) begin error<=1; error_code<=sd_code; end
+            if(!card_initialized && card_error) begin error<=1; error_code<=card_code; end
             if(launch) begin
                 busy<=1; error<=0; error_code<=0;
                 file_finished<=0; image_finished<=0; parsing_started<=0; parsing_failed<=0;
