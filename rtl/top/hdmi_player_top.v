@@ -5,6 +5,8 @@
 module hdmi_player_top #(
     parameter integer CLK_HZ = 50000000,
     parameter integer ENABLE_AUDIO = 0,
+    parameter integer ENABLE_FADE = 0,
+    parameter integer FADE_STEP = 1,
     parameter integer INIT_HALF_PERIOD = (CLK_HZ+799999)/800000,
     parameter integer READ_HALF_PERIOD = (CLK_HZ+49999999)/50000000,
     parameter integer MAX_WIDTH = 640,
@@ -143,6 +145,7 @@ module hdmi_player_top #(
     wire display_clk, display_reset_n, display_frame_sync, display_pixel_req;
     wire [23:0] display_rgb;
     wire display_valid;
+    wire [5:0] display_fade_level;
 
     // The image path is connected here. Audio/OSD remain available in the
     // display component for a later integration; this system supplies video.
@@ -153,9 +156,9 @@ module hdmi_player_top #(
         if(!sys_reset_n)audio_sink_sync<=0;
         else audio_sink_sync<={audio_sink_sync[0],display_reset_n};
     end
-    hdmi_tx_display #(.AUDIO_FS(48000),.HDMI_AUDIO_EN(ENABLE_AUDIO),.HDMI_SUBTITLE_EN(0)) u_display (
+    hdmi_tx_display #(.AUDIO_FS(48000),.HDMI_AUDIO_EN(ENABLE_AUDIO),.HDMI_SUBTITLE_EN(0),.IMAGE_FADE_EN(ENABLE_FADE)) u_display (
         .sys_clk(SYS_CLK), .sys_rst_n(sys_reset_n && memory_initialized),
-        .pix_rgb(display_rgb), .pix_valid(display_valid), .frame_ready(display_ready),
+        .fade_level(display_fade_level),.pix_rgb(display_rgb), .pix_valid(display_valid), .frame_ready(display_ready),
         .pix_underflow(display_underflow), .pix_clk(display_clk), .pix_reset_n(display_reset_n),
         .pix_req(display_pixel_req), .frame_sync(display_frame_sync),
         .audio_clk(SYS_CLK), .audio_sample(audio_sample), .audio_valid(audio_valid),
@@ -169,7 +172,8 @@ module hdmi_player_top #(
 
     wire [2:0] memory_error_flags;
     assign debug_error_flags = {load_error,memory_error_flags};
-    memory_top u_memory (
+    memory_top #(.ENABLE_FADE(ENABLE_FADE),.FADE_STEP(FADE_STEP)) u_memory (
+        .display_fade_level(display_fade_level),
         .debug_error_flags(memory_error_flags),
         .SYS_CLK(SYS_CLK),
         .Reset_n(sys_reset_n),

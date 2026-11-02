@@ -1,5 +1,8 @@
 # 外接 GPIO 按键循环切图
 
+2026-11-02最新补充：已增加J1-3/G12常开轮播按键（另一端GND），按一次开启每张完全显示后计时五秒的自动循环，再按停止；原J1-1/2手动切图保留。板级默认启用16帧淡出—黑场换缓存—16帧淡入，单侧约0.269秒。当前41源，新bit为`FFF/slideshow_transition_20261102/HDMI_Player_slideshow_fade_20261102.bit`，setup +0.288ns、hold +0.023ns，仿真及构建通过，尚未上板。接线、操作、变更与验证见[五秒轮播与淡入淡出](SLIDESHOW_FADE.md)。以下旧版本说明作为历史记录，以本段最新状态为准。
+
+
 2026-11-01补充：本功能已与WAV音频集成，最新40源工程与bit、时序结果见 [WAV_AUDIO.md](WAV_AUDIO.md)。下文36源与GPIO bit是该功能单独交付时的历史记录。
 
 2026-11-02：已移除旧末图编号缓存；当前导航行为及最新bit见 [IMAGE_SWITCH_FIX.md](IMAGE_SWITCH_FIX.md)。

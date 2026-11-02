@@ -1,0 +1,87 @@
+# 五秒图片轮播与淡入淡出
+
+2026-11-02，基于 memory `9711c52`。用户授权增加一个轮播按键，并搜索合适的转场效果。当前实现使用独立定时控制和经过黑场的淡入淡出；原来的两只外接切图按键、图像调整按键和音频开关继续使用。
+
+## 接线与操作
+
+新增常开按键：一端接 **J1 第3脚（GPIOA_2，FPGA G12）**，另一端接 **J1 第12或30脚 GND**。内部上拉，LVCMOS33，按下接地；不接电源。管脚依据用户提供的 HX4S20 开发板手册 HDL 2410，PDF 第13页，已与现有 ADC 未占用引脚核对。
+
+- 上电或 SW1 复位后，自动轮播默认关闭。
+- 按一下新增按键，开启轮播。如果尚无图片，先加载第一张；已有图片时从当前图片继续。
+- 每张图片加载、换帧并淡入完成后，完整显示五秒，再请求下一张；最后一张之后循环到第一张。五秒由 50 MHz 时钟的 250,000,000 拍计时。相邻图片完全显示的间隔还包含 SD 加载与转场时间，不承诺每隔绝对五秒完成一次换图。
+- 再按一下停止轮播，当前已经接受的加载或转场会完成，之后保持画面。停止不是取消正在写入的任务。
+- 仍可手动上一张、下一张或 SW2 重载；手动操作优先，并重新计时五秒。忙时不累计自动切图请求。
+- 两级同步、20 ms 消抖，按住只触发一次。音频由 SW3/SW4 独立控制，原 LED 含义保留。
+
+## 转场过程
+
+先把新图完整写入后台，期间旧图保持正常显示。只有新图写入并排空完成后，才开始：
+
+1. 旧图按每帧一级从正常亮度淡到黑，16级。
+2. 黑场中，在原有垂直消隐和 SDRAM 读事务排空条件下交换前后台。
+3. 新图按每帧一级从黑淡到正常，16级；完成后才恢复加载就绪并开始五秒计时。
+
+当前光栅 800×525、像素时钟25 MHz，帧率约59.52 Hz，单侧16帧约0.269秒；换图与恢复读出另需帧边界时间。这是“淡出—黑场—淡入”，不是两张图同时半透明交叉混合。
+
+每个 RGB 通道采用定点 `floor(channel × level / 32)`，level 为0、2、…、32。加在亮度/对比度处理之后，保证正亮度偏置也能淡到纯黑；参数 OSD 在其后叠加。运算没有增加像素延迟，不改变 HDMI 坐标和有效信号。仍然只有一条 SDRAM 图像读取流，不增加整帧存储或SDRAM读带宽。
+
+`blank_flush` 是整段消隐电平，不能拿每个存储时钟当一帧；控制器检测消隐上升沿后每帧只更新一次渐变级别。渐变级别经寄存 Gray 编码和两级同步跨到像素域；生产设置每次相邻一级，在消隐期更新，活动画面期间保持稳定。新增 SDC 只约束源 Gray 信号到像素域首级的路径，后续级正常计时。
+
+帧加载失败时保留旧图，不会启动转场；写入取消时若已经开始淡出，后续帧恢复旧图。没有兼容图片或坏图仍按原加载错误处理，不自动跳过损坏 BMP。轮播也未增加 SD 热插拔功能。
+
+## 改动位置
+
+| 文件 | 作用 |
+| --- | --- |
+| `rtl/top/slideshow_ctrl.v` | 自动开关、五秒计时、空闲发请求、手动重新计时 |
+| `rtl/top/hdmi_player_board_top.v` | 新按键同步消抖、自动/手动请求优先级，板级启用转场 |
+| `rtl/top/image_navigation_ctrl.v` | 导出忙状态和已有图片状态，原文件枚举逻辑保留 |
+| `rtl/memory/frame_buffer_ctrl.v` | 每帧渐变、黑场后换缓存、淡入完成再允许下一次加载 |
+| `rtl/memory/memory_top.v` | 渐变状态跨时钟同步，保持既有SDRAM读写接口 |
+| `rtl/top/hdmi_player_top.v` | Memory与Display渐变信号连接 |
+| `rtl/display/src/hdmi_tx_display.v` | 每通道定点衰减，位置在图像调整之后、OSD之前 |
+| `constraints/hx4s20_hdmi_player.adc/.sdc` | G12按键与渐变CDC约束 |
+| `project/td/HDMI_Player.al` | 加入轮播控制器，41个RTL/VHDL源文件 |
+
+可复用核心和Memory的 `ENABLE_FADE` 默认0，板级封装默认1。`FADE_STEP=1` 为生产16级；较大步进仅供集成回归加速，不用于最终 bit。原测试显式关闭转场以维持原测试范围，新增测试启用转场并验证集成。
+
+## 搜索与方案取舍
+
+已实际查询 GitHub 与以下原始资料，仅借鉴算法，新增RTL独立实现，未复制或执行外部仓库代码。
+
+- [Xilinx Xcell 40，Video Demonstration Board](https://www.xilinx.com/publications/archives/xcell/Xcell40.pdf)：介绍交叉混合与经黑场转场。双图混合要同时提供两张图对应像素；当前工程只有单路读出，选择经黑场转场可直接配合既有双帧缓存。
+- [MIT 6.111 Lab 3，Alpha blending](https://web.mit.edu/6.111/volume2/www/f2018/handouts/labs/lab3.html)：按RGB通道计算，分母取2的幂，以乘法及右移完成定点混合。与黑色混合时第二项为0，简化为通道乘渐变系数。
+- [Project F / GitHub Framebuffers](https://github.com/projf/projf-explore/tree/main/graphics/framebuffers)、[原文](https://projectf.io/posts/framebuffers/)：有MIT许可的帧缓存、缩放与Fizzle fade示例。Fizzle是逐像素散点消隐，视觉风格不同，本次保留为候选，没有移植。
+
+## 验证与构建结果
+
+所有验证完成。本轮代码、约束、回归及文档已纳入2026-11-02本地memory分支Git保存，未推送GitHub、尚未上板。本次保存未重复编译。
+
+| 验证 | 结果 |
+| --- | --- |
+| 轮播计时 | 精确计数边界、启停、忙时不堆积、手动重计时、首次失败等间隔重试通过；仿真缩短计数参数，生产值250,000,000拍 |
+| 自动按键 | G12输入、短抖动忽略、长按一次、启停、复位通过 |
+| 渐变控制 | 生产16级/单侧，每段长消隐只更新一次；黑场换缓存、读排空、淡入后就绪、取消恢复通过 |
+| 像素运算 | 256通道值×17系数×RGB三通道逐值通过，端点精确，不增加像素延迟 |
+| 完整系统 | 六张16×8不同BMP，自动0→1→2→3→4→5→0，再停止/手动到1；7次黑场换缓存，9,216,000个渐变显示像素通过，活动帧内系数稳定 |
+| 音频伴随转场 | 实际应用核心、SPI与VHDL HDMI，2次图片加载、256源像素、5916音频CDC采样、115静音采样通过，全部错误0 |
+| 原有回归 | 导航/GPIO、FAT28项、SPI6项、原整机末图选择、WAV解析10项、5000播放采样、独立HDMI4796采样、SW3/SW4、Memory/Display14帧通过 |
+| 真实厂商库层次 | TD清单41个Verilog/VHDL源文件完整展开通过 |
+| 最终TD综合/布局布线/bitgen | setup +0.288 ns、hold +0.023 ns；17101项已导出检查无负余量，64项SDRAM DQ输入检查；渐变Gray首级5位约束有效 |
+
+最终bit：`C:/Users/31640/Documents/ChatGPT/FFF/slideshow_transition_20261102/HDMI_Player_slideshow_fade_20261102.bit`。
+SHA-256：`b8e4e5b6aa3a506db8462810496681ed97acfe8704730e0fa59f6754aff41bd9`。
+
+以上时序结果仅针对已建立约束的路径；原有外部SPI/HDMI电气预算与厂商SIP告警边界保留。使用默认16级渐变的生产bit，未改变PLL、SDRAM IP、写控制器和音频RTL。行为模型仿真没有替代实板连续运行和音频试听。
+
+可直接转交队友的验证包：`FFF/slideshow_transition_20261102/slideshow_fade_board_package_20261102.zip`，含新bit、接线操作说明和六张不同640×480/24位测试图。
+
+
+可复现测试：
+
+```powershell
+python verification/slideshow_20261102/run.py --output "$env:TEMP/fpga_slideshow"
+python verification/slideshow_20261102/run_audio_fade.py --output "$env:TEMP/fpga_audio_fade"
+```
+
+ModelSim默认 `D:/modelsim2020/win64`，可用 `--simulator-bin` 指定。单测使用生产16级渐变；整机回归缩短定时间隔和转场步数以加速，仍使用实际 Storage、SPI、Memory控制、FIFO与HDMI模块，只有SDRAM应用端用模型替代。物理时序由单独TD构建核对。实板需进一步确认渐变观感、连续轮播及同时播放音频的稳定性。

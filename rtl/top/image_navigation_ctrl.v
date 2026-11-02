@@ -11,6 +11,7 @@ module image_navigation_ctrl (
     output reg [15:0] file_index,
     output reg [15:0] current_index,
     output wire request_pending,
+    output wire transaction_busy, image_loaded_status,
     output wire report_load_error
 );
     localparam NONE=2'd0, RELOAD=2'd1, PREVIOUS=2'd2, NEXT=2'd3;
@@ -22,6 +23,8 @@ module image_navigation_ctrl (
     assign report_load_error = load_error && !(boundary_miss || boundary_held);
     assign start = launch_pending && load_ready && !in_flight;
     assign request_pending = pending_command!=NONE || launch_pending;
+    assign transaction_busy = in_flight || request_pending;
+    assign image_loaded_status = image_loaded;
 
     always @(posedge clk or negedge reset_n) begin
         if(!reset_n) begin

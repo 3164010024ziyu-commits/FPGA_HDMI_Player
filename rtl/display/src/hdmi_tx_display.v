@@ -26,6 +26,7 @@ module hdmi_tx_display #(
     parameter integer AUDIO_FS        = 48000,  // 44100 or 48000
     parameter integer HDMI_AUDIO_EN   = 1,
     parameter integer HDMI_SUBTITLE_EN = 1,
+    parameter integer IMAGE_FADE_EN    = 0,
     parameter integer DVI_MODE        = 0,
     parameter integer TS_X            = 8,
     parameter integer TS_Y            = 448,
@@ -40,6 +41,7 @@ module hdmi_tx_display #(
 
     // video source interface
     input  wire [23:0] pix_rgb,
+    input  wire [5:0]  fade_level, // pixel-domain Q5 gain 0..32
     input  wire        pix_valid,
     input  wire        frame_ready,
     input  wire        pix_underflow,
@@ -285,6 +287,18 @@ wire pixel_clk_5x;
     end
 
 
+    // Fade adjusted image toward black; no extra SDRAM reads or pixel latency.
+    // Apply after brightness so even a positive offset reaches true black.
+    function [7:0] fade_channel;
+        input [7:0] channel;
+        input [5:0] level;
+        reg [13:0] product;
+        begin product=channel*level;fade_channel=product[12:5];end
+    endfunction
+    wire [23:0] FADE_D=IMAGE_FADE_EN ? {
+        fade_channel(VGA_ADJ[23:16],fade_level),
+        fade_channel(VGA_ADJ[15:8],fade_level),
+        fade_channel(VGA_ADJ[7:0],fade_level)} : VGA_ADJ;
     // ---------------------------------------------------------------- OSD
     generate if(HDMI_SUBTITLE_EN != 0) begin : g_osd
     osd_overlay #(
@@ -297,7 +311,7 @@ wire pixel_clk_5x;
         .de           (VGA_DE),
         .x            (VGA_X),
         .y            (VGA_Y),
-        .rgb_in       (VGA_ADJ),
+        .rgb_in       (FADE_D),
         .rgb_out      (OSD_D),
         .osd_en       (osd_en),
         .osd_slot     (osd_slot),
@@ -310,7 +324,7 @@ wire pixel_clk_5x;
     );
 
     end else begin : g_no_osd
-        assign OSD_D = VGA_ADJ;
+        assign OSD_D = FADE_D;
     end endgenerate
 
     // ------------------------------------------- right-side parameter banner

@@ -21,7 +21,7 @@ def execute(label,exe,args,cwd=OUT):
         raise RuntimeError(log[-5000:])
     return log
 
-sources=[PROJECT/'rtl/top/image_navigation_ctrl.v',PROJECT/'rtl/top/hdmi_player_board_top.v',
+sources=[PROJECT/'rtl/top/image_navigation_ctrl.v',PROJECT/'rtl/top/hdmi_player_board_top.v',PROJECT/'rtl/top/slideshow_ctrl.v',
          *[PROJECT/'rtl/storage'/n for n in ('fat32_bmp_reader.v','storage_pipeline.v','sd_spi_reader.v','bmp_stream_decoder.v')],
          *[HERE/n for n in ('navigation_tb.sv','navigation_buttons_tb.sv','last_file_tb.sv','last_storage_tb.sv')],
          PROJECT/'verification/storage_mbr_fix_20261026/sd_spi_card_model.sv']

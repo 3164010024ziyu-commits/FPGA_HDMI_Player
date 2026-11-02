@@ -43,3 +43,5 @@ set_pin_assignment { SW_MUTE_N } { LOCATION = C5; IOSTANDARD = LVCMOS33; PULLTYP
 # Each switch connects its signal to J1 GND pin12 or pin30; no 5V connection.
 set_pin_assignment { KEY_PREV_N } { LOCATION = D14; IOSTANDARD = LVCMOS33; PULLTYPE = PULLUP; }
 set_pin_assignment { KEY_NEXT_N } { LOCATION = G11; IOSTANDARD = LVCMOS33; PULLTYPE = PULLUP; }
+# J1 pin3=GPIOA_2/G12, normally-open slideshow toggle to GND.
+set_pin_assignment { KEY_AUTO_N } { LOCATION = G12; IOSTANDARD = LVCMOS33; PULLTYPE = PULLUP; }

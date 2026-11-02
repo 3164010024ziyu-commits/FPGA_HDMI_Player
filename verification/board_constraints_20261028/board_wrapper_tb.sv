@@ -4,8 +4,8 @@ module board_wrapper_tb;
     always #10 clk=~clk;
     wire [3:0] led;
     wire cs,sck,mosi,hclk,d0,d1,d2;
-    hdmi_player_board_top #(.POWERUP_CYCLES(8),.DEBOUNCE_CYCLES(4)) dut(
-        .SYS_CLK(clk),.Reset_n(rst_n),.KEY_LOAD_N(key_n),.KEY_PREV_N(1'b1),.SW_AUDIO_N(1'b1),.SW_MUTE_N(1'b1),.KEY_NEXT_N(1'b1),.key_img(4'hf),.LED(led),
+    hdmi_player_board_top #(.ENABLE_FADE(0),.POWERUP_CYCLES(8),.DEBOUNCE_CYCLES(4)) dut(
+        .SYS_CLK(clk),.Reset_n(rst_n),.KEY_LOAD_N(key_n),.KEY_AUTO_N(1'b1),.KEY_PREV_N(1'b1),.SW_AUDIO_N(1'b1),.SW_MUTE_N(1'b1),.KEY_NEXT_N(1'b1),.key_img(4'hf),.LED(led),
         .sd_cs_n(cs),.sd_sck(sck),.sd_mosi(mosi),.sd_miso(1'b1),
         .HDMI_CLK_P(hclk),.HDMI_D0_P(d0),.HDMI_D1_P(d1),.HDMI_D2_P(d2));
     task cycles(input integer n);repeat(n)@(negedge clk);endtask
@@ -49,7 +49,7 @@ module board_wrapper_tb;
     initial begin #20000;$fatal(1,"wrapper timeout");end
 endmodule
 
-module hdmi_player_top #(parameter CLK_HZ=50000000,parameter ENABLE_AUDIO=0)(
+module hdmi_player_top #(parameter CLK_HZ=50000000,parameter ENABLE_AUDIO=0,parameter ENABLE_FADE=0,parameter FADE_STEP=1)(
     input audio_enable,audio_mute,output audio_error,output [7:0] audio_error_code,
 input select_last,output [15:0] opened_file_index,
     input [3:0] key_img,

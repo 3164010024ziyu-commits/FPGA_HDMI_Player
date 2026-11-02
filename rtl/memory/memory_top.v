@@ -3,7 +3,9 @@
 module memory_top #(
     parameter integer DISPLAY_WIDTH=640,
     parameter integer DISPLAY_HEIGHT=480,
-    parameter integer DISPLAY_FIFO_ADDR_WIDTH=11
+    parameter integer DISPLAY_FIFO_ADDR_WIDTH=11,
+    parameter integer ENABLE_FADE=0,
+    parameter integer FADE_STEP=1
 )(
     input wire SYS_CLK,
     
@@ -33,6 +35,7 @@ module memory_top #(
     output wire display_pixel_valid,
     output wire display_frame_ready,
     output wire display_underflow,
+    output wire [5:0] display_fade_level,
 
     output wire [2:0] debug_error_flags, // {refresh, read timeout, FIFO underflow}
     output wire LED
@@ -110,13 +113,33 @@ wire read_request, read_grant, read_active;
 wire writer_reset_n, write_block;
 wire desc_ready, desc_valid, pixel_accept;
 wire [20:0] desc_base;
+wire display_path_reset_n = !reset_request && display_reset_n;
 wire front_valid;
+wire [4:0] fade_step;
+// Adjacent fade steps use a Gray crossing. One bit changes per frame at
+// vertical blank, with many blank lines for two pixel stages to settle.
+reg [4:0] fade_gray;
+reg [4:0] fade_meta,fade_sync;
+always @(posedge Clk or negedge mem_reset_n) begin
+    if(!mem_reset_n)fade_gray<=5'b11000;
+    else fade_gray<=(fade_step>>1)^fade_step;
+end
+always @(posedge display_clk or negedge display_path_reset_n) begin
+    if(!display_path_reset_n)begin fade_meta<=5'b11000;fade_sync<=5'b11000;end
+    else begin fade_meta<=fade_gray;fade_sync<=fade_meta;end
+end
+wire [4:0] fade_binary;
+assign fade_binary[4]=fade_sync[4];
+genvar fade_bit;
+generate for(fade_bit=0;fade_bit<4;fade_bit=fade_bit+1)begin : g_fade_decode
+    assign fade_binary[fade_bit]=fade_binary[fade_bit+1]^fade_sync[fade_bit];
+end endgenerate
+assign display_fade_level=ENABLE_FADE ? {fade_binary,1'b0} : 6'd32;
 wire [20:0] front_base;
 wire [15:0] front_width, front_height;
 wire read_fifo_full, read_fifo_wr_en, read_error, read_urgent;
 wire read_raster_active;
 wire [23:0] read_fifo_data;
-wire display_path_reset_n = !reset_request && display_reset_n;
 reg [1:0] blank_sync;
 always @(posedge Clk or negedge mem_reset_n) begin
     if(!mem_reset_n) blank_sync <= 0;
@@ -232,8 +255,10 @@ sdram_write_ctrl uut (
 
 
 frame_buffer_ctrl #(
-    .DISPLAY_WIDTH(DISPLAY_WIDTH), .DISPLAY_HEIGHT(DISPLAY_HEIGHT)
+    .DISPLAY_WIDTH(DISPLAY_WIDTH), .DISPLAY_HEIGHT(DISPLAY_HEIGHT),
+    .ENABLE_FADE(ENABLE_FADE), .FADE_STEP(FADE_STEP)
 ) u_frame_buffers (
+    .fade_step(fade_step),
     .sys_clk(SYS_CLK), .sys_rst_n(sys_reset_n), .initialized(init_done_sync[1]),
     .frame_start(frame_start), .frame_end(frame_end), .frame_abort(frame_abort),
     .frame_base_addr(frame_base_addr), .frame_width(frame_width), .frame_height(frame_height),
