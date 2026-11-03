@@ -18,11 +18,11 @@ module fat32_bmp_reader #(
     localparam IDLE=0, REQUEST=1, RECEIVE=2, BOOT=3, BPB=4, GEOMETRY=5,
         DIR_LOAD=6, DIR_SCAN=7, DIR_NEXT=8, FAT_LOAD=9, FAT_NEXT=10,
         FILE_LOAD=11, FILE_STREAM=12, FILE_NEXT=13, FAILED=14, GEO_CHECK=15,
-        DIR_CAPTURE=16, FAT_CAPTURE=17, MBR=18;
+        DIR_CAPTURE=16, FAT_CAPTURE=17, MBR=18, CACHE_PRIME=19;
     reg [4:0] state, return_state;
     reg [7:0] sector[0:511];
-    // Keep small fixed metadata fields separately so the large sector array
-    // has a single shared asynchronous read port and can infer logic RAM.
+    // Keep fixed metadata fields separate. Only the sector payload uses the
+    // synchronous block-RAM port; its first byte is primed before consumption.
     reg [7:0] boot[0:63], mbr[0:63];
     reg [15:0] signature;
     reg [1:0] fat_capture_offset;
@@ -78,9 +78,33 @@ module fat32_bmp_reader #(
         (mbr[36]==8'h0b || mbr[36]==8'h0c) ? 3'd3 :
         (mbr[52]==8'h0b || mbr[52]==8'h0c) ? 3'd4 : 3'd0;
     wire [31:0] fat_link=fat_value & 32'h0fffffff;
-    wire [8:0] sector_read_offset=(state==DIR_CAPTURE) ? dir_offset+{4'd0,entry_offset} :
-                                 (state==FAT_CAPTURE) ? fat_byte+{7'd0,fat_capture_offset} : out_offset;
-    wire [7:0] sector_byte=sector[sector_read_offset];
+    reg [7:0] sector_byte;
+    reg [8:0] sector_read_offset;
+    wire sector_read_enable=state==CACHE_PRIME || state==DIR_CAPTURE ||
+                            state==FAT_CAPTURE || state==FILE_STREAM;
+    always @* begin
+        sector_read_offset=out_offset;
+        if(state==CACHE_PRIME) begin
+            if(return_state==DIR_CAPTURE)
+                sector_read_offset=dir_offset+{4'd0,entry_offset};
+            else if(return_state==FAT_CAPTURE)
+                sector_read_offset=fat_byte+{7'd0,fat_capture_offset};
+        end else if(state==DIR_CAPTURE)
+            sector_read_offset=dir_offset+{4'd0,entry_offset}+9'd1;
+        else if(state==FAT_CAPTURE)
+            sector_read_offset=fat_byte+{7'd0,fat_capture_offset}+9'd1;
+        else if(state==FILE_STREAM && ready && bytes_left!=1 && out_offset!=511)
+            sector_read_offset=out_offset+9'd1;
+    end
+    // No reset on the payload RAM/read register. A complete sector is received
+    // before CACHE_PRIME, and valid stays low until the registered read is ready.
+    // Look ahead only on a transfer, keeping data stable under backpressure and
+    // preserving one byte per clock while the downstream consumer is ready.
+    always @(posedge clk) begin
+        if(rst_n && state==RECEIVE && sec_valid && !sec_error)
+            sector[rx_offset]<=sec_data;
+        if(sector_read_enable) sector_byte<=sector[sector_read_offset];
+    end
     wire [63:0] cluster_lba={32'd0,data_base}+
                              (({32'd0,cluster}-64'd2)<<cluster_shift)+cluster_sector;
     assign req_valid=(state==REQUEST);
@@ -141,7 +165,6 @@ module fat32_bmp_reader #(
                 REQUEST: if(req_ready) begin rx_offset<=0; state<=RECEIVE; end
                 RECEIVE: if(sec_error) fail(8'h30);
                     else if(sec_valid) begin
-                        sector[rx_offset]<=sec_data;
                         if(return_state==BOOT || return_state==BPB) begin
                             if(rx_offset<64) boot[rx_offset[5:0]]<=sec_data;
                             if(rx_offset==510) signature[7:0]<=sec_data;
@@ -150,9 +173,10 @@ module fat32_bmp_reader #(
                         if(return_state==BOOT && rx_offset>=446 && rx_offset<510)
                             mbr[rx_offset-446]<=sec_data;
                         if(sec_last!=(rx_offset==511)) fail(8'h31);
-                        else if(rx_offset==511) state<=return_state;
+                        else if(rx_offset==511) state<=CACHE_PRIME;
                         else rx_offset<=rx_offset+1'b1;
                     end
+                CACHE_PRIME: state<=return_state;
                 BOOT: if(signature!=16'haa55) fail(8'h32);
                     else if(le16(11)==512 && boot[13]!=0 && le16(17)==0 && le16(22)==0)
                         state<=BPB; // Candidate only: full BPB and geometry must pass.
@@ -233,7 +257,9 @@ module fat32_bmp_reader #(
                         else begin found<=found+1'b1;state<=DIR_NEXT;end
                     end else state<=DIR_NEXT;
                 end
-                DIR_NEXT: if(dir_offset!=480) begin dir_offset<=dir_offset+32; state<=DIR_CAPTURE; end
+                DIR_NEXT: if(dir_offset!=480) begin
+                        dir_offset<=dir_offset+32;return_state<=DIR_CAPTURE;state<=CACHE_PRIME;
+                    end
                     else begin
                         dir_offset<=0;
                         if(cluster_sector+1<sectors_per_cluster) begin
