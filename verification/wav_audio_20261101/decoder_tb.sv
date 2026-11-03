@@ -3,7 +3,7 @@ module decoder_tb;
 reg clk=0,rst_n=0,start=0;always #10 clk=~clk;
 reg [31:0] file_size=0;
 reg [7:0] data=0;reg valid=0,last=0;wire ready;
-wire [31:0] sample;wire sample_valid,format_valid,done,error;wire [7:0] error_code;
+wire sample_first;wire [31:0] sample;wire sample_valid,format_valid,done,error;wire [7:0] error_code;
 reg sample_ready=0;
 wav_stream_decoder dut(.*);
 reg [7:0] good[0:8247],mono[0:171],bytes[0:8299];
@@ -24,6 +24,7 @@ always @(posedge clk)if(rst_n)begin
  else begin
  if(stalled && (!sample_valid || sample!==held))$fatal(1,"unstable PCM under backpressure");
  if(sample_valid && sample_ready)begin
+  if(sample_first!==(seen==0))$fatal(1,"WAV first flag not aligned with PCM");
   if(sample!==expected(seen))$fatal(1,"PCM mismatch at %d got=%h expected=%h",seen,sample,expected(seen));seen=seen+1;
  end
  stalled=sample_valid && !sample_ready;held=sample;

@@ -4,6 +4,7 @@ module wav_stream_decoder (
     input wire clk,rst_n,start,input wire [31:0] file_size,
     input wire [7:0] data,input wire valid,last,output wire ready,
     output reg [31:0] sample,output reg sample_valid,input wire sample_ready,
+    output reg sample_first,
     output reg format_valid,done,error,output reg [7:0] error_code
 );
     localparam IDLE=0,RIFF=1,CHUNK=2,FMT=3,SKIP=4,PCM=5,DRAIN=6,FAILED=7;
@@ -26,14 +27,14 @@ module wav_stream_decoder (
         if(!rst_n)begin
             state<=IDLE;index<=0;offset<=0;size_latched<=0;riff_size<=0;riff_end<=0;
             chunk_id<=0;chunk_size<=0;remaining<=0;fmt_seen<=0;end_seen<=0;
-            pcm_byte<=0;pcm_low<=0;sample<=0;sample_valid<=0;format_valid<=0;done<=0;error<=0;error_code<=0;
+            sample_first<=0;pcm_byte<=0;pcm_low<=0;sample<=0;sample_valid<=0;format_valid<=0;done<=0;error<=0;error_code<=0;
         end else begin
             done<=0;format_valid<=0;
-            if(sample_valid && sample_ready)sample_valid<=0;
+            if(sample_valid && sample_ready)begin sample_valid<=0;sample_first<=0;end
             if(start)begin
                 state<=RIFF;index<=0;offset<=0;size_latched<=file_size;
                 riff_size<=0;chunk_id<=0;chunk_size<=0;fmt_seen<=0;end_seen<=0;
-                pcm_byte<=0;sample_valid<=0;error<=0;error_code<=0;
+                pcm_byte<=0;sample_first<=0;sample_valid<=0;error<=0;error_code<=0;
             end else if(state==DRAIN && end_seen && !sample_valid)begin state<=IDLE;done<=1;end
             else if(transfer)begin
                 offset<=offset+1'b1;
@@ -74,7 +75,7 @@ module wav_stream_decoder (
                                 else state<=FMT;
                             end else if(chunk_id==32'h64617461)begin
                                 if(!fmt_seen || size_now==0 || size_now[1:0]!=0)fail(8'h82);
-                                else begin state<=PCM;pcm_byte<=0;remaining<=size_now;format_valid<=1;end
+                                else begin state<=PCM;pcm_byte<=0;remaining<=size_now;format_valid<=1;sample_first<=1;end
                             end else state<=size_now==0 ? CHUNK : SKIP;
                         end
                     end

@@ -77,3 +77,9 @@ set_max_delay -datapath_only -through [get_nets -hier {*u_display_fifo/underflow
 
 # read_error_sync[1] is the other input of the synchronized display error level.
 set_max_delay -datapath_only -through [get_nets -hier {*u_memory/read_error_sync*}] -to [get_clocks {SYS_CLK}] 8.000
+
+# Subtitle descriptor payload shares the existing held request/ack crossing.
+set_max_delay -datapath_only -through [get_nets -hier {*ucdc/user_reg*}] -to [get_clocks {u_player/u_memory/u0_clk/pll_inst.clkc[1]}] 8.000
+# Front descriptor mailbox is held until capture/ack, not a free-running bus.
+set_max_delay -datapath_only -through [get_nets -hier {*u_subtitle_info/held* *u_subtitle_info/request}] -to [get_clocks {u_player/u_display/u_clk_wize/pll_inst.clkc[1]}] 8.000
+set_max_delay -datapath_only -through [get_nets -hier {*u_subtitle_info/ack}] -to [get_clocks {u_player/u_memory/u0_clk/pll_inst.clkc[1]}] 8.000

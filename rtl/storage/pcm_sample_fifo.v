@@ -1,12 +1,12 @@
 // Synchronous block RAM with a separate output register. No reset of RAM data.
-module pcm_sample_fifo #(parameter AW=12)(
+module pcm_sample_fifo #(parameter AW=12,WIDTH=32)(
     input wire clk,rst_n,
-    input wire [31:0] in_data,input wire in_valid,output wire in_ready,
-    output reg [31:0] out_data,output reg out_valid,input wire out_ready,
+    input wire [WIDTH-1:0] in_data,input wire in_valid,output wire in_ready,
+    output reg [WIDTH-1:0] out_data,output reg out_valid,input wire out_ready,
     output wire [AW+1:0] level
 );
     localparam DEPTH=1<<AW;
-    reg [31:0] mem[0:DEPTH-1];
+    reg [WIDTH-1:0] mem[0:DEPTH-1];
     reg [AW-1:0] wp,rp;
     reg [AW:0] count;
     wire take=(!out_valid || out_ready) && count!=0;

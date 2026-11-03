@@ -27,6 +27,7 @@ module frame_buffer_ctrl #(
     input wire [20:0] dst_base,
     input wire [15:0] dst_width,
     input wire [15:0] dst_height,
+    input wire [103:0] dst_user,output reg [103:0] front_user,
     input wire writer_done,
     input wire write_owned,
     input wire read_active,
@@ -107,7 +108,7 @@ module frame_buffer_ctrl #(
             abort_sync <= 0; abort_ack <= 0; clear_count <= 0;
             available_mem <= 0;
             back_bank <= 0; writing <= 0; pending_frame <= 0;
-            pending_base <= 0; pending_width <= 0; pending_height <= 0;
+            pending_base <= 0; pending_width <= 0; pending_height <= 0;front_user<=0;
             fade_step <= 16; blank_previous <= 0;
             front_valid <= 0; front_base <= 0; front_width <= 0; front_height <= 0;
         end else begin
@@ -150,7 +151,7 @@ module frame_buffer_ctrl #(
                     if(ENABLE_FADE) fade_step <= 0;
                     front_base <= pending_base;
                     front_width <= pending_width;
-                    front_height <= pending_height;
+                    front_height <= pending_height;front_user<=dst_user;
                     front_valid <= 1;
                     pending_frame <= 0;
                     back_bank <= ~back_bank;

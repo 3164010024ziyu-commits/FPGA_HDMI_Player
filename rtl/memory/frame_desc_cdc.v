@@ -10,6 +10,7 @@ module frame_desc_cdc (
     input  wire [15:0] src_width,
     input  wire [15:0] src_height,
     input  wire        src_top_down,
+    input wire [103:0] src_user,
 
     // 125 MHz 时钟域
     input  wire        dst_clk,
@@ -20,6 +21,7 @@ module frame_desc_cdc (
     output reg  [15:0] dst_width,
     output reg  [15:0] dst_height,
     output reg         dst_top_down,
+    output wire [103:0] dst_user,
 
     input wire frame_write_done,
     output wire frame_write_done_sync
@@ -36,6 +38,11 @@ reg [20:0]base_addr_reg;
 reg [15:0]width_reg;
 reg [15:0]height_reg;
 reg top_down_reg;
+reg [103:0] user_reg;
+// Frame-buffer readiness forbids a new source descriptor while writing or
+// pending commit. User payload therefore stays held through front adoption;
+// only geometry is needed immediately at the destination request pulse.
+assign dst_user=user_reg;
 
 always @(posedge src_clk or negedge src_rst_n) begin
     if (!src_rst_n) begin
@@ -43,13 +50,13 @@ always @(posedge src_clk or negedge src_rst_n) begin
         base_addr_reg <= 0;
         width_reg     <= 0;
         height_reg    <= 0;
-        top_down_reg  <= 0;
+        top_down_reg  <= 0;user_reg<=0;
     end
     else if (src_fire) begin
         base_addr_reg <= src_base_addr;
         width_reg     <= src_width;
         height_reg    <= src_height;
-        top_down_reg  <= src_top_down;
+        top_down_reg  <= src_top_down;user_reg<=src_user;
         req_toggle <= ~req_toggle;
     end
 end

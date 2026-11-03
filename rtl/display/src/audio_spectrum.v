@@ -610,18 +610,29 @@ module audio_spectrum(
     endfunction
     reg [15:0] band_max[0:15];
     wire [3:0] selected_band=band_for(mag_addr[7:0]);
+    reg [3:0] height_index;
+    reg converting;
+    reg [111:0] pending_levels;
+    wire [6:0] converted_height=log_height(band_max[height_index]);
     integer i;
     always @(posedge clk or negedge rst_n)begin
-        if(!rst_n)begin levels<=0;update<=0;for(i=0;i<16;i=i+1)band_max[i]<=0;end
-        else if(!enable)begin levels<=0;update<=0;for(i=0;i<16;i=i+1)band_max[i]<=0;end
+        if(!rst_n)begin height_index<=0;converting<=0;pending_levels<=0;levels<=0;update<=0;for(i=0;i<16;i=i+1)band_max[i]<=0;end
+        else if(!enable)begin height_index<=0;converting<=0;pending_levels<=0;levels<=0;update<=0;for(i=0;i<16;i=i+1)band_max[i]<=0;end
         else begin
             update<=0;
+            // Reuse one logarithmic height converter over 16 clocks. Publish
+            // the entire vector together, retaining frame-atomic display data.
+            if(converting)begin
+                pending_levels[height_index*7+:7]<=converted_height;
+                if(height_index==15)begin
+                    levels<={converted_height,pending_levels[104:0]};update<=1;converting<=0;
+                end else height_index<=height_index+1'b1;
+            end
             if(mag_valid)begin
                 if(mag_addr==0)for(i=0;i<16;i=i+1)band_max[i]<=0;
                 else if(mag_addr<256 && mag_data>band_max[selected_band])band_max[selected_band]<=mag_data;
                 if(mag_addr==511)begin
-                    for(i=0;i<16;i=i+1)levels[i*7+:7]<=log_height(band_max[i]);
-                    update<=1;
+                    converting<=1;height_index<=0;
                 end
             end
         end

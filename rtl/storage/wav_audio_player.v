@@ -5,6 +5,7 @@ module wav_audio_player #(
 )(
     input wire clk,rst_n,enable,mute,card_initialized,sink_active,sink_ready,
     output reg [31:0] audio_sample,output reg audio_valid,
+    output reg [2:0] audio_tag, // {enabled, real file sample, loop first}; aligned with audio_sample
     output reg playing, // registered status only; never changes audio flow
     output wire error,output wire [7:0] error_code,
     output wire req_valid,output wire [31:0] req_lba,input wire req_ready,
@@ -29,7 +30,7 @@ module wav_audio_player #(
     wire pcm_done,pcm_error,format_valid;
     wire [7:0] pcm_code;
     wire [31:0] pcm_sample;
-    wire pcm_valid,pcm_ready;
+    wire pcm_valid,pcm_ready,pcm_first;
     fat32_bmp_reader #(.FILE_EXTENSION(24'h574156),.MIN_FILE_BYTES(12),.MAX_FILE_BYTES(536870912)) fat(
         .clk(clk),.rst_n(file_reset_n),.start(state==START),.file_index(file_index),
         .select_last(1'b0),.opened_index(),.busy(),.done(fat_done),.error(fat_error),.error_code(fat_code),
@@ -53,14 +54,14 @@ module wav_audio_player #(
         .clk(clk),.rst_n(file_reset_n),.start(file_open),.file_size(file_size),
         .data(pipe_data),.valid(pipe_valid),.last(pipe_last),.ready(decoder_ready),
         .sample(pcm_sample),.sample_valid(pcm_valid),.sample_ready(pcm_ready),
-        .format_valid(format_valid),.done(pcm_done),.error(pcm_error),.error_code(pcm_code));
+        .sample_first(pcm_first),.format_valid(format_valid),.done(pcm_done),.error(pcm_error),.error_code(pcm_code));
     wire fifo_reset_n=rst_n && enable && !fault;
-    wire [31:0] buffered_sample;
+    wire [31:0] buffered_sample;wire buffered_first;
     wire buffered_valid,pop;
     wire [BUFFER_AWIDTH+1:0] level;
-    pcm_sample_fifo #(.AW(BUFFER_AWIDTH)) buffer(
-        .clk(clk),.rst_n(fifo_reset_n),.in_data(pcm_sample),.in_valid(pcm_valid && file_reset_n),
-        .in_ready(pcm_ready),.out_data(buffered_sample),.out_valid(buffered_valid),.out_ready(pop),.level(level));
+    pcm_sample_fifo #(.AW(BUFFER_AWIDTH),.WIDTH(33)) buffer(
+        .clk(clk),.rst_n(fifo_reset_n),.in_data({pcm_first,pcm_sample}),.in_valid(pcm_valid && file_reset_n),
+        .in_ready(pcm_ready),.out_data({buffered_first,buffered_sample}),.out_valid(buffered_valid),.out_ready(pop),.level(level));
     always @(posedge clk or negedge rst_n)begin
         if(!rst_n)begin
             state<=WAIT;attempt_reset<=1;fault<=0;fault_code<=0;selected<=0;file_index<=0;
@@ -99,7 +100,7 @@ module wav_audio_player #(
     assign error=fault || underflow || backpressure;
     assign error_code=fault ? fault_code : underflow ? 8'hB8 : backpressure ? 8'hB9 : 8'd0;
     always @(posedge clk or negedge rst_n)begin
-        if(!rst_n)begin phase<=0;primed<=0;audio_valid<=0;audio_sample<=0;underflow<=0;backpressure<=0;end
+        if(!rst_n)begin phase<=0;primed<=0;audio_valid<=0;audio_sample<=0;audio_tag<=0;underflow<=0;backpressure<=0;end
         else begin
             audio_valid<=0;
             if(!enable)begin underflow<=0;backpressure<=0;end
@@ -111,6 +112,7 @@ module wav_audio_player #(
                 if(sink_ready)begin
                     audio_valid<=1;
                     audio_sample<=pop && !mute ? buffered_sample : 32'd0;
+                    audio_tag<={enable && !fault,pop,pop && buffered_first};
                     if(fifo_reset_n && primed && !buffered_valid)begin underflow<=1;primed<=0;end
                 end else if(enable)backpressure<=1;
             end else phase<=phase+48000;

@@ -76,6 +76,24 @@ always @(negedge dut.u_player.u_memory.Clk)if(dut.u_player.u_memory.mem_reset_n)
  end
  last_base=dut.u_player.u_memory.front_base;was_valid=dut.u_player.u_memory.front_valid;
 end
+// Subtitle descriptors must follow each real image through alternating slots.
+reg [135:0] expected_info0,expected_info1,last_display_info;
+integer subtitle_adoptions=0;
+always @(posedge clk)if(dut.u_player.sys_reset_n && dut.u_player.u_memory.desc_valid)begin
+ if(dut.u_player.u_memory.desc_base==0)
+  expected_info0={dut.u_player.opened_file_index,dut.u_player.image_name,dut.u_player.image_width,dut.u_player.image_height};
+ else expected_info1={dut.u_player.opened_file_index,dut.u_player.image_name,dut.u_player.image_width,dut.u_player.image_height};
+end
+always @(posedge dut.u_player.display_clk)if(dut.u_player.display_reset_n)begin
+ if(dut.u_player.display_info_valid)begin
+  last_display_info=dut.u_player.display_info;subtitle_adoptions=subtitle_adoptions+1;
+  if(dut.u_player.display_info!==(dut.u_player.u_memory.front_base==0?expected_info0:expected_info1))
+   $fatal(1,"subtitle metadata changed before its actual image adoption");
+ end
+ if(subtitle_adoptions>0 && dut.u_player.u_display.VGA_X==0 && dut.u_player.u_display.VGA_Y==1)
+  if(dut.u_player.u_display.g_subtitles.u_overlay.active_info!==last_display_info)
+   $fatal(1,"subtitle is not the current front image");
+end
 initial begin
  bank_tag[0]=0;bank_tag[1]=0;
  #100;rst_n=1;wait(dut.load_ready);
@@ -99,17 +117,19 @@ initial begin
  request(0,1); // manual navigation still works with fade while stopped
  // Main key_in[1] is volume down, [2] is hold-to-mute.
  display_keys[1]=0;repeat(600000)@(negedge clk);
- if(dut.u_player.u_display.vol_level!=3)$fatal(1,"main volume key bus disconnected");
+ if(dut.u_player.u_display.vol_level!=18)$fatal(1,"main volume key bus disconnected");
  repeat(600000)@(negedge clk);
- if(dut.u_player.u_display.vol_level!=3)$fatal(1,"held volume key repeated");
+ if(dut.u_player.u_display.vol_level!=18)$fatal(1,"held volume key repeated");
  display_keys[1]=1;repeat(600000)@(negedge clk);
  display_keys[2]=0;repeat(600000)@(negedge clk);
  if(dut.u_player.u_display.volume!=0)$fatal(1,"main mute key bus disconnected");
  display_keys[2]=1;repeat(600000)@(negedge clk);
- if(dut.u_player.u_display.volume!=192)$fatal(1,"main mute release lost volume");
+ if(dut.u_player.u_display.volume!=242)$fatal(1,"main mute release lost volume");
  if(dut.slideshow_enabled || dut.navigation_busy)$fatal(1,"display key changed navigation");
  $display("MAIN_DISPLAY_KEYS_PASS routed_bus=1 volume_down=1 hold_once=1 mute=1 restore_volume=1 navigation_isolated=1");
  if(black_swaps<7 || gain_checks<307200 || led[3])$fatal(1,"integration checks incomplete");
+ if(subtitle_adoptions<6)$fatal(1,"insufficient subtitle image coverage");
+ $display("SUBTITLE_MULTI_IMAGE_PASS adoptions=%d filename_index_dimensions=1",subtitle_adoptions);
  $display("SLIDESHOW_SYSTEM_PASS auto_sequence=0,1,2,3,4,5,0 manual_after_stop=1 hold_once=1 bounce_ignored=1 black_swaps=%0d faded_pixels=%0d",black_swaps,gain_checks);$finish;
 end
 initial begin #900000000;$fatal(1,"slideshow watchdog current=%d code=%h",dut.current_file_index,dut.load_error_code);end
