@@ -8,12 +8,13 @@
 // clock domain avoids hand-rolled gray-pointer CDC and TD optimizer issues.
 // -----------------------------------------------------------------------------
 module audio_fifo #(
+    parameter integer DATA_WIDTH = 32,
     parameter integer AWIDTH = 4        // synchronous FIFO depth = 2^AWIDTH
 ) (
     input  wire            wr_clk,
     input  wire            wr_rst,
     input  wire            wr_en,
-    input  wire [31:0]     wr_data,
+    input  wire [DATA_WIDTH-1:0] wr_data,
 
     output wire            full,
     output wire            overflow,
@@ -22,14 +23,14 @@ module audio_fifo #(
     input  wire            rd_rst,
     input  wire            rd_en,
     
-    output wire [31:0]     rd_data,
+    output wire [DATA_WIDTH-1:0] rd_data,
     output wire            empty
 );
 
     localparam integer DEPTH = (1 << AWIDTH);
 
     // ---------------------------------------------------- write-side mailbox
-    reg [31:0] mailbox;
+    reg [DATA_WIDTH-1:0] mailbox;
     reg        wr_tog;
     reg        rd_tog;              // declared before the write-side sync uses it
     reg [2:0]  rd_tog_sync;         // rd_tog -> wr_clk
@@ -65,7 +66,7 @@ module audio_fifo #(
     wire new_sample = (wr_tog_sync[2] != rd_tog);
 
     // ------------------------------------- synchronous FIFO (pixel domain)
-    reg [31:0] mem [0:DEPTH-1];
+    reg [DATA_WIDTH-1:0] mem [0:DEPTH-1];
     reg [AWIDTH:0] wptr, rptr;
 
     wire [AWIDTH:0] wptr_next = wptr + {{AWIDTH{1'b0}}, new_sample};

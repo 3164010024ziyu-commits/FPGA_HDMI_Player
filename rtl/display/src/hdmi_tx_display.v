@@ -57,6 +57,8 @@ module hdmi_tx_display #(
     input  wire        audio_clk,
     input  wire [31:0] audio_sample,   // {L[15:0], R[15:0]}
     input  wire        audio_valid,
+    input wire [2:0] audio_tag,
+    input wire display_info_valid,input wire [135:0] display_info,
     output wire        audio_ready,
     output wire [1:0]  audio_status,   // {overflow, underflow}
     output wire        audio_pkt,      // Audio Sample Packet activity
@@ -319,32 +321,28 @@ wire pixel_clk_5x;
         fade_channel(VGA_ADJ[23:16],fade_level),
         fade_channel(VGA_ADJ[15:8],fade_level),
         fade_channel(VGA_ADJ[7:0],fade_level)} : VGA_ADJ;
-    // ---------------------------------------------------------------- OSD
-    generate if(HDMI_SUBTITLE_EN != 0) begin : g_osd
-    osd_overlay #(
-        .OSD_EN (HDMI_SUBTITLE_EN),
-        .TS_X   (TS_X),
-        .TS_Y   (TS_Y)
-    ) u_osd (
-        .clk          (pixel_clk),
-        .reset        (~video_reset_n),
-        .de           (VGA_DE),
-        .x            (VGA_X),
-        .y            (VGA_Y),
-        .rgb_in       (FADE_D),
-        .rgb_out      (OSD_D),
-        .osd_en       (osd_en),
-        .osd_slot     (osd_slot),
-        .char_idx     (osd_char_idx),
-        .char_code    (osd_char_code),
-        .char_we      (osd_char_we),
-        .sub_x        (sub_x),
-        .sub_y        (osd_y),
-        .fg           (osd_fg)
-    );
+    wire [31:0] audio_rd_data;wire [2:0] audio_rd_tag;
+    wire        audio_empty;
+    wire        audio_full;
+    wire        audio_overflow;
+    wire        audio_pop;
 
+    // ---------------------------------------------------------------- OSD
+    generate if(HDMI_SUBTITLE_EN != 0) begin : g_subtitles
+    wire [23:0] progress_bcd;wire progress_playing;
+    audio_progress #(.FS(AUDIO_FS)) u_progress(
+      .clk(pixel_clk),.rst_n(video_reset_n),.consume(audio_pop && !audio_empty),
+      .tag(audio_rd_tag),.playing(progress_playing),.time_bcd(progress_bcd));
+    subtitle_overlay u_overlay(
+      .clk(pixel_clk),.rst_n(video_reset_n),.de(VGA_DE),.frame_sync(frame_sync),
+      .x(VGA_X),.y(VGA_Y),.rgb_in(FADE_D),.rgb_out(OSD_D),
+      .sub_enable(sw_sub),.time_enable(sw_ts),
+      .left_pressed(KEY_ACTIVE_LOW ? !key_stable[5]:key_stable[5]),
+      .right_pressed(KEY_ACTIVE_LOW ? !key_stable[6]:key_stable[6]),
+      .info_valid(display_info_valid),.info(display_info),
+      .audio_playing(progress_playing),.audio_bcd(progress_bcd));
     end else begin : g_no_osd
-        assign OSD_D = FADE_D;
+      assign OSD_D=FADE_D;
     end endgenerate
 
     // ------------------------------------------- right-side parameter banner
@@ -363,11 +361,6 @@ wire pixel_clk_5x;
     );
 
     // -------------------------------------------------------------- audio
-    wire [31:0] audio_rd_data;
-    wire        audio_empty;
-    wire        audio_full;
-    wire        audio_overflow;
-    wire        audio_pop;
 
     // Assert audio reset with video; release it in the source clock domain.
     wire audio_reset_request=~video_reset_n;
@@ -376,17 +369,17 @@ wire pixel_clk_5x;
         if(audio_reset_request)audio_reset_release<=0;
         else audio_reset_release<={audio_reset_release[0],1'b1};
     end
-    audio_fifo #(.AWIDTH(5)) u_audio_fifo (
+    audio_fifo #(.AWIDTH(5),.DATA_WIDTH(35)) u_audio_fifo (
         .wr_clk   (audio_clk),
         .wr_rst   (~audio_reset_release[1]),
         .wr_en    (audio_valid && HDMI_AUDIO_EN != 0),
-        .wr_data  (audio_sample),
+        .wr_data  ({audio_tag,audio_sample}),
         .full     (audio_full),
         .overflow (audio_overflow),
         .rd_clk   (pixel_clk),
         .rd_rst   (~video_reset_n),
         .rd_en    (audio_pop),
-        .rd_data  (audio_rd_data),
+        .rd_data  ({audio_rd_tag,audio_rd_data}),
         .empty    (audio_empty)
     );
 

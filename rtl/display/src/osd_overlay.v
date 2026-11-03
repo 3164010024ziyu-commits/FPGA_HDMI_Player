@@ -34,7 +34,7 @@ module osd_overlay #(
 
     localparam integer NCH = 15;
 
-    reg [15:0] text_ram [0:2*NCH-1];
+    reg [15:0] text_ram [0:31];
 
     integer i;
 
@@ -63,12 +63,12 @@ module osd_overlay #(
     endfunction
 
     initial begin
-        for (i = 0; i < 2*NCH; i = i + 1) text_ram[i] = 16'd0;
+        for (i = 0; i < 32; i = i + 1) text_ram[i] = 16'd0;
     end
 
     always @(posedge clk or posedge reset) begin
         if (reset) begin
-            for (i = 0; i < 2*NCH; i = i + 1)
+            for (i = 0; i < 32; i = i + 1)
                 text_ram[i] <= 16'd0;
         end else if (char_we && char_idx < NCH) begin
             text_ram[{osd_slot, 4'd0} + char_idx] <= char_code;
@@ -120,9 +120,9 @@ module osd_overlay #(
                   (y >= TS_Y) && (y < TS_Y + 16);
 
     wire req0 = first0 ||
-                (in0 && (cell0 != 4'd15) && (sx0[3:0] >= 4'd12) && !issued0);
+                (in0 && (cell0 < NCH-1) && (sx0[3:0] >= 4'd12) && !issued0);
     wire req1 = first1 ||
-                (in1 && (cell1 != 4'd15) && (sx1[3:0] >= 4'd11) && !issued1);
+                (in1 && (cell1 < NCH-1) && (sx1[3:0] >= 4'd11) && !issued1);
 
     wire [3:0] next_cell0 = first0 ? 4'd0 : cell0 + 4'd1;
     wire [3:0] next_cell1 = first1 ? 4'd0 : cell1 + 4'd1;

@@ -20,6 +20,8 @@ module memory_top #(
     input wire [15:0] frame_width,
     input wire [15:0] frame_height,
     input wire frame_top_down,
+    input wire [103:0] frame_info,
+    output wire display_info_valid,output wire [135:0] display_info,
     input wire frame_end,
 
     input wire frame_abort,
@@ -137,6 +139,7 @@ end endgenerate
 assign display_fade_level=ENABLE_FADE ? {fade_binary,1'b0} : 6'd32;
 wire [20:0] front_base;
 wire [15:0] front_width, front_height;
+wire [103:0] dst_user,front_user;
 wire read_fifo_full, read_fifo_wr_en, read_error, read_urgent;
 wire read_raster_active;
 wire [23:0] read_fifo_data;
@@ -210,7 +213,7 @@ frame_desc_cdc ucdc (
         .src_base_addr  (desc_base  ),
         .src_width      (frame_width      ),
         .src_height     (frame_height     ),
-        .src_top_down   (frame_top_down   ),
+        .src_top_down   (frame_top_down   ),.src_user(frame_info),
 
 
         .dst_clk        (Clk        ),
@@ -219,7 +222,7 @@ frame_desc_cdc ucdc (
         .dst_base_addr  (dst_base_addr  ),
         .dst_width      (dst_width      ),
         .dst_height     (dst_height     ),
-        .dst_top_down   (dst_top_down   ),
+        .dst_top_down   (dst_top_down   ),.dst_user(dst_user),
 
         .frame_write_done(frame_write_done),
         .frame_write_done_sync(frame_write_done_sync)
@@ -265,7 +268,7 @@ frame_buffer_ctrl #(
     .desc_ready(desc_ready), .desc_valid(desc_valid), .desc_base(desc_base),
     .pixel_accept(pixel_accept), .frame_write_ready(frame_write_ready), .frame_error(frame_error),
     .mem_clk(Clk), .mem_rst_n(mem_reset_n), .dst_valid(dst_valid),
-    .dst_base(dst_base_addr), .dst_width(dst_width), .dst_height(dst_height),
+    .dst_base(dst_base_addr), .dst_width(dst_width), .dst_height(dst_height),.dst_user(dst_user),.front_user(front_user),
     .writer_done(frame_write_done), .write_owned(write_owned), .read_active(read_active),
     .blank_flush(blank_flush), .writer_reset_n(writer_reset_n), .write_block(write_block),
     .front_valid(front_valid), .front_base(front_base),
@@ -367,4 +370,20 @@ EG_PHY_SDRAM_2M_32 u_sdram_phy (
     .cke   (1'b1)
 );
 
+
+// Observe the raster descriptor accepted after blank_flush falls. This is the
+// same front slot the reader uses, not the earlier writer completion event.
+reg info_sent;
+reg [20:0] info_base;
+wire info_ready;
+wire info_send=front_valid && !blank_flush && read_raster_active &&
+               (!info_sent || info_base!=front_base);
+always @(posedge Clk or negedge display_path_reset_n)begin
+ if(!display_path_reset_n)begin info_sent<=0;info_base<=0;end
+ else if(info_send && info_ready)begin info_sent<=1;info_base<=front_base;end
+end
+subtitle_mailbox #(.WIDTH(136)) u_subtitle_info(
+ .src_clk(Clk),.dst_clk(display_clk),.rst_n(display_path_reset_n),
+ .src_valid(info_send),.src_data({front_user,front_width,front_height}),.src_ready(info_ready),
+ .dst_valid(display_info_valid),.dst_data(display_info));
 endmodule

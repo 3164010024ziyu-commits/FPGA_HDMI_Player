@@ -47,6 +47,7 @@ def sim(f,label,top,marker,params=(),action='run -all'):
     script.write_text('onerror {quit -f -code 1}\n'+action+'\nquit -f -code 0\n',encoding='ascii')
     return run(f,label,'vsim',['-c','-onfinish','stop','-modelsimini','modelsim.ini','-voptargs=+acc',*params,'work.'+top,'-do',script.name],marker)
 core=[SRC/'include/global_def.v',*[SRC/'rtl/memory'/n for n in ('async_fifo.v','frame_desc_cdc.v','sdram_write_ctrl.v','sdram_refresh_ctrl.v','sdram_app_arbiter.v','sdram_read_ctrl.v','frame_buffer_ctrl.v','display_pixel_fifo.v','memory_top.v')]]
+core.append(SRC/'rtl/display/src/subtitle_mailbox.v')
 inc='+incdir+'+(SRC/'rtl/memory').as_posix()
 
 physical=[*core,SRC/'rtl/ip/clk_pll/clk_pll.v',*list((SRC/'rtl/ip/sdram').glob('*.v')),args.model,GLBL]

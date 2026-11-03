@@ -32,11 +32,45 @@ module param_osd (
 
     // ------------------------------------------------------------- percentage
     // brightness/contrast: 21 levels -> 0..100%, volume: 20 levels -> 0..100%
-    wire [11:0] vol_full = {1'b0, val} * 12'd100;      // 0..1900
-    wire [6:0]  vol_pct  = vol_full / 12'd19;          // 0..100
+    // Exact floor(level*100/19), without a long combinational divider.
+    function [6:0] volume_percent;
+        input [4:0] level;
+        begin
+            case(level)
+                5'd0: volume_percent=7'd0;
+                5'd1: volume_percent=7'd5;
+                5'd2: volume_percent=7'd10;
+                5'd3: volume_percent=7'd15;
+                5'd4: volume_percent=7'd21;
+                5'd5: volume_percent=7'd26;
+                5'd6: volume_percent=7'd31;
+                5'd7: volume_percent=7'd36;
+                5'd8: volume_percent=7'd42;
+                5'd9: volume_percent=7'd47;
+                5'd10: volume_percent=7'd52;
+                5'd11: volume_percent=7'd57;
+                5'd12: volume_percent=7'd63;
+                5'd13: volume_percent=7'd68;
+                5'd14: volume_percent=7'd73;
+                5'd15: volume_percent=7'd78;
+                5'd16: volume_percent=7'd84;
+                5'd17: volume_percent=7'd89;
+                5'd18: volume_percent=7'd94;
+                5'd19: volume_percent=7'd100;
+                default: volume_percent=7'd100;
+            endcase
+        end
+    endfunction
+    wire [6:0] vol_pct=volume_percent(val);
     wire [6:0] pct_raw = (sel == 2'd2) ? vol_pct
                                        : ({2'b0, val} * 7'd5);
-    wire [6:0] pct     = (pct_raw > 7'd100) ? 7'd100 : pct_raw;
+    // Parameter metadata may settle one clock later; RGB and timing remain
+    // combinational pass-through. This cuts the percentage->font/bar path.
+    reg [6:0] pct;
+    always @(posedge clk or posedge reset)begin
+        if(reset)pct<=0;
+        else pct<=(pct_raw > 7'd100)?7'd100:pct_raw;
+    end
 
     wire [3:0] d_h = pct / 7'd100;
     wire [3:0] d_t = (pct / 7'd10) % 4'd10;
