@@ -53,9 +53,9 @@ begin l=(i*13+1000)%12000;r=-((i*7+2000)%14000);expected={l,r};end
 endfunction
 always @(posedge clk)if(rst_n)begin
  cycles=cycles+1;if(cycles>13000000)$fatal(1,"SPI audio watchdog");
- expected_sent=dut.g_audio.player.pop && !mute ? expected(cursor) : 32'd0;
+ expected_sent=dut.g_audio.g_background.player.pop && !mute ? expected(cursor) : 32'd0;
  if(!enable)cursor=0;
- else if(dut.g_audio.player.pop)begin cursor=cursor==2047 ? 0 : cursor+1;frames=frames+1;if(mute)muted=muted+1;end
+ else if(dut.g_audio.g_background.player.pop)begin cursor=cursor==2047 ? 0 : cursor+1;frames=frames+1;if(mute)muted=muted+1;end
  if(pixel_valid && pixel_ready)begin
   expected_rgb={8'(8'h80+pixels/17+pixels%17),8'(pixels%17),8'(8'h30+pixels/17)};
   if(rgb!==expected_rgb || px!==16'(pixels%17) || py!==16'(22-pixels/17))$fatal(1,"concurrent BMP corruption pixel=%d rgb=%h",pixels,rgb);
@@ -79,7 +79,7 @@ initial begin
  enable=1;wait(frames>=1200);image();
  wait(frames>=2200);mute=1;repeat(300000)@(negedge clk);mute=0;
  wait(frames>=4400);
- if(audio_error || error || muted<100 || dut.g_audio.player.file_index!=1)$fatal(1,"audio concurrent/skip/loop code=%h index=%d",audio_error_code,dut.g_audio.player.file_index);
+ if(audio_error || error || muted<100 || dut.g_audio.g_background.player.file_index!=1)$fatal(1,"audio concurrent/skip/loop code=%h index=%d",audio_error_code,dut.g_audio.g_background.player.file_index);
  // Disable while a WAV sector is owned. It must drain, allowing BMP progress.
  wait(dut.g_audio.arbiter.owner==2);@(negedge clk);enable=0;image();
  if(audio_error)$fatal(1,"stop did not clear fault");

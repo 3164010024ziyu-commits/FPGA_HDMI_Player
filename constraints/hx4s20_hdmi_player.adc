@@ -33,9 +33,8 @@ set_pin_assignment { HDMI_D0_P }  { LOCATION = F5; IOSTANDARD = LVDS33; PULLTYPE
 set_pin_assignment { HDMI_D1_P }  { LOCATION = E3; IOSTANDARD = LVDS33; PULLTYPE = NONE; }
 set_pin_assignment { HDMI_D2_P }  { LOCATION = B3; IOSTANDARD = LVDS33; PULLTYPE = NONE; }
 
-# SW3/C6 audio enable; SW4/C5 is now Reset_n.
-# SW_MUTE_N is external J1-6/H14, low level mutes the WAV source.
-set_pin_assignment { SW_AUDIO_N } { LOCATION = C6; IOSTANDARD = LVCMOS33; PULLTYPE = PULLUP; }
+# SW3/C6 is unused; SW4/C5 remains Reset_n.
+# SW_MUTE_N is external J1-6/H14, low level pauses paired WAV playback.
 set_pin_assignment { SW_MUTE_N } { LOCATION = H14; IOSTANDARD = LVCMOS33; PULLTYPE = PULLUP; }
 
 # Packaged SDRAM uses EG_PHY_SDRAM_2M_32; do not assign package GPIOs to it.

@@ -2,12 +2,12 @@
 module frame_buffer_ctrl #(
     parameter integer DISPLAY_WIDTH=640,
     parameter integer DISPLAY_HEIGHT=480,
-    parameter integer ENABLE_FADE=0,
+    parameter integer ENABLE_FADE=0,parameter integer ENABLE_AV_SYNC=0,
     parameter integer FADE_STEP=1 // 1 production; 2/4/8/16 may accelerate tests
 )(
     input wire sys_clk,
     input wire sys_rst_n,
-    input wire initialized,
+    input wire initialized,input wire presentation_ready,
     input wire frame_start,
     input wire frame_end,
     input wire frame_abort,
@@ -59,6 +59,11 @@ module frame_buffer_ctrl #(
     reg [1:0] abort_sync;
     reg [3:0] clear_count;
     reg blank_previous;
+    reg [1:0] presentation_sync;
+    always @(posedge mem_clk or negedge mem_rst_n)begin
+        if(!mem_rst_n)presentation_sync<=0;
+        else presentation_sync<={presentation_sync[0],presentation_ready};
+    end
     wire blank_start=blank_flush && !blank_previous;
 
     wire abort_pending_sys = abort_toggle != abort_ack_sync[1];
@@ -142,7 +147,7 @@ module frame_buffer_ctrl #(
                     pending_base <= dst_base;
                     pending_width <= dst_width;
                     pending_height <= dst_height;
-                end else if(writing && writer_done) begin
+                end else if(writing && writer_done && (ENABLE_AV_SYNC==0 || presentation_sync[1])) begin
                     writing <= 0;
                     pending_frame <= 1;
                 end

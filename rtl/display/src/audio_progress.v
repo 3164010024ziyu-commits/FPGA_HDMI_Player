@@ -1,14 +1,15 @@
 // Tags accompany the PCM word through exactly the same CDC queue:
 // [2] source enabled, [1] actual file sample, [0] first sample of this loop.
 // Silence for prefill/underrun is not file progress. Muted file samples are.
-module audio_progress #(parameter FS=48000)(
- input wire clk,rst_n,consume,input wire [2:0] tag,
+module audio_progress #(parameter FS=48000,parameter HOLD_IDLE=0)(
+ input wire clk,rst_n,consume,input wire [2:0] tag,input wire restart,
  output reg playing,output reg [23:0] time_bcd
 );
  localparam BITS=FS>1?$clog2(FS):1;
  reg [BITS-1:0] samples;
  always @(posedge clk or negedge rst_n)begin
   if(!rst_n)begin samples<=0;time_bcd<=0;playing<=0;end
+  else if(HOLD_IDLE!=0 && restart)begin samples<=0;time_bcd<=0;playing<=1;end
   else if(consume)begin
    if(!tag[2])begin samples<=0;time_bcd<=0;playing<=0;end
    else if(tag[1])begin
@@ -33,7 +34,7 @@ module audio_progress #(parameter FS=48000)(
       end
      end
     end else samples<=samples+1'b1;
-   end else playing<=0;
+   end else if(HOLD_IDLE!=0)playing<=1;else playing<=0;
   end
  end
 endmodule

@@ -18,7 +18,7 @@ module hdmi_player_board_top #(
     input wire KEY_NEXT_N,
     input wire KEY_SPECTRUM_N, // J1-13/M14: toggle spectrum overlay
     input wire KEY_AUTO_N, // J1 pin10/L14: toggle automatic slideshow
-    input wire SW_AUDIO_N,SW_MUTE_N,
+    input wire SW_MUTE_N,
     input wire [3:0] key_img,
     input wire [6:0] key_in,
     output wire [3:0] LED,
@@ -89,7 +89,7 @@ module hdmi_player_board_top #(
         end
     end
     wire [1:0] nav_press=nav_previous & ~nav_stable;
-    // SW3 and external J1-6 mute are active-low controls, debounced at 20ms.
+    // J1-6 is now audio pause. SW3/C6 has no port or audio-enable function.
     reg [1:0] audio_meta,audio_sync,audio_stable;
     reg [DEBOUNCE_BITS-1:0] audio_count[0:1];
     integer audio_i;
@@ -98,7 +98,7 @@ module hdmi_player_board_top #(
             audio_meta<=3;audio_sync<=3;audio_stable<=3;
             for(audio_i=0;audio_i<2;audio_i=audio_i+1)audio_count[audio_i]<=0;
         end else begin
-            audio_meta<={SW_MUTE_N,SW_AUDIO_N};audio_sync<=audio_meta;
+            audio_meta<={SW_MUTE_N,1'b0};audio_sync<=audio_meta;
             for(audio_i=0;audio_i<2;audio_i=audio_i+1)begin
                 if(audio_sync[audio_i]==audio_stable[audio_i])audio_count[audio_i]<=0;
                 else if(audio_count[audio_i]==DEBOUNCE_CYCLES-1)begin
@@ -124,10 +124,13 @@ module hdmi_player_board_top #(
     wire load_ready,load_done,load_error,card_initialized,memory_ready;
     wire auto_press=auto_previous && !auto_stable;
     wire slideshow_enabled,auto_next,navigation_busy,image_loaded_status;
-    slideshow_ctrl #(.INTERVAL_CYCLES(SLIDESHOW_CYCLES)) u_slideshow (
+    wire presentation_hold,av_transition_start,audio_prepare_window;
+    av_slideshow_ctrl #(.INTERVAL_CYCLES(SLIDESHOW_CYCLES),.PRELOAD_CYCLES(CLK_HZ*2),.AUDIO_LEAD_CYCLES(CLK_HZ/100)) u_slideshow (
         .clk(SYS_CLK),.reset_n(board_reset_n),.toggle_press(auto_press),
         .manual_press(key_press || (|nav_press)),
         .can_advance(load_ready && !navigation_busy),.image_loaded(image_loaded_status),
+        .transition_start(av_transition_start),.hold_presentation(presentation_hold),
+        .audio_prepare_window(audio_prepare_window),
         .enabled(slideshow_enabled),.next_press(auto_next)
     );
     wire audio_error;
@@ -178,10 +181,11 @@ module hdmi_player_board_top #(
         {(|debug_seen[3:2]),debug_seen[1],debug_seen[0],memory_ready} :
         {error_seen,display_status_sync[1],card_initialized,memory_ready};
 
-    hdmi_player_top #(.CLK_HZ(CLK_HZ),.ENABLE_AUDIO(1),.ENABLE_FADE(ENABLE_FADE),.ENABLE_SPECTRUM(ENABLE_SPECTRUM),
+    hdmi_player_top #(.CLK_HZ(CLK_HZ),.ENABLE_AUDIO(1),.ENABLE_AV_SYNC(1),.ENABLE_FADE(ENABLE_FADE),.ENABLE_SPECTRUM(ENABLE_SPECTRUM),
         .SPECTRUM_DB_CYCLES(SPECTRUM_DB_CYCLES),.FADE_STEP(FADE_STEP)) u_player (
         .SYS_CLK(SYS_CLK),.Reset_n(board_reset_n),
-        .audio_enable(!audio_stable[0]),.audio_mute(!audio_stable[1]),.audio_error(audio_error),.audio_error_code(),
+        .audio_enable(1'b1),.audio_mute(!audio_stable[1]),.audio_error(audio_error),.audio_error_code(),
+        .presentation_hold(presentation_hold),.av_transition_start(av_transition_start),.audio_prepare_window(audio_prepare_window),
         .start(load_start),.file_index(selected_file_index),
         .select_last(select_last),.opened_file_index(opened_file_index),.frame_base_addr(21'd0),
         .key_img(key_img),.spectrum_key_n(KEY_SPECTRUM_N),.key_in(key_in),

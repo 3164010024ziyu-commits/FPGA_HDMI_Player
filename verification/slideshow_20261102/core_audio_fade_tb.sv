@@ -17,7 +17,7 @@ always @(posedge clk)if(rst_n)begin
  if(dut.audio_valid && dut.audio_ready)begin samples[wp]=dut.audio_sample;wp=wp+1;end
  if(dut.pixel_transfer)source_pixels=source_pixels+1;
  if(done)frames_loaded=frames_loaded+1;
- if(enable && mute && dut.u_storage_pipeline.g_audio.player.pop)muted=muted+1;
+ if(enable && mute && dut.u_storage_pipeline.g_audio.g_background.player.pop)muted=muted+1;
 end
 always @(posedge dut.display_clk)if(dut.display_reset_n && dut.u_display.audio_pop && !dut.u_display.audio_empty)begin
  if(rp>=wp || dut.u_display.audio_rd_data!==samples[rp])$fatal(1,"core audio CDC sample=%d got=%h expected=%h",rp,dut.u_display.audio_rd_data,samples[rp]);
@@ -29,9 +29,9 @@ begin wait(ready);@(negedge clk);start=1;@(negedge clk);start=0;wait(!ready);wai
 end endtask
 initial begin
  repeat(4)@(negedge clk);rst_n=1;enable=1;
- wait(dut.u_storage_pipeline.g_audio.player.primed);image();
+ wait(dut.u_storage_pipeline.g_audio.g_background.player.primed);image();
  mute=1;repeat(120000)@(negedge clk);mute=0;image();
- wait(dut.u_storage_pipeline.g_audio.player.buffer.rp>1500);repeat(10000)@(negedge clk);
+ wait(dut.u_storage_pipeline.g_audio.g_background.player.buffer.rp>1500);repeat(10000)@(negedge clk);
  if(audio_error || error || flags!=0 || !front || underflow || frames_loaded!=2 || source_pixels!=256 || rp<1500 || muted<50)
   $fatal(1,"core audio/image status audio=%h image=%h flags=%h front=%b pixels=%d samples=%d",audio_code,error_code,flags,front,source_pixels,rp);
  $display("CORE_WAV_HDMI_PASS source_pixels=%0d images=%0d audio_cdc_samples=%0d muted_frames=%0d front_valid=1 all_errors=0",source_pixels,frames_loaded,rp,muted);$finish;

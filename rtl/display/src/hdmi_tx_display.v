@@ -26,7 +26,7 @@ module hdmi_tx_display #(
     parameter integer AUDIO_FS        = 48000,  // 44100 or 48000
     parameter integer HDMI_AUDIO_EN   = 1,
     parameter integer HDMI_SUBTITLE_EN = 1,
-    parameter integer IMAGE_FADE_EN    = 0,
+    parameter integer IMAGE_FADE_EN    = 0,parameter integer ENABLE_AV_SYNC=0,
     parameter integer ENABLE_SPECTRUM = 0,
     parameter integer SPECTRUM_DB_CYCLES = 262144,
     parameter integer DVI_MODE        = 0,
@@ -57,8 +57,12 @@ module hdmi_tx_display #(
     input  wire        audio_clk,
     input  wire [31:0] audio_sample,   // {L[15:0], R[15:0]}
     input  wire        audio_valid,
-    input wire [2:0] audio_tag,
+    input wire [2:0] audio_tag,input wire audio_epoch,
+    output reg transition_toggle,output reg pause_request,
     input wire display_info_valid,input wire [135:0] display_info,
+    input wire text_glyph_we,input wire [9:0] text_glyph_addr,input wire [15:0] text_glyph_data,
+    input wire text_commit,input wire [6:0] text_length,input wire text_has_text,
+    output wire text_cache_ready,
     output wire        audio_ready,
     output wire [1:0]  audio_status,   // {overflow, underflow}
     output wire        audio_pkt,      // Audio Sample Packet activity
@@ -229,7 +233,7 @@ wire pixel_clk_5x;
         end
     end
 
-    wire [7:0] volume = sw_mute ? 8'd0 : vol_code(vol_level);
+    wire [7:0] volume = (ENABLE_AV_SYNC==0 && sw_mute) ? 8'd0 : vol_code(vol_level);
     wire [1:0] osd_en = (HDMI_SUBTITLE_EN != 0) ? {sw_ts, sw_sub} : 2'b00;
 
     // ------------------------------------------- image brightness / contrast
@@ -302,7 +306,7 @@ wire pixel_clk_5x;
                 banner_timer <= BANNER_CYCLES;
             end else if (sw_mute != sw_mute_d) begin
                 param_sel <= 2'd2;
-                param_val <= sw_mute ? 5'd0 : vol_level;
+                param_val <= (ENABLE_AV_SYNC==0 && sw_mute) ? 5'd0 : vol_level;
                 banner_timer <= BANNER_CYCLES;
             end
         end
@@ -322,6 +326,23 @@ wire pixel_clk_5x;
         fade_channel(VGA_ADJ[15:8],fade_level),
         fade_channel(VGA_ADJ[7:0],fade_level)} : VGA_ADJ;
     wire [31:0] audio_rd_data;wire [2:0] audio_rd_tag;
+    wire [31:0] queued_audio_data;wire [2:0] queued_audio_tag;wire queued_audio_epoch;
+    reg [5:0] previous_fade;reg transition_start,expected_epoch;
+    always @(posedge pixel_clk or negedge video_reset_n)begin
+        if(!video_reset_n)begin previous_fade<=32;transition_start<=0;transition_toggle<=0;expected_epoch<=0;pause_request<=0;end
+        else begin
+            previous_fade<=fade_level;transition_start<=0;pause_request<=sw_mute;
+            if(ENABLE_AV_SYNC!=0 && (IMAGE_FADE_EN ?
+                (previous_fade==32 && fade_level<32) : display_info_valid))begin
+                transition_start<=1;transition_toggle<=!transition_toggle;expected_epoch<=!expected_epoch;
+            end
+        end
+    end
+    // On the first fading frame reject every queued sample from the old image.
+    // Epoch travels with PCM through the same mailbox, never on a separate bus.
+    wire epoch_matches=ENABLE_AV_SYNC==0 || queued_audio_epoch==expected_epoch;
+    assign audio_rd_data=epoch_matches ? queued_audio_data : 32'd0;
+    assign audio_rd_tag=epoch_matches ? queued_audio_tag : 3'b100;
     wire        audio_empty;
     wire        audio_full;
     wire        audio_overflow;
@@ -330,19 +351,30 @@ wire pixel_clk_5x;
     // ---------------------------------------------------------------- OSD
     generate if(HDMI_SUBTITLE_EN != 0) begin : g_subtitles
     wire [23:0] progress_bcd;wire progress_playing;
-    audio_progress #(.FS(AUDIO_FS)) u_progress(
+    wire [9:0] caption_addr;wire [15:0] caption_bits;
+    wire [6:0] caption_length;wire caption_active,caption_changed;
+    text_glyph_cache u_text_cache(
+       .src_clk(audio_clk),.pix_clk(pixel_clk),.rst_n(video_reset_n),
+       .write_enable(text_glyph_we),.write_addr(text_glyph_addr),.write_data(text_glyph_data),
+       .commit(text_commit),.src_length(text_length),.src_has_text(text_has_text),.src_ready(text_cache_ready),
+       .frame_end(VGA_X==799 && VGA_Y==524),.read_addr(caption_addr),.read_data(caption_bits),
+       .text_length(caption_length),.has_text(caption_active),.changed(caption_changed));
+    audio_progress #(.FS(AUDIO_FS),.HOLD_IDLE(ENABLE_AV_SYNC)) u_progress(
       .clk(pixel_clk),.rst_n(video_reset_n),.consume(audio_pop && !audio_empty),
-      .tag(audio_rd_tag),.playing(progress_playing),.time_bcd(progress_bcd));
-    subtitle_overlay u_overlay(
+      .tag(audio_rd_tag),.restart(transition_start),.playing(progress_playing),.time_bcd(progress_bcd));
+    subtitle_overlay #(.ENABLE_TEXT(1)) u_overlay(
       .clk(pixel_clk),.rst_n(video_reset_n),.de(VGA_DE),.frame_sync(frame_sync),
       .x(VGA_X),.y(VGA_Y),.rgb_in(FADE_D),.rgb_out(OSD_D),
       .sub_enable(sw_sub),.time_enable(sw_ts),
       .left_pressed(KEY_ACTIVE_LOW ? !key_stable[5]:key_stable[5]),
       .right_pressed(KEY_ACTIVE_LOW ? !key_stable[6]:key_stable[6]),
       .info_valid(display_info_valid),.info(display_info),
-      .audio_playing(progress_playing),.audio_bcd(progress_bcd));
+       .audio_playing(progress_playing),.audio_bcd(progress_bcd),
+       .text_active(caption_active),.text_changed(caption_changed),.caption_length(caption_length),
+       .caption_bits(caption_bits),.caption_addr(caption_addr));
     end else begin : g_no_osd
       assign OSD_D=FADE_D;
+       assign text_cache_ready=1'b1;
     end endgenerate
 
     // ------------------------------------------- right-side parameter banner
@@ -369,17 +401,17 @@ wire pixel_clk_5x;
         if(audio_reset_request)audio_reset_release<=0;
         else audio_reset_release<={audio_reset_release[0],1'b1};
     end
-    audio_fifo #(.AWIDTH(5),.DATA_WIDTH(35)) u_audio_fifo (
+    audio_fifo #(.AWIDTH(5),.DATA_WIDTH(36)) u_audio_fifo (
         .wr_clk   (audio_clk),
         .wr_rst   (~audio_reset_release[1]),
         .wr_en    (audio_valid && HDMI_AUDIO_EN != 0),
-        .wr_data  ({audio_tag,audio_sample}),
+        .wr_data  ({ENABLE_AV_SYNC!=0 ? audio_epoch:1'b0,audio_tag,audio_sample}),
         .full     (audio_full),
         .overflow (audio_overflow),
         .rd_clk   (pixel_clk),
         .rd_rst   (~video_reset_n),
         .rd_en    (audio_pop),
-        .rd_data  ({audio_rd_tag,audio_rd_data}),
+        .rd_data  ({queued_audio_epoch,queued_audio_tag,queued_audio_data}),
         .empty    (audio_empty)
     );
 

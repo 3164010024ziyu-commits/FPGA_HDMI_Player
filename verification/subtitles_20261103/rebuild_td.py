@@ -4,6 +4,7 @@ import argparse,subprocess,re,time,json,hashlib,tempfile
 P=argparse.ArgumentParser()
 P.add_argument('--td-root',type=Path,default=Path(r'C:/Anlogic/TD_6.2.1_Engineer_6.2.168.116'))
 P.add_argument('--output',type=Path,default=Path(tempfile.gettempdir())/'fpga_spectrum_td')
+P.add_argument('--seed',type=int,default=4)
 a=P.parse_args();R=Path(__file__).resolve().parents[2];O=a.output.resolve();O.mkdir(parents=True,exist_ok=True)
 td=R/'project/td/HDMI_Player.al';s=td.read_text(encoding='utf-8')
 s=re.sub(r'(<Project\b[^>]*?) Path="[^"]*"',r'\1',s,count=1)
@@ -42,6 +43,7 @@ assert (O/'.opt_gate.end.f').stat().st_mtime>=epoch
 import_db HDMI_Player_gate.db
 clear_sdc -user
 read_sdc {{{sdc}}}
+set_param place seed {a.seed}
 place
 route
 fix_hold
@@ -61,5 +63,5 @@ bitgen -bit HDMI_Player_subtitles.bit
 exit
 ''')
 run('bitgen','./bit.tcl');bit=O/'HDMI_Player_subtitles.bit';assert bit.stat().st_size>100000
-result={'passed':True,'setup_ns':setup,'hold_ns':hold,'bit':str(bit),'sha256':hashlib.sha256(bit.read_bytes()).hexdigest(),'hold_fix':True}
+result={'passed':True,'setup_ns':setup,'hold_ns':hold,'bit':str(bit),'sha256':hashlib.sha256(bit.read_bytes()).hexdigest(),'hold_fix':True,'place_seed':a.seed}
 (O/'build_result.json').write_text(json.dumps(result,indent=2));print(json.dumps(result,indent=2))
