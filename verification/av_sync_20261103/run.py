@@ -13,7 +13,7 @@ boot=bytearray(512);boot[:3]=b'\xeb\x58\x90';struct.pack_into('<HBHB',boot,11,51
 struct.pack_into('<I',boot,32,1056+65530*128);struct.pack_into('<I',boot,36,512);struct.pack_into('<I',boot,44,2);boot[510:]=b'\x55\xaa';hexfile('boot',boot)
 root=bytearray(512)
 # WAV order is intentionally different from BMP order.
-entries=[('THIRD   WAV',9,1644),('FIRST   BMP',6,246),('SECOND  WAV',8,1644),('SECOND  BMP',10,246),('FIRST   WAV',7,1644),('THIRD   BMP',11,246),('CAPTION TXT',12,9),('FONT16  BIN',20,0x2200000)]
+entries=[('THIRD   WAV',9,1644),('FIRST   BMP',6,246),('SECOND  WAV',8,1644),('SECOND  BMP',10,246),('FIRST   WAV',7,1644),('THIRD   BMP',11,246),('CAPTION TXT',12,9),('FONT16  BIN',20,0x2200000),('FIRST   TXT',12,9),('SECOND  TXT',12,9),('THIRD   TXT',12,9)]
 for k,(name,c,size)in enumerate(entries):
  i=k*32;root[i:i+11]=name.encode();root[i+11]=32;struct.pack_into('<H',root,i+26,c);struct.pack_into('<I',root,i+28,size)
 hexfile('root',root)

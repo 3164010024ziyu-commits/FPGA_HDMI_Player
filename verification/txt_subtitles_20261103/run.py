@@ -20,7 +20,7 @@ run('compile','vlog',['-sv','+incdir+'+R.as_posix(),*sources,O/'caption_sd_card_
 boot=bytearray(512);boot[:3]=b'\xeb\x58\x90';struct.pack_into('<HBHB',boot,11,512,128,32,2)
 struct.pack_into('<I',boot,32,1056+65530*128);struct.pack_into('<I',boot,36,512);struct.pack_into('<I',boot,44,2);boot[510:512]=b'\x55\xaa'
 root=bytearray(512)
-for n,(name,cluster,size) in enumerate([(b'CAPTION TXT',5,17),(b'FONT16  BIN',10,0x2200000),(b'TEST    BMP',6,246),(b'MUSIC   WAV',7,8248)]):
+for n,(name,cluster,size) in enumerate([(b'CAPTION TXT',5,17),(b'FONT16  BIN',10,0x2200000),(b'TEST    BMP',6,246),(b'MUSIC   WAV',7,8248),(b'TEST    TXT',5,17)]):
  i=n*32;root[i:i+11]=name;root[i+11]=32;struct.pack_into('<H',root,i+26,cluster);struct.pack_into('<I',root,i+28,size)
 caption='A中𠮷'.encode('utf-8');caption+=bytes(512-len(caption))
 image=bytearray(512);image[:2]=b'BM';struct.pack_into('<I',image,2,246);struct.pack_into('<I',image,10,54);struct.pack_into('<IiiHHI',image,14,40,8,8,1,24,0)

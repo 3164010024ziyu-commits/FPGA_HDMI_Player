@@ -29,7 +29,7 @@ function [7:0] card_byte(input integer lba,off);
    c=2+(lba-1056)/128;
    if(c==2 && (lba-1056)%128==0)begin
     card_byte=root_bytes[off];
-    if(missing_text && off==0)card_byte='he5;
+    if(missing_text && (off==0 || off==128))card_byte='he5;
     if(missing_font && off==32)card_byte='he5;
    end else if(c==5)card_byte=caption_bytes[off];
    else if(c==6)card_byte=image_bytes[off];

@@ -207,7 +207,7 @@ module hdmi_player_top #(
         .audio_ready(audio_ready), .audio_status(), .audio_pkt(), .key_in(key_in),
         .text_cache_ready(text_cache_ready),.text_glyph_we(text_glyph_we),
         .text_glyph_addr(text_glyph_addr),.text_glyph_data(text_glyph_data),
-        .text_commit(text_commit),.text_length(text_length),.text_has_text(text_has_text),
+        .text_commit(text_commit),.text_length(text_length),.text_has_text(text_has_text),.text_abort(load_error || frame_buffer_error),
         .key_img(key_img),.spectrum_key_n(spectrum_key_n),.audio_playing(audio_playing),
         .osd_slot(1'b0), .osd_char_idx(4'd0), .osd_char_code(16'd0), .osd_char_we(1'b0),
         .osd_y(10'd0), .osd_fg(24'hffffff),

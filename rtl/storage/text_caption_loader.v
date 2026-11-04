@@ -1,6 +1,6 @@
 // Load a UTF-8 caption and its glyphs through the existing image FAT reader.
 // FONT16.BIN is indexed by Unicode scalar value: 32 bytes, big-endian rows.
-module text_caption_loader(
+module text_caption_loader #(parameter PAIRED_TEXT=0)(
     input wire clk,rst_n,start,cache_ready,
     output reg done,
     output reg job_start,output reg [1:0] job_kind,
@@ -12,7 +12,7 @@ module text_caption_loader(
     output reg [7:0] status
 );
     localparam IDLE=0,WAIT_CACHE=1,TEXT_START=2,TEXT_READ=3,
-               POINT_WAIT=4,FONT_START=5,FONT_READ=6,PUBLISH=7,FINISH=8,JOB_WAIT=9;
+               POINT_WAIT=4,FONT_START=5,FONT_READ=6,PUBLISH=7,FINISH=8,JOB_WAIT=9,PROBE_START=10,PROBE_READ=11;
     reg [3:0] state;
     reg [20:0] points[0:63];
     reg point_we;reg [5:0] point_waddr,glyph_index;
@@ -56,12 +56,17 @@ module text_caption_loader(
                     state<=WAIT_CACHE;length<=0;has_text<=0;status<=0;glyph_index<=0;
                     byte_full<=0;text_finished<=0;continuation<=0;first_character<=1;skip_lf<=0;
                 end
-                WAIT_CACHE:if(cache_ready)state<=TEXT_START;
+                WAIT_CACHE:if(cache_ready)state<=PAIRED_TEXT!=0 ? PROBE_START : TEXT_START;
+                PROBE_START:begin job_kind<=3;job_offset<=0;job_length<=0;job_start<=1;state<=JOB_WAIT;end
+                PROBE_READ:begin
+                    if(file_done)state<=TEXT_START;
+                    if(file_error)begin status<=file_code;state<=PUBLISH;end
+                end
                 TEXT_START:begin job_kind<=1;job_offset<=0;job_length<=512;job_start<=1;state<=JOB_WAIT;end
                 // The FAT reader consumes registered job_start on this edge.
                 // Its sticky previous error is cleared by that same edge;
                 // sample completion/error only from the following cycle.
-                JOB_WAIT:state<=job_kind==1 ? TEXT_READ : FONT_READ;
+                JOB_WAIT:state<=job_kind==3 ? PROBE_READ : job_kind==1 ? TEXT_READ : FONT_READ;
                 TEXT_READ:begin
                     if(valid && ready)begin queued<=data;byte_full<=1;end
                     if(file_done)text_finished<=1;

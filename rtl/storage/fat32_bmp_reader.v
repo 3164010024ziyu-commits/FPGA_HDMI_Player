@@ -3,7 +3,7 @@
 module fat32_bmp_reader #(
     parameter MAX_FILE_BYTES=16777216, parameter MAX_DIR_CLUSTERS=1024,
     parameter FILE_EXTENSION=24'h424d50, parameter MIN_FILE_BYTES=54,
-    parameter ENABLE_AUX=0,parameter ENABLE_NAME_MATCH=0
+    parameter ENABLE_AUX=0,parameter ENABLE_NAME_MATCH=0,parameter PAIRED_TEXT=0
 )(
     input wire clk, input wire rst_n,
     input wire start, input wire [15:0] file_index,
@@ -15,7 +15,7 @@ module fat32_bmp_reader #(
     output wire req_valid, input wire req_ready, output reg [31:0] req_lba,
     input wire [7:0] sec_data, input wire sec_valid, input wire sec_last,
     output wire sec_ready, input wire sec_error,
-    // Optional jobs share the image reader: 0=normal BMP, 1=CAPTION.TXT,
+    // Optional jobs: 0=BMP, 1=TXT (paired when enabled), 3=BMP name probe,
     // 2=FONT16.BIN byte range. Disabled instances retain the original behavior.
     input wire [1:0] aux_kind,
     input wire [31:0] aux_offset,
@@ -59,11 +59,13 @@ module fat32_bmp_reader #(
     wire [87:0] entry_name={dir_entry[0],dir_entry[1],dir_entry[2],dir_entry[3],dir_entry[4],dir_entry[5],dir_entry[6],dir_entry[7],dir_entry[8],dir_entry[9],dir_entry[10]};
     reg chain_is_file;
     reg [1:0] job_kind;
+    reg [63:0] caption_name;
     reg [31:0] job_offset,seek_left;
     reg [15:0] job_length;
     reg seeking,first_payload,font_cached,sector_cached;
     reg [31:0] font_cluster,font_size,cached_lba;
-    wire aux_job=ENABLE_AUX!=0 && job_kind!=0;
+    wire probe_job=ENABLE_AUX!=0 && PAIRED_TEXT!=0 && job_kind==3;
+    wire aux_job=ENABLE_AUX!=0 && (job_kind==1 || job_kind==2);
     wire [16:0] cluster_bytes={1'b0,sectors_per_cluster,9'b0};
     reg probe_lba0; // A candidate volume at sector zero may fall back to its MBR.
     reg [8:0] fat_byte;
@@ -89,7 +91,7 @@ module fat32_bmp_reader #(
     wire [31:0] entry_size={dir_entry[31],dir_entry[30],dir_entry[29],dir_entry[28]};
     wire bmp_entry=({dir_entry[8]&8'hdf,dir_entry[9]&8'hdf,dir_entry[10]&8'hdf}==FILE_EXTENSION);
     wire requested_entry=aux_job ?
-        (job_kind==1 ? entry_name=="CAPTION TXT" : entry_name=="FONT16  BIN") :
+        (job_kind==1 ? (PAIRED_TEXT!=0 ? entry_name=={caption_name,24'h545854} : entry_name=="CAPTION TXT") : entry_name=="FONT16  BIN") :
         (bmp_entry && (ENABLE_NAME_MATCH==0 || entry_name[87:24]==match_name));
     wire [31:0] fat_link=fat_value & 32'h0fffffff;
     reg [7:0] sector_byte;
@@ -145,6 +147,10 @@ module fat32_bmp_reader #(
                (aux_job && (job_offset>=size || job_length==0)))
                 fail(8'h37);
             else begin
+                if(probe_job)begin
+                    caption_name<=name[87:24];short_name<=name;opened_index<=number;
+                    busy<=0;done<=1;state<=IDLE;
+                end else begin
                 short_name<=name;file_size<=size;
                 bytes_left<=aux_job ? ((size-job_offset)<job_length ? size-job_offset : {16'd0,job_length}) : size;
                 file_open<=1;opened_index<=number;cluster<=first_cluster;
@@ -154,6 +160,7 @@ module fat32_bmp_reader #(
                 end
                 seeking<=aux_job && job_offset!=0;seek_left<=job_offset;
                 state<=aux_job && job_offset!=0 ? SEEK_FILE : FILE_LOAD;
+                end
             end
         end
     endtask
@@ -176,7 +183,7 @@ module fat32_bmp_reader #(
             chain_is_file<=0; probe_lba0<=0; fat_byte<=0;
             signature<=0; fat_capture_offset<=0; fat_value<=0;
             mbr_found<=0;take_partition<=0;mbr_base<=0;mbr_size<=0;
-            job_kind<=0;job_offset<=0;job_length<=0;seek_left<=0;
+            caption_name<=0;job_kind<=0;job_offset<=0;job_length<=0;seek_left<=0;
             seeking<=0;first_payload<=0;font_cached<=0;font_cluster<=0;font_size<=0;
             sector_cached<=0;cached_lba<=0;
             overhead<=0;volume_end<=0;

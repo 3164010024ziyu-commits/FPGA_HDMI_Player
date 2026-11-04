@@ -62,7 +62,7 @@ module storage_pipeline #(
         end
     end
     generate if(ENABLE_TEXT!=0)begin:g_text
-        text_caption_loader caption(
+        text_caption_loader #(.PAIRED_TEXT(1)) caption(
             .clk(clk),.rst_n(rst_n),.start(launch),.cache_ready(text_cache_ready),.done(caption_done),
             .job_start(caption_start),.job_kind(caption_kind),.job_offset(caption_offset),.job_length(caption_bytes),
             .file_done(fat_done),.file_error(fat_error),.file_code(fat_code),
@@ -121,10 +121,10 @@ module storage_pipeline #(
         assign audio_tag=0;assign audio_playing=0;assign audio_sample=0;assign audio_valid=0;assign audio_error=0;assign audio_error_code=0;
         assign audio_track_ready=1'b1;assign audio_epoch=1'b0;
     end endgenerate
-    fat32_bmp_reader #(.ENABLE_AUX(ENABLE_TEXT)) fat(
+    fat32_bmp_reader #(.ENABLE_AUX(ENABLE_TEXT),.PAIRED_TEXT(ENABLE_TEXT)) fat(
         .clk(clk),.rst_n(rst_n),.start(ENABLE_TEXT!=0 ? (text_phase ? caption_start : bitmap_start) : launch),
         .file_index(ENABLE_TEXT!=0 ? selected_index : file_index),
-        .select_last(text_phase ? 1'b0 : ENABLE_TEXT!=0 ? selected_last : select_last),.opened_index(opened_index),
+        .select_last(text_phase ? (caption_kind==3 && selected_last) : ENABLE_TEXT!=0 ? selected_last : select_last),.opened_index(opened_index),
         .busy(),.done(fat_done),.error(fat_error),.error_code(fat_code),
         .file_open(file_open),.file_size(file_size),.short_name(short_name),
         .data(file_data),.valid(file_valid),.last(file_last),.ready(file_ready),
