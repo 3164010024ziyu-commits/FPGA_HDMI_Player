@@ -69,7 +69,7 @@ module caption_cache_tb;
   if(text_length!=3 || !has_text)$fatal(1,"changed bank inside frame");
   while(!frame_end)begin @(negedge clk);if(text_length!=3)$fatal(1,"early bank adoption");end
   wait(src_ready);repeat(3)@(negedge clk);
-  if(text_length!=64 || overlay.direction!=1)$fatal(1,"long caption auto scroll");
+  if(text_length!=64 || overlay.direction!=0)$fatal(1,"caption swap changed paused direction");
   key(3);capture(64,2,0,0);key(1);capture(64,2,16,1);
   // Missing/empty caption publishes an explicit fallback at a frame boundary.
   src_has_text=0;fill(0,3);adopt();if(has_text)$fatal(1,"fallback publish");

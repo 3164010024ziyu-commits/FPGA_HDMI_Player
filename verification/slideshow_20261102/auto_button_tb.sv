@@ -3,22 +3,26 @@ module auto_button_tb;
 reg clk=0,rst=0,key=1;always #10 clk=~clk;
 hdmi_player_board_top #(.ENABLE_FADE(0),.POWERUP_CYCLES(4),.DEBOUNCE_CYCLES(4),.SLIDESHOW_CYCLES(100)) dut(
  .SYS_CLK(clk),.Reset_n(rst),.KEY_LOAD_N(1'b1),.KEY_PREV_N(1'b1),.KEY_NEXT_N(1'b1),.KEY_SPECTRUM_N(1'b1),.KEY_AUTO_N(key),
- .SW_AUDIO_N(1'b1),.SW_MUTE_N(1'b1),.key_in(7'h7f),.key_img(4'hf),.sd_miso(1'b1));
+ .SW_MUTE_N(1'b1),.key_in(7'h7f),.key_img(4'hf),.sd_miso(1'b1));
 task cycles(input integer n);repeat(n)@(negedge clk);endtask
 integer saved;
 initial begin
  cycles(2);rst=1;wait(dut.board_reset_n);cycles(10);
  key=0;cycles(1);key=1;cycles(12);if(dut.slideshow_enabled)$fatal(1,"button bounce");
  key=0;cycles(300);if(!dut.slideshow_enabled || dut.u_player.starts<2)$fatal(1,"held AUTO repeated toggle or no timer");
- key=1;cycles(12);key=0;cycles(12);key=1;cycles(60);
- if(dut.slideshow_enabled)$fatal(1,"second AUTO press did not stop");saved=dut.u_player.starts;
+ key=1;cycles(60);
+ if(dut.slideshow_enabled)$fatal(1,"SW3 OFF did not stop");saved=dut.u_player.starts;
  cycles(300);if(dut.u_player.starts!=saved)$fatal(1,"AUTO queued after stop");
+ key=0;cycles(12);if(!dut.slideshow_enabled)$fatal(1,"SW3 second ON");
  rst=0;cycles(2);if(dut.slideshow_enabled)$fatal(1,"AUTO reset");
- $display("AUTO_BUTTON_PASS GPIO=L14 debounce=1 hold_once=1 toggle_on_off=1 no_delayed_request=1 reset=1");$finish;
+ rst=1;wait(dut.board_reset_n);cycles(12);if(!dut.slideshow_enabled)$fatal(1,"SW3 ON after reset");
+ key=1;cycles(12);if(dut.slideshow_enabled)$fatal(1,"SW3 OFF after reset");
+ $display("AUTO_BUTTON_PASS GPIO=C6 debounce=1 switch_level=1 no_delayed_request=1 reset_while_on=1");$finish;
 end
 initial begin #100000;$fatal(1,"AUTO watchdog");end
 endmodule
-module hdmi_player_top #(parameter CLK_HZ=50000000,parameter ENABLE_AUDIO=0,parameter ENABLE_FADE=0,parameter ENABLE_SPECTRUM=0,parameter SPECTRUM_DB_CYCLES=262144,parameter FADE_STEP=1)(
+module hdmi_player_top #(parameter CLK_HZ=50000000,parameter ENABLE_AUDIO=0,parameter ENABLE_AV_SYNC=0,parameter ENABLE_FADE=0,parameter ENABLE_SPECTRUM=0,parameter SPECTRUM_DB_CYCLES=262144,parameter FADE_STEP=1)(
+input presentation_hold,audio_prepare_window,output av_transition_start,
 input audio_enable,audio_mute,output audio_error,output [7:0] audio_error_code,
 input select_last,output [15:0] opened_file_index,
 input SYS_CLK,Reset_n,start,input [15:0] file_index,input [20:0] frame_base_addr,
@@ -31,6 +35,7 @@ reg ready_drive=1,front_valid=0;
 integer remaining=0,starts=0;
 reg [15:0] latched_index;
 reg audio_error_drive=0;
+assign av_transition_start=load_done;
 assign audio_error=audio_error_drive;assign audio_error_code=audio_error_drive ? 8'hB6 : 0;
 assign opened_file_index=latched_index;
 assign load_ready=Reset_n && ready_drive && remaining==0;

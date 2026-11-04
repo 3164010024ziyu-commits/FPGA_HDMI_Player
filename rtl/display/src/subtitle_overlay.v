@@ -14,7 +14,7 @@ module subtitle_overlay #(
 );
  // Metadata: {zero-based image index, FAT short name[11 bytes], width, height}.
  reg [135:0] prepared_info,active_info;
- reg have_prepared,have_image,prepared_toggle,active_toggle;
+ reg have_prepared,have_image;
  reg [19:0] index_digits,width_digits,height_digits;
  reg [19:0] prepared_index,prepared_width,prepared_height;
  reg [19:0] decimal;
@@ -38,7 +38,7 @@ module subtitle_overlay #(
  always @(posedge clk or negedge rst_n)begin
   if(!rst_n)begin
    prepared_info<=0;active_info<=0;have_prepared<=0;have_image<=0;
-   prepared_toggle<=0;active_toggle<=0;index_digits<=0;width_digits<=0;height_digits<=0;
+   index_digits<=0;width_digits<=0;height_digits<=0;
    prepared_index<=0;prepared_width<=0;prepared_height<=0;
    decimal<=0;binary<=0;bit_count<=0;field<=0;formatting<=0;
    shown_time<=0;sub_visible<=0;time_visible<=0;
@@ -54,7 +54,7 @@ module subtitle_overlay #(
       0:begin prepared_index<=converted;binary<={1'b0,prepared_info[31:16]};field<=1;end
       1:begin prepared_width<=converted;binary<={1'b0,prepared_info[15:0]};field<=2;end
       default:begin
-       prepared_height<=converted;formatting<=0;have_prepared<=1;prepared_toggle<=!prepared_toggle;
+       prepared_height<=converted;formatting<=0;have_prepared<=1;
       end
      endcase
     end else bit_count<=bit_count+1'b1;
@@ -63,7 +63,7 @@ module subtitle_overlay #(
    if(frame_end)begin
     sub_visible<=sub_enable;time_visible<=time_enable && audio_playing;shown_time<=audio_bcd;
     if(have_prepared && !formatting && !info_valid)begin
-     active_info<=prepared_info;have_image<=1;active_toggle<=prepared_toggle;
+     active_info<=prepared_info;have_image<=1;
      index_digits<=prepared_index;width_digits<=prepared_width;height_digits<=prepared_height;
     end
    end
@@ -127,22 +127,28 @@ module subtitle_overlay #(
  reg [2:0] pending_action; // 1/2 step, 3/4 auto, 5 reset
  reg [1:0] direction; // 0 pause, 1 left, 2 right
  reg marquee,slow_tick;
+ reg scroll_initialized;
  reg [10:0] scroll;
  wire [10:0] period_pixels={period_chars,4'b0};
  always @(posedge clk or negedge rst_n)begin
   if(!rst_n)begin
    left_count<=0;right_count<=0;left_was<=0;right_was<=0;left_long<=0;right_long<=0;
-   pending_action<=0;direction<=0;marquee<=0;slow_tick<=0;scroll<=0;
+   pending_action<=0;direction<=0;marquee<=0;slow_tick<=0;scroll<=0;scroll_initialized<=0;
   end else begin
    left_was<=left_pressed;right_was<=right_pressed;
-   if(ENABLE_TEXT!=0 && text_changed)begin
-    scroll<=0;marquee<=text_length>38;direction<=text_length>38?1:0;pending_action<=0;
+   // Initialize the first caption once. Later images retain the user's
+   // direction, pause state and offset, including TXT/fallback transitions.
+   if(ENABLE_TEXT!=0 && text_changed && !scroll_initialized && pending_action==0)begin
+    scroll_initialized<=1;
+    scroll<=0;marquee<=text_length>38;direction<=text_length>38?1:0;
+   end else if(scroll>=period_pixels)begin
+    // Fold an old offset into a shorter caption without a divider. This
+    // settles within 31 clocks, before the bottom subtitle is scanned.
+    scroll<=scroll-period_pixels;
    end else if(frame_end)begin
     slow_tick<=!slow_tick;
-    if(have_prepared && !formatting && prepared_toggle!=active_toggle)begin
-     scroll<=0;marquee<=text_length>38;direction<=text_length>38?1:0;pending_action<=0;
-    end else if(pending_action!=0)begin
-     pending_action<=0;
+    if(pending_action!=0)begin
+     pending_action<=0;scroll_initialized<=1;
      case(pending_action)
       1:begin direction<=0;marquee<=1;scroll<=scroll+16>=period_pixels?scroll+16-period_pixels:scroll+16;end
       2:begin direction<=0;marquee<=1;scroll<=scroll<16?scroll+period_pixels-16:scroll-16;end

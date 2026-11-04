@@ -24,6 +24,9 @@ function [23:0] pattern(input [20:0] a);pattern=24'h105a00 ^ {3'd0,a};endfunctio
 always @(posedge clk) begin
 cycle=cycle+1;ret<=0;
 if(rst)begin
+ if(dut.finish_emit && dut.next_group_data !==
+    (dut.x==12 ? dut.y+16'd1<dut.height : dut.x+16'd4<dut.width && dut.y<dut.height))
+  $fatal(1,"registered next-group geometry was not ready at handoff");
  if(app_en)begin
   if(issued>=4 || returning)$fatal(1,"overlapping read");
   if(checking && addr!==base+requests)$fatal(1,"read address %d expected %d",addr,base+requests);

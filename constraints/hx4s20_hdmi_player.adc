@@ -33,14 +33,14 @@ set_pin_assignment { HDMI_D0_P }  { LOCATION = F5; IOSTANDARD = LVDS33; PULLTYPE
 set_pin_assignment { HDMI_D1_P }  { LOCATION = E3; IOSTANDARD = LVDS33; PULLTYPE = NONE; }
 set_pin_assignment { HDMI_D2_P }  { LOCATION = B3; IOSTANDARD = LVDS33; PULLTYPE = NONE; }
 
-# SW3/C6 is unused; SW4/C5 remains Reset_n.
+# SW3/C6 controls slideshow; SW4/C5 is Reset_n.
 # SW_MUTE_N is external J1-6/H14, low level pauses paired WAV playback.
 set_pin_assignment { SW_MUTE_N } { LOCATION = H14; IOSTANDARD = LVCMOS33; PULLTYPE = PULLUP; }
 
 # Packaged SDRAM uses EG_PHY_SDRAM_2M_32; do not assign package GPIOs to it.
 
 # Main navigation: board KEY4/C1 previous, board KEY3/B1 next.
-# KEY_LOAD_N=J1-1/D14. New slideshow toggle=J1-10/L14.
+# KEY_LOAD_N=J1-1/D14. Slideshow switch=SW3/C6.
 # External switches connect to J1 GND pin12 or pin30; no supply connection.
 set_pin_assignment { KEY_PREV_N } { LOCATION = C1; IOSTANDARD = LVCMOS33; PULLTYPE = PULLUP; }
 set_pin_assignment { KEY_NEXT_N } { LOCATION = B1; IOSTANDARD = LVCMOS33; PULLTYPE = PULLUP; }
@@ -54,7 +54,7 @@ set_pin_assignment { key_in[4] } { LOCATION = C8; IOSTANDARD = LVCMOS33; PULLTYP
 set_pin_assignment { key_in[5] } { LOCATION = J13; IOSTANDARD = LVCMOS33; PULLTYPE = PULLUP; }
 set_pin_assignment { key_in[6] } { LOCATION = K12; IOSTANDARD = LVCMOS33; PULLTYPE = PULLUP; }
 
-# Relocated slideshow button: J1-10=GPIOA_9/L14 (G12 is CON+ now).
-set_pin_assignment { KEY_AUTO_N } { LOCATION = L14; IOSTANDARD = LVCMOS33; PULLTYPE = PULLUP; }
+# Slideshow switch: SW3/C6, active low (ON enables, OFF disables).
+set_pin_assignment { KEY_AUTO_N } { LOCATION = C6; IOSTANDARD = LVCMOS33; PULLTYPE = PULLUP; }
 # J1-13 GPIOA_10/M14, normally-open spectrum toggle to J1 GND12/30.
 set_pin_assignment { KEY_SPECTRUM_N } { LOCATION = M14; IOSTANDARD = LVCMOS33; PULLTYPE = PULLUP; }

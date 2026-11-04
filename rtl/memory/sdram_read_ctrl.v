@@ -44,8 +44,15 @@ module sdram_read_ctrl #(
 
     // Present the next read while preparing it. Otherwise the arbiter can
     // grant a write in this one-cycle request hole even below low watermark.
-    wire next_group_data = x == DISPLAY_WIDTH-4 ? y + 16'd1 < height :
-                           x + 16'd4 < width && y < height;
+    // Geometry stays fixed while a four-word group is issued and drained.
+    // Register its lookahead before finish_emit so the add/compare path ends
+    // here instead of continuing through arbitration into the write FSM.
+    reg next_group_data;
+    always @(posedge Clk or negedge Reset_n) begin
+        if(!Reset_n) next_group_data <= 0;
+        else next_group_data <= x == DISPLAY_WIDTH-4 ? y + 16'd1 < height :
+                                x + 16'd4 < width && y < height;
+    end
     wire finish_emit = state == EMIT && emit_count == 3 && !fifo_full;
     assign read_request = (state == REQUEST ||
                            (state == PREPARE && x < width && y < height && !fifo_full) ||
