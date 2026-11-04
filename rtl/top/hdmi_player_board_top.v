@@ -17,7 +17,7 @@ module hdmi_player_board_top #(
     input wire KEY_PREV_N,
     input wire KEY_NEXT_N,
     input wire KEY_SPECTRUM_N, // J1-13/M14: toggle spectrum overlay
-    input wire KEY_AUTO_N, // J1 pin10/L14: toggle automatic slideshow
+    input wire KEY_AUTO_N, // SW3/C6: low enables automatic slideshow
     input wire SW_MUTE_N,
     input wire [3:0] key_img,
     input wire [6:0] key_in,
@@ -107,7 +107,8 @@ module hdmi_player_board_top #(
             end
         end
     end
-    // Third external button uses the same independent synchronizer/debounce.
+    // SW3 uses independent synchronization and debounce. Both stable edges
+    // toggle the controller so its enable follows the active-low switch.
     reg auto_meta,auto_sync,auto_stable,auto_previous;
     reg [DEBOUNCE_BITS-1:0] auto_count;
     always @(posedge SYS_CLK or negedge board_reset_n) begin
@@ -122,7 +123,7 @@ module hdmi_player_board_top #(
         end
     end
     wire load_ready,load_done,load_error,card_initialized,memory_ready;
-    wire auto_press=auto_previous && !auto_stable;
+    wire auto_press=auto_previous != auto_stable;
     wire slideshow_enabled,auto_next,navigation_busy,image_loaded_status;
     wire presentation_hold,av_transition_start,audio_prepare_window;
     av_slideshow_ctrl #(.INTERVAL_CYCLES(SLIDESHOW_CYCLES),.PRELOAD_CYCLES(CLK_HZ*2),.AUDIO_LEAD_CYCLES(CLK_HZ/100)) u_slideshow (

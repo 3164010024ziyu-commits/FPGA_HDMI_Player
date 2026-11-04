@@ -28,7 +28,7 @@ for top,marker in [('timer_tb','SLIDESHOW_TIMER_PASS'),('fade_control_tb','FADE_
 assert all(hashlib.sha256((S/f).read_bytes()).hexdigest()==h for f,h in hashes.items())
 
 run('button_library','vlib',['button_work'])
-run('button_compile','vlog',['-work','button_work','-sv',S/'rtl/top/hdmi_player_board_top.v',S/'rtl/top/slideshow_ctrl.v',S/'rtl/top/image_navigation_ctrl.v',R/'auto_button_tb.sv'])
+run('button_compile','vlog',['-work','button_work','-sv',S/'rtl/top/hdmi_player_board_top.v',S/'rtl/top/av_slideshow_ctrl.v',S/'rtl/top/image_navigation_ctrl.v',R/'auto_button_tb.sv'])
 log=run('auto_button_tb','vsim',['-c','-onfinish','stop','button_work.auto_button_tb','-do','run.do'])
 assert 'AUTO_BUTTON_PASS' in log,log[-3000:]
 results['auto_button_tb']={'passed':True,'markers':[x for x in log.splitlines() if 'PASS' in x]}

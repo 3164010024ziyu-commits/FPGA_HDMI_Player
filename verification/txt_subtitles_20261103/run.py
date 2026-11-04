@@ -29,7 +29,7 @@ card=bytes(int(s,16) for s in (S/'verification/wav_audio_20261101/fixtures/core_
 wav=card[9*512:9*512+8248];wav+=bytes(10240-len(wav))
 for name,data in [('boot',boot),('root',root),('caption',caption),('image',image),('wav',wav)]:(O/f'virtual_{name}.hex').write_text('\n'.join(f'{x:02x}' for x in data))
 tests={}
-for top,marker in [('caption_loader_tb','CAPTION_LOADER_PASS'),('caption_fat_tb','CAPTION_FAT_PASS'),('caption_cache_tb','CAPTION_CACHE_PASS'),('caption_spi_tb','CAPTION_SPI_PASS')]:
+for top,marker in [('caption_loader_tb','CAPTION_LOADER_PASS'),('caption_fat_tb','CAPTION_FAT_PASS'),('caption_cache_tb','CAPTION_CACHE_PASS'),('caption_spi_tb','CAPTION_SPI_PASS'),('caption_scroll_continuity_tb','CAPTION_SCROLL_CONTINUITY_PASS')]:
  if not any(top in f.read_text() for f in R.glob('*_tb.sv')):continue
  log=run(top,'vsim',['-c','-onfinish','stop','work.'+top,'-do','run.do']);assert marker in log
  tests[top]={'passed':True,'markers':[l for l in log.splitlines() if 'PASS' in l]};print(top+': PASS',flush=True)
