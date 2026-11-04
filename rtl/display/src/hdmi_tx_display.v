@@ -26,7 +26,9 @@ module hdmi_tx_display #(
     parameter integer AUDIO_FS        = 48000,  // 44100 or 48000
     parameter integer HDMI_AUDIO_EN   = 1,
     parameter integer HDMI_SUBTITLE_EN = 1,
-    parameter integer IMAGE_FADE_EN    = 0,parameter integer ENABLE_AV_SYNC=0,
+    parameter integer HDMI_LOGO_EN    = 1,   // fixed bitmap watermark (BRAM)
+    parameter integer IMAGE_FADE_EN    = 0,
+    parameter integer ENABLE_AV_SYNC   = 0,
     parameter integer ENABLE_SPECTRUM = 0,
     parameter integer SPECTRUM_DB_CYCLES = 262144,
     parameter integer DVI_MODE        = 0,
@@ -452,6 +454,23 @@ wire pixel_clk_5x;
         assign SPECTRUM_D=PARAM_D;
     end endgenerate
 
+    // ------------------------------------------------------- fixed logo/watermark
+    // Drawn last (after fade, subtitles, parameter bar and spectrum) so it stays
+    // at full brightness during a cross-fade.
+    wire [23:0] LOGO_D;
+    generate if (HDMI_LOGO_EN != 0) begin : g_logo
+        logo_overlay #(.LOGO_X(568), .LOGO_Y(8)) u_logo (
+            .clk     (pixel_clk),
+            .de      (VGA_DE),
+            .x       (VGA_X),
+            .y       (VGA_Y),
+            .rgb_in  (SPECTRUM_D),
+            .rgb_out (LOGO_D)
+        );
+    end else begin : g_no_logo
+        assign LOGO_D = SPECTRUM_D;
+    end endgenerate
+
     // ------------------------------------------------------------- HDMI TX
     hdmi_tx #(
         .FAMILY  ("EG4"),
@@ -467,7 +486,7 @@ wire pixel_clk_5x;
         .V_COUNT     (VGA_Y),
         .VGA_HS      (VGA_HS),
         .VGA_VS      (VGA_VS),
-        .VGA_RGB     (SPECTRUM_D),
+        .VGA_RGB     (LOGO_D),
 
         .AUDIO_I      (audio_rd_data),
         .AUDIO_VOL    (volume),

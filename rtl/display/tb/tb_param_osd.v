@@ -4,6 +4,7 @@
 module tb_param_osd;
 
     reg        clk = 1'b0;
+    always #20 clk = ~clk;
     reg        de = 1'b1;
     reg [9:0]  x = 10'd0, y = 10'd0;
     reg [1:0]  sel = 2'd0;
@@ -35,6 +36,7 @@ module tb_param_osd;
         for (s = 0; s < 3; s = s + 1) begin
             sel = s[1:0];
             val = (s == 2) ? 5'd3 : 5'd10;
+            repeat (3) @(posedge clk);
 
             $display("--- sel=%0d val=%0d : text row y=140 ---", sel, val);
             y = 10'd140;
