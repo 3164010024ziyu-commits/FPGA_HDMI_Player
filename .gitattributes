@@ -1,0 +1,5 @@
+*.bit binary
+*.BIN binary
+*.BMP binary
+*.WAV binary
+*.enc.v -text

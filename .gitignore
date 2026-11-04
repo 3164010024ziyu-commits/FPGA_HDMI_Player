@@ -1,21 +1,22 @@
-# Anlogic TD temporary files
+# Reproducible build, simulation and packaging outputs
+/build/
+/dist/
+__pycache__/
+*.py[cod]
+*.wlf
+*.vcd
+*.fst
+/work/
+modelsim.ini
+transcript
+
+# Anlogic TD GUI work directories
+*_Runs/
 project/td/log/
 project/td/.lock.f
-project/td/HDMI_Player_Runs/
+.recent_user_depot.ini
 
-# ModelSim generated outputs
-/work/
-*.wlf
-
-# Local ModelSim libraries for IP checks
-/verification/ip_integration_20261023/run/
-
-# New display-local tool outputs (archived historical files remain visible to Git)
-/rtl/display/HDMI_display_Runs/
-/rtl/display/log/
-/rtl/display/*.log
-/rtl/display/*.logw
-/rtl/display/*.bit
-/rtl/display/*.dmp
-/rtl/display/.lock.f
-/rtl/display/.recent_user_depot.ini
+# Machine-local recovery and desktop metadata
+/.acl-recovery/
+Thumbs.db
+.DS_Store
