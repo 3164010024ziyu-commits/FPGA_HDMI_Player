@@ -1,14 +1,16 @@
 // Compact glyph ROM, one shared serial decimal converter, no video framebuffer.
 // ROM reads look ahead exactly one pixel. RGB, sync and coordinates are not delayed.
 module subtitle_overlay #(
- parameter LONG_PRESS_CYCLES=12500000
+ parameter LONG_PRESS_CYCLES=12500000,parameter ENABLE_TEXT=0
 )(
  input wire clk,rst_n,de,frame_sync,
  input wire [9:0] x,y,input wire [23:0] rgb_in,
  input wire sub_enable,time_enable,left_pressed,right_pressed,
  input wire info_valid,input wire [135:0] info,
  input wire audio_playing,input wire [23:0] audio_bcd,
- output reg [23:0] rgb_out
+ output reg [23:0] rgb_out,
+ input wire text_active,text_changed,input wire [6:0] caption_length,
+ input wire [15:0] caption_bits,output wire [9:0] caption_addr
 );
  // Metadata: {zero-based image index, FAT short name[11 bytes], width, height}.
  reg [135:0] prepared_info,active_info;
@@ -77,7 +79,9 @@ module subtitle_overlay #(
  end
  wire [1:0] width_length=active_info[31:16]>=100 ? 3 : active_info[31:16]>=10 ? 2 : 1;
  wire [1:0] height_length=active_info[15:0]>=100 ? 3 : active_info[15:0]>=10 ? 2 : 1;
- wire [6:0] text_length=have_image ? 7'd15+name_length+width_length+height_length : 7'd4;
+ wire use_caption=ENABLE_TEXT!=0 && text_active;
+ wire [6:0] text_length=use_caption ? caption_length :
+                       have_image ? 7'd15+name_length+width_length+height_length : 7'd4;
  wire [6:0] period_chars=text_length+7'd4;
  function [7:0] ascii;
   input [7:0] value;
@@ -131,7 +135,9 @@ module subtitle_overlay #(
    pending_action<=0;direction<=0;marquee<=0;slow_tick<=0;scroll<=0;
   end else begin
    left_was<=left_pressed;right_was<=right_pressed;
-   if(frame_end)begin
+   if(ENABLE_TEXT!=0 && text_changed)begin
+    scroll<=0;marquee<=text_length>38;direction<=text_length>38?1:0;pending_action<=0;
+   end else if(frame_end)begin
     slow_tick<=!slow_tick;
     if(have_prepared && !formatting && prepared_toggle!=active_toggle)begin
      scroll<=0;marquee<=text_length>38;direction<=text_length>38?1:0;pending_action<=0;
@@ -187,7 +193,14 @@ module subtitle_overlay #(
  wire [3:0] row=next_time?ny-12:ny-452;
  wire [15:0] glyph_bits;
  subtitle_font u_font(.clk(clk),.glyph(glyph),.row(row),.bits(glyph_bits));
- wire current_bit=glyph_bits[15-draw_pixel];
+ assign caption_addr={scan_char[5:0],row};
+ reg caption_present;
+ always @(posedge clk or negedge rst_n)begin
+  if(!rst_n)caption_present<=0;
+  else caption_present<=next_sub && use_caption && scan_char<caption_length;
+ end
+ wire current_bit=in_sub && use_caption ?
+                  (caption_present && caption_bits[15-draw_pixel]) : glyph_bits[15-draw_pixel];
  reg previous_bit;
  always @(posedge clk or negedge rst_n)begin
   if(!rst_n)begin scan_char<=0;scan_pixel<=0;draw_pixel<=0;previous_bit<=0;end

@@ -4,7 +4,7 @@
 // display FIFO -> HDMI. Source completion and SDRAM completion are distinct.
 module hdmi_player_top #(
     parameter integer CLK_HZ = 50000000,
-    parameter integer ENABLE_AUDIO = 0,
+    parameter integer ENABLE_AUDIO = 0,parameter integer ENABLE_AV_SYNC=0,
     parameter integer ENABLE_SPECTRUM = 0,
     parameter integer ENABLE_SUBTITLES = 1,
     parameter integer SPECTRUM_DB_CYCLES = 262144,
@@ -17,7 +17,8 @@ module hdmi_player_top #(
 )(
     input wire SYS_CLK,
     input wire Reset_n,
-    input wire audio_enable,audio_mute,
+    input wire audio_enable,audio_mute,input wire presentation_hold,audio_prepare_window,
+    output wire av_transition_start,
     output wire audio_error,output wire [7:0] audio_error_code,
 
     // One request in the SYS_CLK domain; configuration is sampled on acceptance.
@@ -157,22 +158,56 @@ module hdmi_player_top #(
     // display component for a later integration; this system supplies video.
     wire [31:0] audio_sample;
     wire audio_valid,audio_ready,audio_playing;
+    wire audio_epoch,audio_track_ready,transition_toggle,display_pause;
+    reg [1:0]transition_sync,pause_sync;reg transition_previous,audio_prepare_started;
+    reg audio_select,audio_pending;
+    always @(posedge SYS_CLK or negedge sys_reset_n)begin
+        if(!sys_reset_n)begin transition_sync<=0;pause_sync<=0;transition_previous<=0;audio_prepare_started<=0;audio_select<=0;audio_pending<=0;end
+        else begin
+            transition_sync<={transition_sync[0],transition_toggle};transition_previous<=transition_sync[1];
+            pause_sync<={pause_sync[0],display_pause};
+            audio_select<=0;
+            if(storage_start)begin audio_prepare_started<=0;audio_pending<=0;end
+            else begin
+                if(load_done)audio_pending<=1;
+                if(audio_pending && (ENABLE_AV_SYNC==0 || audio_prepare_window))begin audio_select<=1;audio_pending<=0;end
+                // Mark acceptance on the same edge as the reader clears its
+                // previous ready, never one edge before the registered start.
+                if(audio_select)audio_prepare_started<=1;
+            end
+        end
+    end
+    assign av_transition_start=ENABLE_AV_SYNC!=0 && (transition_sync[1]!=transition_previous);
+    wire audio_pause=audio_mute || (ENABLE_AV_SYNC!=0 && pause_sync[1]);
+    reg presentation_ready;
+    always @(posedge SYS_CLK or negedge sys_reset_n)begin
+        if(!sys_reset_n)presentation_ready<=0;
+        else presentation_ready<=ENABLE_AV_SYNC==0 || (audio_prepare_started && audio_track_ready && !presentation_hold);
+    end
     wire [2:0] audio_tag;wire [87:0] image_name;
+    wire text_cache_ready,text_glyph_we,text_commit,text_has_text;
+    wire [9:0] text_glyph_addr;
+    wire [15:0] text_glyph_data;
+    wire [6:0] text_length;
     wire display_info_valid;wire [135:0] display_info;
     reg [1:0] audio_sink_sync;
     always @(posedge SYS_CLK or negedge sys_reset_n)begin
         if(!sys_reset_n)audio_sink_sync<=0;
         else audio_sink_sync<={audio_sink_sync[0],display_reset_n};
     end
-    hdmi_tx_display #(.AUDIO_FS(48000),.HDMI_AUDIO_EN(ENABLE_AUDIO),.HDMI_SUBTITLE_EN(ENABLE_SUBTITLES),.IMAGE_FADE_EN(ENABLE_FADE),.ENABLE_SPECTRUM(ENABLE_SPECTRUM),
+    hdmi_tx_display #(.AUDIO_FS(48000),.HDMI_AUDIO_EN(ENABLE_AUDIO),.HDMI_SUBTITLE_EN(ENABLE_SUBTITLES),.IMAGE_FADE_EN(ENABLE_FADE),.ENABLE_SPECTRUM(ENABLE_SPECTRUM),.ENABLE_AV_SYNC(ENABLE_AV_SYNC),
         .SPECTRUM_DB_CYCLES(SPECTRUM_DB_CYCLES)) u_display (
         .sys_clk(SYS_CLK), .sys_rst_n(sys_reset_n && memory_initialized),
         .fade_level(display_fade_level),.pix_rgb(display_rgb), .pix_valid(display_valid), .frame_ready(display_ready),
         .pix_underflow(display_underflow), .pix_clk(display_clk), .pix_reset_n(display_reset_n),
         .pix_req(display_pixel_req), .frame_sync(display_frame_sync),
         .display_info_valid(display_info_valid),.display_info(display_info),
-        .audio_tag(audio_tag),.audio_clk(SYS_CLK), .audio_sample(audio_sample), .audio_valid(audio_valid),
+        .audio_tag(audio_tag),.audio_epoch(audio_epoch),.transition_toggle(transition_toggle),.pause_request(display_pause),
+        .audio_clk(SYS_CLK), .audio_sample(audio_sample), .audio_valid(audio_valid),
         .audio_ready(audio_ready), .audio_status(), .audio_pkt(), .key_in(key_in),
+        .text_cache_ready(text_cache_ready),.text_glyph_we(text_glyph_we),
+        .text_glyph_addr(text_glyph_addr),.text_glyph_data(text_glyph_data),
+        .text_commit(text_commit),.text_length(text_length),.text_has_text(text_has_text),
         .key_img(key_img),.spectrum_key_n(spectrum_key_n),.audio_playing(audio_playing),
         .osd_slot(1'b0), .osd_char_idx(4'd0), .osd_char_code(16'd0), .osd_char_we(1'b0),
         .osd_y(10'd0), .osd_fg(24'hffffff),
@@ -182,7 +217,8 @@ module hdmi_player_top #(
 
     wire [2:0] memory_error_flags;
     assign debug_error_flags = {load_error,memory_error_flags};
-    memory_top #(.ENABLE_FADE(ENABLE_FADE),.FADE_STEP(FADE_STEP)) u_memory (
+    memory_top #(.ENABLE_FADE(ENABLE_FADE),.FADE_STEP(FADE_STEP),.ENABLE_AV_SYNC(ENABLE_AV_SYNC)) u_memory (
+        .presentation_ready(presentation_ready),
         .display_fade_level(display_fade_level),
         .debug_error_flags(memory_error_flags),
         .SYS_CLK(SYS_CLK),
@@ -213,7 +249,7 @@ module hdmi_player_top #(
     );
 
     storage_pipeline #(
-        .ENABLE_AUDIO(ENABLE_AUDIO),
+        .ENABLE_AUDIO(ENABLE_AUDIO),.ENABLE_TEXT(ENABLE_SUBTITLES),.ENABLE_AV_SYNC(ENABLE_AV_SYNC),
         .CLK_HZ(CLK_HZ),
         .INIT_HALF_PERIOD(INIT_HALF_PERIOD),
         .READ_HALF_PERIOD(READ_HALF_PERIOD),
@@ -222,9 +258,14 @@ module hdmi_player_top #(
     ) u_storage_pipeline (
         .clk(SYS_CLK),
         .rst_n(storage_reset_n),
-        .audio_tag(audio_tag),.audio_playing(audio_playing),.audio_enable(audio_enable),.audio_mute(audio_mute),.audio_sink_active(audio_sink_sync[1]),
+        .audio_select(audio_select),.audio_start(av_transition_start),.audio_name(image_name[87:24]),
+        .audio_track_ready(audio_track_ready),.audio_epoch(audio_epoch),
+        .audio_tag(audio_tag),.audio_playing(audio_playing),.audio_enable(audio_enable),.audio_mute(audio_pause),.audio_sink_active(audio_sink_sync[1]),
         .audio_ready(audio_ready),.audio_sample(audio_sample),.audio_valid(audio_valid),
         .audio_error(audio_error),.audio_error_code(audio_error_code),
+        .text_cache_ready(text_cache_ready),.text_glyph_we(text_glyph_we),
+        .text_glyph_addr(text_glyph_addr),.text_glyph_data(text_glyph_data),
+        .text_commit(text_commit),.text_length(text_length),.text_has_text(text_has_text),
         .sd_cs_n(sd_cs_n),
         .sd_sck(sd_sck),
         .sd_mosi(sd_mosi),

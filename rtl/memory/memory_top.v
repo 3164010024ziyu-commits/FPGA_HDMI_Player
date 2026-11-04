@@ -4,12 +4,12 @@ module memory_top #(
     parameter integer DISPLAY_WIDTH=640,
     parameter integer DISPLAY_HEIGHT=480,
     parameter integer DISPLAY_FIFO_ADDR_WIDTH=11,
-    parameter integer ENABLE_FADE=0,
+    parameter integer ENABLE_FADE=0,parameter integer ENABLE_AV_SYNC=0,
     parameter integer FADE_STEP=1
 )(
     input wire SYS_CLK,
     
-    input wire Reset_n,
+    input wire Reset_n,input wire presentation_ready,
 
     input wire pixel_valid,
     input wire [23:0] pixel_data,
@@ -259,10 +259,10 @@ sdram_write_ctrl uut (
 
 frame_buffer_ctrl #(
     .DISPLAY_WIDTH(DISPLAY_WIDTH), .DISPLAY_HEIGHT(DISPLAY_HEIGHT),
-    .ENABLE_FADE(ENABLE_FADE), .FADE_STEP(FADE_STEP)
+    .ENABLE_FADE(ENABLE_FADE), .FADE_STEP(FADE_STEP),.ENABLE_AV_SYNC(ENABLE_AV_SYNC)
 ) u_frame_buffers (
     .fade_step(fade_step),
-    .sys_clk(SYS_CLK), .sys_rst_n(sys_reset_n), .initialized(init_done_sync[1]),
+    .sys_clk(SYS_CLK), .sys_rst_n(sys_reset_n), .initialized(init_done_sync[1]),.presentation_ready(presentation_ready),
     .frame_start(frame_start), .frame_end(frame_end), .frame_abort(frame_abort),
     .frame_base_addr(frame_base_addr), .frame_width(frame_width), .frame_height(frame_height),
     .desc_ready(desc_ready), .desc_valid(desc_valid), .desc_base(desc_base),

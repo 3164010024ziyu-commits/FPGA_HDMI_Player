@@ -1,0 +1,8 @@
+HDMI Player SD FONT16 conversion, 2026-11-03.
+
+Source: GNU Unifont 17.0.03 (https://unifoundry.com/unifont/)
+Selected license for converted font data: SIL Open Font License 1.1.
+Format changed to fixed Unicode-indexed 16x16 rows; narrow glyphs centered.
+Unassigned slots contain a replacement box. No upstream reserved name is used for the converted font.
+
+COPYRIGHT "Copyright (C) 1998-2025 Roman Czyborra, Paul Hardy, Qianqian Fang, Andrew Miller, Johnnie Weaver, David Corbett, Ælla Chiana Moskopp, Rebecca Bettencourt, Minseo Lee, Ho-Seok Ee, et al. License: SIL Open Font License version 1.1 and GPLv2+: GNU GPL version 2 or later <http://gnu.org/licenses/gpl.html> with the GNU Font Embedding Exception."

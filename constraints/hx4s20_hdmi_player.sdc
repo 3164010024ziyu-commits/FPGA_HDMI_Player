@@ -11,7 +11,7 @@ derive_clocks
 set_false_path -from [get_ports {Reset_n}]
 set_false_path -from [get_ports {KEY_LOAD_N}]
 set_false_path -from [get_ports {KEY_PREV_N KEY_NEXT_N KEY_AUTO_N KEY_SPECTRUM_N}]
-set_false_path -from [get_ports {SW_AUDIO_N SW_MUTE_N}]
+set_false_path -from [get_ports {SW_MUTE_N}]
 set_false_path -from [get_ports {key_img[*]}]
 # Main exposes the display key bus; captured by the same first key synchronizer.
 set_false_path -from [get_ports {key_in[*]}]
@@ -63,7 +63,7 @@ set_max_delay -datapath_only -through [get_nets -hier {*u_audio_fifo/rd_tog}] -t
 set_max_delay -datapath_only -through [get_nets -hier {*u_frame_buffers/abort_ack *u_frame_buffers/back_bank *u_frame_buffers/available_mem}] -to [get_clocks {SYS_CLK}] 8.000
 set_max_delay -datapath_only -through [get_nets -hier {*u_frame_buffers/abort_toggle}] -to [get_clocks {u_player/u_memory/u0_clk/pll_inst.clkc[1]}] 8.000
 # Existing initialization status and new audio sink-ready status, first stage only.
-set_max_delay -datapath_only -through [get_nets -hier {*u_memory/mem_reset_n *u_memory/Sdr_init_done}] -to [get_clocks {SYS_CLK}] 8.000
+set_max_delay -datapath_only -through [get_nets -hier {*u_memory/mem_reset_n *u_memory/mem_reset_release* *u_memory/Sdr_init_done}] -to [get_clocks {SYS_CLK}] 8.000
 set_max_delay -datapath_only -through [get_nets -hier {*u_display/pix_reset_n}] -to [get_clocks {SYS_CLK}] 8.000
 
 # Frame-rate Gray fade level, first pixel synchronizer stage only.
@@ -83,3 +83,12 @@ set_max_delay -datapath_only -through [get_nets -hier {*ucdc/user_reg*}] -to [ge
 # Front descriptor mailbox is held until capture/ack, not a free-running bus.
 set_max_delay -datapath_only -through [get_nets -hier {*u_subtitle_info/held* *u_subtitle_info/request}] -to [get_clocks {u_player/u_display/u_clk_wize/pll_inst.clkc[1]}] 8.000
 set_max_delay -datapath_only -through [get_nets -hier {*u_subtitle_info/ack}] -to [get_clocks {u_player/u_memory/u0_clk/pll_inst.clkc[1]}] 8.000
+
+# TXT glyph-cache banks are filled before a held descriptor is published.
+# Acknowledge only after the pixel side swaps banks at the frame boundary.
+set_max_delay -datapath_only -through [get_nets -hier {*u_text_cache/held* *u_text_cache/request}] -to [get_clocks {u_player/u_display/u_clk_wize/pll_inst.clkc[1]}] 8.000
+set_max_delay -datapath_only -through [get_nets -hier {*u_text_cache/ack}] -to [get_clocks {SYS_CLK}] 8.000
+
+# AV scheduling: single-bit first-stage synchronizers, all later stages timed.
+set_max_delay -datapath_only -through [get_nets -hier {*u_display/transition_toggle *u_display/pause_request *u_display/sw_mute}] -to [get_clocks {SYS_CLK}] 8.000
+set_max_delay -datapath_only -through [get_nets -hier {*u_player/presentation_ready}] -to [get_clocks {u_player/u_memory/u0_clk/pll_inst.clkc[1]}] 8.000

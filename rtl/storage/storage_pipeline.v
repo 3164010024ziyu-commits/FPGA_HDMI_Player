@@ -1,7 +1,7 @@
 // System-clock-domain storage subsystem. pixel_addr is a PIXEL index, not bytes.
 // done permits a frame commit only AFTER the memory writer has drained too.
 module storage_pipeline #(
-    parameter CLK_HZ=50000000, parameter ENABLE_AUDIO=0,
+    parameter CLK_HZ=50000000, parameter ENABLE_AUDIO=0, parameter ENABLE_TEXT=0,parameter ENABLE_AV_SYNC=0,
     parameter INIT_HALF_PERIOD=(CLK_HZ+799999)/800000,
     parameter READ_HALF_PERIOD=(CLK_HZ+49999999)/50000000,
     parameter MAX_WIDTH=1920, parameter MAX_HEIGHT=1080
@@ -21,7 +21,13 @@ module storage_pipeline #(
     output wire pixel_valid, input wire pixel_ready,
     output wire [23:0] pixel_rgb888, output wire [15:0] pixel_rgb565,
     output wire [15:0] pixel_x, pixel_y, output wire [31:0] pixel_addr,
-    output wire pixel_sof, pixel_eol, pixel_eof
+    output wire pixel_sof, pixel_eol, pixel_eof,
+    input wire text_cache_ready,
+    output wire text_glyph_we,output wire [9:0] text_glyph_addr,
+    output wire [15:0] text_glyph_data,
+    output wire text_commit,output wire [6:0] text_length,output wire text_has_text,
+    input wire audio_select,audio_start,input wire [63:0] audio_name,
+    output wire audio_track_ready,output wire audio_epoch
 );
     wire req_valid, req_ready, sec_valid, sec_ready, sec_last, sd_error;
     wire [7:0] sec_data, sd_code;
@@ -34,9 +40,41 @@ module storage_pipeline #(
     wire bmp_done, bmp_error, bmp_ready;
     wire [7:0] bmp_code;
     reg file_finished, image_finished, parsing_started, parsing_failed;
+    reg text_phase,bitmap_start;
+    reg [15:0] selected_index;
+    reg selected_last;
+    wire caption_done,caption_start;
+    wire [1:0] caption_kind;
+    wire [31:0] caption_offset;
+    wire [15:0] caption_bytes;
+    wire caption_ready;
     assign ready=card_initialized && !busy;
     wire launch=start && ready;
-    assign file_ready=parsing_failed ? 1'b1 : bmp_ready;
+    assign file_ready=text_phase ? caption_ready : parsing_failed ? 1'b1 : bmp_ready;
+    always @(posedge clk or negedge rst_n)begin
+        if(!rst_n)begin text_phase<=0;bitmap_start<=0;selected_index<=0;selected_last<=0;end
+        else begin
+            bitmap_start<=0;
+            if(launch)begin
+                selected_index<=file_index;selected_last<=select_last;
+                if(ENABLE_TEXT!=0)text_phase<=1;
+            end else if(text_phase && caption_done)begin text_phase<=0;bitmap_start<=1;end
+        end
+    end
+    generate if(ENABLE_TEXT!=0)begin:g_text
+        text_caption_loader caption(
+            .clk(clk),.rst_n(rst_n),.start(launch),.cache_ready(text_cache_ready),.done(caption_done),
+            .job_start(caption_start),.job_kind(caption_kind),.job_offset(caption_offset),.job_length(caption_bytes),
+            .file_done(fat_done),.file_error(fat_error),.file_code(fat_code),
+            .data(file_data),.valid(file_valid && text_phase),.ready(caption_ready),
+            .glyph_we(text_glyph_we),.glyph_addr(text_glyph_addr),.glyph_data(text_glyph_data),
+            .commit(text_commit),.length(text_length),.has_text(text_has_text),.status());
+    end else begin:g_no_text
+        assign caption_start=0;assign caption_kind=0;assign caption_offset=0;assign caption_bytes=0;
+        assign caption_ready=0;assign caption_done=0;
+        assign text_glyph_we=0;assign text_glyph_addr=0;assign text_glyph_data=0;
+        assign text_commit=0;assign text_length=0;assign text_has_text=0;
+    end endgenerate
     sd_spi_reader #(.CLK_HZ(CLK_HZ),.INIT_HALF_PERIOD(INIT_HALF_PERIOD),
         .READ_HALF_PERIOD(READ_HALF_PERIOD)) sd(
         .clk(clk),.rst_n(rst_n),.sd_cs_n(sd_cs_n),.sd_sck(sd_sck),
@@ -57,6 +95,17 @@ module storage_pipeline #(
             .b_valid(wav_valid),.b_last(wav_last),.b_error(wav_error),.b_code(wav_code),.b_ready(wav_ready),
             .req(card_req),.grant(card_grant),.lba(card_lba),
             .valid(card_valid),.last(card_last),.error(card_error),.code(card_code),.ready(card_ready));
+        if(ENABLE_AV_SYNC!=0)begin:g_paired
+        wav_image_player #(.CLK_HZ(CLK_HZ)) player(
+            .clk(clk),.rst_n(rst_n),.select_track(audio_select),.play_start(audio_start),.pause(audio_mute),.track_name(audio_name),
+            .track_ready(audio_track_ready),.audio_epoch(audio_epoch),
+            .card_initialized(card_initialized),.sink_active(audio_sink_active),.sink_ready(audio_ready),
+            .audio_tag(audio_tag),.playing(audio_playing),.audio_sample(audio_sample),.audio_valid(audio_valid),.error(audio_error),.error_code(audio_error_code),
+            .req_valid(wav_req),.req_lba(wav_lba),.req_ready(wav_grant),
+            .sec_data(card_data),.sec_valid(wav_valid),.sec_last(wav_last),.sec_error(wav_error),
+            .sec_error_code(wav_code),.sec_ready(wav_ready),.reader_enabled(wav_enabled));
+        end else begin:g_background
+        assign audio_track_ready=1'b1;assign audio_epoch=1'b0;
         wav_audio_player #(.CLK_HZ(CLK_HZ)) player(
             .clk(clk),.rst_n(rst_n),.enable(audio_enable),.mute(audio_mute),
             .card_initialized(card_initialized),.sink_active(audio_sink_active),.sink_ready(audio_ready),
@@ -64,25 +113,29 @@ module storage_pipeline #(
             .req_valid(wav_req),.req_lba(wav_lba),.req_ready(wav_grant),
             .sec_data(card_data),.sec_valid(wav_valid),.sec_last(wav_last),.sec_error(wav_error),
             .sec_error_code(wav_code),.sec_ready(wav_ready),.reader_enabled(wav_enabled));
+        end
     end else begin:g_no_audio
         assign card_req=req_valid;assign req_ready=card_grant;assign card_lba=req_lba;
         assign sec_valid=card_valid;assign sec_last=card_last;assign card_ready=sec_ready;
         assign sd_error=card_error;assign sd_code=card_code;
         assign audio_tag=0;assign audio_playing=0;assign audio_sample=0;assign audio_valid=0;assign audio_error=0;assign audio_error_code=0;
+        assign audio_track_ready=1'b1;assign audio_epoch=1'b0;
     end endgenerate
-    fat32_bmp_reader fat(
-        .clk(clk),.rst_n(rst_n),.start(launch),.file_index(file_index),
-        .select_last(select_last),.opened_index(opened_index),
+    fat32_bmp_reader #(.ENABLE_AUX(ENABLE_TEXT)) fat(
+        .clk(clk),.rst_n(rst_n),.start(ENABLE_TEXT!=0 ? (text_phase ? caption_start : bitmap_start) : launch),
+        .file_index(ENABLE_TEXT!=0 ? selected_index : file_index),
+        .select_last(text_phase ? 1'b0 : ENABLE_TEXT!=0 ? selected_last : select_last),.opened_index(opened_index),
         .busy(),.done(fat_done),.error(fat_error),.error_code(fat_code),
         .file_open(file_open),.file_size(file_size),.short_name(short_name),
         .data(file_data),.valid(file_valid),.last(file_last),.ready(file_ready),
         .req_valid(req_valid),.req_ready(req_ready),.req_lba(req_lba),
         .sec_data(sec_data),.sec_valid(sec_valid),.sec_last(sec_last),
-        .sec_ready(sec_ready),.sec_error(sd_error));
+        .sec_ready(sec_ready),.sec_error(sd_error),
+        .aux_kind(text_phase ? caption_kind : 2'd0),.aux_offset(caption_offset),.aux_length(caption_bytes),.match_name(64'd0));
     bmp_stream_decoder #(.MAX_WIDTH(MAX_WIDTH),.MAX_HEIGHT(MAX_HEIGHT)) bmp(
-        .clk(clk),.rst_n(rst_n),.start(file_open),.abort(busy && fat_error),
+        .clk(clk),.rst_n(rst_n),.start(file_open && !text_phase),.abort(busy && fat_error && !text_phase),
         .file_size(file_size),.in_data(file_data),
-        .in_valid(file_valid && !parsing_failed),.in_last(file_last),.in_ready(bmp_ready),
+        .in_valid(file_valid && !parsing_failed && !text_phase),.in_last(file_last),.in_ready(bmp_ready),
         .busy(),.done(bmp_done),.error(bmp_error),.error_code(bmp_code),
         .meta_valid(meta_valid),.width(width),.height(height),.top_down(top_down),
         .pixel_valid(pixel_valid),.pixel_ready(pixel_ready),
@@ -99,7 +152,7 @@ module storage_pipeline #(
             if(launch) begin
                 busy<=1; error<=0; error_code<=0;
                 file_finished<=0; image_finished<=0; parsing_started<=0; parsing_failed<=0;
-            end else if(busy) begin
+            end else if(busy && !text_phase && !bitmap_start) begin
                 if(file_open) parsing_started<=1;
                 if(fat_done) file_finished<=1;
                 if(bmp_done) image_finished<=1;

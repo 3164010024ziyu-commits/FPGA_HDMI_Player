@@ -10,6 +10,8 @@ module last_file_tb;
     wire [87:0] short_name;
     reg ready=0,req_ready=1,sec_valid=0,sec_last=0,sec_error=0;
     reg [7:0] sec_data;
+    wire [1:0] aux_kind=0;wire [31:0] aux_offset=0;wire [15:0] aux_length=0;
+ wire [63:0] match_name=64'd0;
     fat32_bmp_reader #(.MAX_DIR_CLUSTERS(8)) dut(.*);
     reg [7:0] card[0:4607],image[0:1249];
     integer map_index,read_offset=0,seen=0,cycles=0,cases=0,mode=0,requests=0;

@@ -36,7 +36,8 @@ module wav_audio_player #(
         .select_last(1'b0),.opened_index(),.busy(),.done(fat_done),.error(fat_error),.error_code(fat_code),
         .file_open(file_open),.file_size(file_size),.short_name(),.data(file_data),.valid(file_valid),
         .last(file_last),.ready(file_ready),.req_valid(req_valid),.req_ready(req_ready),.req_lba(req_lba),
-        .sec_data(sec_data),.sec_valid(sec_valid),.sec_last(sec_last),.sec_ready(sec_ready),.sec_error(sec_error));
+        .sec_data(sec_data),.sec_valid(sec_valid),.sec_last(sec_last),.sec_ready(sec_ready),.sec_error(sec_error),
+        .aux_kind(2'd0),.aux_offset(32'd0),.aux_length(16'd0),.match_name(64'd0));
     // One-byte elastic register breaks the sector-RAM mux to RIFF bounds-check
     // path without changing the valid/ready contract or dropping stalled bytes.
     reg [7:0] pipe_data;
