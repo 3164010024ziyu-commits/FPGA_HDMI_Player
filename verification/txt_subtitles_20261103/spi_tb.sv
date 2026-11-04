@@ -48,9 +48,9 @@ module caption_spi_tb;
   @(negedge clk);rst_n=0;repeat(4)@(negedge clk);rst_n=1;card.missing_font=1;image();
   card.missing_font=0;expected_text=1;image();
   // End-of-directory is a BMP error, then index zero must restart TXT and BMP.
-  wait(ready);@(negedge clk);file_index=1;start=1;pixels=0;writes=0;commits=0;
+  wait(ready);@(negedge clk);file_index=1;start=1;pixels=0;writes=0;commits=0;expected_text=0;
   @(negedge clk);start=0;wait(error);if(error_code!='h36)$fatal(1,"missing BMP diagnostic");
-  repeat(5)@(negedge clk);file_index=0;image();
+  repeat(5)@(negedge clk);file_index=0;expected_text=1;image();
   $display("CAPTION_SPI_PASS cases=%0d reload=1 missing_txt_fallback=1 missing_font_fallback=1 end_of_directory_recovery=1 pixels=384",cases);$finish;
  end
  initial begin #150000000;$fatal(1,"SPI caption watchdog");end

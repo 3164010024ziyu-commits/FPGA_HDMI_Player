@@ -3,6 +3,7 @@ module caption_cache_tb;
  reg clk=0,src_clk=0,rst_n=0;always #20 clk=~clk;always #10 src_clk=~src_clk;
  reg [9:0]x=0,y=0;
  always @(posedge clk)if(!rst_n)begin x<=0;y<=0;end else if(x==799)begin x<=0;y<=y==524?0:y+1'b1;end else x<=x+1'b1;
+ wire publish=0,discard=0;
  reg write_enable=0,commit=0,src_has_text=1;reg [9:0]write_addr=0;reg [15:0]write_data=0;reg [6:0]src_length=3;
  wire src_ready,has_text,changed;wire [6:0]text_length;wire [9:0]read_addr;wire [15:0]read_data;
  wire frame_end=x==799 && y==524;

@@ -92,3 +92,8 @@ set_max_delay -datapath_only -through [get_nets -hier {*u_text_cache/ack}] -to [
 # AV scheduling: single-bit first-stage synchronizers, all later stages timed.
 set_max_delay -datapath_only -through [get_nets -hier {*u_display/transition_toggle *u_display/pause_request *u_display/sw_mute}] -to [get_clocks {SYS_CLK}] 8.000
 set_max_delay -datapath_only -through [get_nets -hier {*u_player/presentation_ready}] -to [get_clocks {u_player/u_memory/u0_clk/pll_inst.clkc[1]}] 8.000
+
+# Paired-caption cancellation is held until ack; bank status has two SYS stages.
+# Bound only the crossing source nets; downstream synchronizer stages stay timed.
+set_max_delay -datapath_only -through [get_nets -hier {*u_text_cache/active_bank}] -to [get_clocks {SYS_CLK}] 8.000
+set_max_delay -datapath_only -through [get_nets -hier {*u_text_cache/discard_held}] -to [get_clocks {u_player/u_display/u_clk_wize/pll_inst.clkc[1]}] 8.000

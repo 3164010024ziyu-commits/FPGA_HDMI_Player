@@ -63,7 +63,7 @@ module hdmi_tx_display #(
     output reg transition_toggle,output reg pause_request,
     input wire display_info_valid,input wire [135:0] display_info,
     input wire text_glyph_we,input wire [9:0] text_glyph_addr,input wire [15:0] text_glyph_data,
-    input wire text_commit,input wire [6:0] text_length,input wire text_has_text,
+    input wire text_commit,input wire [6:0] text_length,input wire text_has_text,input wire text_abort,
     output wire text_cache_ready,
     output wire        audio_ready,
     output wire [1:0]  audio_status,   // {overflow, underflow}
@@ -357,9 +357,10 @@ wire pixel_clk_5x;
     wire [23:0] progress_bcd;wire progress_playing;
     wire [9:0] caption_addr;wire [15:0] caption_bits;
     wire [6:0] caption_length;wire caption_active,caption_changed;
-    text_glyph_cache u_text_cache(
+    text_glyph_cache #(.WAIT_IMAGE(1)) u_text_cache(
        .src_clk(audio_clk),.pix_clk(pixel_clk),.rst_n(video_reset_n),
        .write_enable(text_glyph_we),.write_addr(text_glyph_addr),.write_data(text_glyph_data),
+       .publish(display_info_valid),.discard(text_abort),
        .commit(text_commit),.src_length(text_length),.src_has_text(text_has_text),.src_ready(text_cache_ready),
        .frame_end(VGA_X==799 && VGA_Y==524),.read_addr(caption_addr),.read_data(caption_bits),
        .text_length(caption_length),.has_text(caption_active),.changed(caption_changed));
