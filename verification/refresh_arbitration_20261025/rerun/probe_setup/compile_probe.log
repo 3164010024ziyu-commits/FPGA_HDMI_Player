@@ -1,0 +1,10 @@
+Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+Start time: 23:22:09 on Oct 25,2026
+vlog -modelsimini C:\Users\31640\Desktop\FPGA_Projects\FPGA_HDMI_Player\verification\refresh_arbitration_20261025\rerun\probe_setup\modelsim.ini -sv -work work C:\Users\31640\Desktop\FPGA_Projects\FPGA_HDMI_Player\verification\refresh_arbitration_20261025\rerun\probe_setup\refresh_probe.sv 
+-- Compiling module refresh_observer
+-- Compiling module refresh_bind_top
+
+Top level modules:
+	refresh_bind_top
+End time: 23:22:09 on Oct 25,2026, Elapsed time: 0:00:00
+Errors: 0, Warnings: 0

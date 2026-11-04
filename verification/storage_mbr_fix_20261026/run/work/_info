@@ -1,0 +1,205 @@
+m255
+K4
+z2
+!s11f vlog 2020.4 2020.10, Oct 13 2020
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dC:/Users/31640/Desktop/FPGA_Projects/FPGA_HDMI_Player/verification/storage_mbr_fix_20261026/run
+T_opt
+!s110 1793017293
+VYWzX_@jJiS:cj7WglkWzE3
+04 23 4 work fat32_mbr_regression_tb fast 0
+=1-40c2ba91afbf-6adf45cd-126-6984
+Z1 o-quiet -auto_acc_if_foreign -work work
+Z2 tCvgOpt 0
+n@_opt
+Z3 OL;O;2020.4;71
+R0
+T_opt1
+!s110 1793017296
+VP2dJ1Az?nEmz77ODYiDmk3
+04 25 4 work storage_mbr_regression_tb fast 0
+=1-40c2ba91afbf-6adf45cf-35a-8adc
+R1
+R2
+n@_opt1
+R3
+vbmp_stream_decoder
+Z4 DXx6 sv_std 3 std 0 22 9oUSJO;AeEaW`l:M@^WG92
+Z5 !s110 1793017291
+!i10b 1
+!s100 8J^FMdQg>H:>S:0H[4<FY0
+Z6 !s11b Dg1SIo80bB@j0V0VzS_@n1
+I<[hRgAfCj;=KbCBZ1>P_@3
+S1
+R0
+Z7 w1792990180
+8C:/Users/31640/Desktop/FPGA_Projects/FPGA_HDMI_Player/rtl/storage/bmp_stream_decoder.v
+FC:/Users/31640/Desktop/FPGA_Projects/FPGA_HDMI_Player/rtl/storage/bmp_stream_decoder.v
+!i122 0
+L0 3 173
+Z8 VDg1SIo80bB@j0V0VzS_@n1
+Z9 OL;L;2020.4;71
+r1
+!s85 0
+31
+Z10 !s108 1793017291.000000
+Z11 !s107 C:/Users/31640/Desktop/FPGA_Projects/FPGA_HDMI_Player/verification/storage_mbr_fix_20261026/sd_spi_card_model.sv|C:/Users/31640/Desktop/FPGA_Projects/FPGA_HDMI_Player/verification/storage_mbr_fix_20261026/storage_mbr_regression_tb.sv|C:/Users/31640/Desktop/FPGA_Projects/FPGA_HDMI_Player/verification/storage_mbr_fix_20261026/fat32_mbr_regression_tb.sv|C:/Users/31640/Desktop/FPGA_Projects/FPGA_HDMI_Player/rtl/storage/bmp_stream_decoder.v|C:/Users/31640/Desktop/FPGA_Projects/FPGA_HDMI_Player/rtl/storage/fat32_bmp_reader.v|C:/Users/31640/Desktop/FPGA_Projects/FPGA_HDMI_Player/rtl/storage/sd_spi_reader.v|C:/Users/31640/Desktop/FPGA_Projects/FPGA_HDMI_Player/rtl/storage/storage_pipeline.v|
+Z12 !s90 -modelsimini|C:/Users/31640/Desktop/FPGA_Projects/FPGA_HDMI_Player/verification/storage_mbr_fix_20261026/run/modelsim.ini|-sv|-work|work|C:/Users/31640/Desktop/FPGA_Projects/FPGA_HDMI_Player/rtl/storage/storage_pipeline.v|C:/Users/31640/Desktop/FPGA_Projects/FPGA_HDMI_Player/rtl/storage/sd_spi_reader.v|C:/Users/31640/Desktop/FPGA_Projects/FPGA_HDMI_Player/rtl/storage/fat32_bmp_reader.v|C:/Users/31640/Desktop/FPGA_Projects/FPGA_HDMI_Player/rtl/storage/bmp_stream_decoder.v|C:/Users/31640/Desktop/FPGA_Projects/FPGA_HDMI_Player/verification/storage_mbr_fix_20261026/fat32_mbr_regression_tb.sv|C:/Users/31640/Desktop/FPGA_Projects/FPGA_HDMI_Player/verification/storage_mbr_fix_20261026/storage_mbr_regression_tb.sv|C:/Users/31640/Desktop/FPGA_Projects/FPGA_HDMI_Player/verification/storage_mbr_fix_20261026/sd_spi_card_model.sv|
+!i113 0
+Z13 o-sv -work work -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+R2
+vfat32_bmp_reader
+R4
+R5
+!i10b 1
+!s100 `RX8n]E_Pj8_Z@2nIc<[T1
+R6
+IkC;JLk3CJa7^aO<nQ`c5W0
+S1
+R0
+w1793016965
+8C:/Users/31640/Desktop/FPGA_Projects/FPGA_HDMI_Player/rtl/storage/fat32_bmp_reader.v
+FC:/Users/31640/Desktop/FPGA_Projects/FPGA_HDMI_Player/rtl/storage/fat32_bmp_reader.v
+!i122 0
+L0 3 252
+R8
+R9
+r1
+!s85 0
+31
+R10
+R11
+R12
+!i113 0
+R13
+R2
+vfat32_mbr_regression_tb
+R4
+R5
+!i10b 1
+!s100 :PE8`nf<Qb2OJ5Z2IH5FF3
+R6
+I0?B^OVBf^h>:]Oi@2]Tf@3
+S1
+R0
+Z14 w1793017285
+8C:/Users/31640/Desktop/FPGA_Projects/FPGA_HDMI_Player/verification/storage_mbr_fix_20261026/fat32_mbr_regression_tb.sv
+FC:/Users/31640/Desktop/FPGA_Projects/FPGA_HDMI_Player/verification/storage_mbr_fix_20261026/fat32_mbr_regression_tb.sv
+!i122 0
+L0 2 146
+R8
+R9
+r1
+!s85 0
+31
+R10
+R11
+R12
+!i113 0
+R13
+R2
+vsd_spi_card_model
+R4
+R5
+!i10b 1
+!s100 4Yi`JEMVFUPSF0GagR]E>3
+R6
+I1ObN09lW>Q1Z01iRE;SaE2
+S1
+R0
+R14
+8C:/Users/31640/Desktop/FPGA_Projects/FPGA_HDMI_Player/verification/storage_mbr_fix_20261026/sd_spi_card_model.sv
+FC:/Users/31640/Desktop/FPGA_Projects/FPGA_HDMI_Player/verification/storage_mbr_fix_20261026/sd_spi_card_model.sv
+!i122 0
+L0 3 118
+R8
+R9
+r1
+!s85 0
+31
+R10
+R11
+R12
+!i113 0
+R13
+R2
+vsd_spi_reader
+R4
+R5
+!i10b 1
+!s100 bFEoGXJ_I@Wm7EUa<XO`l1
+R6
+IH`>kI2jGEZjl8RU[_=3dZ3
+S1
+R0
+R7
+8C:/Users/31640/Desktop/FPGA_Projects/FPGA_HDMI_Player/rtl/storage/sd_spi_reader.v
+FC:/Users/31640/Desktop/FPGA_Projects/FPGA_HDMI_Player/rtl/storage/sd_spi_reader.v
+!i122 0
+L0 4 232
+R8
+R9
+r1
+!s85 0
+31
+R10
+R11
+R12
+!i113 0
+R13
+R2
+vstorage_mbr_regression_tb
+R4
+R5
+!i10b 1
+!s100 TGSG9@g7PYkY?9ahoVaF00
+R6
+IzCI>VL7Fd4<G[lFD]ZRoL2
+S1
+R0
+R14
+8C:/Users/31640/Desktop/FPGA_Projects/FPGA_HDMI_Player/verification/storage_mbr_fix_20261026/storage_mbr_regression_tb.sv
+FC:/Users/31640/Desktop/FPGA_Projects/FPGA_HDMI_Player/verification/storage_mbr_fix_20261026/storage_mbr_regression_tb.sv
+!i122 0
+L0 2 96
+R8
+R9
+r1
+!s85 0
+31
+R10
+R11
+R12
+!i113 0
+R13
+R2
+vstorage_pipeline
+R4
+R5
+!i10b 1
+!s100 cinMm3@FW6LYgLG0mhWLX3
+R6
+IZO[RhNRL<QBQYQ`SWR_Ii2
+S1
+R0
+R7
+8C:/Users/31640/Desktop/FPGA_Projects/FPGA_HDMI_Player/rtl/storage/storage_pipeline.v
+FC:/Users/31640/Desktop/FPGA_Projects/FPGA_HDMI_Player/rtl/storage/storage_pipeline.v
+!i122 0
+L0 3 82
+R8
+R9
+r1
+!s85 0
+31
+R10
+R11
+R12
+!i113 0
+R13
+R2

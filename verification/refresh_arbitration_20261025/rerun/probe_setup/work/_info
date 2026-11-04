@@ -1,0 +1,342 @@
+m255
+K4
+z2
+!s11f vlog 2020.4 2020.10, Oct 13 2020
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dC:/Users/31640/Desktop/FPGA_Projects/FPGA_HDMI_Player/verification/refresh_arbitration_20261025/rerun/probe_setup
+T_opt
+!s110 1792941731
+VA=j8dc39o;74Za1^]^a<C1
+04 15 4 work refresh_wait_tb fast 0
+04 16 4 work refresh_bind_top fast 0
+04 4 4 work glbl fast 0
+=1-40c2ba91afbf-6ade1ea3-7d-49d4
+o-quiet -auto_acc_if_foreign -work work -L al -L eg +acc
+Z1 tCvgOpt 0
+n@_opt
+OL;O;2020.4;71
+vclk_pll
+!s110 1792941728
+!i10b 1
+!s100 1EjZLRW]R<FNABCjNa<Oa1
+Z2 !s11b Dg1SIo80bB@j0V0VzS_@n1
+IPbBXWYDFB^68>PUSMdUhc1
+Z3 dC:/Users/31640/Desktop/FPGA_Projects/FPGA_HDMI_Player/verification/refresh_arbitration_20261025/rerun/probe_setup/project_snapshot/rtl/memory
+Z4 w1792941728
+8C:\Users\31640\Desktop\FPGA_Projects\FPGA_HDMI_Player\verification\refresh_arbitration_20261025\rerun\probe_setup\project_snapshot\rtl\ip\clk_pll\clk_pll.v
+FC:\Users\31640\Desktop\FPGA_Projects\FPGA_HDMI_Player\verification\refresh_arbitration_20261025\rerun\probe_setup\project_snapshot\rtl\ip\clk_pll\clk_pll.v
+!i122 0
+L0 24 73
+Z5 VDg1SIo80bB@j0V0VzS_@n1
+Z6 OL;L;2020.4;71
+r1
+!s85 0
+31
+Z7 !s108 1792941728.000000
+Z8 !s107 ../../include/global_def.v|C:\Anlogic\TD_6.2.1_Engineer_6.2.168.116\sim_release\eg4\eg_phy_glbl.v|C:\Users\31640\Desktop\FPGA_Projects\FPGA_HDMI_Player\verification\refresh_arbitration_20261025\rerun\probe_setup\refresh_wait_tb.v|C:\Users\31640\Desktop\FPGA_Projects\FPGA_HDMI_Player\verification\refresh_arbitration_20261025\rerun\probe_setup\IS42s32200.v|C:\Users\31640\Desktop\FPGA_Projects\FPGA_HDMI_Player\verification\refresh_arbitration_20261025\rerun\probe_setup\project_snapshot\rtl\memory\memory_top.v|C:\Users\31640\Desktop\FPGA_Projects\FPGA_HDMI_Player\verification\refresh_arbitration_20261025\rerun\probe_setup\project_snapshot\rtl\memory\sdram_refresh_ctrl.v|C:\Users\31640\Desktop\FPGA_Projects\FPGA_HDMI_Player\verification\refresh_arbitration_20261025\rerun\probe_setup\project_snapshot\rtl\memory\sdram_write_ctrl.v|C:\Users\31640\Desktop\FPGA_Projects\FPGA_HDMI_Player\verification\refresh_arbitration_20261025\rerun\probe_setup\project_snapshot\rtl\memory\sync_fifo.v|C:\Users\31640\Desktop\FPGA_Projects\FPGA_HDMI_Player\verification\refresh_arbitration_20261025\rerun\probe_setup\project_snapshot\rtl\ip\sdram\sdr_as_ram.enc.v|C:\Users\31640\Desktop\FPGA_Projects\FPGA_HDMI_Player\verification\refresh_arbitration_20261025\rerun\probe_setup\project_snapshot\rtl\ip\sdram\sdr_wrrd.enc.v|C:\Users\31640\Desktop\FPGA_Projects\FPGA_HDMI_Player\verification\refresh_arbitration_20261025\rerun\probe_setup\project_snapshot\rtl\ip\sdram\sdr_init_ref.enc.v|C:\Users\31640\Desktop\FPGA_Projects\FPGA_HDMI_Player\verification\refresh_arbitration_20261025\rerun\probe_setup\project_snapshot\rtl\ip\clk_pll\clk_pll.v|C:\Users\31640\Desktop\FPGA_Projects\FPGA_HDMI_Player\verification\refresh_arbitration_20261025\rerun\probe_setup\project_snapshot\include\global_def.v|
+Z9 !s90 -modelsimini|C:\Users\31640\Desktop\FPGA_Projects\FPGA_HDMI_Player\verification\refresh_arbitration_20261025\rerun\probe_setup\modelsim.ini|-mfcu|-work|work|+define+REFRESH_ARBITER|+incdir+C:\Users\31640\Desktop\FPGA_Projects\FPGA_HDMI_Player\verification\refresh_arbitration_20261025\rerun\probe_setup\project_snapshot\include|C:\Users\31640\Desktop\FPGA_Projects\FPGA_HDMI_Player\verification\refresh_arbitration_20261025\rerun\probe_setup\project_snapshot\include\global_def.v|C:\Users\31640\Desktop\FPGA_Projects\FPGA_HDMI_Player\verification\refresh_arbitration_20261025\rerun\probe_setup\project_snapshot\rtl\ip\clk_pll\clk_pll.v|C:\Users\31640\Desktop\FPGA_Projects\FPGA_HDMI_Player\verification\refresh_arbitration_20261025\rerun\probe_setup\project_snapshot\rtl\ip\sdram\sdr_init_ref.enc.v|C:\Users\31640\Desktop\FPGA_Projects\FPGA_HDMI_Player\verification\refresh_arbitration_20261025\rerun\probe_setup\project_snapshot\rtl\ip\sdram\sdr_wrrd.enc.v|C:\Users\31640\Desktop\FPGA_Projects\FPGA_HDMI_Player\verification\refresh_arbitration_20261025\rerun\probe_setup\project_snapshot\rtl\ip\sdram\sdr_as_ram.enc.v|C:\Users\31640\Desktop\FPGA_Projects\FPGA_HDMI_Player\verification\refresh_arbitration_20261025\rerun\probe_setup\project_snapshot\rtl\memory\sync_fifo.v|C:\Users\31640\Desktop\FPGA_Projects\FPGA_HDMI_Player\verification\refresh_arbitration_20261025\rerun\probe_setup\project_snapshot\rtl\memory\sdram_write_ctrl.v|C:\Users\31640\Desktop\FPGA_Projects\FPGA_HDMI_Player\verification\refresh_arbitration_20261025\rerun\probe_setup\project_snapshot\rtl\memory\sdram_refresh_ctrl.v|C:\Users\31640\Desktop\FPGA_Projects\FPGA_HDMI_Player\verification\refresh_arbitration_20261025\rerun\probe_setup\project_snapshot\rtl\memory\memory_top.v|C:\Users\31640\Desktop\FPGA_Projects\FPGA_HDMI_Player\verification\refresh_arbitration_20261025\rerun\probe_setup\IS42s32200.v|C:\Users\31640\Desktop\FPGA_Projects\FPGA_HDMI_Player\verification\refresh_arbitration_20261025\rerun\probe_setup\refresh_wait_tb.v|C:\Anlogic\TD_6.2.1_Engineer_6.2.168.116\sim_release\eg4\eg_phy_glbl.v|
+!i113 0
+Z10 o-mfcu -work work -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+Z11 !s92 -mfcu -work work +define+REFRESH_ARBITER {+incdir+C:\Users\31640\Desktop\FPGA_Projects\FPGA_HDMI_Player\verification\refresh_arbitration_20261025\rerun\probe_setup\project_snapshot\include} -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+R1
+vglbl
+Z12 !s110 1792941729
+!i10b 1
+!s100 9Ng[9o]zIo0UcK=@1>`;42
+R2
+IDOkGW[mUkg]YU7^b2ifnh2
+R3
+w1752052136
+8C:\Anlogic\TD_6.2.1_Engineer_6.2.168.116\sim_release\eg4\eg_phy_glbl.v
+FC:\Anlogic\TD_6.2.1_Engineer_6.2.168.116\sim_release\eg4\eg_phy_glbl.v
+!i122 0
+L0 23 24
+R5
+R6
+r1
+!s85 0
+31
+R7
+R8
+R9
+!i113 0
+R10
+R11
+R1
+vIS42s32200
+R12
+!i10b 1
+!s100 fh<O`OZ>b1Cej?@7i8LDX3
+R2
+I]dOZ=a>WLn<z=dzAo9VP83
+R3
+R4
+8C:\Users\31640\Desktop\FPGA_Projects\FPGA_HDMI_Player\verification\refresh_arbitration_20261025\rerun\probe_setup\IS42s32200.v
+FC:\Users\31640\Desktop\FPGA_Projects\FPGA_HDMI_Player\verification\refresh_arbitration_20261025\rerun\probe_setup\IS42s32200.v
+!i122 0
+L0 14 949
+R5
+R6
+r1
+!s85 0
+31
+R7
+R8
+R9
+!i113 0
+R10
+R11
+R1
+n@i@s42s32200
+vmemory_top
+R12
+!i10b 1
+!s100 9B4FVPQ^neS?VCjF@CY?b0
+R2
+IO;KIX;gBc4`1Yc@mYXVPX3
+R3
+R4
+8C:\Users\31640\Desktop\FPGA_Projects\FPGA_HDMI_Player\verification\refresh_arbitration_20261025\rerun\probe_setup\project_snapshot\rtl\memory\memory_top.v
+FC:\Users\31640\Desktop\FPGA_Projects\FPGA_HDMI_Player\verification\refresh_arbitration_20261025\rerun\probe_setup\project_snapshot\rtl\memory\memory_top.v
+!i122 0
+L0 4 163
+R5
+R6
+r1
+!s85 0
+31
+R7
+R8
+R9
+!i113 0
+R10
+R11
+R1
+vrefresh_bind_top
+Z13 DXx6 sv_std 3 std 0 22 9oUSJO;AeEaW`l:M@^WG92
+R12
+!i10b 1
+!s100 VoW9NL@cKc3RJ]O89C9Id0
+R2
+IlL8>V9G0;h[CUY1BbiCo52
+S1
+R0
+R4
+Z14 8C:\Users\31640\Desktop\FPGA_Projects\FPGA_HDMI_Player\verification\refresh_arbitration_20261025\rerun\probe_setup\refresh_probe.sv
+Z15 FC:\Users\31640\Desktop\FPGA_Projects\FPGA_HDMI_Player\verification\refresh_arbitration_20261025\rerun\probe_setup\refresh_probe.sv
+!i122 1
+L0 25 5
+R5
+R6
+r1
+!s85 0
+31
+Z16 !s108 1792941729.000000
+Z17 !s107 C:\Users\31640\Desktop\FPGA_Projects\FPGA_HDMI_Player\verification\refresh_arbitration_20261025\rerun\probe_setup\refresh_probe.sv|
+Z18 !s90 -modelsimini|C:\Users\31640\Desktop\FPGA_Projects\FPGA_HDMI_Player\verification\refresh_arbitration_20261025\rerun\probe_setup\modelsim.ini|-sv|-work|work|C:\Users\31640\Desktop\FPGA_Projects\FPGA_HDMI_Player\verification\refresh_arbitration_20261025\rerun\probe_setup\refresh_probe.sv|
+!i113 0
+Z19 o-sv -work work -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+R1
+vrefresh_observer
+R13
+R12
+!i10b 1
+!s100 k>K^5[VgSiLWfa@3[l?k<2
+R2
+IQE7]:hA`gYZ=fkZ_7S=iS2
+S1
+R0
+R4
+R14
+R15
+!i122 1
+L0 5 19
+R5
+R6
+r1
+!s85 0
+31
+R16
+R17
+R18
+!i113 0
+R19
+R1
+vrefresh_wait_tb
+R12
+!i10b 1
+!s100 zlBo?lLE@TM?>KX=L[J@]2
+R2
+Io0h>0o2P0GFEIoKR=me1W0
+R3
+R4
+8C:\Users\31640\Desktop\FPGA_Projects\FPGA_HDMI_Player\verification\refresh_arbitration_20261025\rerun\probe_setup\refresh_wait_tb.v
+FC:\Users\31640\Desktop\FPGA_Projects\FPGA_HDMI_Player\verification\refresh_arbitration_20261025\rerun\probe_setup\refresh_wait_tb.v
+!i122 0
+L0 3 117
+R5
+R6
+r1
+!s85 0
+31
+R7
+R8
+R9
+!i113 0
+R10
+R11
+R1
+vsdr_as_ram
+R12
+!i10b 1
+!s100 G]9L@`N3cBh^d63AQ1bNg3
+R2
+Ikk^m2K9@a9OieAm5HP4[@3
+!i119 1
+R3
+R4
+8C:\Users\31640\Desktop\FPGA_Projects\FPGA_HDMI_Player\verification\refresh_arbitration_20261025\rerun\probe_setup\project_snapshot\rtl\ip\sdram\sdr_as_ram.enc.v
+FC:\Users\31640\Desktop\FPGA_Projects\FPGA_HDMI_Player\verification\refresh_arbitration_20261025\rerun\probe_setup\project_snapshot\rtl\ip\sdram\sdr_as_ram.enc.v
+!i122 0
+L0 12 67
+R5
+R6
+r1
+!s85 0
+31
+R7
+R8
+R9
+!i113 0
+R10
+R11
+R1
+vsdr_init_ref
+R12
+!i10b 1
+!s100 0Ijio]IdkN_ZB50H[cF]_3
+R2
+IoQ7<G`CPKV:?DXCMnS;V@1
+!i119 1
+R3
+R4
+8C:\Users\31640\Desktop\FPGA_Projects\FPGA_HDMI_Player\verification\refresh_arbitration_20261025\rerun\probe_setup\project_snapshot\rtl\ip\sdram\sdr_init_ref.enc.v
+FC:\Users\31640\Desktop\FPGA_Projects\FPGA_HDMI_Player\verification\refresh_arbitration_20261025\rerun\probe_setup\project_snapshot\rtl\ip\sdram\sdr_init_ref.enc.v
+!i122 0
+L0 12 170
+R5
+R6
+r1
+!s85 0
+31
+R7
+R8
+R9
+!i113 0
+R10
+R11
+R1
+vel+nkt57T4i/qhjZf8rvQg==
+R12
+!i10b 0
+!s100 Xo^gFFOgoZ<2ZfN7:Wm6I1
+R2
+Ib[_7hTQnJ1D6RhPJD4nQz3
+!i119 1
+!i8a 2038227856
+R3
+w1792941729
+8C:\Users\31640\Desktop\FPGA_Projects\FPGA_HDMI_Player\verification\refresh_arbitration_20261025\rerun\probe_setup\project_snapshot\rtl\ip\sdram\sdr_wrrd.enc.v
+FC:\Users\31640\Desktop\FPGA_Projects\FPGA_HDMI_Player\verification\refresh_arbitration_20261025\rerun\probe_setup\project_snapshot\rtl\ip\sdram\sdr_wrrd.enc.v
+!i122 0
+L0 77 1
+R5
+R6
+r1
+!s85 0
+31
+R7
+R8
+R9
+!i113 0
+R10
+R11
+R1
+nb86ee14
+vsdram_refresh_ctrl
+R12
+!i10b 1
+!s100 Y<3:HGgco[X;OkJh<^`Jl2
+R2
+IgYBcnA@U`>4^<b`U3^[Wh2
+R3
+R4
+8C:\Users\31640\Desktop\FPGA_Projects\FPGA_HDMI_Player\verification\refresh_arbitration_20261025\rerun\probe_setup\project_snapshot\rtl\memory\sdram_refresh_ctrl.v
+FC:\Users\31640\Desktop\FPGA_Projects\FPGA_HDMI_Player\verification\refresh_arbitration_20261025\rerun\probe_setup\project_snapshot\rtl\memory\sdram_refresh_ctrl.v
+!i122 0
+L0 3 90
+R5
+R6
+r1
+!s85 0
+31
+R7
+R8
+R9
+!i113 0
+R10
+R11
+R1
+vsdram_write_ctrl
+R12
+!i10b 1
+!s100 a>i>6oZIlPDLQ<SMHAP=:3
+R2
+IAYg@9QUFQkhA;[T2L0[?Q3
+R3
+R4
+8C:\Users\31640\Desktop\FPGA_Projects\FPGA_HDMI_Player\verification\refresh_arbitration_20261025\rerun\probe_setup\project_snapshot\rtl\memory\sdram_write_ctrl.v
+FC:\Users\31640\Desktop\FPGA_Projects\FPGA_HDMI_Player\verification\refresh_arbitration_20261025\rerun\probe_setup\project_snapshot\rtl\memory\sdram_write_ctrl.v
+!i122 0
+L0 1 113
+R5
+R6
+r1
+!s85 0
+31
+R7
+R8
+R9
+!i113 0
+R10
+R11
+R1
+vsync_fifo
+R12
+!i10b 1
+!s100 XbgS_XL4V]BhCSWE125i00
+R2
+I41loaW]cG4R3CLb0NmJf31
+R3
+R4
+8C:\Users\31640\Desktop\FPGA_Projects\FPGA_HDMI_Player\verification\refresh_arbitration_20261025\rerun\probe_setup\project_snapshot\rtl\memory\sync_fifo.v
+FC:\Users\31640\Desktop\FPGA_Projects\FPGA_HDMI_Player\verification\refresh_arbitration_20261025\rerun\probe_setup\project_snapshot\rtl\memory\sync_fifo.v
+!i122 0
+L0 1 78
+R5
+R6
+r1
+!s85 0
+31
+R7
+R8
+R9
+!i113 0
+R10
+R11
+R1

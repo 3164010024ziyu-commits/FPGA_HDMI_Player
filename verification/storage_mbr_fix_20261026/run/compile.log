@@ -1,0 +1,16 @@
+Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+Start time: 20:21:31 on Oct 26,2026
+vlog -modelsimini C:/Users/31640/Desktop/FPGA_Projects/FPGA_HDMI_Player/verification/storage_mbr_fix_20261026/run/modelsim.ini -sv -work work C:/Users/31640/Desktop/FPGA_Projects/FPGA_HDMI_Player/rtl/storage/storage_pipeline.v C:/Users/31640/Desktop/FPGA_Projects/FPGA_HDMI_Player/rtl/storage/sd_spi_reader.v C:/Users/31640/Desktop/FPGA_Projects/FPGA_HDMI_Player/rtl/storage/fat32_bmp_reader.v C:/Users/31640/Desktop/FPGA_Projects/FPGA_HDMI_Player/rtl/storage/bmp_stream_decoder.v C:/Users/31640/Desktop/FPGA_Projects/FPGA_HDMI_Player/verification/storage_mbr_fix_20261026/fat32_mbr_regression_tb.sv C:/Users/31640/Desktop/FPGA_Projects/FPGA_HDMI_Player/verification/storage_mbr_fix_20261026/storage_mbr_regression_tb.sv C:/Users/31640/Desktop/FPGA_Projects/FPGA_HDMI_Player/verification/storage_mbr_fix_20261026/sd_spi_card_model.sv 
+-- Compiling module storage_pipeline
+-- Compiling module sd_spi_reader
+-- Compiling module fat32_bmp_reader
+-- Compiling module bmp_stream_decoder
+-- Compiling module fat32_mbr_regression_tb
+-- Compiling module storage_mbr_regression_tb
+-- Compiling module sd_spi_card_model
+
+Top level modules:
+	fat32_mbr_regression_tb
+	storage_mbr_regression_tb
+End time: 20:21:31 on Oct 26,2026, Elapsed time: 0:00:00
+Errors: 0, Warnings: 0

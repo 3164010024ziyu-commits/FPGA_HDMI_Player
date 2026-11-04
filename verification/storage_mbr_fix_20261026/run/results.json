@@ -1,0 +1,127 @@
+{
+  "tests": {
+    "fat": {
+      "passed": true,
+      "markers": [
+        "# MBR_REGRESSION_CASE_PASS case=1 name=normal_mbr requests=8 bytes=1250 error=00",
+        "# MBR_REGRESSION_CASE_PASS case=2 name=partial_bpb_collision_each_mbr_slot requests=8 bytes=1250 error=00",
+        "# MBR_REGRESSION_CASE_PASS case=3 name=partial_bpb_collision_each_mbr_slot requests=8 bytes=1250 error=00",
+        "# MBR_REGRESSION_CASE_PASS case=4 name=partial_bpb_collision_each_mbr_slot requests=8 bytes=1250 error=00",
+        "# MBR_REGRESSION_CASE_PASS case=5 name=partial_bpb_collision_each_mbr_slot requests=8 bytes=1250 error=00",
+        "# MBR_REGRESSION_CASE_PASS case=6 name=geometry_collision_each_mbr_slot requests=8 bytes=1250 error=00",
+        "# MBR_REGRESSION_CASE_PASS case=7 name=geometry_collision_each_mbr_slot requests=8 bytes=1250 error=00",
+        "# MBR_REGRESSION_CASE_PASS case=8 name=geometry_collision_each_mbr_slot requests=8 bytes=1250 error=00",
+        "# MBR_REGRESSION_CASE_PASS case=9 name=geometry_collision_each_mbr_slot requests=8 bytes=1250 error=00",
+        "# MBR_REGRESSION_CASE_PASS case=10 name=valid_superfloppy_with_fake_mbr requests=7 bytes=1250 error=00",
+        "# MBR_REGRESSION_CASE_PASS case=11 name=bad_superfloppy_bpb_no_fallback requests=1 bytes=0 error=34",
+        "# MBR_REGRESSION_CASE_PASS case=12 name=bad_superfloppy_geometry_no_fallback requests=1 bytes=0 error=34",
+        "# MBR_REGRESSION_CASE_PASS case=13 name=bad_partition_bpb_after_fallback_stops requests=2 bytes=0 error=34",
+        "# MBR_REGRESSION_CASE_PASS case=14 name=bad_partition_geometry_after_fallback_stops requests=2 bytes=0 error=34",
+        "# MBR_REGRESSION_CASE_PASS case=15 name=invalid_partition_start_rejected requests=1 bytes=0 error=33",
+        "# MBR_REGRESSION_CASE_PASS case=16 name=overflow_partition_end_rejected requests=1 bytes=0 error=33",
+        "# MBR_REGRESSION_CASE_PASS case=17 name=unsupported_partition_rejected requests=1 bytes=0 error=33",
+        "# MBR_REGRESSION_CASE_PASS case=18 name=normal_mbr_recovers_after_errors requests=8 bytes=1250 error=00",
+        "# MBR_REGRESSION_PASS cases=18"
+      ]
+    },
+    "spi": {
+      "passed": true,
+      "markers": [
+        "# MBR_PIN_CASE_PASS case=1 name=normal_mbr pixels=391 reads=8 error=00",
+        "# MBR_PIN_CASE_PASS case=2 name=partial_bpb_collision pixels=391 reads=8 error=00",
+        "# MBR_PIN_CASE_PASS case=3 name=geometry_collision pixels=391 reads=8 error=00",
+        "# MBR_PIN_CASE_PASS case=4 name=valid_superfloppy_with_fake_mbr pixels=391 reads=7 error=00",
+        "# MBR_PIN_CASE_PASS case=5 name=bad_partition_stops_after_fallback pixels=0 reads=2 error=34",
+        "# MBR_PIN_CASE_PASS case=6 name=successful_retry_after_error pixels=391 reads=8 error=00",
+        "# MBR_PIN_REGRESSION_PASS cases=6"
+      ]
+    }
+  },
+  "commands": [
+    {
+      "command": [
+        "D:/modelsim2020/win64/vmap.exe",
+        "-c"
+      ],
+      "cwd": "C:\\Users\\31640\\Desktop\\FPGA_Projects\\FPGA_HDMI_Player\\verification\\storage_mbr_fix_20261026\\run",
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "D:/modelsim2020/win64/vlib.exe",
+        "work"
+      ],
+      "cwd": "C:\\Users\\31640\\Desktop\\FPGA_Projects\\FPGA_HDMI_Player\\verification\\storage_mbr_fix_20261026\\run",
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "D:/modelsim2020/win64/vmap.exe",
+        "work",
+        "C:/Users/31640/Desktop/FPGA_Projects/FPGA_HDMI_Player/verification/storage_mbr_fix_20261026/run/work"
+      ],
+      "cwd": "C:\\Users\\31640\\Desktop\\FPGA_Projects\\FPGA_HDMI_Player\\verification\\storage_mbr_fix_20261026\\run",
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "D:/modelsim2020/win64/vlog.exe",
+        "-modelsimini",
+        "C:/Users/31640/Desktop/FPGA_Projects/FPGA_HDMI_Player/verification/storage_mbr_fix_20261026/run/modelsim.ini",
+        "-sv",
+        "-work",
+        "work",
+        "C:/Users/31640/Desktop/FPGA_Projects/FPGA_HDMI_Player/rtl/storage/storage_pipeline.v",
+        "C:/Users/31640/Desktop/FPGA_Projects/FPGA_HDMI_Player/rtl/storage/sd_spi_reader.v",
+        "C:/Users/31640/Desktop/FPGA_Projects/FPGA_HDMI_Player/rtl/storage/fat32_bmp_reader.v",
+        "C:/Users/31640/Desktop/FPGA_Projects/FPGA_HDMI_Player/rtl/storage/bmp_stream_decoder.v",
+        "C:/Users/31640/Desktop/FPGA_Projects/FPGA_HDMI_Player/verification/storage_mbr_fix_20261026/fat32_mbr_regression_tb.sv",
+        "C:/Users/31640/Desktop/FPGA_Projects/FPGA_HDMI_Player/verification/storage_mbr_fix_20261026/storage_mbr_regression_tb.sv",
+        "C:/Users/31640/Desktop/FPGA_Projects/FPGA_HDMI_Player/verification/storage_mbr_fix_20261026/sd_spi_card_model.sv"
+      ],
+      "cwd": "C:\\Users\\31640\\Desktop\\FPGA_Projects\\FPGA_HDMI_Player\\verification\\storage_mbr_fix_20261026\\run",
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "D:/modelsim2020/win64/vsim.exe",
+        "-c",
+        "-onfinish",
+        "stop",
+        "-modelsimini",
+        "C:/Users/31640/Desktop/FPGA_Projects/FPGA_HDMI_Player/verification/storage_mbr_fix_20261026/run/modelsim.ini",
+        "work.fat32_mbr_regression_tb",
+        "-do",
+        "run.do"
+      ],
+      "cwd": "C:\\Users\\31640\\Desktop\\FPGA_Projects\\FPGA_HDMI_Player\\verification\\storage_mbr_fix_20261026\\run\\fat",
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "D:/modelsim2020/win64/vsim.exe",
+        "-c",
+        "-onfinish",
+        "stop",
+        "-modelsimini",
+        "C:/Users/31640/Desktop/FPGA_Projects/FPGA_HDMI_Player/verification/storage_mbr_fix_20261026/run/modelsim.ini",
+        "work.storage_mbr_regression_tb",
+        "-do",
+        "run.do"
+      ],
+      "cwd": "C:\\Users\\31640\\Desktop\\FPGA_Projects\\FPGA_HDMI_Player\\verification\\storage_mbr_fix_20261026\\run\\spi",
+      "exit_code": 0
+    }
+  ],
+  "passed": true,
+  "source_sha256": {
+    "C:\\Users\\31640\\Desktop\\FPGA_Projects\\FPGA_HDMI_Player\\rtl\\storage\\storage_pipeline.v": "7ec5c19101a94d65e86372d0502d34fdf4114bfe0ce6778bb2c15af3adfe2bb7",
+    "C:\\Users\\31640\\Desktop\\FPGA_Projects\\FPGA_HDMI_Player\\rtl\\storage\\sd_spi_reader.v": "a153f3cd05fc2b243201f5691bbeacc7f9ed3096081251afd08aa1e93f1bcd82",
+    "C:\\Users\\31640\\Desktop\\FPGA_Projects\\FPGA_HDMI_Player\\rtl\\storage\\fat32_bmp_reader.v": "91048501905c1c6057e4a520e86f640ccb251bbc596b2001a00a5f05dbd890fd",
+    "C:\\Users\\31640\\Desktop\\FPGA_Projects\\FPGA_HDMI_Player\\rtl\\storage\\bmp_stream_decoder.v": "62c33983d862236dc0c56f7d95ebcb4c51df5506443cfd4a1b6ba5ec6aae3093",
+    "C:\\Users\\31640\\Desktop\\FPGA_Projects\\FPGA_HDMI_Player\\verification\\storage_mbr_fix_20261026\\fat32_mbr_regression_tb.sv": "b71d4440abef9b9aeda6c5d31b220bf5c7e550e632a2b47b96e1adc0aba43343",
+    "C:\\Users\\31640\\Desktop\\FPGA_Projects\\FPGA_HDMI_Player\\verification\\storage_mbr_fix_20261026\\storage_mbr_regression_tb.sv": "cc12a7ac0a453a5147b6cd549ad962d90c0ba5e3525b4a6d3d4e75347f03ade3",
+    "C:\\Users\\31640\\Desktop\\FPGA_Projects\\FPGA_HDMI_Player\\verification\\storage_mbr_fix_20261026\\sd_spi_card_model.sv": "8f8714d1170f5ee82b8419faaae92e2d18d0a8f4183c5305ee5b8a3e86fa4c67"
+  },
+  "sources_unchanged": true
+}
