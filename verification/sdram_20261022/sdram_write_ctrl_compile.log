@@ -1,4 +1,0 @@
-warning: Some design elements have no explicit time unit and/or
-       : time precision. This may cause confusing timing results.
-       : Affected design elements are:
-       :   -- module sdram_write_ctrl declared here: C:\Users\31640\Documents\ChatGPT\FFF\sdram_sim_20261022\sources\sdram_write_ctrl.v:1
