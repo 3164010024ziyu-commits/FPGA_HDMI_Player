@@ -89,7 +89,7 @@ module hdmi_player_board_top #(
         end
     end
     wire [1:0] nav_press=nav_previous & ~nav_stable;
-    // J1-6 is now audio pause. SW3/C6 has no port or audio-enable function.
+    // J1-6 is the audio mute switch.
     reg [1:0] audio_meta,audio_sync,audio_stable;
     reg [DEBOUNCE_BITS-1:0] audio_count[0:1];
     integer audio_i;

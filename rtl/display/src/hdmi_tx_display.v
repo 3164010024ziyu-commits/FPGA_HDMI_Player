@@ -235,7 +235,9 @@ wire pixel_clk_5x;
         end
     end
 
-    wire [7:0] volume = (ENABLE_AV_SYNC==0 && sw_mute) ? 8'd0 : vol_code(vol_level);
+    // key_in[2] is the mute switch again: silence the HDMI audio without
+    // stopping the show.  It must not drive pause_request.
+    wire [7:0] volume = sw_mute ? 8'd0 : vol_code(vol_level);
     wire [1:0] osd_en = (HDMI_SUBTITLE_EN != 0) ? {sw_ts, sw_sub} : 2'b00;
 
     // ------------------------------------------- image brightness / contrast
@@ -308,7 +310,7 @@ wire pixel_clk_5x;
                 banner_timer <= BANNER_CYCLES;
             end else if (sw_mute != sw_mute_d) begin
                 param_sel <= 2'd2;
-                param_val <= (ENABLE_AV_SYNC==0 && sw_mute) ? 5'd0 : vol_level;
+                param_val <= sw_mute ? 5'd0 : vol_level;
                 banner_timer <= BANNER_CYCLES;
             end
         end
@@ -333,7 +335,7 @@ wire pixel_clk_5x;
     always @(posedge pixel_clk or negedge video_reset_n)begin
         if(!video_reset_n)begin previous_fade<=32;transition_start<=0;transition_toggle<=0;expected_epoch<=0;pause_request<=0;end
         else begin
-            previous_fade<=fade_level;transition_start<=0;pause_request<=sw_mute;
+            previous_fade<=fade_level;transition_start<=0;pause_request<=1'b0;
             if(ENABLE_AV_SYNC!=0 && (IMAGE_FADE_EN ?
                 (previous_fade==32 && fade_level<32) : display_info_valid))begin
                 transition_start<=1;transition_toggle<=!transition_toggle;expected_epoch<=!expected_epoch;
