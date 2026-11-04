@@ -1,0 +1,602 @@
+============================================================
+   Tang Dynasty, V6.2.168116
+   Copyright (c) 2012-2025 Anlogic Inc.
+   Executable = D:/sofwar/td/bin/td_commands_prompt.exe
+   Built at =   16:32:07 Jun 12 2025
+   Run by =     CodexSandboxOffline
+   Run Date =   Thu Oct 22 00:46:56 2026
+
+   Run on =     DESKTOP-FBED5CA
+============================================================
+RUN-1002 : start command "import_device eagle_s20.db -package EG4S20BG256"
+RUN-1001 : Using default speed grade: NA
+ARC-1001 : Device Initialization.
+ARC-1001 : ------------------------------------------------------------------
+ARC-1001 :            OPTION            |          IO          |   SETTING   
+ARC-1001 : ------------------------------------------------------------------
+ARC-1001 :   cso_b/cclk/mosi/miso/dout  |  T3/R11/T10/P10/S11  |    gpio    
+ARC-1001 :             done             |         P13          |    gpio    
+ARC-1001 :           program_b          |          T2          |  dedicate  
+ARC-1001 :        tdi/tms/tck/tdo       |   C12/A15/C14/E14    |  dedicate  
+ARC-1001 : ------------------------------------------------------------------
+ARC-1004 : Device setting, marked 5 dedicate IOs in total.
+RUN-1002 : start command "open_project HDMI_display.prj"
+RUN-1002 : start command "commit_param -step design"
+RUN-1001 : Print Global Property
+RUN-1001 : --------------------------------------------------------
+RUN-1001 :   Parameters   |  Settings  |  Default Values  |  Note  
+RUN-1001 : --------------------------------------------------------
+RUN-1001 :   enable_seed  |    off     |       off        |        
+RUN-1001 :     message    |  standard  |     standard     |        
+RUN-1001 :   qor_monitor  |     on     |        on        |        
+RUN-1001 :   syn_ip_flow  |    off     |       off        |        
+RUN-1001 :     thread     |    auto    |       auto       |        
+RUN-1001 : --------------------------------------------------------
+RUN-1001 : Print Design Property
+RUN-1001 : ----------------------------------------------------------------
+RUN-1001 :       Parameters       |  Settings  |  Default Values  |  Note  
+RUN-1001 : ----------------------------------------------------------------
+RUN-1001 :   default_reg_initial  |    auto    |       auto       |        
+RUN-1001 :    hdl_warning_level   |   normal   |      normal      |        
+RUN-1001 : ----------------------------------------------------------------
+HDL-1007 : analyze verilog file ../../ipsrc/clock_ip/clk_wize.v
+HDL-1007 : undeclared symbol 'clk_wize_open78', assumed default net type 'wire' in ../../ipsrc/clock_ip/clk_wize.v(70)
+HDL-1007 : undeclared symbol 'clk_wize_open79', assumed default net type 'wire' in ../../ipsrc/clock_ip/clk_wize.v(76)
+HDL-1007 : undeclared symbol 'clk_wize_open87', assumed default net type 'wire' in ../../ipsrc/clock_ip/clk_wize.v(82)
+HDL-1007 : undeclared symbol 'clk_wize_open86', assumed default net type 'wire' in ../../ipsrc/clock_ip/clk_wize.v(82)
+HDL-1007 : undeclared symbol 'clk_wize_open85', assumed default net type 'wire' in ../../ipsrc/clock_ip/clk_wize.v(82)
+HDL-1007 : undeclared symbol 'clk_wize_open84', assumed default net type 'wire' in ../../ipsrc/clock_ip/clk_wize.v(82)
+HDL-1007 : undeclared symbol 'clk_wize_open83', assumed default net type 'wire' in ../../ipsrc/clock_ip/clk_wize.v(82)
+HDL-1007 : undeclared symbol 'clk_wize_open82', assumed default net type 'wire' in ../../ipsrc/clock_ip/clk_wize.v(82)
+HDL-1007 : undeclared symbol 'clk_wize_open81', assumed default net type 'wire' in ../../ipsrc/clock_ip/clk_wize.v(82)
+HDL-1007 : undeclared symbol 'clk_wize_open80', assumed default net type 'wire' in ../../ipsrc/clock_ip/clk_wize.v(82)
+HDL-1007 : undeclared symbol 'clk_wize_open90', assumed default net type 'wire' in ../../ipsrc/clock_ip/clk_wize.v(84)
+HDL-1007 : undeclared symbol 'clk_wize_open89', assumed default net type 'wire' in ../../ipsrc/clock_ip/clk_wize.v(84)
+HDL-1007 : undeclared symbol 'clk_wize_open88', assumed default net type 'wire' in ../../ipsrc/clock_ip/clk_wize.v(84)
+HDL-1007 : analyze verilog file ../../src/enc/eg_oddr.v
+HDL-1007 : analyze verilog file ../../src/enc/tmds_encoder.v
+HDL-1007 : analyze verilog file ../../src/enc/packet_assembler.v
+HDL-1007 : analyze verilog file ../../src/enc/packet_picker.v
+HDL-1007 : analyze verilog file ../../src/enc/tmds_serializer.v
+HDL-1007 : analyze verilog file ../../src/enc/hdmi_tx_core.v
+HDL-1007 : analyze verilog file ../../src/audio_fifo.v
+HDL-5373 WARNING: identifier 'rd_tog' is used before its declaration in ../../src/audio_fifo.v(49)
+HDL-1007 : analyze verilog file ../../src/read_RAM.v
+HDL-1007 : analyze verilog file ../../src/font_16x16_rom.v
+HDL-1007 : analyze verilog file ../../src/osd_overlay.v
+HDL-1007 : analyze verilog file ../../src/hdmi_tx_display.v
+HDL-1007 : analyze verilog file ../../src/hdmi_demo_top.v
+HDL-1007 : analyze VHDL file ../../src/hdmi_tx.vhd
+HDL-1007 : analyze entity hdmi_tx in ../../src/hdmi_tx.vhd(14)
+HDL-1007 : analyze architecture behavioral in ../../src/hdmi_tx.vhd(48)
+PRJ-1401 : Successfully analyzed 14 source files.
+RUN-1002 : start command "commit_param -step design"
+RUN-1001 : Print Global Property
+RUN-1001 : --------------------------------------------------------
+RUN-1001 :   Parameters   |  Settings  |  Default Values  |  Note  
+RUN-1001 : --------------------------------------------------------
+RUN-1001 :   enable_seed  |    off     |       off        |        
+RUN-1001 :     message    |  standard  |     standard     |        
+RUN-1001 :   qor_monitor  |     on     |        on        |        
+RUN-1001 :   syn_ip_flow  |    off     |       off        |        
+RUN-1001 :     thread     |    auto    |       auto       |        
+RUN-1001 : --------------------------------------------------------
+RUN-1001 : Print Design Property
+RUN-1001 : ----------------------------------------------------------------
+RUN-1001 :       Parameters       |  Settings  |  Default Values  |  Note  
+RUN-1001 : ----------------------------------------------------------------
+RUN-1001 :   default_reg_initial  |    auto    |       auto       |        
+RUN-1001 :    hdl_warning_level   |   normal   |      normal      |        
+RUN-1001 : ----------------------------------------------------------------
+RUN-1002 : start command "elaborate -top hdmi_demo_top"
+HDL-1007 : elaborate module hdmi_demo_top in ../../src/hdmi_demo_top.v(7)
+HDL-1007 : elaborate module hdmi_tx_display in ../../src/hdmi_tx_display.v(8)
+HDL-1007 : elaborate module clk_wize in ../../ipsrc/clock_ip/clk_wize.v(23)
+HDL-1007 : elaborate module EG_LOGIC_BUFG in D:\sofwar\td\arch/eagle_macro.v(5)
+HDL-1007 : elaborate module EG_PHY_PLL(FIN="50.000000",REFCLK_DIV=2,FBCLK_DIV=5,CLKC0_DIV=8,CLKC1_DIV=40,CLKC0_ENABLE="ENABLE",CLKC1_ENABLE="ENABLE",FEEDBK_PATH="CLKC0_EXT",STDBY_ENABLE="DISABLE",CLKC0_CPHASE=7,CLKC1_CPHASE=39,GMC_GAIN=2,ICP_CURRENT=9,KVCO=2,LPF_CAPACITOR=1,LPF_RESISTOR=8,SYNC_ENABLE="DISABLE") in D:\sofwar\td\arch/eagle_macro.v(889)
+HDL-1007 : elaborate module read_RAM in ../../src/read_RAM.v(1)
+HDL-1007 : elaborate module osd_overlay in ../../src/osd_overlay.v(12)
+HDL-1007 : elaborate module font_16x16_rom in ../../src/font_16x16_rom.v(4)
+HDL-1007 : elaborate module EG_LOGIC_BRAM(DATA_WIDTH_A=16,DATA_WIDTH_B=16,ADDR_WIDTH_A=11,ADDR_WIDTH_B=11,DATA_DEPTH_A=2048,DATA_DEPTH_B=2048,BYTE_A=1,BYTE_B=1,MODE="SP",INIT_FILE="D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_00.dat",IMPLEMENT="32K") in D:\sofwar\td\arch/eagle_macro.v(986)
+HDL-1007 : elaborate module EG_LOGIC_BRAM(DATA_WIDTH_A=16,DATA_WIDTH_B=16,ADDR_WIDTH_A=11,ADDR_WIDTH_B=11,DATA_DEPTH_A=2048,DATA_DEPTH_B=2048,BYTE_A=1,BYTE_B=1,MODE="SP",INIT_FILE="D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_01.dat",IMPLEMENT="32K") in D:\sofwar\td\arch/eagle_macro.v(986)
+HDL-1007 : elaborate module EG_LOGIC_BRAM(DATA_WIDTH_A=16,DATA_WIDTH_B=16,ADDR_WIDTH_A=11,ADDR_WIDTH_B=11,DATA_DEPTH_A=2048,DATA_DEPTH_B=2048,BYTE_A=1,BYTE_B=1,MODE="SP",INIT_FILE="D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_02.dat",IMPLEMENT="32K") in D:\sofwar\td\arch/eagle_macro.v(986)
+HDL-1007 : elaborate module EG_LOGIC_BRAM(DATA_WIDTH_A=16,DATA_WIDTH_B=16,ADDR_WIDTH_A=11,ADDR_WIDTH_B=11,DATA_DEPTH_A=2048,DATA_DEPTH_B=2048,BYTE_A=1,BYTE_B=1,MODE="SP",INIT_FILE="D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_03.dat",IMPLEMENT="32K") in D:\sofwar\td\arch/eagle_macro.v(986)
+HDL-1007 : elaborate module EG_LOGIC_BRAM(DATA_WIDTH_A=16,DATA_WIDTH_B=16,ADDR_WIDTH_A=11,ADDR_WIDTH_B=11,DATA_DEPTH_A=2048,DATA_DEPTH_B=2048,BYTE_A=1,BYTE_B=1,MODE="SP",INIT_FILE="D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_04.dat",IMPLEMENT="32K") in D:\sofwar\td\arch/eagle_macro.v(986)
+HDL-1007 : elaborate module EG_LOGIC_BRAM(DATA_WIDTH_A=16,DATA_WIDTH_B=16,ADDR_WIDTH_A=11,ADDR_WIDTH_B=11,DATA_DEPTH_A=2048,DATA_DEPTH_B=2048,BYTE_A=1,BYTE_B=1,MODE="SP",INIT_FILE="D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_05.dat",IMPLEMENT="32K") in D:\sofwar\td\arch/eagle_macro.v(986)
+HDL-1007 : elaborate module EG_LOGIC_BRAM(DATA_WIDTH_A=16,DATA_WIDTH_B=16,ADDR_WIDTH_A=11,ADDR_WIDTH_B=11,DATA_DEPTH_A=2048,DATA_DEPTH_B=2048,BYTE_A=1,BYTE_B=1,MODE="SP",INIT_FILE="D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_06.dat",IMPLEMENT="32K") in D:\sofwar\td\arch/eagle_macro.v(986)
+HDL-1007 : elaborate module EG_LOGIC_BRAM(DATA_WIDTH_A=16,DATA_WIDTH_B=16,ADDR_WIDTH_A=11,ADDR_WIDTH_B=11,DATA_DEPTH_A=2048,DATA_DEPTH_B=2048,BYTE_A=1,BYTE_B=1,MODE="SP",INIT_FILE="D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_07.dat",IMPLEMENT="32K") in D:\sofwar\td\arch/eagle_macro.v(986)
+HDL-1007 : elaborate module EG_LOGIC_BRAM(DATA_WIDTH_A=16,DATA_WIDTH_B=16,ADDR_WIDTH_A=11,ADDR_WIDTH_B=11,DATA_DEPTH_A=2048,DATA_DEPTH_B=2048,BYTE_A=1,BYTE_B=1,MODE="SP",INIT_FILE="D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_08.dat",IMPLEMENT="32K") in D:\sofwar\td\arch/eagle_macro.v(986)
+HDL-1007 : elaborate module EG_LOGIC_BRAM(DATA_WIDTH_A=16,DATA_WIDTH_B=16,ADDR_WIDTH_A=11,ADDR_WIDTH_B=11,DATA_DEPTH_A=2048,DATA_DEPTH_B=2048,BYTE_A=1,BYTE_B=1,MODE="SP",INIT_FILE="D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_09.dat",IMPLEMENT="32K") in D:\sofwar\td\arch/eagle_macro.v(986)
+HDL-1007 : elaborate module EG_LOGIC_BRAM(DATA_WIDTH_A=16,DATA_WIDTH_B=16,ADDR_WIDTH_A=11,ADDR_WIDTH_B=11,DATA_DEPTH_A=2048,DATA_DEPTH_B=2048,BYTE_A=1,BYTE_B=1,MODE="SP",INIT_FILE="D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_10.dat",IMPLEMENT="32K") in D:\sofwar\td\arch/eagle_macro.v(986)
+HDL-1007 : elaborate module EG_LOGIC_BRAM(DATA_WIDTH_A=16,DATA_WIDTH_B=16,ADDR_WIDTH_A=11,ADDR_WIDTH_B=11,DATA_DEPTH_A=2048,DATA_DEPTH_B=2048,BYTE_A=1,BYTE_B=1,MODE="SP",INIT_FILE="D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_11.dat",IMPLEMENT="32K") in D:\sofwar\td\arch/eagle_macro.v(986)
+HDL-1007 : elaborate module EG_LOGIC_BRAM(DATA_WIDTH_A=16,DATA_WIDTH_B=16,ADDR_WIDTH_A=11,ADDR_WIDTH_B=11,DATA_DEPTH_A=2048,DATA_DEPTH_B=2048,BYTE_A=1,BYTE_B=1,MODE="SP",INIT_FILE="D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_12.dat",IMPLEMENT="32K") in D:\sofwar\td\arch/eagle_macro.v(986)
+HDL-1007 : elaborate module EG_LOGIC_BRAM(DATA_WIDTH_A=16,DATA_WIDTH_B=16,ADDR_WIDTH_A=11,ADDR_WIDTH_B=11,DATA_DEPTH_A=2048,DATA_DEPTH_B=2048,BYTE_A=1,BYTE_B=1,MODE="SP",INIT_FILE="D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_13.dat",IMPLEMENT="32K") in D:\sofwar\td\arch/eagle_macro.v(986)
+HDL-1007 : elaborate module EG_LOGIC_BRAM(DATA_WIDTH_A=16,DATA_WIDTH_B=16,ADDR_WIDTH_A=11,ADDR_WIDTH_B=11,DATA_DEPTH_A=2048,DATA_DEPTH_B=2048,BYTE_A=1,BYTE_B=1,MODE="SP",INIT_FILE="D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_14.dat",IMPLEMENT="32K") in D:\sofwar\td\arch/eagle_macro.v(986)
+HDL-1007 : elaborate module EG_LOGIC_BRAM(DATA_WIDTH_A=16,DATA_WIDTH_B=16,ADDR_WIDTH_A=11,ADDR_WIDTH_B=11,DATA_DEPTH_A=2048,DATA_DEPTH_B=2048,BYTE_A=1,BYTE_B=1,MODE="SP",INIT_FILE="D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_15.dat",IMPLEMENT="32K") in D:\sofwar\td\arch/eagle_macro.v(986)
+HDL-1007 : elaborate module audio_fifo(AWIDTH=5) in ../../src/audio_fifo.v(10)
+HDL-1007 : extracting RAM for identifier 'mem' in ../../src/audio_fifo.v(67)
+HDL-1007 : switch to vhdl to elaborate module hdmi_tx in ../../src/hdmi_tx_display.v(136)
+HDL-1007 : elaborate hdmi_tx(1,3)(Behavioral) in ../../src/hdmi_tx.vhd(14)
+HDL-1007 : switch to vlog to elaborate module hdmi_tx_core in ../../src/hdmi_tx.vhd(84)
+HDL-1007 : elaborate module hdmi_tx_core in ../../src/enc/hdmi_tx_core.v(12)
+HDL-1007 : elaborate module packet_picker in ../../src/enc/packet_picker.v(14)
+HDL-1007 : elaborate module hdmi_packet_assembler in ../../src/enc/packet_assembler.v(12)
+HDL-1007 : elaborate module tmds_encoder in ../../src/enc/tmds_encoder.v(9)
+HDL-1007 : elaborate module tmds_encoder(CHANNEL=1) in ../../src/enc/tmds_encoder.v(9)
+HDL-1007 : elaborate module tmds_encoder(CHANNEL=2) in ../../src/enc/tmds_encoder.v(9)
+HDL-1007 : elaborate module tmds_serializer in ../../src/enc/tmds_serializer.v(8)
+HDL-1007 : elaborate module eg_oddr in ../../src/enc/eg_oddr.v(5)
+HDL-1007 : elaborate module EG_LOGIC_ODDR in D:\sofwar\td\arch/eagle_macro.v(66)
+HDL-1007 : back to vhdl to elaborate in ../../src/hdmi_tx.vhd(84)
+HDL-1007 : back to vlog to elaborate in ../../src/hdmi_tx_display.v(136)
+HDL-5001 WARNING: Contains anonymous inst(s) and/or net(s) that have not been renamed
+HDL-5001 WARNING: Contains anonymous inst(s) and/or net(s) that have not been renamed
+HDL-5001 WARNING: Contains anonymous inst(s) and/or net(s) that have not been renamed
+HDL-1200 : Current top model is hdmi_demo_top
+HDL-1100 : Inferred 1 RAMs.
+RUN-1002 : start command "read_adc ../../constraints.adc"
+RUN-1002 : start command "set_pin_assignment  HDMI_CLK_P   LOCATION = K1; IOSTANDARD = LVDS33; PULLTYPE = NONE; "
+RUN-1002 : start command "set_pin_assignment  HDMI_D0_P   LOCATION = F5; IOSTANDARD = LVDS33; PULLTYPE = NONE; "
+RUN-1002 : start command "set_pin_assignment  HDMI_D1_P   LOCATION = E3; IOSTANDARD = LVDS33; PULLTYPE = NONE; "
+RUN-1002 : start command "set_pin_assignment  HDMI_D2_P   LOCATION = B3; IOSTANDARD = LVDS33; PULLTYPE = NONE; "
+RUN-1002 : start command "set_pin_assignment  sys_clk   LOCATION = R7; IOSTANDARD = LVCMOS33; PULLTYPE = NONE; "
+RUN-1002 : start command "set_pin_assignment  sys_rst_n   LOCATION = A2; IOSTANDARD = LVCMOS33; PULLTYPE = NONE; "
+RUN-1001 : Starting of IO setups legality check.
+RUN-1001 : Starting of IO vref setups legality check.
+RUN-1002 : start command "export_db HDMI_display_elaborate.db"
+RUN-1001 : Exported flow parameters
+RUN-1001 : Exported /
+RUN-1001 : Exported libs
+RUN-1001 : Exported entities
+RUN-1001 : Exported ports
+RUN-1001 : Exported pins
+RUN-1001 : Exported instances
+RUN-1001 : Exported nets
+RUN-1001 : Exported buses
+RUN-1001 : Exported models
+RUN-1001 : Exported packer
+RUN-1001 : Exported congestions
+RUN-1001 : Exported violations
+RUN-1001 : Exported ATMR Setting
+RUN-1001 : Exported IO constraints
+RUN-1001 : Exported Inst constraints
+RUN-1001 : Exported ChipWatcher
+RUN-1002 : start command "commit_param -step rtl"
+RUN-1001 : Print Global Property
+RUN-1001 : --------------------------------------------------------
+RUN-1001 :   Parameters   |  Settings  |  Default Values  |  Note  
+RUN-1001 : --------------------------------------------------------
+RUN-1001 :   enable_seed  |    off     |       off        |        
+RUN-1001 :     message    |  standard  |     standard     |        
+RUN-1001 :   qor_monitor  |     on     |        on        |        
+RUN-1001 :   syn_ip_flow  |    off     |       off        |        
+RUN-1001 :     thread     |    auto    |       auto       |        
+RUN-1001 : --------------------------------------------------------
+RUN-1001 : Print Rtl Property
+RUN-1001 : -------------------------------------------------------------------
+RUN-1001 :         Parameters        |  Settings  |  Default Values  |  Note  
+RUN-1001 : -------------------------------------------------------------------
+RUN-1001 :        fix_undriven       |     0      |        0         |        
+RUN-1001 :   gated_clock_conversion  |    off     |       off        |        
+RUN-1001 :         infer_fsm         |    auto    |       auto       |        
+RUN-1001 :         infer_gsr         |    off     |       off        |        
+RUN-1001 :         infer_rom         |     on     |        on        |        
+RUN-1001 :       keep_hierarchy      |    auto    |       auto       |        
+RUN-1001 :        merge_equal        |     on     |        on        |        
+RUN-1001 :      min_control_set      |     8      |        8         |        
+RUN-1001 :       min_ripple_len      |    auto    |       auto       |        
+RUN-1001 :          seq_syn          |     on     |        on        |        
+RUN-1001 : -------------------------------------------------------------------
+RUN-1002 : start command "insert_debugger"
+RUN-1002 : start command "optimize_rtl"
+RUN-1001 : Open license file D:/sofwar/td/license/Anlogic.lic
+SYN-1001 : Stage 1 | Optimize RTL
+SYN-1001 : Stage 1.1 | Check Design Sanity
+SYN-1001 : End Stage 1.1 | Check Design Sanity; Time: 0.011956s wall, 0.000000s user + 0.000000s system = 0.000000s CPU (n/a%); Memory(MB): used = 122, reserved = 244, peak = 122;
+
+SYN-1079 : finish stage Check Design Sanity. Total instances: 5234, Total nets: 13491.
+
+SYN-1001 : Stage 1.2 | Initialize Design
+SYN-1001 : End Stage 1.2 | Initialize Design; Time: 0.255531s wall, 0.250000s user + 0.000000s system = 0.250000s CPU (97.8%); Memory(MB): used = 122, reserved = 244, peak = 122;
+
+SYN-1079 : finish stage Initialize Design. Total instances: 1155, Total nets: 8961.
+
+SYN-1001 : Stage 1.3 | Flatten Module
+SYN-1011 : Flatten model hdmi_demo_top
+SYN-1001 : End Stage 1.3 | Flatten Module; Time: 0.033735s wall, 0.046875s user + 0.000000s system = 0.046875s CPU (139.0%); Memory(MB): used = 122, reserved = 244, peak = 122;
+
+SYN-1079 : finish stage Flatten Module. Total instances: 1140, Total nets: 7644.
+
+SYN-1001 : Stage 1.4 | Uniform Instance
+SYN-5025 WARNING: Using 0 for all undriven pins and nets
+SYN-1001 : End Stage 1.4 | Uniform Instance; Time: 0.005375s wall, 0.000000s user + 0.000000s system = 0.000000s CPU (n/a%); Memory(MB): used = 122, reserved = 244, peak = 122;
+
+SYN-1079 : finish stage Uniform Instance. Total instances: 1071, Total nets: 7572.
+
+SYN-1001 : Stage 1.5 | Optimize Design
+SYN-1001 : Optimize 2 less-than instances
+SYN-1001 : Optimize 5 less-than instances
+SYN-1032 : 7387/112 useful/useless nets, 1044/0 useful/useless insts
+SYN-1001 : Bypass 1 mux instances
+SYN-1021 : Optimized 4 onehot mux instances.
+SYN-1019 : Optimized 6 mux instances.
+SYN-1016 : Merged 84 instances.
+SYN-1027 : Infer Logic DRAM(u_display/u_audio_fifo/ramread0_syn_4) read 32x32, write 32x32
+SYN-1023 : Infer 1 Logic DRAMs, 0 Logic BRAMs.
+SYN-1016 : Merged 232 instances.
+SYN-1001 : End Stage 1.5 | Optimize Design; Time: 0.688062s wall, 0.593750s user + 0.078125s system = 0.671875s CPU (97.6%); Memory(MB): used = 127, reserved = 122, peak = 138;
+
+SYN-1079 : finish stage Optimize Design. Total instances: 2858, Total nets: 3604.
+
+SYN-1001 : Stage 1.6 | Optimize Iteratively
+SYN-1019 : Optimized 33 mux instances.
+SYN-1014 : Optimize round 1
+SYN-1044 : Optimized 1 inv instances.
+SYN-1017 : Remove 32 const input seq instances
+SYN-1019 : Optimized 17 mux instances.
+SYN-1020 : Optimized 63 distributor mux.
+SYN-1001 : Optimize 33 less-than instances
+SYN-1019 : Optimized 12 mux instances.
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank00" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_00.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank01" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_01.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank02" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_02.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank03" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_03.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank04" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_04.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank05" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_05.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank06" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_06.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank07" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_07.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank08" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_08.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank09" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_09.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank10" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_10.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank11" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_11.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank12" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_12.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank13" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_13.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank14" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_14.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank15" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_15.dat"
+SYN-2543 : Parsing BIN init file
+SYN-1016 : Merged 188 instances.
+SYN-1015 : Optimize round 1, 1404 better
+SYN-1014 : Optimize round 2
+SYN-1044 : Optimized 6 inv instances.
+SYN-1017 : Remove 2 const input seq instances
+SYN-1019 : Optimized 4 mux instances.
+SYN-1020 : Optimized 8 distributor mux.
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank00" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_00.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank01" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_01.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank02" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_02.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank03" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_03.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank04" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_04.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank05" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_05.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank06" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_06.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank07" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_07.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank08" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_08.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank09" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_09.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank10" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_10.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank11" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_11.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank12" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_12.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank13" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_13.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank14" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_14.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank15" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_15.dat"
+SYN-2543 : Parsing BIN init file
+SYN-1016 : Merged 14 instances.
+SYN-1015 : Optimize round 2, 58 better
+SYN-3010 : Optimized 371 DFF(s)
+SYN-1014 : Optimize round 1
+SYN-1020 : Optimized 8 distributor mux.
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank00" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_00.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank01" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_01.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank02" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_02.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank03" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_03.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank04" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_04.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank05" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_05.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank06" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_06.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank07" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_07.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank08" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_08.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank09" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_09.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank10" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_10.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank11" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_11.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank12" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_12.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank13" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_13.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank14" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_14.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank15" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_15.dat"
+SYN-2543 : Parsing BIN init file
+SYN-1016 : Merged 10 instances.
+SYN-1015 : Optimize round 1, 45 better
+SYN-1014 : Optimize round 2
+SYN-1044 : Optimized 1 inv instances.
+SYN-1019 : Optimized 15 mux instances.
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank00" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_00.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank01" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_01.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank02" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_02.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank03" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_03.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank04" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_04.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank05" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_05.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank06" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_06.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank07" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_07.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank08" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_08.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank09" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_09.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank10" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_10.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank11" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_11.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank12" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_12.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank13" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_13.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank14" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_14.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank15" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_15.dat"
+SYN-2543 : Parsing BIN init file
+SYN-1016 : Merged 42 instances.
+SYN-1015 : Optimize round 2, 138 better
+SYN-1014 : Optimize round 3
+SYN-1019 : Optimized 6 mux instances.
+SYN-1020 : Optimized 2 distributor mux.
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank00" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_00.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank01" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_01.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank02" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_02.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank03" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_03.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank04" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_04.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank05" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_05.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank06" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_06.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank07" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_07.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank08" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_08.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank09" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_09.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank10" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_10.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank11" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_11.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank12" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_12.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank13" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_13.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank14" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_14.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank15" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_15.dat"
+SYN-2543 : Parsing BIN init file
+SYN-1016 : Merged 4 instances.
+SYN-1015 : Optimize round 3, 18 better
+SYN-1014 : Optimize round 4
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank00" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_00.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank01" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_01.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank02" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_02.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank03" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_03.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank04" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_04.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank05" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_05.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank06" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_06.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank07" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_07.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank08" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_08.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank09" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_09.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank10" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_10.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank11" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_11.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank12" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_12.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank13" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_13.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank14" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_14.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank15" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_15.dat"
+SYN-2543 : Parsing BIN init file
+SYN-1015 : Optimize round 4, 1 better
+SYN-1014 : Optimize round 5
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank00" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_00.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank01" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_01.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank02" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_02.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank03" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_03.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank04" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_04.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank05" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_05.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank06" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_06.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank07" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_07.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank08" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_08.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank09" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_09.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank10" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_10.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank11" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_11.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank12" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_12.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank13" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_13.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank14" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_14.dat"
+SYN-2543 : Parsing BIN init file
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank15" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_15.dat"
+SYN-2543 : Parsing BIN init file
+SYN-1015 : Optimize round 5, 0 better
+SYN-1001 : End Stage 1.6 | Optimize Iteratively; Time: 2.202372s wall, 2.015625s user + 0.062500s system = 2.078125s CPU (94.4%); Memory(MB): used = 142, reserved = 138, peak = 153;
+
+SYN-1079 : finish stage Optimize Iteratively. Total instances: 2222, Total nets: 2803.
+
+SYN-1001 : Stage 1.7 | Check Design
+SYN-1001 : End Stage 1.7 | Check Design; Time: 0.000628s wall, 0.000000s user + 0.000000s system = 0.000000s CPU (n/a%); Memory(MB): used = 142, reserved = 138, peak = 153;
+
+SYN-1079 : finish stage Check Design. Total instances: 2222, Total nets: 2803.
+
+SYN-1001 : End Stage 1 | Optimize RTL; Time: 3.198638s wall, 2.906250s user + 0.140625s system = 3.046875s CPU (95.3%); Memory(MB): used = 142, reserved = 138, peak = 153;
+
+SYN-1079 : finish stage Optimize RTL. Total instances: 2222, Total nets: 2803.
+
+RUN-1003 : finish command "optimize_rtl" in  3.208215s wall, 2.906250s user + 0.140625s system = 3.046875s CPU (95.0%)
+
+RUN-1004 : used memory is 142 MB, reserved memory is 138 MB, peak memory is 153 MB
+RUN-1002 : start command "report_area -file HDMI_display_rtl.area"
+RUN-1001 : standard
+***Report Model: hdmi_demo_top Device: EG4S20BG256***
+
+IO Statistics
+#IO                         6
+  #input                    2
+  #output                   4
+  #inout                    0
+
+Gate Statistics
+#Basic gates             1543
+  #and                     86
+  #nand                     0
+  #or                      24
+  #nor                      0
+  #xor                    173
+  #xnor                     3
+  #buf                      0
+  #not                    130
+  #bufif1                   0
+  #MX21                   272
+  #FADD                     0
+  #DFF                    855
+  #LATCH                    0
+#MACRO_ADD                130
+#MACRO_EQ                  32
+#MACRO_MUX                492
+#MACRO_OTHERS              22
+
+RUN-1002 : start command "export_db HDMI_display_rtl.db"
+RUN-1001 : Exported flow parameters
+RUN-1001 : Exported /
+RUN-1001 : Exported libs
+RUN-1001 : Exported entities
+RUN-1001 : Exported ports
+RUN-1001 : Exported pins
+RUN-1001 : Exported instances
+RUN-1001 : Exported nets
+RUN-1001 : Exported buses
+RUN-1001 : Exported models
+RUN-1001 : Exported packer
+RUN-1001 : Exported congestions
+RUN-1001 : Exported violations
+RUN-1001 : Exported ATMR Setting
+RUN-1001 : Exported IO constraints
+RUN-1001 : Exported Inst constraints
+RUN-1001 : Exported ChipWatcher
+RUN-1002 : start command "commit_param -step gate"
+RUN-1001 : Print Global Property
+RUN-1001 : --------------------------------------------------------
+RUN-1001 :   Parameters   |  Settings  |  Default Values  |  Note  
+RUN-1001 : --------------------------------------------------------
+RUN-1001 :   enable_seed  |    off     |       off        |        
+RUN-1001 :     message    |  standard  |     standard     |        
+RUN-1001 :   qor_monitor  |     on     |        on        |        
+RUN-1001 :   syn_ip_flow  |    off     |       off        |        
+RUN-1001 :     thread     |    auto    |       auto       |        
+RUN-1001 : --------------------------------------------------------
+RUN-1001 : Print Gate Property
+RUN-1001 : -----------------------------------------------------------
+RUN-1001 :     Parameters    |  Settings  |  Default Values  |  Note  
+RUN-1001 : -----------------------------------------------------------
+RUN-1001 :     eram_init     |    off     |       off        |        
+RUN-1001 :      map_mode     |    auto    |       auto       |        
+RUN-1001 :    pack_effort    |   medium   |      medium      |        
+RUN-1001 :   pack_seq_in_io  |    auto    |       auto       |        
+RUN-1001 :       report      |  standard  |     standard     |        
+RUN-1001 : -----------------------------------------------------------
+RUN-1002 : start command "optimize_gate -packarea HDMI_display_gate.area"
+RUN-1001 : Open license file D:/sofwar/td/license/Anlogic.lic
+SYN-1001 : Stage 2 | Optimize Gate
+SYN-1001 : Stage 2.1 | Map Reg
+SYN-1001 : End Stage 2.1 | Map Reg; Time: 0.039956s wall, 0.031250s user + 0.000000s system = 0.031250s CPU (78.2%); Memory(MB): used = 149, reserved = 267, peak = 153;
+
+SYN-1079 : finish stage Map Reg. Total instances: 2222, Total nets: 2803.
+
+SYN-1001 : Stage 2.2 | Map IO
+SYN-2001 : Map 6 IOs to PADs of model 'hdmi_demo_top'
+SYN-1001 : End Stage 2.2 | Map IO; Time: 0.016842s wall, 0.031250s user + 0.000000s system = 0.031250s CPU (185.5%); Memory(MB): used = 150, reserved = 267, peak = 153;
+
+SYN-1001 : Stage 2.3 | Map Macro
+RUN-1002 : start command "update_pll_param -module hdmi_demo_top"
+SYN-2501 : Processed 0 LOGIC_BUF instances.
+SYN-2501 : 1 BUFG to GCLK
+SYN-2541 : Reading BRAM "u_display/u_osd/u_font/u_bank00" init file "D:/FPGA_HDMI_Player/FPGA_HDMI_Player/rtl/display/src/font_bank_00.dat"
+SYN-2543 : Parsing BIN init file
+SYN-8418 ERROR: Error in parsing file. Error in parsing initial value "0800" in line 16. The value has illegal width.
+SYN-1001 : End Stage 2.3 | Map Macro; Time: 0.011916s wall, 0.000000s user + 0.000000s system = 0.000000s CPU (n/a%); Memory(MB): used = 150, reserved = 267, peak = 153;
+
+SYN-1079 : finish stage Map Macro. Total instances: 2229, Total nets: 2805.
+
+SYN-1001 : End Stage 2 | Optimize Gate; Time: 0.071138s wall, 0.062500s user + 0.000000s system = 0.062500s CPU (87.9%); Memory(MB): used = 150, reserved = 267, peak = 153;
+
+

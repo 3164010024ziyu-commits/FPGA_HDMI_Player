@@ -56,6 +56,9 @@ async_fifo #(
         wr_data = 8'h00;
         #100;
         Reset_n = 1;
+        // full stays high until the write-clock reset release is complete.
+        wait(!full);
+        @(negedge wr_clk);
         wr_data = 8'h11;
         wr_en = 1;
         #20;

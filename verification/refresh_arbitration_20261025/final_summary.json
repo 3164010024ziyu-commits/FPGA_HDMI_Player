@@ -1,0 +1,80 @@
+{
+  "production_source_hashes": {
+    "rtl/memory/sdram_write_ctrl.v": "a8efd32987b73580272d06ac5adabbee7ed7637bc2e1288f0a96bdc86f50fdd6",
+    "rtl/memory/memory_top.v": "9de5de0f893d3ed39524b171567c370676d8e90d520e07d0dd615c78eaa8ea27",
+    "rtl/memory/sdram_refresh_ctrl.v": "eb6d9bfab34fac2797500a12ea6a9b8a1761bc9f2846165763a93cac9c2a9fb4",
+    "tb/memory/sdram_write_ctrl_tb.v": "57a082c9fa78dbe2d926cd1aa90b9e283e396890d7af564dd504aeac5222a4b5"
+  },
+  "scenarios": {
+    "idle": {
+      "requests": 34,
+      "acks": 34,
+      "flags": 34,
+      "auto_refreshes": 34,
+      "max_request_to_ack_ns": 16.0,
+      "max_request_to_ref_vld_ns": 24.0,
+      "max_request_to_refresh_ns": 60.0,
+      "max_pending_to_refresh_ns": 92.0,
+      "max_refresh_gap_ns": 15000.0,
+      "model_errors": [],
+      "unserved_requests": 0
+    },
+    "continuous": {
+      "requests": 34,
+      "acks": 34,
+      "flags": 34,
+      "auto_refreshes": 34,
+      "max_request_to_ack_ns": 16.0,
+      "max_request_to_ref_vld_ns": 24.0,
+      "max_request_to_refresh_ns": 60.0,
+      "max_pending_to_refresh_ns": 196.0,
+      "max_refresh_gap_ns": 15064.0,
+      "model_errors": [],
+      "unserved_requests": 0
+    },
+    "pause": {
+      "requests": 34,
+      "acks": 34,
+      "flags": 34,
+      "auto_refreshes": 34,
+      "max_request_to_ack_ns": 16.0,
+      "max_request_to_ref_vld_ns": 24.0,
+      "max_request_to_refresh_ns": 60.0,
+      "max_pending_to_refresh_ns": 196.0,
+      "max_refresh_gap_ns": 15064.0,
+      "model_errors": [],
+      "unserved_requests": 0
+    }
+  },
+  "formal_180": {
+    "cases": 11,
+    "accepted": 4376,
+    "app_writes": 4376,
+    "reads": 4376,
+    "physical_writes": 1094,
+    "physical_reads": 1094,
+    "physical_refreshes": 57,
+    "write_refresh_overlap": 0,
+    "data_errors": 1094,
+    "storage_checks": 4376,
+    "storage_errors": 0,
+    "coverage_errors": 0
+  },
+  "diagnostic_270": {
+    "cases": 11,
+    "accepted": 4376,
+    "app_writes": 4376,
+    "reads": 4376,
+    "physical_writes": 1094,
+    "physical_reads": 1094,
+    "physical_refreshes": 57,
+    "write_refresh_overlap": 0,
+    "data_errors": 0,
+    "storage_checks": 4376,
+    "storage_errors": 0,
+    "coverage_errors": 0
+  },
+  "unit_cases_passed": 7,
+  "project_source_list_passed": true,
+  "PLL_IP_FIFO_unchanged": true
+}

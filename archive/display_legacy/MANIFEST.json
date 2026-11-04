@@ -1,0 +1,1649 @@
+{
+  "date": "2026-10-29",
+  "files": [
+    {
+      "from": "rtl/display/.gitkeep",
+      "to": "archive/display_legacy/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "from": "rtl/display/.lock.f",
+      "to": "archive/display_legacy/.lock.f",
+      "sha256": "31856ac87bd13203f336cb8d1b18bc0d031549964ca0c763d101f52d9062d065",
+      "bytes": 84
+    },
+    {
+      "from": "rtl/display/.recent_user_depot.ini",
+      "to": "archive/display_legacy/.recent_user_depot.ini",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "from": "rtl/display/constraints.adc",
+      "to": "archive/display_legacy/constraints.adc",
+      "sha256": "5cb6ce3adef6f9092b1839ef410b0115785fe26e91d20b0204576ab87938bdc3",
+      "bytes": 1203
+    },
+    {
+      "from": "rtl/display/HDMI_display.al",
+      "to": "archive/display_legacy/HDMI_display.al",
+      "sha256": "d9894807957647f59486cd0e2eb3c3e76f65d2079f7a6f355390863e913a00fe",
+      "bytes": 6850
+    },
+    {
+      "from": "rtl/display/HDMI_display_audiofix.bit",
+      "to": "archive/display_legacy/HDMI_display_audiofix.bit",
+      "sha256": "e866adf3d244ad371f11b5be8da3bd0ab06b34c9a707caeddf6867f8b7dfbc68",
+      "bytes": 666882
+    },
+    {
+      "from": "rtl/display/HDMI_display_keys.bit",
+      "to": "archive/display_legacy/HDMI_display_keys.bit",
+      "sha256": "c6a424204d8818e75e22d3e14483ccc5688f3e828cb0e5251f06bc50a23abccf",
+      "bytes": 666882
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/best_result/HDMI_display.bit",
+      "to": "archive/display_legacy/HDMI_display_Runs/best_result/HDMI_display.bit",
+      "sha256": "2b40af53263f8fcc83eafebfdb919b3a6b922512bc3f47a62aa1b30c62f2cef8",
+      "bytes": 666882
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/best_result/HDMI_display_inst.bid",
+      "to": "archive/display_legacy/HDMI_display_Runs/best_result/HDMI_display_inst.bid",
+      "sha256": "a9a4f9c35fc482452d5040f0ad0b189ea7509ac21257e75b6e59855f40a4fdc1",
+      "bytes": 10412
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/best_result/HDMI_display_phy.ts",
+      "to": "archive/display_legacy/HDMI_display_Runs/best_result/HDMI_display_phy.ts",
+      "sha256": "ec903769d351da59fd527fccbe3048329bed5fc3bebbfc38caacb2afc686743e",
+      "bytes": 60
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/best_result/readMe.txt",
+      "to": "archive/display_legacy/HDMI_display_Runs/best_result/readMe.txt",
+      "sha256": "ec62e09109a7424dd84050f17413b84b81dbe48d7f0a06d5466fa10ea55ebc0b",
+      "bytes": 57
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/phy_1/.bitgen.begin.f",
+      "to": "archive/display_legacy/HDMI_display_Runs/phy_1/.bitgen.begin.f",
+      "sha256": "c7addf8ee5a259039beefdb577447f67c544ceb54f86d1e189092853685c3113",
+      "bytes": 155
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/phy_1/.bitgen.end.f",
+      "to": "archive/display_legacy/HDMI_display_Runs/phy_1/.bitgen.end.f",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/phy_1/.bitgen_param.f",
+      "to": "archive/display_legacy/HDMI_display_Runs/phy_1/.bitgen_param.f",
+      "sha256": "52c14ca3a63699c1f711f8231412cf5412ba58195f2cab15632b44189b307478",
+      "bytes": 303
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/phy_1/.opt_place.begin.f",
+      "to": "archive/display_legacy/HDMI_display_Runs/phy_1/.opt_place.begin.f",
+      "sha256": "c7addf8ee5a259039beefdb577447f67c544ceb54f86d1e189092853685c3113",
+      "bytes": 155
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/phy_1/.opt_place.end.f",
+      "to": "archive/display_legacy/HDMI_display_Runs/phy_1/.opt_place.end.f",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/phy_1/.opt_route.begin.f",
+      "to": "archive/display_legacy/HDMI_display_Runs/phy_1/.opt_route.begin.f",
+      "sha256": "c7addf8ee5a259039beefdb577447f67c544ceb54f86d1e189092853685c3113",
+      "bytes": 155
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/phy_1/.opt_route.end.f",
+      "to": "archive/display_legacy/HDMI_display_Runs/phy_1/.opt_route.end.f",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/phy_1/.temp.f",
+      "to": "archive/display_legacy/HDMI_display_Runs/phy_1/.temp.f",
+      "sha256": "b16734e14eae7c37f81b30c0b04aebebacbd75083004bc1c7cf92e1f347804e2",
+      "bytes": 18
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/phy_1/final_timing.rpt",
+      "to": "archive/display_legacy/HDMI_display_Runs/phy_1/final_timing.rpt",
+      "sha256": "bbef1b309d65c1b96d7a10e033a76c577c0d1f4e5fda82f43b463ac0c4f3a1a7",
+      "bytes": 111437
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/phy_1/HDMI_display.bit",
+      "to": "archive/display_legacy/HDMI_display_Runs/phy_1/HDMI_display.bit",
+      "sha256": "2b40af53263f8fcc83eafebfdb919b3a6b922512bc3f47a62aa1b30c62f2cef8",
+      "bytes": 666882
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/phy_1/HDMI_display.prj",
+      "to": "archive/display_legacy/HDMI_display_Runs/phy_1/HDMI_display.prj",
+      "sha256": "08c54a39d1098bb3ac01e861e956cdb16e2de43a531630bb8fb4f62edbd66129",
+      "bytes": 6321
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/phy_1/HDMI_display.tcl",
+      "to": "archive/display_legacy/HDMI_display_Runs/phy_1/HDMI_display.tcl",
+      "sha256": "d1a5d4291706dac224cc33008d8945e79ed2eb1adf8ce86cca46be564975bade",
+      "bytes": 7809
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/phy_1/HDMI_display_exception.timing",
+      "to": "archive/display_legacy/HDMI_display_Runs/phy_1/HDMI_display_exception.timing",
+      "sha256": "7c1a1b67cda25e5be25e56bc8580201128c06f4006521b03761b18f18c5bfbc2",
+      "bytes": 1074
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/phy_1/HDMI_display_inst.bid",
+      "to": "archive/display_legacy/HDMI_display_Runs/phy_1/HDMI_display_inst.bid",
+      "sha256": "a9a4f9c35fc482452d5040f0ad0b189ea7509ac21257e75b6e59855f40a4fdc1",
+      "bytes": 10412
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/phy_1/HDMI_display_phy.area",
+      "to": "archive/display_legacy/HDMI_display_Runs/phy_1/HDMI_display_phy.area",
+      "sha256": "83a1b0b105f6216b5449871a04b1cb31d539fe3adcf0fd5d0e2feb1ea8fc0160",
+      "bytes": 5777
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/phy_1/HDMI_display_phy.ts",
+      "to": "archive/display_legacy/HDMI_display_Runs/phy_1/HDMI_display_phy.ts",
+      "sha256": "ec903769d351da59fd527fccbe3048329bed5fc3bebbfc38caacb2afc686743e",
+      "bytes": 60
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/phy_1/HDMI_display_place.db",
+      "to": "archive/display_legacy/HDMI_display_Runs/phy_1/HDMI_display_place.db",
+      "sha256": "10c02bdf72dfa93e7ea8fb475fa7fcd0de021949c3899f4acfca84aca2514229",
+      "bytes": 1457054
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/phy_1/HDMI_display_place.timing",
+      "to": "archive/display_legacy/HDMI_display_Runs/phy_1/HDMI_display_place.timing",
+      "sha256": "7d3a7760c59020c94f01a069cdccd5bcfb47d30c385be21e3c6192b18b9f9ede",
+      "bytes": 96159
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/phy_1/HDMI_display_pr.db",
+      "to": "archive/display_legacy/HDMI_display_Runs/phy_1/HDMI_display_pr.db",
+      "sha256": "e11d123459a9036e3f2a6c60251281e68de602cc4e240a81a4b5b3b326b4d3c6",
+      "bytes": 1691488
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/phy_1/HDMI_display_pr.timing",
+      "to": "archive/display_legacy/HDMI_display_Runs/phy_1/HDMI_display_pr.timing",
+      "sha256": "bbef1b309d65c1b96d7a10e033a76c577c0d1f4e5fda82f43b463ac0c4f3a1a7",
+      "bytes": 111437
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/phy_1/place.qor",
+      "to": "archive/display_legacy/HDMI_display_Runs/phy_1/place.qor",
+      "sha256": "a675bce583f3e310b1509d2f7f7bb01e867672863a6a4e8aa4233b8a5f8e8837",
+      "bytes": 1711
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/phy_1/place_flow.status",
+      "to": "archive/display_legacy/HDMI_display_Runs/phy_1/place_flow.status",
+      "sha256": "a602f943115aacae5a7361bedd45b3abb3d84cddc31f46b482ed41be428b73b7",
+      "bytes": 1345
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/phy_1/route.qor",
+      "to": "archive/display_legacy/HDMI_display_Runs/phy_1/route.qor",
+      "sha256": "95b3dd649856caa10806292f038380f77f2384425ce6f6333ce753030a6835b1",
+      "bytes": 1290
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/phy_1/route_flow.status",
+      "to": "archive/display_legacy/HDMI_display_Runs/phy_1/route_flow.status",
+      "sha256": "d5f72d039f53ba7aa02e5436b4d14b35ba92a364e539abaa6cb14d15f0b5466c",
+      "bytes": 1440
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/phy_1/run.bat",
+      "to": "archive/display_legacy/HDMI_display_Runs/phy_1/run.bat",
+      "sha256": "da62eb82a7018db52315b908d9256d896edba7e8cf70d72bc0e4bf767c860a5f",
+      "bytes": 236
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/phy_1/run.log",
+      "to": "archive/display_legacy/HDMI_display_Runs/phy_1/run.log",
+      "sha256": "e3a3ba0338c8904859b856d944becb69d944a8f5617adf23307b52a45851bbf3",
+      "bytes": 63010
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/phy_1/run.logw",
+      "to": "archive/display_legacy/HDMI_display_Runs/phy_1/run.logw",
+      "sha256": "c4cb126f801fdbb3769d95d02590dffd15846ffe155455e5ead466a701b11f1f",
+      "bytes": 505
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/phy_1/settings.cfg",
+      "to": "archive/display_legacy/HDMI_display_Runs/phy_1/settings.cfg",
+      "sha256": "b27b4a7be8405955324c0a401b2ce958e3240d867e8c6644de92726572e822ad",
+      "bytes": 360
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/.opt_gate.begin.f",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/.opt_gate.begin.f",
+      "sha256": "d677ed67547b90ec445229ed2968f1ace9fdcd0b9d44ed57813703719289ad5e",
+      "bytes": 155
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/.opt_gate.end.f",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/.opt_gate.end.f",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/.opt_place.begin.f",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/.opt_place.begin.f",
+      "sha256": "20ea2d8cf77aae9134bdfbc1c66b26c707f435bc13b602701ae5c2734eb58ab6",
+      "bytes": 155
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/.opt_place.end.f",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/.opt_place.end.f",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/.opt_route.begin.f",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/.opt_route.begin.f",
+      "sha256": "20ea2d8cf77aae9134bdfbc1c66b26c707f435bc13b602701ae5c2734eb58ab6",
+      "bytes": 155
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/.opt_route.error.f",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/.opt_route.error.f",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/.opt_rtl.begin.f",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/.opt_rtl.begin.f",
+      "sha256": "d677ed67547b90ec445229ed2968f1ace9fdcd0b9d44ed57813703719289ad5e",
+      "bytes": 155
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/.opt_rtl.end.f",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/.opt_rtl.end.f",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/.read_design.begin.f",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/.read_design.begin.f",
+      "sha256": "d677ed67547b90ec445229ed2968f1ace9fdcd0b9d44ed57813703719289ad5e",
+      "bytes": 155
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/.read_design.end.f",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/.read_design.end.f",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/.temp.f",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/.temp.f",
+      "sha256": "aaa46b6be867ff716a5ea1f259a86b04c012505056f5c8af01a6064ab458f770",
+      "bytes": 17
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/build_720p30.log",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/build_720p30.log",
+      "sha256": "21ef700f07dd958e4b8536c3417c70a061d26ad6797ba6b89658a66e1301c667",
+      "bytes": 128761
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/build_audio_final.log",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/build_audio_final.log",
+      "sha256": "c3f9b2e4375913169f7822705700364f8e3f01049de87605fed1a2f46b12782b",
+      "bytes": 119905
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/build_audio_fix.log",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/build_audio_fix.log",
+      "sha256": "1d72c265ba0e6bc0459801f5e3deaaf2e67006a9d64ab2136744ca511860ef21",
+      "bytes": 37401
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/build_audio_fix2.log",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/build_audio_fix2.log",
+      "sha256": "8f0c3e6bed291c32768019a4f640a50e32ae25181256197b1b416593ed7f385a",
+      "bytes": 97948
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/build_final3.log",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/build_final3.log",
+      "sha256": "386d12c2423bb9b02c524720162178b72e2c35064894b517c4b8d42cf588bc1d",
+      "bytes": 120342
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/build_final4.log",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/build_final4.log",
+      "sha256": "51d16206b5b6941b41ca1082a072dfcb23728ad00ea60e4cebbf57cdd6c369a4",
+      "bytes": 120478
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/build_indicator.log",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/build_indicator.log",
+      "sha256": "4f493bbfcf4cae78fbee04802d5238d5705bbc498657997f3c7d9e36634d5a28",
+      "bytes": 120483
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/build_pll_test.log",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/build_pll_test.log",
+      "sha256": "53ea98674725f3df7f0acba5332c52a3da70252165cdc59476211c50d2df57e4",
+      "bytes": 120631
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/build_pll_test2.log",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/build_pll_test2.log",
+      "sha256": "632f2369a5fad5bfea773c6a390502e3de6d3f81b120be54a811c5444eb2e693",
+      "bytes": 120578
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/build_revert.log",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/build_revert.log",
+      "sha256": "0b18452f4c5c5542d67f0d5923e34215e6f26465603d8dcbd5eb282fcbcff0fe",
+      "bytes": 115923
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/build_sdc.log",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/build_sdc.log",
+      "sha256": "9f98d86ab57693ecd8c46b6204e1b1851d96dcb199c9475d36065ba3ffe7f3d3",
+      "bytes": 128744
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/final_timing.rpt",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/final_timing.rpt",
+      "sha256": "ac1c1b76eb8bdd8633cf91269cc3d85bb834e915edb28063e372eeeb95222919",
+      "bytes": 115383
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/flow.status",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/flow.status",
+      "sha256": "48149be0c5c28844a4d6ca1644c033902fd56bf52c3137bcaca1580dff18d299",
+      "bytes": 1440
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/gate.qor",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/gate.qor",
+      "sha256": "b1d67635097f88d755791998de7b6611736e175267e05825d327136c84948ea0",
+      "bytes": 4533
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/HDMI_display.bit",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/HDMI_display.bit",
+      "sha256": "1684e5a0b34a9ac8287c60bc04ea905be2bd9af0a92668121e1db580f0e0a8cb",
+      "bytes": 666882
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/HDMI_display.prj",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/HDMI_display.prj",
+      "sha256": "08c54a39d1098bb3ac01e861e956cdb16e2de43a531630bb8fb4f62edbd66129",
+      "bytes": 6321
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/HDMI_display.tcl",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/HDMI_display.tcl",
+      "sha256": "d1a5d4291706dac224cc33008d8945e79ed2eb1adf8ce86cca46be564975bade",
+      "bytes": 7809
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/HDMI_display_eco_pr.db",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/HDMI_display_eco_pr.db",
+      "sha256": "97c157a766c902ea9f0e6ea46fa76cd6ecaa877d916bee79ed4879d4481717ef",
+      "bytes": 1663002
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/HDMI_display_elaborate.db",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/HDMI_display_elaborate.db",
+      "sha256": "c0d5061958f60d67f915e4a45b17aa2c148c1f9402e29be13f1527b3637a80ac",
+      "bytes": 1080752
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/HDMI_display_exception.timing",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/HDMI_display_exception.timing",
+      "sha256": "21306b834a798b899e9f1642172ffbe9b7fd74a826ff063988e9d4028e0b0576",
+      "bytes": 1074
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/HDMI_display_gate.area",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/HDMI_display_gate.area",
+      "sha256": "fa1bd6723519d2563594bb51885df4904a5d090a4b17fc3acbebed914e65cf09",
+      "bytes": 2862
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/HDMI_display_gate.db",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/HDMI_display_gate.db",
+      "sha256": "4cbb06ee62790f2e134af34b3d9387a7b67f3bba2c8eddab070d3043e065bf67",
+      "bytes": 1149056
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/HDMI_display_gate.timing",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/HDMI_display_gate.timing",
+      "sha256": "393cb447783df2e8cc85fc3a428185c65e38f49870076958865463b7e140d530",
+      "bytes": 117300
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/HDMI_display_gate.ts",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/HDMI_display_gate.ts",
+      "sha256": "9386b0fd8efa779f36e3564689d2bedcd8ea42bb084459868c122f9f80c13a2b",
+      "bytes": 60
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/HDMI_display_inst.bid",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/HDMI_display_inst.bid",
+      "sha256": "a9a4f9c35fc482452d5040f0ad0b189ea7509ac21257e75b6e59855f40a4fdc1",
+      "bytes": 10412
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/HDMI_display_phy.area",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/HDMI_display_phy.area",
+      "sha256": "53638f8c0585546fb361f49f260344508db777e1a241158c46b92c60638df91a",
+      "bytes": 5765
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/HDMI_display_phy.ts",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/HDMI_display_phy.ts",
+      "sha256": "d7008c196c26321707fa2be3a3bb9e91fc318e09e28bc8968707a5eee82e41fd",
+      "bytes": 60
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/HDMI_display_place.db",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/HDMI_display_place.db",
+      "sha256": "07841ac23f733d24042517f93145c73db83342d3b762577ce2d1b411d40d021d",
+      "bytes": 1425406
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/HDMI_display_place.timing",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/HDMI_display_place.timing",
+      "sha256": "6247050747a9904f9d2f43f0a459332db49e08801b3e021a9de900cf3b846b8e",
+      "bytes": 76100
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/HDMI_display_pr.db",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/HDMI_display_pr.db",
+      "sha256": "2d107e84cbbc5f5ec9ba5b88d24597218b19c65448f20405867261a8b02cffb5",
+      "bytes": 1651714
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/HDMI_display_pr.timing",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/HDMI_display_pr.timing",
+      "sha256": "ac1c1b76eb8bdd8633cf91269cc3d85bb834e915edb28063e372eeeb95222919",
+      "bytes": 115383
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/HDMI_display_rtl.area",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/HDMI_display_rtl.area",
+      "sha256": "e772f2e0af370bef95ed3d5340ff7a65a445a34c1160dd6d90e0d3935221ad22",
+      "bytes": 2511
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/HDMI_display_rtl.db",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/HDMI_display_rtl.db",
+      "sha256": "850d058ef38f9f7b050cb61f5c3611a98c6705a172e862d2da7b7816ff1f52f9",
+      "bytes": 1096644
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/place.qor",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/place.qor",
+      "sha256": "ecd6c3c261b1d59165ecf1a036b11f27d2ab32db7c746ae251c64c0be0528ade",
+      "bytes": 1711
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/place_flow.status",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/place_flow.status",
+      "sha256": "dc0d2eed24d575ef0bf72088de076ab2293f1121cb0a98cf502fec149bb6cdf3",
+      "bytes": 1543
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/route.qor",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/route.qor",
+      "sha256": "e6fcb4fb345780443becb084ac4242a12aaad508577b468f64849b1a1ab988de",
+      "bytes": 1290
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/route_flow.status",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/route_flow.status",
+      "sha256": "4b8514c1c8e7fcdefd974377170872975aad190492576f57760c4a4239369a78",
+      "bytes": 1638
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/run.bat",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/run.bat",
+      "sha256": "da62eb82a7018db52315b908d9256d896edba7e8cf70d72bc0e4bf767c860a5f",
+      "bytes": 236
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/run.log",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/run.log",
+      "sha256": "ce55ac8a1b8daab7f4e6f0e99ad8201422b76c4d9d0d0b0d7ec7455d161bb94c",
+      "bytes": 60227
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/run.logw",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/run.logw",
+      "sha256": "d548c826b22fe3aa2e40e573379479a641a6d0114f35d1212040cff93ca086b4",
+      "bytes": 679
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/settings.cfg",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/settings.cfg",
+      "sha256": "71e7c7b6584fe1569f1b04260147df0fb8d7417569c0ffbb1ee5e327b3850604",
+      "bytes": 306
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/td_20261022_002920.log",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/td_20261022_002920.log",
+      "sha256": "3d621b9e1f3c4271622a7870e1bb1cfa03511c0a500d0015f41cad25821eb632",
+      "bytes": 478
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/td_20261022_002920.logw",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/td_20261022_002920.logw",
+      "sha256": "3950b577e517e08918f65a1c0e4d9670beea1f770d2ae3704ab50e7691f07d84",
+      "bytes": 394
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/td_20261022_002924.log",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/td_20261022_002924.log",
+      "sha256": "cc4abe724547a5c2763b943560cf46e7b99203031da987006c2a71775ca3a1aa",
+      "bytes": 20659
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/td_20261022_002924.logw",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/td_20261022_002924.logw",
+      "sha256": "2e234f6c1c3f0e4ab9720defb543ab14170c7f0c2fa94bcc61dc02bc62ad80ab",
+      "bytes": 3892
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/td_20261022_003038.log",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/td_20261022_003038.log",
+      "sha256": "442f7840bfdcfbdf180ad0fc582d8544d04adcf6892c08a7b920754f5c9fd8f1",
+      "bytes": 20219
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/td_20261022_003038.logw",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/td_20261022_003038.logw",
+      "sha256": "72849fc8fa63fcad66cfbd35dd7afbbf8ec0ac7eefb4a0a46495ef94bc017af2",
+      "bytes": 3667
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/td_20261022_003053.log",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/td_20261022_003053.log",
+      "sha256": "267253e9697cece1c43e662be8ac7144a7c5bda66c3979a953763b3780a76556",
+      "bytes": 20229
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/td_20261022_003053.logw",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/td_20261022_003053.logw",
+      "sha256": "14a645265eacd62bf9a7142d2b11ead0a78d3a3f686988d6ccf8571a2823c057",
+      "bytes": 3673
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/td_20261022_003123.log",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/td_20261022_003123.log",
+      "sha256": "d0533b2d9a457c10a7b14f939d6f0b1707ee9d1150976bf688934cb4fa6be5dd",
+      "bytes": 39754
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/td_20261022_003123.logw",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/td_20261022_003123.logw",
+      "sha256": "99e59053917870f5ffac89ee3ff601a849983c381542cc586f8418d34814cf48",
+      "bytes": 1227
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/td_20261022_003339.log",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/td_20261022_003339.log",
+      "sha256": "7115ac734e82ae7b8da08fd1937241ef6f625af7445e4cfa0a1f0698bd6b07e6",
+      "bytes": 54998
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/td_20261022_003339.logw",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/td_20261022_003339.logw",
+      "sha256": "c1859fdf132e0ca5a910bcf5ba6ac3a3a3e87582edcb848ff8942f75e0c63aa8",
+      "bytes": 1236
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/td_20261022_003720.log",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/td_20261022_003720.log",
+      "sha256": "759e7d3f0cb2165f240d1f4b96df1c1d8a40ec3da9e71f8705a8b2c790ecf9cf",
+      "bytes": 72679
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/td_20261022_003720.logw",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/td_20261022_003720.logw",
+      "sha256": "ac315dcd5665c91a4f81afa6a0986f008a54f8069de5c38dc35588b283d3b3ba",
+      "bytes": 893
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/td_20261022_003926.log",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/td_20261022_003926.log",
+      "sha256": "80eddd8f153b09a7fe62bb67d12760174543efa62750e5a8569948326f040837",
+      "bytes": 72528
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/td_20261022_003926.logw",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/td_20261022_003926.logw",
+      "sha256": "9c445956638f0bc397397d59d6592a0bd9841a17062f4b43338340c3b41b0622",
+      "bytes": 893
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/td_20261022_004137.log",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/td_20261022_004137.log",
+      "sha256": "37b07a5ae71552c79e19f01772172b68a018285e4ddbc176c5ce5935a3d15f91",
+      "bytes": 100095
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/td_20261022_004137.logw",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/td_20261022_004137.logw",
+      "sha256": "5df9f52d5ada2fc43c0143ca311cafb5475ad4f5279ce1f55d486ddea10621e5",
+      "bytes": 1034
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/td_20261022_004656.log",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/td_20261022_004656.log",
+      "sha256": "f910064dd90c106cfa3da1255b426605648d318d7f44b53c5ee4548193cceefe",
+      "bytes": 45368
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/td_20261022_004656.logw",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/td_20261022_004656.logw",
+      "sha256": "db78838dd57d2e354846fa580de555c32a87b10a645b8bbe105d7d63d7242fcb",
+      "bytes": 926
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/td_20261022_004718.log",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/td_20261022_004718.log",
+      "sha256": "55a39f376652337f7c0d7a98820148ee015dbdea3b9332d0b1dd16e32455a018",
+      "bytes": 120878
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/td_20261022_004718.logw",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/td_20261022_004718.logw",
+      "sha256": "d705f702f68809032607de9e5fb9ce6200f26e4e27302ba9c048fa5cbfd77646",
+      "bytes": 949
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/td_20261022_004847.log",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/td_20261022_004847.log",
+      "sha256": "e4b626b094f94338effa5108b3fd36abed4f67070663537fcaec0d1d664b7bc4",
+      "bytes": 121022
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/td_20261022_004847.logw",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/td_20261022_004847.logw",
+      "sha256": "a5f2a28c2eb437d62bb7f1dbb2b6f1652ca746f0e23c0778701d9508bf510003",
+      "bytes": 949
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/td_20261022_005120.log",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/td_20261022_005120.log",
+      "sha256": "cd6709cdea3ae3c6efdb1f3bbde48bf740129ebaf0b1340b89d5edbd2cfdda0a",
+      "bytes": 120236
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/td_20261022_005120.logw",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/td_20261022_005120.logw",
+      "sha256": "4309d48835560b120d53c0bc0cd01dc89f5352295118bb60e9dc5748e114605b",
+      "bytes": 949
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/td_20261022_005206.log",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/td_20261022_005206.log",
+      "sha256": "a1ddd3a68f7107e12e9cd18a6b9bd853a44460fda827e0bffbf1dfc33b328f57",
+      "bytes": 120229
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/td_20261022_005206.logw",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/td_20261022_005206.logw",
+      "sha256": "95d8db4657fb3a3d9a6b4602325a0cab591a16094749d53f744a8f7e03e59009",
+      "bytes": 850
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/td_20261022_162823.log",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/td_20261022_162823.log",
+      "sha256": "ad1622cf0031ffc460b3d5f83f69fd9faca68299b66326a617d2bb613cd5de73",
+      "bytes": 37395
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/td_20261022_162823.logw",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/td_20261022_162823.logw",
+      "sha256": "ea7e8fbcba7b809153b80b54ad7399740a9cc46b6495c9a0f9aa40a464d1fd05",
+      "bytes": 709
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/td_20261022_162850.log",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/td_20261022_162850.log",
+      "sha256": "35ed7161f05c5d003140bec79e467a4b50bccfdaed8f3d14abbf0466e4834761",
+      "bytes": 97941
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/td_20261022_162850.logw",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/td_20261022_162850.logw",
+      "sha256": "cc2c72fcbff70772668505cb8ea0d3d31f82c3bebe1bc3f7d0907cc53b34f15e",
+      "bytes": 850
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/td_20261022_163128.log",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/td_20261022_163128.log",
+      "sha256": "902e781accaec212dcca30dd0ee2f1a0053e634d545e829618124757813b7c60",
+      "bytes": 119898
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/td_20261022_163128.logw",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/td_20261022_163128.logw",
+      "sha256": "641fe238d84e5d28ff2be5245005a75123087e587826df0b29b84f593ea5a0a0",
+      "bytes": 850
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/td_20261022_164448.log",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/td_20261022_164448.log",
+      "sha256": "8b677cd35931574640dfe4e70778f6a39ee43d94a4690c3c657ef53677e31437",
+      "bytes": 120335
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/td_20261022_164448.logw",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/td_20261022_164448.logw",
+      "sha256": "f39ec41833cefe5f2a6853a43072968295c03d99b28a0d9c707e7c0178b49d7e",
+      "bytes": 850
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/td_20261022_165507.log",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/td_20261022_165507.log",
+      "sha256": "2d72e92e8dfc0c2ebb4b03c789dc3cc38052abbeb7fa2c9131802a1bda367278",
+      "bytes": 120471
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/td_20261022_165507.logw",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/td_20261022_165507.logw",
+      "sha256": "b5d72c964894c99a36c6c7863a5e7021b883294212ee77576241d7a50b156ef7",
+      "bytes": 850
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/td_20261022_165830.log",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/td_20261022_165830.log",
+      "sha256": "600555d165082eedfe56212068f66187ad14db55848483c46ee0ce6c29e21148",
+      "bytes": 120476
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/td_20261022_165830.logw",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/td_20261022_165830.logw",
+      "sha256": "38fa75ce991bb3eb73fec39aec71d2d37ebb0d8ffa7ba8c43bdd80dd3cb9f6e8",
+      "bytes": 850
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/td_20261022_170453.log",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/td_20261022_170453.log",
+      "sha256": "b9273e06d49e3781dad42e494db4d08777e9e6dc5092d0e68386a09bb39e2b01",
+      "bytes": 120624
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/td_20261022_170453.logw",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/td_20261022_170453.logw",
+      "sha256": "65b3a11ef41c08f8c8581be9fe662e5d64c41d424d23f0b4baa0fef395710cc3",
+      "bytes": 850
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/td_20261022_170529.log",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/td_20261022_170529.log",
+      "sha256": "ed2b25d26a5478c8c2a0b0a509673d6289803e8084488e123e597cd14ebc501e",
+      "bytes": 120571
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/td_20261022_170529.logw",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/td_20261022_170529.logw",
+      "sha256": "3370696574d944a447223fa0beb098297da4e3d9464af39d90cbd0aeb9e0e733",
+      "bytes": 850
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/td_20261022_170618.log",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/td_20261022_170618.log",
+      "sha256": "0cb2522dd642f0498ee834ba5abc2af0268aa564830f45ab7536787d6319c300",
+      "bytes": 128736
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/td_20261022_170618.logw",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/td_20261022_170618.logw",
+      "sha256": "5e8c881dfb067e8c5710e9c196b1521abbdfcd7b1443c87c27a3099d04c9d4ab",
+      "bytes": 3207
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/td_20261022_170823.log",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/td_20261022_170823.log",
+      "sha256": "d7a4f1115823e75f1c4c326f254deea33fcef2c6fdf727b7312fe971f27cd97b",
+      "bytes": 128753
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/td_20261022_170823.logw",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/td_20261022_170823.logw",
+      "sha256": "896278cc2895d86bf3d6c9bb234c602a94effae80259b8a748bfa5f5bff8ff5b",
+      "bytes": 3207
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/td_20261022_171431.log",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/td_20261022_171431.log",
+      "sha256": "7eeec6f624294c361ab20ebe718e65247ac14f7240226b32642d499a5f3419a5",
+      "bytes": 115916
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_1/td_20261022_171431.logw",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_1/td_20261022_171431.logw",
+      "sha256": "efca04302c0dfecb1f1d14f8dd0e857d19c0fa2cd59569ac6c7a4ffea19cc433",
+      "bytes": 904
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_revert/.bitgen.begin.f",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_revert/.bitgen.begin.f",
+      "sha256": "9022e7795bb2f6ccb178f5c308486570e3d2b64ece2d17ee9cced368b211f79d",
+      "bytes": 155
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_revert/.bitgen.end.f",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_revert/.bitgen.end.f",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_revert/.bitgen_param.f",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_revert/.bitgen_param.f",
+      "sha256": "52c14ca3a63699c1f711f8231412cf5412ba58195f2cab15632b44189b307478",
+      "bytes": 303
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_revert/.opt_gate.begin.f",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_revert/.opt_gate.begin.f",
+      "sha256": "9022e7795bb2f6ccb178f5c308486570e3d2b64ece2d17ee9cced368b211f79d",
+      "bytes": 155
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_revert/.opt_gate.end.f",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_revert/.opt_gate.end.f",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_revert/.opt_place.begin.f",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_revert/.opt_place.begin.f",
+      "sha256": "9022e7795bb2f6ccb178f5c308486570e3d2b64ece2d17ee9cced368b211f79d",
+      "bytes": 155
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_revert/.opt_place.end.f",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_revert/.opt_place.end.f",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_revert/.opt_route.begin.f",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_revert/.opt_route.begin.f",
+      "sha256": "9022e7795bb2f6ccb178f5c308486570e3d2b64ece2d17ee9cced368b211f79d",
+      "bytes": 155
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_revert/.opt_route.end.f",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_revert/.opt_route.end.f",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_revert/.opt_rtl.begin.f",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_revert/.opt_rtl.begin.f",
+      "sha256": "9022e7795bb2f6ccb178f5c308486570e3d2b64ece2d17ee9cced368b211f79d",
+      "bytes": 155
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_revert/.opt_rtl.end.f",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_revert/.opt_rtl.end.f",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_revert/.read_design.begin.f",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_revert/.read_design.begin.f",
+      "sha256": "9022e7795bb2f6ccb178f5c308486570e3d2b64ece2d17ee9cced368b211f79d",
+      "bytes": 155
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_revert/.read_design.end.f",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_revert/.read_design.end.f",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_revert/build_revert2.log",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_revert/build_revert2.log",
+      "sha256": "10b5313b43b3e6845f18afe3dd94ed1d0ca0f4c5b6a7a573b11b7f34ccb1ee39",
+      "bytes": 120818
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_revert/final_timing.rpt",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_revert/final_timing.rpt",
+      "sha256": "184f64cbec3f855095e64ea65c33bf82d3efd87b87383c5ce1e6d7ccf9a3e1dd",
+      "bytes": 115383
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_revert/flow.status",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_revert/flow.status",
+      "sha256": "ed28b286a24081fab58c0853d142f909daa1b86b869d0cdd52e49b6353bbc29a",
+      "bytes": 1445
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_revert/gate.qor",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_revert/gate.qor",
+      "sha256": "e093ed1d595ec3a1df28f228ccdc658f8a76b7616f456dc5660e3ce38fb03e8a",
+      "bytes": 4533
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_revert/HDMI_display.bit",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_revert/HDMI_display.bit",
+      "sha256": "1ae0a68a252c19b5360b43e80bc67369bc388a6f86170387348eff9dc6210be1",
+      "bytes": 666882
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_revert/HDMI_display.prj",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_revert/HDMI_display.prj",
+      "sha256": "b6d9af67c68ed57b0dcb4195a05e3aaa53e504dccb54bb55ecd7d23060f0405e",
+      "bytes": 6973
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_revert/HDMI_display_elaborate.db",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_revert/HDMI_display_elaborate.db",
+      "sha256": "65be988052ba1cd34fa450c37d225a64027b006f78e3062b909165dcf743a17d",
+      "bytes": 1063040
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_revert/HDMI_display_exception.timing",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_revert/HDMI_display_exception.timing",
+      "sha256": "3eebbeded18a4766c474e199590d65f3dbed40d1b4ff698b345a91fc17b5bbd6",
+      "bytes": 1074
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_revert/HDMI_display_gate.area",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_revert/HDMI_display_gate.area",
+      "sha256": "89466d25375c87a9229c4d90ee21ef80da745191641de1368a507d210f8aed84",
+      "bytes": 2862
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_revert/HDMI_display_gate.db",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_revert/HDMI_display_gate.db",
+      "sha256": "3be93b73e27fd545ec2590c8c551b2fb899f69aa49f4707e9508cf8a81d2432d",
+      "bytes": 1134230
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_revert/HDMI_display_gate.timing",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_revert/HDMI_display_gate.timing",
+      "sha256": "1e30fcacf50fd38efb07a7352ebb05054f1afb9c5178b8fcf7ff2c34b7b52795",
+      "bytes": 116994
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_revert/HDMI_display_gate.ts",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_revert/HDMI_display_gate.ts",
+      "sha256": "ab44bbc989d17e631b096b628036058b8d0057874f7feb37af9a30f6f479af60",
+      "bytes": 60
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_revert/HDMI_display_inst.bid",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_revert/HDMI_display_inst.bid",
+      "sha256": "a9a4f9c35fc482452d5040f0ad0b189ea7509ac21257e75b6e59855f40a4fdc1",
+      "bytes": 10412
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_revert/HDMI_display_phy.area",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_revert/HDMI_display_phy.area",
+      "sha256": "53638f8c0585546fb361f49f260344508db777e1a241158c46b92c60638df91a",
+      "bytes": 5765
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_revert/HDMI_display_phy.ts",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_revert/HDMI_display_phy.ts",
+      "sha256": "d7008c196c26321707fa2be3a3bb9e91fc318e09e28bc8968707a5eee82e41fd",
+      "bytes": 60
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_revert/HDMI_display_place.db",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_revert/HDMI_display_place.db",
+      "sha256": "07841ac23f733d24042517f93145c73db83342d3b762577ce2d1b411d40d021d",
+      "bytes": 1425406
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_revert/HDMI_display_place.timing",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_revert/HDMI_display_place.timing",
+      "sha256": "e9352202bcbf21dea5889d11f92dd225a1c319f6cf989365f6cf97b1d6921064",
+      "bytes": 76100
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_revert/HDMI_display_pr.db",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_revert/HDMI_display_pr.db",
+      "sha256": "bbc736610e24cc7226e6ab98701534587df8357c284d3bf4a647a2f43f7df32a",
+      "bytes": 1651714
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_revert/HDMI_display_pr.timing",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_revert/HDMI_display_pr.timing",
+      "sha256": "184f64cbec3f855095e64ea65c33bf82d3efd87b87383c5ce1e6d7ccf9a3e1dd",
+      "bytes": 115383
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_revert/HDMI_display_rtl.area",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_revert/HDMI_display_rtl.area",
+      "sha256": "c26a843228073eb0edf2d95c62dea7f7fac493c3bd73120bf37496ee3d229802",
+      "bytes": 2511
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_revert/HDMI_display_rtl.db",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_revert/HDMI_display_rtl.db",
+      "sha256": "d8771aa3e1aa0cb68d9742bbf51b6cef36d00bc69cd562edcc9fc77017f32609",
+      "bytes": 1083008
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_revert/place.qor",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_revert/place.qor",
+      "sha256": "ecd6c3c261b1d59165ecf1a036b11f27d2ab32db7c746ae251c64c0be0528ade",
+      "bytes": 1711
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_revert/place_flow.status",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_revert/place_flow.status",
+      "sha256": "74653b04f91abb6863c5ae8ced0c37430a0745e5c7048c73d6ad28f0015566b2",
+      "bytes": 1548
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_revert/route.qor",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_revert/route.qor",
+      "sha256": "e6fcb4fb345780443becb084ac4242a12aaad508577b468f64849b1a1ab988de",
+      "bytes": 1290
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_revert/route_flow.status",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_revert/route_flow.status",
+      "sha256": "359936d6164489f1067e350b71d06c4da942c4c74359d5298cd887f50e327882",
+      "bytes": 1643
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_revert/settings.cfg",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_revert/settings.cfg",
+      "sha256": "71e7c7b6584fe1569f1b04260147df0fb8d7417569c0ffbb1ee5e327b3850604",
+      "bytes": 306
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_revert/td_20261022_171504.log",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_revert/td_20261022_171504.log",
+      "sha256": "bafc881953baf10037dfd9fdda6d2182e4d55990e8826edcbb2c59b2b698c824",
+      "bytes": 120811
+    },
+    {
+      "from": "rtl/display/HDMI_display_Runs/syn_revert/td_20261022_171504.logw",
+      "to": "archive/display_legacy/HDMI_display_Runs/syn_revert/td_20261022_171504.logw",
+      "sha256": "7d121a860d7d0e016dc1b09dd56946105d145fc34579c01922bc7b072b44303a",
+      "bytes": 850
+    },
+    {
+      "from": "rtl/display/HDMI_display_wave.bit",
+      "to": "archive/display_legacy/HDMI_display_wave.bit",
+      "sha256": "4c6e419020e710531c76b4aa568883643f741861b4140840f71fd6087b62576f",
+      "bytes": 666882
+    },
+    {
+      "from": "rtl/display/log/td_2026-10-12_14-20-11.log",
+      "to": "archive/display_legacy/log/td_2026-10-12_14-20-11.log",
+      "sha256": "bde7a33a6439a77cd5574a1405cf2f88ef3b2d3b3f8b596738d9fe2d86884c4e",
+      "bytes": 6456
+    },
+    {
+      "from": "rtl/display/log/td_2026-10-12_14-20-11.logw",
+      "to": "archive/display_legacy/log/td_2026-10-12_14-20-11.logw",
+      "sha256": "1c245620ceecbcf01bddb9175ec013433d14b000fc6a20b5af1d8e3cdacaf1ac",
+      "bytes": 718
+    },
+    {
+      "from": "rtl/display/log/td_2026-10-12_14-25-40.log",
+      "to": "archive/display_legacy/log/td_2026-10-12_14-25-40.log",
+      "sha256": "bbd0919600f2ae15b3101e3b5111d72f7b8887c69aaccc296d747ea5c6532eb5",
+      "bytes": 1593
+    },
+    {
+      "from": "rtl/display/log/td_2026-10-12_14-25-40.logw",
+      "to": "archive/display_legacy/log/td_2026-10-12_14-25-40.logw",
+      "sha256": "8286eee5359fd1d9333cfd4b17e3e8815a2693ae976bfe0d66148858171b8ce1",
+      "bytes": 363
+    },
+    {
+      "from": "rtl/display/log/td_2026-10-12_14-27-50.log",
+      "to": "archive/display_legacy/log/td_2026-10-12_14-27-50.log",
+      "sha256": "020b7d4309c101a07f4187db71b9f444711e089086c1726638be58a846d2863e",
+      "bytes": 36294
+    },
+    {
+      "from": "rtl/display/log/td_2026-10-12_14-27-50.logw",
+      "to": "archive/display_legacy/log/td_2026-10-12_14-27-50.logw",
+      "sha256": "b8ad51f2c807ef4675bd9dc9deb2777f5d9ab17840be9db6c5948b300cd7e3f6",
+      "bytes": 2660
+    },
+    {
+      "from": "rtl/display/log/td_2026-10-13_19-25-34.log",
+      "to": "archive/display_legacy/log/td_2026-10-13_19-25-34.log",
+      "sha256": "210e8c6753d6d83dc7ee5c709dd91829eabcfb1adb4491b9fa876ca4284a7679",
+      "bytes": 34139
+    },
+    {
+      "from": "rtl/display/log/td_2026-10-13_19-25-34.logw",
+      "to": "archive/display_legacy/log/td_2026-10-13_19-25-34.logw",
+      "sha256": "85ebb206b39261be4ad0884942900dfe0d2fd8ebacc1d2c01dd4f77b5a0647f2",
+      "bytes": 2331
+    },
+    {
+      "from": "rtl/display/log/td_2026-10-13_20-13-40.log",
+      "to": "archive/display_legacy/log/td_2026-10-13_20-13-40.log",
+      "sha256": "ae8e08e98c43ae71eff52748cda80a1eadf21f072bceb0fea94dfe59e5ed04b2",
+      "bytes": 1482
+    },
+    {
+      "from": "rtl/display/log/td_2026-10-13_20-13-40.logw",
+      "to": "archive/display_legacy/log/td_2026-10-13_20-13-40.logw",
+      "sha256": "11e755ef1fee80f067f9f3e2ba4ed65055ac7fcd472318760730993f8f24db5c",
+      "bytes": 399
+    },
+    {
+      "from": "rtl/display/log/td_2026-10-13_21-01-11.log",
+      "to": "archive/display_legacy/log/td_2026-10-13_21-01-11.log",
+      "sha256": "9acad27679004759e5d9b8b475d39bc3243ceabc56210d21e8e8edf77aeaab15",
+      "bytes": 1373
+    },
+    {
+      "from": "rtl/display/log/td_2026-10-13_21-01-11.logw",
+      "to": "archive/display_legacy/log/td_2026-10-13_21-01-11.logw",
+      "sha256": "b7b5e5191c733a66191bedfda763002492138f63bf96a2b86159088d135c7f08",
+      "bytes": 363
+    },
+    {
+      "from": "rtl/display/log/td_2026-10-14_14-07-54.log",
+      "to": "archive/display_legacy/log/td_2026-10-14_14-07-54.log",
+      "sha256": "d2d5842828f7bca939ae5754c6c2308733dab393c0a8a2cd48dd8c6665dfe34f",
+      "bytes": 13274
+    },
+    {
+      "from": "rtl/display/log/td_2026-10-14_14-07-54.logw",
+      "to": "archive/display_legacy/log/td_2026-10-14_14-07-54.logw",
+      "sha256": "0f9e7bad627c40bac4ce912eca5815472b65411382ba0e9723d967039589d3ce",
+      "bytes": 363
+    },
+    {
+      "from": "rtl/display/log/td_2026-10-14_14-32-38.log",
+      "to": "archive/display_legacy/log/td_2026-10-14_14-32-38.log",
+      "sha256": "2633ad7ddca25e41053c3e3313b7e3a403c5c5f2c8d05953c1133570d212434f",
+      "bytes": 8628
+    },
+    {
+      "from": "rtl/display/log/td_2026-10-14_14-32-38.logw",
+      "to": "archive/display_legacy/log/td_2026-10-14_14-32-38.logw",
+      "sha256": "4fca5532523366beb9ec5b99daeab011ec26728ed29a05c0a3ae0aaee347a173",
+      "bytes": 363
+    },
+    {
+      "from": "rtl/display/log/td_2026-10-14_14-49-45.log",
+      "to": "archive/display_legacy/log/td_2026-10-14_14-49-45.log",
+      "sha256": "b2b451a17c300f55592801043200f62cba6f39f65effaa8769a52f548d68b980",
+      "bytes": 14950
+    },
+    {
+      "from": "rtl/display/log/td_2026-10-14_14-49-45.logw",
+      "to": "archive/display_legacy/log/td_2026-10-14_14-49-45.logw",
+      "sha256": "85153f68b1231982c000acc1556dc21a0630197d14fb6e90f77a7d83b2abc443",
+      "bytes": 1747
+    },
+    {
+      "from": "rtl/display/log/td_2026-10-14_14-52-27.log",
+      "to": "archive/display_legacy/log/td_2026-10-14_14-52-27.log",
+      "sha256": "17dc4c157119c1f9d23a7fae91a70d50cfb9198f9ba13b5b34fd247edfbf17f3",
+      "bytes": 3879
+    },
+    {
+      "from": "rtl/display/log/td_2026-10-14_14-52-27.logw",
+      "to": "archive/display_legacy/log/td_2026-10-14_14-52-27.logw",
+      "sha256": "6c123fbf8dcdf86c048450fabe8f5239d104d00a032a0442d9b063f6cf5021a2",
+      "bytes": 363
+    },
+    {
+      "from": "rtl/display/log/td_2026-10-14_19-57-38.log",
+      "to": "archive/display_legacy/log/td_2026-10-14_19-57-38.log",
+      "sha256": "bf3072f52375c80ebd66d96df8a435e0925cb766ad2dd82f4cc24e463cf4f6cd",
+      "bytes": 161734
+    },
+    {
+      "from": "rtl/display/log/td_2026-10-14_19-57-38.logw",
+      "to": "archive/display_legacy/log/td_2026-10-14_19-57-38.logw",
+      "sha256": "0f1d1c58037c5605e9150e9eca0eb03266a7d78274dde97e5dd6110ac8dfd480",
+      "bytes": 15323
+    },
+    {
+      "from": "rtl/display/log/td_2026-10-14_23-17-44.log",
+      "to": "archive/display_legacy/log/td_2026-10-14_23-17-44.log",
+      "sha256": "0ac688da826328b22d893f3ef75485eca927a78be1b6dd1bbaeda64cba987fa6",
+      "bytes": 11437
+    },
+    {
+      "from": "rtl/display/log/td_2026-10-14_23-17-44.logw",
+      "to": "archive/display_legacy/log/td_2026-10-14_23-17-44.logw",
+      "sha256": "a696b12d98389944e92e3fc46ab1be18fb0d7514ac799a84c730ee8912803010",
+      "bytes": 740
+    },
+    {
+      "from": "rtl/display/log/td_2026-10-14_23-21-52.log",
+      "to": "archive/display_legacy/log/td_2026-10-14_23-21-52.log",
+      "sha256": "ef391b84159ae3b7d6ddba4fec2575aef82e0b720f6fd1966da944173a3a6b31",
+      "bytes": 65322
+    },
+    {
+      "from": "rtl/display/log/td_2026-10-14_23-21-52.logw",
+      "to": "archive/display_legacy/log/td_2026-10-14_23-21-52.logw",
+      "sha256": "6b1b0fc8da7934c4708953fe64fb6b5aae8196951e23cfb835a6eab9b102cb53",
+      "bytes": 1006
+    },
+    {
+      "from": "rtl/display/log/td_2026-10-14_23-52-00.log",
+      "to": "archive/display_legacy/log/td_2026-10-14_23-52-00.log",
+      "sha256": "9e3a7cac81d097b4a674caad9831dfb17b06083586a262c6b251200e4637a960",
+      "bytes": 3242
+    },
+    {
+      "from": "rtl/display/log/td_2026-10-14_23-52-00.logw",
+      "to": "archive/display_legacy/log/td_2026-10-14_23-52-00.logw",
+      "sha256": "4053c262dcc81c3eb4a15594d9c7758dabe84b91b2a42128cd1141a8e619dafb",
+      "bytes": 363
+    },
+    {
+      "from": "rtl/display/log/td_2026-10-14_23-57-56.log",
+      "to": "archive/display_legacy/log/td_2026-10-14_23-57-56.log",
+      "sha256": "43b187c450e5776e293cb4ea4fcd66c7cf467ed1f1e8f295b81b39b57c1e8f2c",
+      "bytes": 22186
+    },
+    {
+      "from": "rtl/display/log/td_2026-10-14_23-57-56.logw",
+      "to": "archive/display_legacy/log/td_2026-10-14_23-57-56.logw",
+      "sha256": "07733a7f256c8083b1a425ffbb86751b6e0c188b145efcc3f9364b87f8a783b5",
+      "bytes": 363
+    },
+    {
+      "from": "rtl/display/log/td_2026-10-15_18-38-57.log",
+      "to": "archive/display_legacy/log/td_2026-10-15_18-38-57.log",
+      "sha256": "25330f3b4ea9891b6de33e5ba40a1aafd004d33434649f4a9a99ad816f134606",
+      "bytes": 2180
+    },
+    {
+      "from": "rtl/display/log/td_2026-10-15_18-38-57.logw",
+      "to": "archive/display_legacy/log/td_2026-10-15_18-38-57.logw",
+      "sha256": "c0ef8b0df77f4d8e68e4ae145fad5b4a2055ad3de9e0f67cc9cc35e91711696a",
+      "bytes": 399
+    },
+    {
+      "from": "rtl/display/log/td_2026-10-15_18-40-15.log",
+      "to": "archive/display_legacy/log/td_2026-10-15_18-40-15.log",
+      "sha256": "8dc17570064cbcdad67a4f582d2483cdf7b6820e74f756de98c81b68b1ab590a",
+      "bytes": 1064
+    },
+    {
+      "from": "rtl/display/log/td_2026-10-15_18-40-15.logw",
+      "to": "archive/display_legacy/log/td_2026-10-15_18-40-15.logw",
+      "sha256": "256729ade919d6bba570745734efbed5fcfb6106c11b5b3c2810788caab64cba",
+      "bytes": 363
+    },
+    {
+      "from": "rtl/display/log/td_2026-10-22_01-00-49.log",
+      "to": "archive/display_legacy/log/td_2026-10-22_01-00-49.log",
+      "sha256": "47ed8ce16cf6dc0b7b5033da61ff02a99880fbe7ddf037d9b01b72ec910be46a",
+      "bytes": 837
+    },
+    {
+      "from": "rtl/display/log/td_2026-10-22_01-00-49.logw",
+      "to": "archive/display_legacy/log/td_2026-10-22_01-00-49.logw",
+      "sha256": "b854d215041a17810ba2d2471d19596fefd6718616e9b71d31458fd86942413e",
+      "bytes": 363
+    },
+    {
+      "from": "rtl/display/log/td_2026-10-22_01-07-09.log",
+      "to": "archive/display_legacy/log/td_2026-10-22_01-07-09.log",
+      "sha256": "3766b0392ad8639b7393fe6bc411a6f67c9a77cebc210f4c0d7c032c90333a84",
+      "bytes": 837
+    },
+    {
+      "from": "rtl/display/log/td_2026-10-22_01-07-09.logw",
+      "to": "archive/display_legacy/log/td_2026-10-22_01-07-09.logw",
+      "sha256": "4db070dd7932b47e90eebc153ef40ef8cf68188ba04f74c884e5830750fab64d",
+      "bytes": 363
+    },
+    {
+      "from": "rtl/display/log/td_2026-10-22_15-37-40.log",
+      "to": "archive/display_legacy/log/td_2026-10-22_15-37-40.log",
+      "sha256": "09e2185db7ffbbbda582785af442c62aea358c80ca3a565181bdcad05b7fb8a8",
+      "bytes": 28178
+    },
+    {
+      "from": "rtl/display/log/td_2026-10-22_15-37-40.logw",
+      "to": "archive/display_legacy/log/td_2026-10-22_15-37-40.logw",
+      "sha256": "80af57e71fd2e3473841d699c4c0596b598bba383e9618ac5c012225924ce967",
+      "bytes": 363
+    },
+    {
+      "from": "rtl/display/log/td_2026-10-22_18-51-58.log",
+      "to": "archive/display_legacy/log/td_2026-10-22_18-51-58.log",
+      "sha256": "67f559faafc39ab6142b76df266a98b357b79d976edb9574429f8b08c0ca938f",
+      "bytes": 8172
+    },
+    {
+      "from": "rtl/display/log/td_2026-10-22_18-51-58.logw",
+      "to": "archive/display_legacy/log/td_2026-10-22_18-51-58.logw",
+      "sha256": "fab44b93b6fcc268f85b2928ed894e189b120e8e25e65232fdbe6286d483894e",
+      "bytes": 1659
+    },
+    {
+      "from": "rtl/display/log/td_2026-10-22_20-25-32.log",
+      "to": "archive/display_legacy/log/td_2026-10-22_20-25-32.log",
+      "sha256": "567098158194656cf935ea1bfa02480c997f295a55b583146610426cf0646989",
+      "bytes": 1820
+    },
+    {
+      "from": "rtl/display/log/td_2026-10-22_20-25-32.logw",
+      "to": "archive/display_legacy/log/td_2026-10-22_20-25-32.logw",
+      "sha256": "8bb405e32145a2a0c24ae7b5ebe05af14612c88212377f6862053a8dcdd763fc",
+      "bytes": 363
+    },
+    {
+      "from": "rtl/display/minidump-20261013-201249.dmp",
+      "to": "archive/display_legacy/minidump-20261013-201249.dmp",
+      "sha256": "3dd5d6cefde489cf096187d561f70bed4098867bbf05a9f8616b0ea3b2af95a0",
+      "bytes": 133230
+    },
+    {
+      "from": "rtl/display/puresrc/font/font_bank_00.dath",
+      "to": "archive/display_legacy/puresrc/font/font_bank_00.dath",
+      "sha256": "fbd1241c7568b1ddbfd5f97927c89dca58543fde504fd1385a53f541a903c945",
+      "bytes": 10240
+    },
+    {
+      "from": "rtl/display/puresrc/font/font_bank_01.dath",
+      "to": "archive/display_legacy/puresrc/font/font_bank_01.dath",
+      "sha256": "a40dd8aa3b605d56f5ce542113ca8fb97792903cc173c1ba70c67bbb07475649",
+      "bytes": 10240
+    },
+    {
+      "from": "rtl/display/puresrc/font/font_bank_02.dath",
+      "to": "archive/display_legacy/puresrc/font/font_bank_02.dath",
+      "sha256": "ad48354651799aa1ea6e276d6c8f508086ef7a583389f40ad9804e66c120909b",
+      "bytes": 10240
+    },
+    {
+      "from": "rtl/display/puresrc/font/font_bank_03.dath",
+      "to": "archive/display_legacy/puresrc/font/font_bank_03.dath",
+      "sha256": "2c439f84b7f84357ccf6ba611403d1ef296968cacf8c0e8415d1acdc13fd3c60",
+      "bytes": 10240
+    },
+    {
+      "from": "rtl/display/puresrc/font/font_bank_04.dath",
+      "to": "archive/display_legacy/puresrc/font/font_bank_04.dath",
+      "sha256": "23f070c13007f4fbeb1824b5d638277b85f0e8e89f0718eb1744afcab9d15cdb",
+      "bytes": 10240
+    },
+    {
+      "from": "rtl/display/puresrc/font/font_bank_05.dath",
+      "to": "archive/display_legacy/puresrc/font/font_bank_05.dath",
+      "sha256": "9553b8a12118b31b3e47bb0d6d4040f9b19efbdc4a85d05fe07bd51930a5ac30",
+      "bytes": 10240
+    },
+    {
+      "from": "rtl/display/puresrc/font/font_bank_06.dath",
+      "to": "archive/display_legacy/puresrc/font/font_bank_06.dath",
+      "sha256": "4916f1532ccf52cb48b5e2d8625d3eea5d70ea4076a452c7bddcbf112307c4bb",
+      "bytes": 10240
+    },
+    {
+      "from": "rtl/display/puresrc/font/font_bank_07.dath",
+      "to": "archive/display_legacy/puresrc/font/font_bank_07.dath",
+      "sha256": "0951e036d4a169348f5bc7e65d45e036af789dce0b3eb5c3a29786f7b5fe9a21",
+      "bytes": 10240
+    },
+    {
+      "from": "rtl/display/puresrc/font/font_bank_08.dath",
+      "to": "archive/display_legacy/puresrc/font/font_bank_08.dath",
+      "sha256": "f8d3231ba4d7a4ec1c435066874eab792a99a9b2074e9fba8a13e33af305d328",
+      "bytes": 10240
+    },
+    {
+      "from": "rtl/display/puresrc/font/font_bank_09.dath",
+      "to": "archive/display_legacy/puresrc/font/font_bank_09.dath",
+      "sha256": "634f9b81c671abbf57aa950b35c52052881156b2af03c3109dcd13f3d376fae6",
+      "bytes": 10240
+    },
+    {
+      "from": "rtl/display/puresrc/font/font_bank_10.dath",
+      "to": "archive/display_legacy/puresrc/font/font_bank_10.dath",
+      "sha256": "33c96800c71d5f9209356f7f71d6366485994c31e6ec3cf05407c90898e38ec7",
+      "bytes": 10240
+    },
+    {
+      "from": "rtl/display/puresrc/font/font_bank_11.dath",
+      "to": "archive/display_legacy/puresrc/font/font_bank_11.dath",
+      "sha256": "9540b6b6b34f8815227922af315c182307bfb1666de95c3a100ead5e256a6760",
+      "bytes": 10240
+    },
+    {
+      "from": "rtl/display/puresrc/font/font_bank_12.dath",
+      "to": "archive/display_legacy/puresrc/font/font_bank_12.dath",
+      "sha256": "dbb1f03ea0dc3772d8f14f749b73946f870688d7e4b9b642c269516f401d1fac",
+      "bytes": 10240
+    },
+    {
+      "from": "rtl/display/puresrc/font/font_bank_13.dath",
+      "to": "archive/display_legacy/puresrc/font/font_bank_13.dath",
+      "sha256": "cac0708dd2f848f751af5ced98ffafd501f90990d5db341b6468361fd2c4f431",
+      "bytes": 10240
+    },
+    {
+      "from": "rtl/display/puresrc/font/font_bank_14.dath",
+      "to": "archive/display_legacy/puresrc/font/font_bank_14.dath",
+      "sha256": "05841fb111d4715ef60a1226e67fb8143e157abe7547340cba15c93816526b86",
+      "bytes": 10240
+    },
+    {
+      "from": "rtl/display/puresrc/font/font_bank_15.dath",
+      "to": "archive/display_legacy/puresrc/font/font_bank_15.dath",
+      "sha256": "c9ecb379bee01128fea3037d7cdd5e9d8248bfea7506b447001ed2c447781662",
+      "bytes": 10240
+    },
+    {
+      "from": "rtl/display/puresrc/font/font_gb2312.hex",
+      "to": "archive/display_legacy/puresrc/font/font_gb2312.hex",
+      "sha256": "a11da120f75047840d72b4658f1a74180e9aefa083fa918c32e50ae852359f74",
+      "bytes": 160000
+    },
+    {
+      "from": "rtl/display/puresrc/tools/gen_font_rom.ps1",
+      "to": "archive/display_legacy/puresrc/tools/gen_font_rom.ps1",
+      "sha256": "5ea6f344384e4740130b15ff96baf2dc3a51b22fa8014e50c4cd299cb018de4d",
+      "bytes": 4100
+    },
+    {
+      "from": "rtl/display/puresrc/ip/al_ip/SDRAM_0.ipc",
+      "to": "archive/display_legacy/puresrc/ip/al_ip/SDRAM_0.ipc",
+      "sha256": "53b7215e79e7dda6ead3cff10ead7376d16faa8650f9f6f794b4d353b6c8445a",
+      "bytes": 448
+    },
+    {
+      "from": "rtl/display/puresrc/ip/al_ip/SDRAM_0.v",
+      "to": "archive/display_legacy/puresrc/ip/al_ip/SDRAM_0.v",
+      "sha256": "007648704213a9b67d26a35238f334807652d77572833503295134d56416ba15",
+      "bytes": 1053
+    },
+    {
+      "from": "rtl/display/puresrc/ip/al_ip/SDRAM_0.vhd",
+      "to": "archive/display_legacy/puresrc/ip/al_ip/SDRAM_0.vhd",
+      "sha256": "534d28119817890ba693c6c74933ca2caa0a099dc471eeb71ea28e51a6e9208d",
+      "bytes": 1273
+    },
+    {
+      "from": "rtl/display/puresrc/ip/clock/clk_wize.ipc",
+      "to": "archive/display_legacy/puresrc/ip/clock/clk_wize.ipc",
+      "sha256": "b06fa9294f1d45722712aca6b172ec3e415eff3da797b8d00c5b39da2d8e6f73",
+      "bytes": 1484
+    },
+    {
+      "from": "rtl/display/puresrc/ip/clock/clk_wize.v",
+      "to": "archive/display_legacy/puresrc/ip/clock/clk_wize.v",
+      "sha256": "618c5ba95e813d016af5339ca30590cd97fbcb477b6a875c880ea7b76dbb4a23",
+      "bytes": 2351
+    },
+    {
+      "from": "rtl/display/puresrc/ip/clock/clk_wize.vhd",
+      "to": "archive/display_legacy/puresrc/ip/clock/clk_wize.vhd",
+      "sha256": "78b719065cb2b754aac6946b1c98d6fc5f08b464296b0433a14471d1a23e219c",
+      "bytes": 2504
+    },
+    {
+      "from": "rtl/display/puresrc/rtl/display/audio_fifo.v",
+      "to": "archive/display_legacy/puresrc/rtl/display/audio_fifo.v",
+      "sha256": "0470f90f7308c394edfc04ca14ecd68364955e2aa114ca80017a292f39ca13e9",
+      "bytes": 3191
+    },
+    {
+      "from": "rtl/display/puresrc/rtl/display/font_16x16_rom.v",
+      "to": "archive/display_legacy/puresrc/rtl/display/font_16x16_rom.v",
+      "sha256": "68fe034b5617a2af9658ba4d04fae9c21e5bfb9e077e5b1a6dee744a02e4c7f5",
+      "bytes": 15338
+    },
+    {
+      "from": "rtl/display/puresrc/rtl/display/hdmi_tx_display.v",
+      "to": "archive/display_legacy/puresrc/rtl/display/hdmi_tx_display.v",
+      "sha256": "e8d3fe1a119c309527ab304ffa43f793ab7712e5412adc4b6ce7b828b2295571",
+      "bytes": 9565
+    },
+    {
+      "from": "rtl/display/puresrc/rtl/display/osd_overlay.v",
+      "to": "archive/display_legacy/puresrc/rtl/display/osd_overlay.v",
+      "sha256": "55a1fc623db6b67c0bd183839834e4dc7e4e8d4be38d8d5845c591876f6ac539",
+      "bytes": 7040
+    },
+    {
+      "from": "rtl/display/puresrc/rtl/display/read_RAM.v",
+      "to": "archive/display_legacy/puresrc/rtl/display/read_RAM.v",
+      "sha256": "a145da6d023ecffcd806ff2d96046c1468e14cfe0d4c9280abb1b5a8161d8e98",
+      "bytes": 2476
+    },
+    {
+      "from": "rtl/display/puresrc/rtl/enc/eg_oddr.v",
+      "to": "archive/display_legacy/puresrc/rtl/enc/eg_oddr.v",
+      "sha256": "dd2bf50c09e5ff00f0fa81993b7b46f2de9654abe45c2136243ac4934e8d72e8",
+      "bytes": 1114
+    },
+    {
+      "from": "rtl/display/puresrc/rtl/enc/hdmi_tx_core.v",
+      "to": "archive/display_legacy/puresrc/rtl/enc/hdmi_tx_core.v",
+      "sha256": "4d45fc2f4004d740d0f87670fb68388cfba5dde753c515e9624e7756a84256a5",
+      "bytes": 6261
+    },
+    {
+      "from": "rtl/display/puresrc/rtl/enc/packet_assembler.v",
+      "to": "archive/display_legacy/puresrc/rtl/enc/packet_assembler.v",
+      "sha256": "35b46c82192c8511fdfb42d35e79054717925bbe3a9784e6a5ec4da49163aad7",
+      "bytes": 3158
+    },
+    {
+      "from": "rtl/display/puresrc/rtl/enc/packet_picker.v",
+      "to": "archive/display_legacy/puresrc/rtl/enc/packet_picker.v",
+      "sha256": "26180b716fc0bef349324c6c02a092f9f856bf03ce12ff99a25e65f23b50db43",
+      "bytes": 12489
+    },
+    {
+      "from": "rtl/display/puresrc/rtl/enc/tmds_encoder.v",
+      "to": "archive/display_legacy/puresrc/rtl/enc/tmds_encoder.v",
+      "sha256": "1bce37b279c83aea61a76ceecc96901d95176bc95c4b0495bf4d0f10ff96eb86",
+      "bytes": 5983
+    },
+    {
+      "from": "rtl/display/puresrc/rtl/enc/tmds_serializer.v",
+      "to": "archive/display_legacy/puresrc/rtl/enc/tmds_serializer.v",
+      "sha256": "6f2bedb78831e68c763d8827465084d955e4bb8b0a71305c94d474d6f884bf6d",
+      "bytes": 2710
+    },
+    {
+      "from": "rtl/display/puresrc/rtl/vhdl/hdmi_tx.vhd",
+      "to": "archive/display_legacy/puresrc/rtl/vhdl/hdmi_tx.vhd",
+      "sha256": "4a7637e69ef037a6bef144c6fb8ba7a10478bef8d082886f31cce2fb45d585c3",
+      "bytes": 4032
+    },
+    {
+      "from": "rtl/display/td_20261022_170412.log",
+      "to": "archive/display_legacy/td_20261022_170412.log",
+      "sha256": "ae19ef015a501f49632fc31099488808142c70ce57b40f1c1b774f69c77a0175",
+      "bytes": 534
+    },
+    {
+      "from": "rtl/display/td_20261022_170412.logw",
+      "to": "archive/display_legacy/td_20261022_170412.logw",
+      "sha256": "26f0666c8826b18e830b691d2533d1dc0e1d06f3b9a27d3afa60cf7dae1ddace",
+      "bytes": 394
+    },
+    {
+      "from": "rtl/display/td_20261022_170415.log",
+      "to": "archive/display_legacy/td_20261022_170415.log",
+      "sha256": "924fa1ebe45e505fb4529fdcd8545337d56b7a831bd8039cbc0af68bbfce5061",
+      "bytes": 394
+    },
+    {
+      "from": "rtl/display/td_20261022_170415.logw",
+      "to": "archive/display_legacy/td_20261022_170415.logw",
+      "sha256": "924fa1ebe45e505fb4529fdcd8545337d56b7a831bd8039cbc0af68bbfce5061",
+      "bytes": 394
+    },
+    {
+      "from": "rtl/display/td_20261022_170555.log",
+      "to": "archive/display_legacy/td_20261022_170555.log",
+      "sha256": "596088cbbb4e763720eb0fd8c1fb7744ee8f2a7db3bd8ea9628c43ed9f898490",
+      "bytes": 394
+    },
+    {
+      "from": "rtl/display/td_20261022_170555.logw",
+      "to": "archive/display_legacy/td_20261022_170555.logw",
+      "sha256": "596088cbbb4e763720eb0fd8c1fb7744ee8f2a7db3bd8ea9628c43ed9f898490",
+      "bytes": 394
+    },
+    {
+      "from": "rtl/display/test_cons.adc",
+      "to": "archive/display_legacy/test_cons.adc",
+      "sha256": "6e6a8fe9dc0bf5eef32e08fa1bfc415d90dfc45e707a9938d4a9b23188e8b2bc",
+      "bytes": 548
+    },
+    {
+      "from": "rtl/display/ipsrc/al_ip/SDRAM_0.ipc",
+      "to": "archive/display_legacy/ipsrc/al_ip/SDRAM_0.ipc",
+      "sha256": "53b7215e79e7dda6ead3cff10ead7376d16faa8650f9f6f794b4d353b6c8445a",
+      "bytes": 448
+    },
+    {
+      "from": "rtl/display/ipsrc/al_ip/SDRAM_0.v",
+      "to": "archive/display_legacy/ipsrc/al_ip/SDRAM_0.v",
+      "sha256": "007648704213a9b67d26a35238f334807652d77572833503295134d56416ba15",
+      "bytes": 1053
+    },
+    {
+      "from": "rtl/display/ipsrc/al_ip/SDRAM_0.vhd",
+      "to": "archive/display_legacy/ipsrc/al_ip/SDRAM_0.vhd",
+      "sha256": "534d28119817890ba693c6c74933ca2caa0a099dc471eeb71ea28e51a6e9208d",
+      "bytes": 1273
+    }
+  ]
+}

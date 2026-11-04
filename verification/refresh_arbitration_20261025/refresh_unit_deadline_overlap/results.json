@@ -1,0 +1,44 @@
+{
+  "passed": false,
+  "commands": [
+    {
+      "command": [
+        "D:\\modelsim2020\\win64\\vmap.exe",
+        "-c"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "D:\\modelsim2020\\win64\\vlib.exe",
+        "work"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "D:\\modelsim2020\\win64\\vlog.exe",
+        "C:\\Users\\31640\\Documents\\ChatGPT\\FFF\\memory_followup_20261025\\refresh_unit_deadline_overlap\\sdram_refresh_ctrl.v",
+        "C:\\Users\\31640\\Documents\\ChatGPT\\FFF\\memory_followup_20261025\\refresh_unit_deadline_overlap\\refresh_ctrl_tb.v"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "D:\\modelsim2020\\win64\\vsim.exe",
+        "-c",
+        "-onfinish",
+        "stop",
+        "work.refresh_ctrl_tb",
+        "-do",
+        "run.do"
+      ],
+      "exit_code": 1
+    }
+  ],
+  "sources": {
+    "C:\\Users\\31640\\Documents\\ChatGPT\\FFF\\memory_followup_20261025\\candidate_refresh\\rtl\\memory\\sdram_refresh_ctrl.v": "d2f0d9d8a88bc6c68b0b434c0d947dfec77f97883a2c7ad320c4580809500813",
+    "C:\\Users\\31640\\Documents\\ChatGPT\\FFF\\memory_followup_20261025\\refresh_ctrl_tb.v": "2756d62901d0d1ceccc24849aeafefabd0c64bdff15d5fd14f2490ffd3a8a9c4"
+  },
+  "error": "simulation failed"
+}

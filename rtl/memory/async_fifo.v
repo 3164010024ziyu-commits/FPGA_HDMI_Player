@@ -11,6 +11,9 @@ module async_fifo #(
     input  [DATA_WIDTH-1:0]     wr_data,
     output                      full,
 
+    //告诉写时钟域异步 FIFO 当前大约存了多少个数据
+    output wire [ADDR_WIDTH:0]   wr_used,
+
     // Read interface
     input                       rd_en,
     output reg [DATA_WIDTH-1:0] rd_data,
@@ -18,12 +21,26 @@ module async_fifo #(
     output                      empty
 );
 
+//两级寄存器来将异步复位同步
+reg [1:0] wr_reset_release;
+reg [1:0] rd_reset_release;
+always @(posedge wr_clk or negedge Reset_n) begin
+    if(!Reset_n) wr_reset_release <= 2'b00;
+    else wr_reset_release <= {wr_reset_release[0],1'b1};
+end
+always @(posedge rd_clk or negedge Reset_n) begin
+    if(!Reset_n) rd_reset_release <= 2'b00;
+    else rd_reset_release <= {rd_reset_release[0],1'b1};
+end
+wire wr_reset_n = wr_reset_release[1];
+wire rd_reset_n = rd_reset_release[1];
+
 //用寄存器来保存空满，以防止出现组合环路
 reg full_reg;
 reg empty_reg;
 
-assign full  = full_reg;
-assign empty = empty_reg;
+assign full  = !wr_reset_n || full_reg;
+assign empty = !rd_reset_n || empty_reg;
 
 reg [DATA_WIDTH-1:0] mem [0:(1<<ADDR_WIDTH)-1];
 reg [ADDR_WIDTH:0]wr_bin_ptr;
@@ -37,21 +54,23 @@ wire rd_fire;
 assign wr_fire = wr_en&&(!full);
 assign rd_fire = rd_en&&(!empty);
 
-
+//下一个时钟上升沿的二进制码
 wire [ADDR_WIDTH:0] wr_bin_next;
 wire [ADDR_WIDTH:0] rd_bin_next;
 
 assign wr_bin_next = wr_bin_ptr + wr_fire;
 assign rd_bin_next = rd_bin_ptr + rd_fire;
 
+//下一个时钟上升沿的格雷码
+//格雷码能降低跨时钟域亚稳态的影响（只变化一位）
 wire [ADDR_WIDTH:0] wr_gray_next;
 wire [ADDR_WIDTH:0] rd_gray_next;
 
 assign wr_gray_next = wr_bin_next^(wr_bin_next>>1);
 assign rd_gray_next = rd_bin_next^(rd_bin_next>>1);
 
-always @(posedge wr_clk or negedge Reset_n) begin
-    if(!Reset_n) begin
+always @(posedge wr_clk or negedge wr_reset_n) begin
+    if(!wr_reset_n) begin
         wr_bin_ptr  <= 0;
         wr_gray_ptr <= 0;
     end
@@ -61,8 +80,8 @@ always @(posedge wr_clk or negedge Reset_n) begin
     end
 end
 
-always @(posedge rd_clk or negedge Reset_n) begin
-    if(!Reset_n) begin
+always @(posedge rd_clk or negedge rd_reset_n) begin
+    if(!rd_reset_n) begin
         rd_bin_ptr  <= 0;
         rd_gray_ptr <= 0;
     end
@@ -72,6 +91,22 @@ always @(posedge rd_clk or negedge Reset_n) begin
     end
 end
 
+// 计算异步 FIFO 当前大约存了多少个数据，并通过 wr_used 把这个数量告诉写时钟域的其他模块。
+
+//首先，读时钟域传递给写时钟域的是格雷码指针，不能通过与读直接加减计算出当前占用量，所以需要先转化成二进制码
+function [ADDR_WIDTH:0] gray_to_binary;
+    input [ADDR_WIDTH:0] gray;
+    integer bit_index;
+    begin
+        gray_to_binary[ADDR_WIDTH] = gray[ADDR_WIDTH];
+        for(bit_index=ADDR_WIDTH-1;bit_index>=0;bit_index=bit_index-1)
+            gray_to_binary[bit_index] = gray_to_binary[bit_index+1] ^ gray[bit_index];
+    end
+endfunction
+
+assign wr_used = wr_bin_ptr - gray_to_binary(rd_gray_sync2);
+//同步后的读指针可能滞后，所以 wr_used 可能暂时高估占用量
+
 //两级同步
 reg [ADDR_WIDTH:0] wr_gray_sync1;
 reg [ADDR_WIDTH:0] wr_gray_sync2;
@@ -79,8 +114,8 @@ reg [ADDR_WIDTH:0] wr_gray_sync2;
 reg [ADDR_WIDTH:0] rd_gray_sync1;
 reg [ADDR_WIDTH:0] rd_gray_sync2;
 
-always @(posedge rd_clk or negedge Reset_n) begin
-    if (!Reset_n) begin
+always @(posedge rd_clk or negedge rd_reset_n) begin
+    if (!rd_reset_n) begin
         wr_gray_sync1 <= 0;
         wr_gray_sync2 <= 0;
     end
@@ -90,8 +125,8 @@ always @(posedge rd_clk or negedge Reset_n) begin
     end
 end
 
-always @(posedge wr_clk or negedge Reset_n) begin
-    if (!Reset_n) begin
+always @(posedge wr_clk or negedge wr_reset_n) begin
+    if (!wr_reset_n) begin
         rd_gray_sync1 <= 0;
         rd_gray_sync2 <= 0;
     end
@@ -108,8 +143,8 @@ wire empty_next;
 assign empty_next = (rd_gray_next == wr_gray_sync2);
 assign full_next = (wr_gray_next == {~rd_gray_sync2[ADDR_WIDTH:ADDR_WIDTH-1],rd_gray_sync2[ADDR_WIDTH-2:0]});
 
-always @(posedge wr_clk or negedge Reset_n) begin
-    if (!Reset_n) begin
+always @(posedge wr_clk or negedge wr_reset_n) begin
+    if (!wr_reset_n) begin
         full_reg <= 0;
     end
     else begin
@@ -117,8 +152,8 @@ always @(posedge wr_clk or negedge Reset_n) begin
     end
 end
 
-always @(posedge rd_clk or negedge Reset_n) begin
-    if (!Reset_n) begin
+always @(posedge rd_clk or negedge rd_reset_n) begin
+    if (!rd_reset_n) begin
         empty_reg <= 1;
     end
     else begin
@@ -126,8 +161,8 @@ always @(posedge rd_clk or negedge Reset_n) begin
     end
 end
 
-always @(posedge rd_clk or negedge Reset_n) begin
-    if(!Reset_n)
+always @(posedge rd_clk or negedge rd_reset_n) begin
+    if(!rd_reset_n)
         rd_data <= 0;
     else if(rd_fire)
         rd_data <= mem[rd_bin_ptr[ADDR_WIDTH-1:0]];
@@ -137,12 +172,12 @@ always @(posedge rd_clk or negedge Reset_n) begin
 end
 
 always @(posedge wr_clk) begin
-    if(Reset_n && wr_fire)
+    if(wr_reset_n && wr_fire)
         mem[wr_bin_ptr[ADDR_WIDTH-1:0]] <= wr_data;
 end
 
-always @(posedge rd_clk or negedge Reset_n) begin
-    if(!Reset_n)
+always @(posedge rd_clk or negedge rd_reset_n) begin
+    if(!rd_reset_n)
         rd_valid <= 0;
     else if(rd_fire)
         rd_valid <= 1;

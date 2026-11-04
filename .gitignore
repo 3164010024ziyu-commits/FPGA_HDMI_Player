@@ -6,3 +6,16 @@ project/td/HDMI_Player_Runs/
 # ModelSim generated outputs
 /work/
 *.wlf
+
+# Local ModelSim libraries for IP checks
+/verification/ip_integration_20261023/run/
+
+# New display-local tool outputs (archived historical files remain visible to Git)
+/rtl/display/HDMI_display_Runs/
+/rtl/display/log/
+/rtl/display/*.log
+/rtl/display/*.logw
+/rtl/display/*.bit
+/rtl/display/*.dmp
+/rtl/display/.lock.f
+/rtl/display/.recent_user_depot.ini

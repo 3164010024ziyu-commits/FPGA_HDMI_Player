@@ -1,0 +1,84 @@
+{
+  "date": "2026-10-28",
+  "branch": "memory",
+  "base_commit": "cc21299e4bf244f7c85c929cbabd50c9d3fd9d36",
+  "functional": {
+    "memory_display": {
+      "passed": true,
+      "markers": [
+        "# MEMORY_DISPLAY_PASS pixels=1792 frames=14 swaps=5 aborts=2 format_errors=1 refreshes=13 underflow_recovery=1 timeout_recovery=1"
+      ]
+    },
+    "full_raster": {
+      "passed": true,
+      "markers": [
+        "# FULL_FRAME_RESULT frame=1 pixels=307200 time=32153860000",
+        "# FULL_FRAME_RESULT frame=2 pixels=614400 time=48953860000",
+        "# FULL_FRAME_RESULT frame=3 pixels=921600 time=65753860000",
+        "# FULL_RASTER_PASS pixels=921600 frames=3 concurrent_reads=614400 source_stalls=1017622 minimum_fifo_used=0 refreshes=4383"
+      ]
+    },
+    "system_display": {
+      "passed": true,
+      "markers": [
+        "# SYSTEM_FRAME_RESULT frame=1 pixels=307200",
+        "# SYSTEM_FRAME_RESULT frame=2 pixels=614400",
+        "# SYSTEM_FRAME_RESULT frame=3 pixels=921600",
+        "# SYSTEM_DISPLAY_PASS source_pixels=168 display_pixels=922245 frames=3 spi_reads=8 malformed_width_recovered=1 real_storage_hdmi=1"
+      ]
+    },
+    "real_hierarchy": {
+      "passed": true,
+      "markers": [
+        "REAL_HIERARCHY_PASS"
+      ]
+    }
+  },
+  "current_180_readback": {
+    "status": "known_issue_reproduced",
+    "data_passed": false,
+    "pixels": 512,
+    "z_errors": 32
+  },
+  "testbench_270_short_readback": {
+    "data_passed": true,
+    "pixels": 512,
+    "errors": 0,
+    "production_pll_changed": false
+  },
+  "testbench_270_640_lines": {
+    "passed": true,
+    "markers": [
+      "# FULL_FRAME_RESULT frame=1 pixels=10240 time=3506580.0 ns",
+      "# FULL_FRAME_RESULT frame=2 pixels=20480 time=5458580.0 ns",
+      "# FULL_FRAME_RESULT frame=3 pixels=30720 time=7410580.0 ns",
+      "# REAL_640_LINE_DIAGNOSTIC_PASS pixels=30720 frames=3 concurrent_reads=10240 source_stalls=25824 minimum_fifo_used=0 refreshes=424"
+    ]
+  },
+  "testbench_270_full_raster": {
+    "passed": false,
+    "status": "incomplete_tool_timeout",
+    "timeout_seconds": 600,
+    "checked_pixels_before_timeout": 614400,
+    "checked_frames_before_timeout": 2,
+    "observed_mismatches": 0,
+    "scope": "270-degree testbench diagnostic only; full long run did not reach its final pass marker."
+  },
+  "synthesis": {
+    "passed": true,
+    "lut": 6363,
+    "registers": 3203,
+    "bram9k": 6,
+    "dsp": 4,
+    "pll": 2,
+    "dq_input_register_clocks_verified": 32
+  },
+  "not_verified": [
+    "production_phase_readback",
+    "placement_and_routing",
+    "board_pins_and_CDC_timing_signoff",
+    "board_HDMI_output"
+  ],
+  "git_committed": false,
+  "git_pushed": false
+}
